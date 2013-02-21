@@ -1,0 +1,110 @@
+{% extends "TaskBundle::layout.html.twig" %}
+{% form_theme edit_form 'MainBundle:Form:fields.html.twig' %}
+{% block stylesheets %}
+{% stylesheets
+    '@MainBundle/Resources/public/css/jquery.fileupload-ui.css'
+    '@MainBundle/Resources/public/css/jasny-bootstrap.css'
+    '@MainBundle/Resources/public/css/jasny-bootstrap-responsive.css'
+    '@MainBundle/Resources/public/css/datepicker.css'
+    '@MainBundle/Resources/public/css/select2.css'
+    '@MainBundle/Resources/public/css/bootstrap-wysihtml5.css'
+    '@MainBundle/Resources/public/css/wysiwyg-color.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+    {% endblock %}
+    {% block content %}
+    {% include "TaskBundle:Upload:templates.html.twig" %}
+
+
+    <form class="form-horizontal well" action="{{ path('task_update', { 'id': entity.id, editId: editId }) }}" method="post" {{ form_enctype(edit_form) }} >
+        {{ form_errors(edit_form) }}
+        <div class="row-fluid">
+            <div class="span9">
+                <legend>Task edit</legend>
+                <formfield>
+                    {{ form_row(edit_form.name,{'help':'sdasdasasda'}) }}
+                    {{ form_row(edit_form.description, {'attr': {'placeholder':'Introduzca una descripción ...', 'class':'wysihtml5 span11','rows':'10'} } ) }}
+                    {{ form_row(edit_form.dateEnd) }}
+
+                    {{ form_row(edit_form.tags,{ 'attr': {'style':'min-width:298px'} } ) }}
+                    {{ form_row(edit_form.members,{ 'attr': {'style':'width:298px'} } ) }}
+                    {# Hydrated by javascript #}
+                    <div class="file-uploader"></div>
+                </formfield>
+
+            </div>
+        </div>
+        {{ form_rest(edit_form) }}
+
+        <div>
+            <button type="submit" class="btn btn-primary">Edit</button>
+        </div>
+    </form>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('task') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <form action="{{ path('task_delete', { 'id': entity.id }) }}" method="post">
+                {{ form_widget(delete_form) }}
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    </ul>
+    {% endblock %}
+
+    {% block javascripts %}
+
+    <script type="text/javascript">
+//<![CDATA[
+// Enable the file uploader
+
+$(function() {
+    new PunkAveFileUploader({
+        'uploadUrl': {{ path('task_upload', { uploadId: editId, classId: entityClass , id: entity.id }) | json_encode | raw }},
+        'viewUrl': '{{ '/uploads/tmp/attachments/' ~ editId  }}' ,
+        'el': '.file-uploader',
+        'existingFiles': {{ existingFiles | json_encode | raw }},
+        'delaySubmitWhileUploading': '.edit-form',
+        'errorCallback': function(errorObj) {
+            if($('#msg-upload').length == 0)
+                $('<div class="page-alert"><div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><span id="msg-upload"></span></div></div>').insertAfter('.navbar');
+            $('#msg-upload').html($('#msg-upload').text()+"<br/>"+errorObj.error+' '+errorObj.name);
+            $('.file-uploader').find('[data-spinner="1"]').hide();
+
+        }
+    });
+    $('#btn-trash').click(function(e){
+        $dp.datepicker('hide');
+        $('input#task_dateEnd').val('');
+    });
+    $dp = $('#datepick').datepicker()
+    .on('changeDate', function(ev){
+        $('input#task_dateEnd').val($('#datepick').data('date'));
+        $('#datepick').datepicker('hide');
+    });
+    $("select#task_members").select2();
+    $("input#task_tags").select2({tags:["{{ defaultTags|join('","')|raw}}"],tokenSeparators: [","] });
+    $('.wysihtml5').wysihtml5({
+        "html":true,
+        "color":true
+    });
+});
+//]]>
+</script>
+{% javascripts
+    '@MainBundle/Resources/public/js/vendor/bootstrap-fileupload.js'
+    '@MainBundle/Resources/public/js/vendor/jquery.ui.widget.js'
+    '@MainBundle/Resources/public/js/vendor/underscore-min.js'
+    '@MainBundle/Resources/public/js/vendor/bootstrap-datepicker.js'
+    '@MainBundle/Resources/public/js/vendor/select2.js'
+    '@MainBundle/Resources/public/js/vendor/wysihtml5-0.3.0.js'
+    '@MainBundle/Resources/public/js/vendor/bootstrap-wysihtml5.js'
+    '@PunkAveFileUploaderBundle/Resources/public/js/jquery.fileupload.js'
+    '@FileBundle/Resources/public/js/FileUploader.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% endblock %}

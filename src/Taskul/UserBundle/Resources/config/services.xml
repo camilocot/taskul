@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="user.facebook.provider.class">Taskul\UserBundle\Security\User\Provider\FacebookProvider</parameter>
+        <parameter key="user.registration_completed.listener.class">Taskul\UserBundle\EventListener\RegistrationCompletedListener</parameter>
+        <parameter key="taskul.acl_manager.class">Taskul\UserBundle\Security\Manager</parameter>
+        <parameter key="taskul.user.handler.authentication_handler.class">Taskul\UserBundle\Handler\AuthenticationHandler</parameter>
+    </parameters>
+
+    <services>
+
+
+        <service id="my.facebook.user" class="%user.facebook.provider.class%">
+            <argument type="service" id="fos_facebook.api" />
+            <argument type="service" id="fos_user.user_manager" />
+            <argument type="service" id="validator" />
+            <argument type="service" id="service_container" />
+        </service>
+
+        <service id="taskul.acl_manager" class="%taskul.acl_manager.class%">
+            <argument type="service" id="security.acl.provider" />
+            <argument type="service" id="security.context" />
+        </service>
+
+        <service id="taskul.registation_completed" class="%user.registration_completed.listener.class%">
+            <argument type="service" id="taskul.friend.request" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+        <service id="taskul.user.handler.authentication_handler"
+            class="%taskul.user.handler.authentication_handler.class%">
+            <argument type="service" id="taskul.friend.request"/>
+            <argument type="service" id="router"/>
+            <argument type="service" id="security.context"/>
+        </service>
+        <service id="taskul_user.registration.form.type" class="Taskul\UserBundle\Form\Type\RegistrationFormType">
+            <tag name="form.type" alias="taskul_user_registration" />
+            <argument>%fos_user.model.user.class%</argument>
+        </service>
+        <service id="taskul_user.resetting.form.type" class="Taskul\UserBundle\Form\Type\ResettingFormType">
+            <tag name="form.type" alias="taskul_user_resetting" />
+            <argument>%fos_user.model.user.class%</argument>
+        </service>
+    </services>
+</container>

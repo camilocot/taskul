@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="user_menu.item.class">Knp\Menu\MenuItem</parameter>
+        <parameter key="user_menu.builder.class">Taskul\MainBundle\Menu\MenuBuilder</parameter>
+    </parameters>
+
+    <services>
+        <service id="taskul.form.type.purified_textarea" class="Taskul\MainBundle\Form\Type\PurifiedTextareaType">
+            <argument type="service" id="taskul.form.transformer.html_purifier" />
+            <tag name="form.type" alias="purified_textarea" />
+        </service>
+
+        <service id="taskul.form.transformer.html_purifier" class="Exercise\HTMLPurifierBundle\Form\HTMLPurifierTransformer">
+            <argument type="service" id="exercise_html_purifier.default" />
+        </service>
+
+        <service id="taskul_user.menu_builder" class="%user_menu.builder.class%">
+            <argument type="service" id="knp_menu.factory" />
+        </service>
+        <service id="taskul_user.menu.main" class="%user_menu.item.class%" scope="request" factory-service="taskul_user.menu_builder" factory-method="createMainMenu">
+            <tag name="knp_menu.menu" alias="main" />
+            <argument type="service" id="request" />
+        </service>
+        <service id="taskul_user.menu.public" class="%user_menu.item.class%" scope="request" factory-service="taskul_user.menu_builder" factory-method="createPublicMenu">
+            <tag name="knp_menu.menu" alias="public" />
+            <argument type="service" id="request" />
+        </service>
+    </services>
+</container>

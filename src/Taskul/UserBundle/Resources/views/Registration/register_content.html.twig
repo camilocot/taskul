@@ -1,0 +1,85 @@
+{% extends "UserBundle::layout.html.twig" %}
+{% form_theme form _self %}
+{% block form_errors %}
+{% spaceless %}
+    {% if errors|length > 0 %}
+    <div class="help-inline error"><p>
+        {% for error in errors %}
+            {{
+                error.messagePluralization is null
+                    ? error.messageTemplate|trans(error.messageParameters, 'validators')
+                    : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
+            }}<br>
+        {% endfor %}
+</p></div>
+    {% endif %}
+{% endspaceless %}
+{% endblock form_errors %}
+
+
+{% block stylesheets %}
+<style type="text/css">
+body { background: url(/img/bg-login.jpg) !important; }
+</style>
+{% endblock %}
+
+{% block fos_user_content %}
+<div class="row-fluid">
+
+    <div class="row-fluid">
+        <div class="login-box">
+            <div class="icons">
+                <a href="{{ path('homepage') }}"><i class="icon-home"></i></a>
+            </div>
+            <h2>Create your account</h2>
+
+            <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+            <fieldset>
+                <div class="control-group {% if form_errors(form.email) %} error {% endif %}">
+                <div class="input-prepend" title="Email">
+                    <span class="add-on"><i class="icon-user"></i></span>
+                    {{ form_widget(form.email, {'attr': {'class':'input-large span10','placeholder':'type username'}  } )}}
+
+                </div>
+                {{ form_errors(form.email)}}
+                </div>
+                <div class="clearfix"></div>
+                <div class="control-group">
+                <div class="input-prepend" title="Password">
+                    <span class="add-on"><i class="icon-lock"></i></span>
+                    {{ form_widget(form.plainPassword.password, {'attr': {'class':'input-large span10','placeholder':'type password'}  } )}}
+                </div>
+                <div class="clearfix"></div>
+                <div class="input-prepend" title="Retype Password">
+                    <span class="add-on"><i class="icon-lock"></i></span>
+                    {{ form_widget(form.plainPassword.password_confirmation, {'attr': {'class':'input-large span10','placeholder':'retype password'}  } )}}
+
+                </div>
+                {{ form_errors(form.plainPassword)}}
+                </div>
+                <div class="clearfix"></div>
+                <div class="button-login">
+                        <button type="submit" class="btn btn-primary" name="_submit" ><i class="icon-off icon-white"></i> {{ 'registration.submit'|trans({}, 'FOSUserBundle') }}</button>
+                    </div>
+                {{ form_rest(form) }}
+            </fieldset>
+            </form>
+             <hr>
+            {% include "UserBundle:Helper:facebook_button.html.twig" %}
+
+            <hr>
+            <h3>Forgot Password?</h3>
+            <p>
+                No problem, <a href="{{ path("fos_user_resetting_request") }}">click here</a> to get a new password.
+            </p>
+            <hr>
+            <h3>Login</h3>
+            <p>
+                No problem, <a href="{{ path("fos_user_security_login") }}">click here</a>.
+            </p>
+        </div><!--/span-->
+    </div><!--/row-->
+
+</div><!--/fluid-row-->
+
+{% endblock %}

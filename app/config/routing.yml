@@ -1,0 +1,57 @@
+file:
+    resource: "@FileBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+tag:
+    resource: "@TagBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+friend:
+    resource: "@FriendBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+main:
+    resource: "@MainBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+message:
+    resource: "@MessageBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+task:
+    resource: "@TaskBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+user:
+    resource: "@UserBundle/Controller/"
+    type: annotation
+    prefix: /
+
+UserBundle:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+fos_comment_api:
+    type: rest
+    resource: "@FOSCommentBundle/Resources/config/routing.yml"
+    prefix: /api
+    defaults: { _format: html }
+
+fos_message:
+    resource: "@FOSMessageBundle/Resources/config/routing.xml"
+    prefix: /msg
+
+# Internal routing configuration to handle ESI
+# ****** WARNING ******
+# This route should be enabled with caution as it can open a security vulnerability
+# see http://symfony.com/blog/security-release-symfony-2-0-20-and-2-1-5-released for more information
+# ****** WARNING ******
+#_internal:
+#    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#    prefix:   /_internal

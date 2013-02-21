@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="taskul.user.file_manager.class">Taskul\FileBundle\Service\UserFileManager</parameter>
+        <parameter key="taskul.user.file_manager.options" type="collection">
+            <parameter key="base_path">%file_uploader.file_base_path%</parameter>
+            <parameter key="original" >%file_uploader.originals%</parameter>
+        </parameter>
+        <parameter key="taskul.user.quota">52428800</parameter>
+    </parameters>
+
+    <services>
+        <service id="taskul.user.file_manager" class="%taskul.user.file_manager.class%" scope="request">
+            <argument type="service" id="punk_ave.file_uploader" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="taskul.acl_manager" />
+            <argument>%taskul.user.file_manager.options%</argument>
+        </service>
+    </services>
+</container>

@@ -1,0 +1,23 @@
+<!-- inside a twig template -->
+{{ facebook_initialize({'xfbml': true}) }}
+<div class="fb-div"><a class="fb-button" onClick="fblogin();">Custom Text</a></div>
+<div class="clearfix"></div>
+
+
+        <script>
+            function goLogIn(){
+                  window.location.href = "{{ path('fos_facebook_security_check') }}";
+            }
+
+
+            var fblogin = function() {
+      FB.login(function(response) {
+        if (response) {
+            if (response.session || response.authResponse) {
+                setTimeout(goLogIn, 500);
+            } else {
+                window.location.href = "{{ path('_security_logout') }}";
+            }
+        }},{scope:'email,publish_stream'}); //whatever perms your app needs
+};
+        </script>

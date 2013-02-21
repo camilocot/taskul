@@ -1,0 +1,72 @@
+{% extends "UserBundle::layout.html.twig" %}
+
+{% block content %}
+{% include "UserBundle:Helper:facebook_button.html.twig" %}
+
+<h1>FriendRequest list</h1>
+{% if frequest|length > 0%}
+Se han enviado {{ frequest|length }} invitaciones.
+{% else %}
+<form action="" method="post" {{ form_enctype(form) }} id="form">
+  {% for t in form.contacts %}
+  <div class="row-fluid">
+
+  <div class="span1">{{ form_widget(t)}}</div>
+   <div class="span2"> {{ form_label(t)}}</div>
+</div>
+
+  {% if imgUrls[loop.index0] is defined %}
+  <div class="row-fluid">
+<div class="span2 offset1"><img src="{{ imgUrls[loop.index0] }}" /></div>
+</div>
+{% endif %}
+{% endfor %}
+    {{ form_rest(form) }}
+    <input type="hidden" value="no" name="form[sended]" id="form_sended" />
+
+</form>
+     <input type="button"
+        id="sendinvfb"
+        value="Send Request to Users Directly"
+      />
+      </p>
+      {% endif %}
+{% endblock %}
+{% block javascripts %}
+<script>
+$(document).ready(function(){
+  $('#sendinvfb').click(function(){
+    var selectedItems = new Array();
+    $("input[@name='form[contacts']:checked").each(function(){
+      selectedItems.push($(this).val());
+    });
+    msg = $('#form_message').val();
+    $('#form_message').val($('<div/>').text(msg).html());
+
+    if(0 == selectedItems.length || msg == '')
+     alert('selecciona alguno');
+    else
+    {
+        FB.ui({method: 'apprequests',
+          message: msg,
+          to: selectedItems,
+        }, requestCallback);
+    }
+  });
+});
+
+function sendRequestViaMultiFriendSelector() {
+        FB.ui({method: 'apprequests',
+          message: 'My Great Request'
+        }, requestCallback);
+      }
+
+      function requestCallback(response) {
+        // Handle callback here
+        if(response != null){
+          $('input#form_sended').val(response.request);
+          $('form#form').submit();
+        }
+      }
+</script>
+{% endblock %}

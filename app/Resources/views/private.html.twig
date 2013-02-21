@@ -1,0 +1,89 @@
+ {% extends "::base.html.twig" %}
+ {% block stylesheets %}
+ {% stylesheets
+        '@MainBundle/Resources/public/css/private.css'
+        %}
+         <link rel="stylesheet" href="{{ asset_url }}">
+ {% endstylesheets %}
+ {% endblock %}
+ {% block body %}
+  <div id="overlay">
+    <ul>
+      <li class="li1"></li>
+      <li class="li2"></li>
+      <li class="li3"></li>
+      <li class="li4"></li>
+      <li class="li5"></li>
+      <li class="li6"></li>
+    </ul>
+  </div>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="{{ path('homepage')}}"><span class="hidden-phone">Taskul</span></a>
+
+        <!-- start: Header Menu -->
+        <div class="nav-no-collapse header-nav">
+          <ul class="nav pull-right">
+            <!-- start: User Dropdown -->
+            <li class="dropdown">
+              <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="icon-user icon-white"></i>
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="{{ path('fos_user_profile_edit') }}"><i class="icon-user"></i> Profile</a></li>
+                <li><a href="{{ path('fos_user_security_logout') }}"><i class="icon-off"></i> Logout</a></li>
+              </ul>
+            </li>
+            <!-- end: User Dropdown -->
+          </ul>
+        </div>
+        <!-- end: Header Menu -->
+
+      </div>
+    </div>
+  </div>
+  <!-- start: Header -->
+
+    <div class="container-fluid">
+    <div class="row-fluid">
+
+      <!-- start: Main Menu -->
+      <div class="span2 main-menu-span">
+        <div class="nav-collapse sidebar-nav">
+            {{ knp_menu_render('main', {'allow_safe_labels':true ,'template': 'MainBundle:Default:knp_menu.html.twig', 'currentClass': 'active'})  }}
+        </div><!--/.well -->
+      </div><!--/span-->
+      <!-- end: Main Menu -->
+
+      <noscript>
+        <div class="alert alert-block span10">
+          <h4 class="alert-heading">Warning!</h4>
+          <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+        </div>
+      </noscript>
+
+      <div id="content" class="span10" style="min-height: 825px;">
+      <!-- start: Content -->
+      {% block content %}{% endblock %}
+      <!-- end: Content -->
+      </div><!--/#content.span10-->
+      </div><!--/fluid-row-->
+
+    <div class="clearfix"></div>
+
+    <footer>
+      <p>
+        <span style="text-align:left;float:left">&copy; <a href="http://clabs.co" target="_blank">creativeLabs</a> 2013</span>
+        <span style="text-align:right;float:right">Powered by: <a href="#">Perfectum Dashboard</a></span>
+      </p>
+
+    </footer>
+    </div><!--/.fluid-container-->
+{% endblock %}
