@@ -1,5 +1,6 @@
 {% extends "TaskBundle::layout.html.twig" %}
 {% block stylesheets %}
+   {{ parent() }}
 {% stylesheets
         '@MainBundle/Resources/public/css/jquery.fileupload-ui.css'
         '@MainBundle/Resources/public/css/jasny-bootstrap.css'
@@ -12,8 +13,24 @@
 {% endblock %}
 {% block content %}
 {% include "TaskBundle:Upload:templates.html.twig" %}
-
-<h1>Task creation</h1>
+<div>
+    <hr>
+    <ul class="breadcrumb">
+        <li>
+            <a href="#">Home</a> <span class="divider">/</span>
+        </li>
+        <li>
+            <a href="#">Tasks</a>
+        </li>
+    </ul>
+    <hr>
+</div>
+<div class="row-fluid sortable">
+    <div class="box span12">
+        <div class="box-header" data-original-title>
+            <h2><i class="icon-user"></i><span class="break"></span>Task creation</h2>
+        </div>
+        <div class="box-content">
 
 
 <form class="form-styled" action="{{ path('task_create', { newId: newId } ) }}" method="post" {{ form_enctype(form) }}>
@@ -57,6 +74,11 @@
         </a>
     </li>
 </ul>
+        </div>
+
+    </div><!--/box-->
+
+</div><!--/row-->
 {% endblock %}
 
 {% block javascripts %}
