@@ -37,6 +37,7 @@ class AppKernel extends Kernel
             new Taskul\TagBundle\TagBundle(),
             new Taskul\FileBundle\FileBundle(),
             new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
+            new Biplane\EnumBundle\BiplaneEnumBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

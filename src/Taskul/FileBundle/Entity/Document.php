@@ -60,6 +60,10 @@ private $idObject;
      */
 private $markToDelete;
 
+    public function __construct()
+    {
+        $this->setMarkToDelete(FALSE);
+    }
     /**
      * Get id
      *

@@ -1,5 +1,5 @@
 {
-    "hash": "e042d2ddc42e02a8f8652b983dac65c8",
+    "hash": "9f90e25804d4445bbb167c53a983e86e",
     "packages": [
         {
             "name": "braincrafted/bootstrap-bundle",
@@ -2310,6 +2310,64 @@
             "keywords": [
                 "templating"
             ]
+        },
+        {
+            "name": "yethee/enum-bundle",
+            "version": "dev-master",
+            "target-dir": "Biplane/EnumBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yethee/BiplaneEnumBundle.git",
+                "reference": "fa58e573ebf740d6f3d0ef7a8f0b9f94a172992f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yethee/BiplaneEnumBundle/zipball/fa58e573ebf740d6f3d0ef7a8f0b9f94a172992f",
+                "reference": "fa58e573ebf740d6f3d0ef7a8f0b9f94a172992f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/framework-bundle": ">=2.1,<2.3-dev",
+                "symfony/form": ">=2.1,<2.3-dev"
+            },
+            "conflict": {
+                "jms/serializer-bundle": "<1.0-dev"
+            },
+            "require-dev": {
+                "symfony/serializer": ">=2.1,<2.3-dev",
+                "jms/serializer-bundle": "1.0.*"
+            },
+            "suggest": {
+                "symfony/serializer": ">=2.1,<2.3-dev",
+                "jms/serializer-bundle": "1.0.*"
+            },
+            "time": "2013-02-07 20:30:16",
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Biplane\\EnumBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Denis Vasilev",
+                    "email": "liquid.yethee@hotmail.com"
+                }
+            ],
+            "description": "This bundle provides a typed enumeration for Symfony2 applications",
+            "keywords": [
+                "typed enumeration"
+            ]
         }
     ],
     "packages-dev": null,
@@ -2328,6 +2386,7 @@
         "punkave/symfony2-file-uploader-bundle": 20,
         "friendsofsymfony/message-bundle": 20,
         "fpn/tag-bundle": 20,
-        "exercise/htmlpurifier-bundle": 20
+        "exercise/htmlpurifier-bundle": 20,
+        "yethee/enum-bundle": 20
     }
 }

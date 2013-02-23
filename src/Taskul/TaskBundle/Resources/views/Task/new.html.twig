@@ -1,88 +1,77 @@
 {% extends "TaskBundle::layout.html.twig" %}
+{% form_theme form 'MainBundle:Form:fields.html.twig' %}
 {% block stylesheets %}
-   {{ parent() }}
+{{ parent() }}
 {% stylesheets
-        '@MainBundle/Resources/public/css/jquery.fileupload-ui.css'
-        '@MainBundle/Resources/public/css/jasny-bootstrap.css'
-        '@MainBundle/Resources/public/css/jasny-bootstrap-responsive.css'
-        '@MainBundle/Resources/public/css/datepicker.css'
-        '@MainBundle/Resources/public/css/select2.css'
-        %}
-         <link rel="stylesheet" href="{{ asset_url }}">
-        {% endstylesheets %}
-{% endblock %}
-{% block content %}
-{% include "TaskBundle:Upload:templates.html.twig" %}
-<div>
-    <hr>
-    <ul class="breadcrumb">
-        <li>
-            <a href="#">Home</a> <span class="divider">/</span>
-        </li>
-        <li>
-            <a href="#">Tasks</a>
-        </li>
-    </ul>
-    <hr>
-</div>
-<div class="row-fluid sortable">
-    <div class="box span12">
-        <div class="box-header" data-original-title>
-            <h2><i class="icon-user"></i><span class="break"></span>Task creation</h2>
-        </div>
-        <div class="box-content">
-
-
-<form class="form-styled" action="{{ path('task_create', { newId: newId } ) }}" method="post" {{ form_enctype(form) }}>
-    {{ form_errors(form) }}
-
-    {{ form_row(form.name) }}
-    {{ form_row(form.description) }}
-    <div class="control-group">
-    {{ form_label(form.dateEnd) }}
-    {{ form_errors(form.dateEnd) }}
-    <div class="input-prepend input-append date" >
-    <span class="add-on" id="btn-trash"><i class="icon-trash"></i></span>
-    {{ form_widget(form.dateEnd, { 'attr': {'class': 'span2', 'readonly':'readonly'} } ) }}
-    <span class="add-on" id="datepick" data-date-format="dd/mm/yyyy" data-date="{{ "now"|date("d/m/Y") }}"><i class="icon-calendar"></i></span>
-    </div>
-
-    </div>
-
-    {{ form_row(form.tags,{ 'attr': {'style':'width:298px','class':'select2'} }) }}
+    '@MainBundle/Resources/public/css/jquery.fileupload-ui.css'
+    '@MainBundle/Resources/public/css/jasny-bootstrap.css'
+    '@MainBundle/Resources/public/css/jasny-bootstrap-responsive.css'
+    '@MainBundle/Resources/public/css/datepicker.css'
+    '@MainBundle/Resources/public/css/select2.css'
+    '@MainBundle/Resources/public/css/bootstrap-wysihtml5.css'
+    '@MainBundle/Resources/public/css/wysiwyg-color.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+    {% endblock %}
+    {% block content %}
+    {% include "TaskBundle:Upload:templates.html.twig" %}
     <div>
-    {{ form_label(form.members) }}
-    {{ form_errors(form.members) }}
-    {{ form_widget(form.members,{ 'attr': {'style':'width:298px','class':'select2'} } ) }}
+        <hr>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Home</a> <span class="divider">/</span>
+            </li>
+            <li>
+                <a href="#">Tasks</a>
+            </li>
+        </ul>
+        <hr>
     </div>
-    {# form_row(form.members) #}
+    <div class="row-fluid sortable">
+        <div class="box span12">
+            <div class="box-header" data-original-title>
+                <h2><i class="icon-user"></i><span class="break"></span>Task creation</h2>
+            </div>
+            <div class="box-content">
 
-    {# Hydrated by javascript #}
-    <div class="file-uploader"></div>
-    {{ form_rest(form) }}
 
-    <p>
-        <button type="submit">Create</button>
-    </p>
+                <form class="form-horizontal" action="{{ path('task_create', { newId: newId } ) }}" method="post" {{ form_enctype(form) }}>
+                    {{ form_errors(form) }}
 
-</form>
+                    <fieldset>
+                        {{ form_row(form.name,{'help':'sdasdasasda'}) }}
+                        {{ form_row(form.description, {'attr': {'placeholder':'Introduzca una descripción ...', 'class':'wysihtml5 span11','rows':'10'} } ) }}
+                        {{ form_row(form.dateEnd) }}
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('task') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
-        </div>
+                        {{ form_row(form.tags,{ 'attr': {'style':'min-width:298px'} } ) }}
+                        {{ form_row(form.members,{ 'attr': {'style':'width:298px'} } ) }}
+                        {# Hydrated by javascript #}
+                          <div class="control-group">
+                <label class="control-label">File Upload</label>
+                <div class="controls">
+                        <div class="file-uploader"></div>
+                    </div>
+                </div>
 
-    </div><!--/box-->
+                        {{ form_rest(form) }}
+                    </fieldset>
+                    <div class="form-actions">
+                        <button class="btn btn-primary" type="submit">Save changes</button>
+                        <a class="btn btn-cancel" href="{{ path('task') }}">
+                            Back to the list
+                        </a>
+                    </div>
+                </form>
+            </div>
 
-</div><!--/row-->
-{% endblock %}
+        </div><!--/box-->
 
-{% block javascripts %}
-<script type="text/javascript">
+    </div><!--/row-->
+    {% endblock %}
+
+    {% block javascripts %}
+    <script type="text/javascript">
 // Enable the file uploader
 
 $(function() {
@@ -91,11 +80,12 @@ $(function() {
         'viewUrl': '{{ '/uploads/tmp/attachments/' ~ newId  }}' ,
         'el': '.file-uploader',
         'existingFiles': {{ existingFiles | json_encode | raw }},
-        'delaySubmitWhileUploading': '.edit-form',
+        'delaySubmitWhileUploading': '.form-horizontal',
         'errorCallback': function(errorObj) {
             if($('#msg-upload').length == 0)
                 $('<div class="page-alert"><div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><span id="msg-upload"></span></div></div>').insertAfter('.navbar');
-            $('#msg-upload').html($('#msg-upload').text()+"<br/>"+errorObj.error+' '+errorObj.name);
+            $('#msg-upload').html($('#msg-upload').text()+"<div>"+errorObj.error+' '+errorObj.name+'</div>');
+            $('.file-uploader').find('[data-spinner="1"]').hide();
 
         }
     });
@@ -104,12 +94,16 @@ $(function() {
         $('input#task_dateEnd').val('');
     });
     $dp = $('#datepick').datepicker()
-                .on('changeDate', function(ev){
-                    $('input#task_dateEnd').val($('#datepick').data('date'));
-                    $('#datepick').datepicker('hide');
-                });
+    .on('changeDate', function(ev){
+        $('input#task_dateEnd').val($('#datepick').data('date'));
+        $('#datepick').datepicker('hide');
+    });
     $("select#task_members").select2();
     $("input#task_tags").select2({tags:["{{ defaultTags|join('","')|raw}}"],tokenSeparators: [","] });
+    $('.wysihtml5').wysihtml5({
+        "html":true,
+        "color":true
+    });
 });
 </script>
 {% javascripts
@@ -118,9 +112,11 @@ $(function() {
     '@MainBundle/Resources/public/js/vendor/underscore-min.js'
     '@MainBundle/Resources/public/js/vendor/bootstrap-datepicker.js'
     '@MainBundle/Resources/public/js/vendor/select2.js'
+    '@MainBundle/Resources/public/js/vendor/wysihtml5-0.3.0.js'
+    '@MainBundle/Resources/public/js/vendor/bootstrap-wysihtml5.js'
     '@PunkAveFileUploaderBundle/Resources/public/js/jquery.fileupload.js'
     '@FileBundle/Resources/public/js/FileUploader.js' %}
     <script src="{{ asset_url }}"></script>
-{% endjavascripts %}
+    {% endjavascripts %}
 
-{% endblock %}
+    {% endblock %}

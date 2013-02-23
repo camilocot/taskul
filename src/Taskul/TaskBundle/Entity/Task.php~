@@ -5,14 +5,14 @@ namespace Taskul\TaskBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Taskul\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
-
+use DoctrineExtensions\Taggable\Taggable;
 /**
  * Task
  *
  * @ORM\Table(name="task")
  * @ORM\Entity(repositoryClass="Taskul\TaskBundle\Entity\Repository\TaskRepository")
  */
-class Task {
+class Task implements Taggable {
 
     /**
      * @var integer
@@ -40,32 +40,53 @@ class Task {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateEnd", type="datetime")
+     * @ORM\Column(name="dateEnd", type="datetime", nullable=true)
      */
     private $dateEnd;
 
     /**
-     * 
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="taskMembers")
+     *
+     * @ORM\ManyToMany(targetEntity="Taskul\UserBundle\Entity\User", inversedBy="taskMembers")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
      */
     private $members;
 
     /**
      * @var \User
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="\Taskul\UserBundle\Entity\User", inversedBy="ownTasks")
      */
     private $owner;
 
-    public function __construct() {
-        $this->products = new ArrayCollection();
-        $this->members = new ArrayCollection();
+    private $tags;
+/**
+ * [$status description]
+ * @var [type]
+ *
+ *  @ORM\Column(type="enumstatus")
+ */
+private $status;
+
+    public function getTags()
+    {
+        $this->tags = $this->tags ?: new ArrayCollection();
+
+        return $this->tags;
     }
 
+    public function getTaggableType()
+    {
+        return 'task_tag';
+    }
+
+    public function getTaggableId()
+    {
+        return $this->getId();
+    }
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId() {
         return $this->id;
@@ -86,7 +107,7 @@ class Task {
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName() {
         return $this->name;
@@ -107,7 +128,7 @@ class Task {
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription() {
         return $this->description;
@@ -128,7 +149,7 @@ class Task {
     /**
      * Get dateEnd
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateEnd() {
         return $this->dateEnd;
@@ -149,10 +170,50 @@ class Task {
     /**
      * Get owner
      *
-     * @return \Taskul\UserBundle\Entity\User 
+     * @return \Taskul\UserBundle\Entity\User
      */
     public function getOwner() {
         return $this->owner;
+    }
+
+
+    /**
+     * Add members
+     *
+     * @param \Taskul\USerBundle\Entity\User $members
+     * @return Task
+     */
+    public function addMember(\Taskul\UserBundle\Entity\User $members)
+    {
+        $this->members[] = $members;
+
+        return $this;
+    }
+
+    /**
+     * Remove members
+     *
+     * @param \Taskul\UserBundle\Entity\User $members
+     */
+    public function removeMember(\Taskul\UserBundle\Entity\User $members)
+    {
+        $this->members->removeElement($members);
+    }
+
+    /**
+     * Get members
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMembers()
+    {
+        return $this->members;
+    }
+
+    public function __toString()
+    {
+    $class = explode('\\', __CLASS__);
+    return end($class);
     }
 
 }

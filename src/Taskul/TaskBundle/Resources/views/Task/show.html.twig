@@ -1,5 +1,6 @@
 {% extends "TaskBundle::layout.html.twig" %}
 {% block stylesheets %}
+{{ parent() }}
 {% stylesheets
     '@MainBundle/Resources/public/css/jquery.fileupload-ui.css'
     '@MainBundle/Resources/public/css/jasny-bootstrap.css'
@@ -10,9 +11,24 @@
     {% endblock %}
 {% block content %}
  {% include "TaskBundle:Upload:templates.html.twig" %}
- <div class="row-fluid">
-            <div class="span9">
-<h1>Task</h1>
+<div>
+        <hr>
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">Home</a> <span class="divider">/</span>
+            </li>
+            <li>
+                <a href="#">Tasks</a>
+            </li>
+        </ul>
+        <hr>
+    </div>
+    <div class="row-fluid sortable">
+        <div class="box span12">
+            <div class="box-header" data-original-title>
+                <h2><i class="icon-user"></i><span class="break"></span>Task creation</h2>
+            </div>
+            <div class="box-content">
 
 <table class="table">
     <tbody>
@@ -34,43 +50,38 @@
         </tr>
     </tbody>
 </table>
-<ul>
-{% for doc in documents %}
-{% if is_granted('VIEW',doc) %}
-<li>{{ doc.name }}</li>
-{% endif %}
-{% endfor %}
-</ul>
-<form class="form-horizontal well" action="{{ path('task_add_document', { 'id': entity.id, 'formId': uploadId }) }}" method="post"  >
+<form class="form-horizontal" action="{{ path('task_add_document', { 'id': entity.id, 'formId': uploadId }) }}" method="post"  >
 <div class="file-uploader"></div>
         <div>
             <button type="submit" class="btn btn-primary">Update Files</button>
         </div>
-</form>
-{% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': entity.id} %}
-
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('task') }}">
-            Back to the list
-        </a>
-    </li>
-    {% if is_granted('EDIT',entity) %}
-    <li>
-        <a href="{{ path('task_edit', { 'id': entity.id }) }}">
+           <div class="form-actions">
+            {% if is_granted('DELETE',entity) %}
+             <a class="btn btn-danger" href="{{ path('task_delete', { 'id': entity.id }) }}">
+                            Delete
+                        </a>
+                        {% endif %}
+                            {% if is_granted('EDIT',entity) %}
+        <a href="{{ path('task_edit', { 'id': entity.id }) }}" class="btn btn-success">
             Edit
         </a>
-    </li>
     {% endif %}
-    {% if is_granted('DELETE',entity) %}
-    <li>
-        <form action="{{ path('task_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-    {% endif %}
-</ul>
+                        <a class="btn btn-cancel" href="{{ path('task') }}">
+                            Back to the list
+                        </a>
+                    </div>
+</form>
+</div>
+</div>
+</div>
+    <div class="row-fluid sortable">
+        <div class="box span12">
+            <div class="box-header" data-original-title>
+                <h2><i class="icon-user"></i><span class="break"></span>Comentarios</h2>
+            </div>
+            <div class="box-content">
+{% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': entity.id} %}
+</div>
 </div>
 </div>
 {% endblock %}

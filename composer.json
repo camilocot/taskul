@@ -27,7 +27,8 @@
         "friendsofsymfony/comment-bundle": "master",
         "friendsofsymfony/message-bundle": "dev-master",
         "fpn/tag-bundle": "dev-master",
-        "exercise/htmlpurifier-bundle": "dev-master"
+        "exercise/htmlpurifier-bundle": "dev-master",
+        "yethee/enum-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

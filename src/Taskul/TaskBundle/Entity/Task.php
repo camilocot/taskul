@@ -59,6 +59,13 @@ class Task implements Taggable {
     private $owner;
 
     private $tags;
+/**
+ * [$status description]
+ * @var [type]
+ *
+ *  @ORM\Column(type="status_enum")
+ */
+private $status;
 
     public function getTags()
     {
@@ -209,4 +216,34 @@ class Task implements Taggable {
     return end($class);
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->members = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set status
+     *
+     * @param enumstatus $status
+     * @return Task
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return enumstatus
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 }

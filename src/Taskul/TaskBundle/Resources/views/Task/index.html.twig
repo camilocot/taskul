@@ -23,7 +23,6 @@
             <table class="table table-striped table-bordered bootstrap-datatable datatable" id="list">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Name</th>
                         <th>Description</th>
                         <th>Dateend</th>
@@ -33,29 +32,22 @@
                 <tbody>
                     {% for entity in entities %}
                     <tr>
-                        <td><a href="{{ path('task_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                         <td>{{ entity.name }}</td>
                         <td>
                             {% set desc = entity.description|striptags %}
                             {% if desc|length > 30 %}
-                            {{ desc|slice(0,30) }} ... <a class="btn btn-small boostrap-tp"  title="{{ desc }}" href="#"><i class="icon-download"></i></a>
+                            {{ desc|slice(0,30) }} ... <a class="boostrap-tp"  title="{{ desc }}" href="#"><i class="icon-download"></i></a>
                             {% else %}
                             {{ desc }}
                             {% endif %}</td>
                             <td>{% if entity.dateEnd %}{{ entity.dateEnd|date('Y-m-d H:i:s') }}{% endif %}</td>
                             <td>
-                                <ul>
                                     {% if is_granted('VIEW', entity) %}
-                                    <li>
-                                        <a href="{{ path('task_show', { 'id': entity.id }) }}">show</a>
-                                    </li>
+                                        <a href="{{ path('task_show', { 'id': entity.id }) }}" class="btn btn-info" title="show"><i class="icon-zoom-in icon-white"></i></a>
                                     {% endif %}
                                     {% if is_granted('EDIT', entity) %}
-                                    <li>
-                                        <a href="{{ path('task_edit', { 'id': entity.id }) }}">edit</a>
-                                    </li>
+                                        <a href="{{ path('task_edit', { 'id': entity.id }) }}" class="btn btn-success" title="edit"><i class="icon-edit icon-white"></i></a>
                                     {% endif %}
-                                </ul>
                             </td>
                         </tr>
                         {% endfor %}
