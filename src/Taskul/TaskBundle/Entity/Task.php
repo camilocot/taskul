@@ -14,6 +14,10 @@ use DoctrineExtensions\Taggable\Taggable;
  */
 class Task implements Taggable {
 
+    const STATUS_IN_PROGRESS = 'inprogress';
+    const STATUS_IN_TODO = 'todo';
+    const STATUS_IN_DONE = 'done';
+
     /**
      * @var integer
      *
@@ -63,7 +67,7 @@ class Task implements Taggable {
  * [$status description]
  * @var [type]
  *
- *  @ORM\Column(type="status_enum")
+ *  @ORM\Column(type="string")
  */
 private $status;
 
@@ -222,6 +226,7 @@ private $status;
     public function __construct()
     {
         $this->members = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setStatus('inprogress'); // Se le pone un estado por defecto
     }
 
     /**

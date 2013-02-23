@@ -2,17 +2,13 @@
 namespace Taskul\TaskBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
-use Taskul\TaskBundle\DBAL\EnumStatusType;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class StatusType extends AbstractType
 {
-    public function getDefaultOptions(array $options)
-    {
-        return array(
-            'choices' => EnumStatusType::getReadables()
-        );
-    }
+    /**
+     * {@inheritdoc}
+     */
 
     public function getParent()
     {
@@ -23,4 +19,23 @@ class StatusType extends AbstractType
     {
         return 'status';
     }
+
+    private $statusChoices;
+
+    public function __construct(array $statusChoices)
+    {
+        $this->statusChoices = $statusChoices;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+                $resolver->setDefaults(array(
+            'choices' => $this->statusChoices,
+
+        ));
+            }
+
 }

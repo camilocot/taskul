@@ -22,7 +22,6 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Taskul\UserBundle\UserBundle(),
             new FOS\FacebookBundle\FOSFacebookBundle(),
-            //new Braincrafted\BootstrapBundle\BraincraftedBootstrapBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Taskul\TaskBundle\TaskBundle(),
             new PunkAve\FileUploaderBundle\PunkAveFileUploaderBundle(),
@@ -37,7 +36,6 @@ class AppKernel extends Kernel
             new Taskul\TagBundle\TagBundle(),
             new Taskul\FileBundle\FileBundle(),
             new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
-            new Biplane\EnumBundle\BiplaneEnumBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

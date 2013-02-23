@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class Comment extends BaseComment implements SignedCommentInterface
 {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -27,7 +28,7 @@ class Comment extends BaseComment implements SignedCommentInterface
      * @ORM\ManyToOne(targetEntity="Taskul\TaskBundle\Entity\Thread")
      */
     protected $thread;
-    
+
     /**
      * Author of the comment
      *

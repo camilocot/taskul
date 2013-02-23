@@ -4,17 +4,18 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
     <parameters>
-        <parameter key="task.example.class">Taskul\TaskBundle\Example</parameter>
-    </parameters>
+        <parameter key="taskul.status.choices" type="collection">
+            <parameter key="inprogress">In progress</parameter>
+            <parameter key="todo" >ToDo</parameter>
+            <parameter key="done" >Done</parameter>
 
+        </parameter>
+    </parameters>
     <services>
-        <service id="task.example" class="%task.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
-        </service>
+      <service id="form.type.status" class="Taskul\TaskBundle\Form\Type\StatusType">
+        <tag name="form.type" alias="status" />
+        <argument>%taskul.status.choices%</argument>
+      </service>
     </services>
-    -->
 </container>

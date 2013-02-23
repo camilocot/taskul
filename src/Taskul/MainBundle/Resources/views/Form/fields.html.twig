@@ -92,19 +92,23 @@
 {% endblock choice_widget_expanded %}
 
 {% block status_widget %}
+    {% set selected = '' %}
     {% spaceless %}
-        {% if expanded %}
-            <ul {{ block('widget_container_attributes') }}>
+        <div  class="btn-group" data-toggle="buttons-radio" data-toggle-name="{{ form.get('full_name') }}">
             {% for child in form %}
-                <li>
-                    {{ form_widget(child) }}
-                    {{ form_label(child) }}
-                </li>
+                    <button type="button" class="btn btn" data-toggle="button" value="{{ child.get('value') }}">{{ child.get('label')|humanize }}</button>
+                    {% if form.get('value')[loop.index0] == TRUE %}
+                    {% set selected = child.get('value') %}
+                    {% endif %}
             {% endfor %}
-            </ul>
-        {% else %}
-            {# just let the choice widget render the select tag #}
-            {{ block('choice_widget') }}
+        </div>
+        {% if selected is empty %}
+        {% set preferred_choices = form.get('preferred_choices') %}
+
+        {% for item in preferred_choices %}
+        {% set selected = item.value %}
+        {% endfor %}
         {% endif %}
+        <input type="hidden" name="{{ form.get('full_name') }}" value="{{ selected }}" class="hidden-status" />
     {% endspaceless %}
 {% endblock %}
