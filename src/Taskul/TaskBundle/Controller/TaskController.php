@@ -501,7 +501,7 @@ class TaskController extends Controller {
 
             $user = $this->get('security.context')->getToken()->getUser();
             $fileManager = $this->get('taskul.user.file_manager');
-            $fileManager->removeFiles($user,$entity,$entity->getMembers());
+            $fileManager->removeUserFiles($user,$entity,$entity->getMembers());
 
             $em->remove($entity);
             $em->flush();
