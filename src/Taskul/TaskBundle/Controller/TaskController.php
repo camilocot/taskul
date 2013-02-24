@@ -30,10 +30,13 @@ class TaskController extends Controller {
      * @Template()
      */
     public function indexAction() {
+        $deleteForm = $this->createDeleteForm(-1);
         $user = $this->get('security.context')->getToken()->getUser();
-        $entities = $em = $this->getDoctrine()->getManager()->getRepository('TaskBundle:Task')->findTasks($user);
+        $entities = $this->getDoctrine()->getManager()->getRepository('TaskBundle:Task')->findTasks($user);
         return array(
             'entities' => $entities,
+            'entity' => array('id' => -1),
+            'delete_form' => $deleteForm->createView(),
             );
     }
 
@@ -473,7 +476,7 @@ class TaskController extends Controller {
     /**
      * Deletes a Task entity.
      *
-     * @Route("/{id}/delete", name="task_delete")
+     * @Route("/{id}/delete", name="task_delete", options={ "expose": true })
      * @Method("POST")
      *
      */
