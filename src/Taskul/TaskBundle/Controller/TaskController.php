@@ -18,7 +18,7 @@ use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
  *
  * @Route("/task")
  *
- * @Breadcrumb("Homepage", route="homepage")
+ * @Breadcrumb("Dashboard", route="dashboard")
  * @Breadcrumb("Tasks", route="task")
  */
 class TaskController extends Controller {
@@ -33,6 +33,9 @@ class TaskController extends Controller {
         $deleteForm = $this->createDeleteForm(-1);
         $user = $this->get('security.context')->getToken()->getUser();
         $entities = $this->getDoctrine()->getManager()->getRepository('TaskBundle:Task')->findTasks($user);
+        foreach ($entities as $e){
+            $this->loadTags($e);
+        }
         return array(
             'entities' => $entities,
             'entity' => array('id' => -1),
@@ -73,7 +76,7 @@ class TaskController extends Controller {
         $fileManager->syncFiles($uploadId, $user, $entity);
 
         $existingFiles = $fileManager->getEntityFiles($entity);
-
+        $tags = $this->loadTags($entity);
         return array(
             'entity' => $entity,
             'documents' => $documents,

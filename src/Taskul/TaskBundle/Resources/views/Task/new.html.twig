@@ -21,6 +21,9 @@
         <div class="box span12">
             <div class="box-header" data-original-title>
                 <h2><i class="icon-user"></i><span class="break"></span>Task creation</h2>
+                <div class="box-icon">
+            <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+            </div>
             </div>
             <div class="box-content">
 
@@ -30,6 +33,7 @@
 
                     <fieldset>
                         {{ form_row(form.name,{'help':'sdasdasasda'}) }}
+                         {{ form_row(form.status) }}
                         {{ form_row(form.description, {'attr': {'placeholder':'Introduzca una descripción ...', 'class':'wysihtml5 span11','rows':'10'} } ) }}
                         {{ form_row(form.dateEnd) }}
 

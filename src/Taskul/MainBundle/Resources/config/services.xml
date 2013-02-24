@@ -30,5 +30,8 @@
             <tag name="knp_menu.menu" alias="public" />
             <argument type="service" id="request" />
         </service>
+        <service id="taskul.twig.status_color" class="Taskul\MainBundle\Twig\LabelsExtension">
+        <tag name="twig.extension" />
+        </service>
     </services>
 </container>

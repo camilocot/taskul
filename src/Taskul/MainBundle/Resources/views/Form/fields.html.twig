@@ -96,7 +96,7 @@
     {% spaceless %}
         <div  class="btn-group" data-toggle="buttons-radio" data-toggle-name="{{ form.get('full_name') }}">
             {% for child in form %}
-                    <button type="button" class="btn btn" data-toggle="button" value="{{ child.get('value') }}">{{ child.get('label')|humanize }}</button>
+                    <button type="button" class="btn btn {{ form.get('classes')[loop.index0] }}" class-toggle="button" value="{{ child.get('value') }}">{{ child.get('label')|humanize }}</button>
                     {% if form.get('value')[loop.index0] == TRUE %}
                     {% set selected = child.get('value') %}
                     {% endif %}

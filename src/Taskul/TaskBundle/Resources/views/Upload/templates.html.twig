@@ -31,13 +31,20 @@
 <script type="text/template" id="file-uploader-file-template">
     <tr data-name="<%- name %>" class="" >
     <td >
+
+        <div class="caption row-fluid">
+        <span class="span1">
+                 <% if (url.match(new RegExp('(\.gif|\.jpg|\.jpeg|\.png)$', 'i'))) { %>
+          <img src='<%- thumbnail_url %>' class="thumbnail thumbnails-item" alt="<%-  name %>">
+
+        <% } %>
+        </span>
+            <span class="filename span6">
         {# Some things can be thumbnailed, some things not #}
         {# ACHTUNG: regular expression literals fail in Underscore templates #}
-        <!-- <% if (url.match(new RegExp('(\.gif|\.jpg|\.jpeg|\.png)$', 'i'))) { %>
-            <img src="<%- thumbnail_url %>" class="thumbnail-image" style="float:left"/>
-        <% } %> -->
-        <div class="caption row-fluid">
-            <span class="filename span7"><% if (name.length > 200) { %>
+
+
+            <% if (name.length > 200) { %>
                                       <%- name.substr(197,8)+'...' %>
                                       <% }else{ %>
                                       <%-  name %>

@@ -15,8 +15,8 @@
     {% endstylesheets %}
     {% endblock %}
     {% block body %}
-    {% include 'TaskBundle:partials:delete-modal.html.twig' %}
     {{ parent() }}
+    {% include 'TaskBundle:partials:delete-modal.html.twig' %}
     {% endblock %}
     {% block content %}
     {% include "TaskBundle:Upload:templates.html.twig" %}
@@ -25,12 +25,16 @@
         <div class="box span12">
             <div class="box-header" data-original-title>
                 <h2><i class="icon-user"></i><span class="break"></span>Task Update</h2>
+                <div class="box-icon">
+            <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+            </div>
             </div>
             <div class="box-content">
                 <form class="form-horizontal" action="{{ path('task_update', { 'id': entity.id, uploadId: uploadId }) }}" method="post" {{ form_enctype(edit_form) }} >
                     {{ form_errors(edit_form) }}
                     <fieldset>
                         {{ form_row(edit_form.name,{'help':'sdasdasasda'}) }}
+                        {{ form_row(edit_form.status) }}
                         {{ form_row(edit_form.description, {'attr': {'placeholder':'Introduzca una descripción ...', 'class':'wysihtml5 span11','rows':'10'} } ) }}
                         {{ form_row(edit_form.dateEnd) }}
 

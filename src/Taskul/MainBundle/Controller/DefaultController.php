@@ -34,4 +34,13 @@ class DefaultController extends Controller
     	}
     	return array('name' => $requestIds);
     }
+
+    /**
+     * @Route("/dashboard", name="dashboard")
+     * @Template()
+     */
+    public function dashboardAction(Request $request)
+    {
+
+    }
 }

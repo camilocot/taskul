@@ -1,7 +1,8 @@
 {% extends "TaskBundle::layout.html.twig" %}
     {% block body %}
-    {% include 'TaskBundle:partials:delete-modal.html.twig' %}
     {{ parent() }}
+    {% include 'TaskBundle:partials:delete-modal.html.twig' %}
+
     {% endblock %}
 {% block content %}
 {{ apy_breadcrumb_trail_render() }}
@@ -9,6 +10,9 @@
     <div class="box span12">
         <div class="box-header" data-original-title>
             <h2><i class="icon-user"></i><span class="break"></span>Task list</h2>
+            <div class="box-icon">
+            <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+            </div>
         </div>
         <div class="box-content">
 
@@ -17,7 +21,8 @@
                     <tr>
                         <th>Name</th>
                         <th>Description</th>
-                        <th>Dateend</th>
+                        <th>Status</th>
+                        <th>Tags</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -32,7 +37,8 @@
                             {% else %}
                             {{ desc }}
                             {% endif %}</td>
-                            <td>{% if entity.dateEnd %}{{ entity.dateEnd|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            <td>{{ entity.status|status(entity.status)|raw }}</td>
+                            <td>{{ entity.tags|labelsinactive|raw }} </td>
                             <td>
                                     {% if is_granted('VIEW', entity) %}
                                         <a href="{{ path('task_show', { 'id': entity.id }) }}" class="btn btn-info" title="show"><i class="icon-zoom-in icon-white"></i></a>
@@ -80,6 +86,14 @@ $(document).ready(function() {
     $('.datatable').dataTable({
         "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
         "sPaginationType": "bootstrap",
+         "bAutoWidth": false,
+         "aoColumns" : [
+            { sWidth: '10%' },
+            { sWidth: '30%' },
+            { sWidth: '5%' },
+            { sWidth: '45%' },
+            { sWidth: '10%', "bSortable": false  }
+        ],
         "oLanguage": {
             "sLengthMenu": "_MENU_ records per page"
         }
