@@ -1,6 +1,52 @@
 {
-    "hash": "dfc8ec1f1ec11e5af396226ec9cd3fa5",
+    "hash": "38d5afb3007a1343d10b103147d9fb7f",
     "packages": [
+        {
+            "name": "apy/breadcrumbtrail-bundle",
+            "version": "dev-master",
+            "target-dir": "APY/BreadcrumbTrailBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Abhoryo/APYBreadcrumbTrailBundle.git",
+                "reference": "54b1c92980f94fce1c617a85917ae9324596fe16"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Abhoryo/APYBreadcrumbTrailBundle/zipball/54b1c92980f94fce1c617a85917ae9324596fe16",
+                "reference": "54b1c92980f94fce1c617a85917ae9324596fe16",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "2.*"
+            },
+            "suggest": {
+                "ext-intl": "*"
+            },
+            "time": "2013-01-25 14:01:51",
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "APY\\BreadcrumbTrailBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Yoann Petit",
+                    "email": "abhoryo@free.fr"
+                }
+            ],
+            "description": "Symfony2 Breadcrumbs Bundle with annotations and PHP",
+            "homepage": "https://github.com/Abhoryo/APYBreadcrumbTrailBundle",
+            "keywords": [
+                "symfony",
+                "annotation",
+                "breadcrumbs",
+                "Breadcrumb Trail",
+                "fil ariane"
+            ]
+        },
         {
             "name": "doctrine/common",
             "version": "2.3.x-dev",
@@ -480,6 +526,52 @@
             "keywords": [
                 "tag",
                 "tagging"
+            ]
+        },
+        {
+            "name": "fresh/doctrine-enum-bundle",
+            "version": "dev-master",
+            "target-dir": "Fresh/Bundle/DoctrineEnumBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fre5h/DoctrineEnumBundle.git",
+                "reference": "c8002fb6fd77e9d3720fb1fa4b6f55f8cbbd5fad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fre5h/DoctrineEnumBundle/zipball/c8002fb6fd77e9d3720fb1fa4b6f55f8cbbd5fad",
+                "reference": "c8002fb6fd77e9d3720fb1fa4b6f55f8cbbd5fad",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "symfony/symfony": ">=2.1",
+                "doctrine/orm": ">=2.2"
+            },
+            "time": "2013-02-19 21:31:40",
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Fresh\\Bundle\\DoctrineEnumBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Artem Genvald",
+                    "email": "genvaldartem@gmail.com",
+                    "homepage": "http://genvald.name"
+                }
+            ],
+            "description": "Doctrine2 Enum type for Symfony2 applications",
+            "keywords": [
+                "dbal",
+                "doctrine",
+                "type",
+                "enum"
             ]
         },
         {
@@ -1435,12 +1527,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kriswallsmith/assetic.git",
-                "reference": "v1.1.0-alpha3"
+                "reference": "4fdc4b425cf2a55b2ffc068a4a1f215c73dbe863"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/v1.1.0-alpha3",
-                "reference": "v1.1.0-alpha3",
+                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/4fdc4b425cf2a55b2ffc068a4a1f215c73dbe863",
+                "reference": "4fdc4b425cf2a55b2ffc068a4a1f215c73dbe863",
                 "shasum": ""
             },
             "require": {
@@ -1466,7 +1558,7 @@
                 "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
                 "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin"
             },
-            "time": "2013-02-18 16:17:57",
+            "time": "2013-02-24 00:37:33",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1498,56 +1590,6 @@
                 "assets",
                 "compression",
                 "minification"
-            ]
-        },
-        {
-            "name": "liip/formtranslationchoice-bundle",
-            "version": "dev-master",
-            "target-dir": "Liip/FormTranslationChoiceBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/liip/LiipFormTranslationChoiceBundle.git",
-                "reference": "1748b9fb80de4583a682c0cd9a60766ce6f30a86"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/liip/LiipFormTranslationChoiceBundle/zipball/1748b9fb80de4583a682c0cd9a60766ce6f30a86",
-                "reference": "1748b9fb80de4583a682c0cd9a60766ce6f30a86",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "symfony/framework-bundle": ">=2.1,<2.3-dev"
-            },
-            "time": "2013-01-08 15:00:11",
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Liip\\FormTranslationChoiceBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "David Buchmann",
-                    "email": "david@liip.ch"
-                }
-            ],
-            "description": "A Symfony2 bundle that provides a form choice and a validation constraint that work with translation domains.",
-            "keywords": [
-                "i18n",
-                "Symfony2",
-                "translation",
-                "form",
-                "validation"
             ]
         },
         {
@@ -1771,13 +1813,13 @@
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sensio/SensioDistributionBundle",
-                "reference": "615f76309dae8c45c72b69578b034713c09767d1"
+                "url": "https://github.com/sensio/SensioDistributionBundle.git",
+                "reference": "v2.1.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensio/SensioDistributionBundle/zipball/615f76309dae8c45c72b69578b034713c09767d1",
-                "reference": "615f76309dae8c45c72b69578b034713c09767d1",
+                "url": "https://api.github.com/repos/sensio/SensioDistributionBundle/zipball/v2.1.8",
+                "reference": "v2.1.8",
                 "shasum": ""
             },
             "require": {
@@ -1818,12 +1860,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensio/SensioFrameworkExtraBundle.git",
-                "reference": "a03ae85a8555e5f8d0bc18235b1dd7f7ef27b127"
+                "reference": "v2.1.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensio/SensioFrameworkExtraBundle/zipball/a03ae85a8555e5f8d0bc18235b1dd7f7ef27b127",
-                "reference": "a03ae85a8555e5f8d0bc18235b1dd7f7ef27b127",
+                "url": "https://api.github.com/repos/sensio/SensioFrameworkExtraBundle/zipball/v2.1.8",
+                "reference": "v2.1.8",
                 "shasum": ""
             },
             "require": {
@@ -1864,13 +1906,13 @@
             "target-dir": "Sensio/Bundle/GeneratorBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sensio/SensioGeneratorBundle",
-                "reference": "v2.1.7"
+                "url": "https://github.com/sensio/SensioGeneratorBundle.git",
+                "reference": "v2.1.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/sensio/SensioGeneratorBundle/archive/v2.1.7.zip",
-                "reference": "v2.1.7",
+                "url": "https://api.github.com/repos/sensio/SensioGeneratorBundle/zipball/v2.1.8",
+                "reference": "v2.1.8",
                 "shasum": ""
             },
             "require": {
@@ -1962,12 +2004,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/AsseticBundle.git",
-                "reference": "bc24734343cc6a77dc143d0cf80f33b5e18e4cc0"
+                "reference": "v2.1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/bc24734343cc6a77dc143d0cf80f33b5e18e4cc0",
-                "reference": "bc24734343cc6a77dc143d0cf80f33b5e18e4cc0",
+                "url": "https://api.github.com/repos/symfony/AsseticBundle/zipball/v2.1.2",
+                "reference": "v2.1.2",
                 "shasum": ""
             },
             "require": {
@@ -1987,7 +2029,7 @@
             "suggest": {
                 "symfony/twig-bundle": ">=2.1.0,<2.3-dev"
             },
-            "time": "2013-02-18 16:21:03",
+            "time": "2013-02-23 22:29:21",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -2024,13 +2066,13 @@
             "target-dir": "Symfony/Bundle/MonologBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/MonologBundle",
-                "reference": "253fcda1128a0301aa68d040302cade65095f2c6"
+                "url": "https://github.com/symfony/MonologBundle.git",
+                "reference": "v2.1.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/MonologBundle/zipball/253fcda1128a0301aa68d040302cade65095f2c6",
-                "reference": "253fcda1128a0301aa68d040302cade65095f2c6",
+                "url": "https://api.github.com/repos/symfony/MonologBundle/zipball/v2.1.8",
+                "reference": "v2.1.8",
                 "shasum": ""
             },
             "require": {
@@ -2083,13 +2125,13 @@
             "target-dir": "Symfony/Bundle/SwiftmailerBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/SwiftmailerBundle",
-                "reference": "v2.1.7"
+                "url": "https://github.com/symfony/SwiftmailerBundle.git",
+                "reference": "v2.1.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/symfony/SwiftmailerBundle/archive/v2.1.7.zip",
-                "reference": "v2.1.7",
+                "url": "https://api.github.com/repos/symfony/SwiftmailerBundle/zipball/v2.1.8",
+                "reference": "v2.1.8",
                 "shasum": ""
             },
             "require": {
@@ -2138,12 +2180,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "22dbfc009fcf990d77d77073ea6f728b159ededc"
+                "reference": "ae5b94fd7cc6085e9b932b49fb44a38ea49e25f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/22dbfc009fcf990d77d77073ea6f728b159ededc",
-                "reference": "22dbfc009fcf990d77d77073ea6f728b159ededc",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/ae5b94fd7cc6085e9b932b49fb44a38ea49e25f7",
+                "reference": "ae5b94fd7cc6085e9b932b49fb44a38ea49e25f7",
                 "shasum": ""
             },
             "require": {
@@ -2192,7 +2234,7 @@
                 "propel/propel1": "dev-master",
                 "monolog/monolog": ">=1.0,<1.3-dev"
             },
-            "time": "2013-02-23 06:41:44",
+            "time": "2013-02-23 22:02:46",
             "type": "library",
             "autoload": {
                 "psr-0": {
@@ -2333,6 +2375,7 @@
         "friendsofsymfony/message-bundle": 20,
         "fpn/tag-bundle": 20,
         "exercise/htmlpurifier-bundle": 20,
-        "liip/formtranslationchoice-bundle": 20
+        "fresh/doctrine-enum-bundle": 20,
+        "apy/breadcrumbtrail-bundle": 20
     }
 }

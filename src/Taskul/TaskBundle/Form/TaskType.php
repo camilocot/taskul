@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
+use Taskul\TaskBundle\DBAL\Types\TaskStatusType;
 
 class TaskType extends AbstractType
 {
@@ -31,7 +32,7 @@ class TaskType extends AbstractType
         ->add('name')
         ->add('description','purified_textarea')
         ->add('dateEnd','date', array('widget'=>'single_text', 'format' => 'dd/MM/yyyy','required'=>FALSE))
-        ->add('status', 'status', array('expanded' => true,'preferred_choices' => array('inprogress')))
+        ->add('status', 'status', array('expanded' => true,'choices' => TaskStatusType::getChoices()))
         ->add('tags','text', array('mapped'=>false,'data'=>$options['tags'],'required'=>FALSE))
         ->add('members', 'entity', array(
 

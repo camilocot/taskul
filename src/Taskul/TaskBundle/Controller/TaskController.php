@@ -12,10 +12,14 @@ use Taskul\TaskBundle\Form\TaskType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\HttpFoundation\Response;
+use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
 /**
  * Task controller.
  *
  * @Route("/task")
+ *
+ * @Breadcrumb("Homepage", route="homepage")
+ * @Breadcrumb("Tasks", route="task")
  */
 class TaskController extends Controller {
 
@@ -38,6 +42,8 @@ class TaskController extends Controller {
      *
      * @Route("/{id}/show", name="task_show")
      * @Template()
+     *
+     * @Breadcrumb("Show")
      */
     public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -80,6 +86,8 @@ class TaskController extends Controller {
      *
      * @Route("/new", name="task_new")
      * @Template()
+     *
+     * @Breadcrumb("Create")
      */
     public function newAction() {
         $securityContext = $this->get('security.context');
@@ -114,6 +122,8 @@ class TaskController extends Controller {
      * @Route("/create/{newId}", name="task_create")
      * @Method("POST")
      * @Template("TaskBundle:Task:new.html.twig")
+     *
+     * @Breadcrumb("Create")
      */
     public function createAction(Request $request) {
         $entity = new Task();
@@ -210,6 +220,8 @@ class TaskController extends Controller {
      *
      * @Route("/{id}/edit", name="task_edit")
      * @Template()
+     *
+     * @Breadcrumb("Update")
      */
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -296,6 +308,8 @@ class TaskController extends Controller {
      *
      * @Route("/upload", name="task_upload")
      * @Template()
+     *
+     *
      */
     public function uploadAction() {
         $securityContext = $this->get('security.context');
@@ -383,6 +397,8 @@ class TaskController extends Controller {
      * @Route("/{id}/update/{editId}", name="task_update")
      * @Method("POST")
      * @Template("TaskBundle:Task:edit.html.twig")
+     *
+     * @Breadcrumb("Update")
      */
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
@@ -459,6 +475,7 @@ class TaskController extends Controller {
      *
      * @Route("/{id}/delete", name="task_delete")
      * @Method("POST")
+     *
      */
     public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);

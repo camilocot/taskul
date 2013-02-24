@@ -27,7 +27,8 @@
         "friendsofsymfony/message-bundle": "dev-master",
         "fpn/tag-bundle": "dev-master",
         "exercise/htmlpurifier-bundle": "dev-master",
-        "liip/formtranslationchoice-bundle": "dev-master"
+        "fresh/doctrine-enum-bundle": "dev-master",
+        "apy/breadcrumbtrail-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

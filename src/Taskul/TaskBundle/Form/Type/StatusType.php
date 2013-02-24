@@ -20,11 +20,11 @@ class StatusType extends AbstractType
         return 'status';
     }
 
-    private $statusChoices;
+    private $preferredChoice;
 
-    public function __construct(array $statusChoices)
+    public function __construct($preferredChoice)
     {
-        $this->statusChoices = $statusChoices;
+        $this->preferredChoice = $preferredChoice;
     }
 
     /**
@@ -33,7 +33,7 @@ class StatusType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
                 $resolver->setDefaults(array(
-            'choices' => $this->statusChoices,
+                'preferred_choices' => array($this->preferredChoice),
 
         ));
             }

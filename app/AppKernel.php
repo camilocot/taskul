@@ -36,6 +36,8 @@ class AppKernel extends Kernel
             new Taskul\TagBundle\TagBundle(),
             new Taskul\FileBundle\FileBundle(),
             new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
+            new Fresh\Bundle\DoctrineEnumBundle\FreshDoctrineEnumBundle(),
+            new APY\BreadcrumbTrailBundle\APYBreadcrumbTrailBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

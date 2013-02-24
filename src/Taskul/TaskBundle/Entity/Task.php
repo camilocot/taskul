@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Taskul\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use DoctrineExtensions\Taggable\Taggable;
+use Taskul\TaskBundle\DBAL\Types\TaskStatusType;
+use Fresh\Bundle\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 /**
  * Task
  *
@@ -13,10 +15,6 @@ use DoctrineExtensions\Taggable\Taggable;
  * @ORM\Entity(repositoryClass="Taskul\TaskBundle\Entity\Repository\TaskRepository")
  */
 class Task implements Taggable {
-
-    const STATUS_IN_PROGRESS = 'inprogress';
-    const STATUS_IN_TODO = 'todo';
-    const STATUS_IN_DONE = 'done';
 
     /**
      * @var integer
@@ -58,7 +56,7 @@ class Task implements Taggable {
     /**
      * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="\Taskul\UserBundle\Entity\User", inversedBy="ownTasks")
+     * @ORM\ManyToOne(targetEntity="Taskul\UserBundle\Entity\User", inversedBy="ownTasks")
      */
     private $owner;
 
@@ -67,7 +65,9 @@ class Task implements Taggable {
  * [$status description]
  * @var [type]
  *
- *  @ORM\Column(type="string")
+ * @DoctrineAssert\Enum(entity="Taskul\TaskBundle\DBAL\Types\TaskStatusType")
+ * @ORM\Column(name="status", type="TaskStatusType", nullable=false)
+ *
  */
 private $status;
 
@@ -232,7 +232,7 @@ private $status;
     /**
      * Set status
      *
-     * @param enumstatus $status
+     * @param TaskStatusType $status
      * @return Task
      */
     public function setStatus($status)
@@ -245,7 +245,7 @@ private $status;
     /**
      * Get status
      *
-     * @return enumstatus
+     * @return TaskStatusType
      */
     public function getStatus()
     {

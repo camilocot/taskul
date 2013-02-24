@@ -16,19 +16,7 @@
     {% endblock %}
     {% block content %}
     {% include "TaskBundle:Upload:templates.html.twig" %}
-
-    <div>
-        <hr>
-        <ul class="breadcrumb">
-            <li>
-                <a href="#">Home</a> <span class="divider">/</span>
-            </li>
-            <li>
-                <a href="#">Tasks</a>
-            </li>
-        </ul>
-        <hr>
-    </div>
+    {{ apy_breadcrumb_trail_render() }}
     <div class="row-fluid sortable">
         <div class="box span12">
             <div class="box-header" data-original-title>
