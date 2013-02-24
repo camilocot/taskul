@@ -21,8 +21,9 @@ class MenuBuilder
     {
         $menu = $this->factory->createItem('main');
         $menu->setChildrenAttribute('class','nav nav-tabs nav-stacked main-menu');
-        $menu->addChild('Task',array('uri'=>'#','label'=>'<i class="icon-chevron-up"></i><span class="hidden-tablet">Tareas</span>'))->setExtra('safe_label', FALSE);
+        $menu->addChild('Task',array('uri'=>'#','label'=>'<i class="icon-chevron-down icon-white"></i><span class="hidden-tablet">Tareas</span>'))->setExtra('safe_label', FALSE);
         $menu['Task']->setLinkAttribute('class', 'dropmenu');
+        $menu['Task']->setChildrenAttribute('id','task_ops');
 
         $menu['Task']->addChild('new_task',array('route'=>'task_new','label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Crear Nueva</span>'))->setExtra('safe_label', FALSE);
         $menu['Task']['new_task']->setLinkAttribute('class', 'submenu');

@@ -1,4 +1,3 @@
-
 /* Set the defaults for DataTables initialisation */
 $.extend( true, $.fn.dataTable.defaults, {
     "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
@@ -25,9 +24,9 @@ $.fn.dataTableExt.oApi.fnPagingInfo = function ( oSettings )
         "iTotal":         oSettings.fnRecordsTotal(),
         "iFilteredTotal": oSettings.fnRecordsDisplay(),
         "iPage":          oSettings._iDisplayLength === -1 ?
-            0 : Math.ceil( oSettings._iDisplayStart / oSettings._iDisplayLength ),
+        0 : Math.ceil( oSettings._iDisplayStart / oSettings._iDisplayLength ),
         "iTotalPages":    oSettings._iDisplayLength === -1 ?
-            0 : Math.ceil( oSettings.fnRecordsDisplay() / oSettings._iDisplayLength )
+        0 : Math.ceil( oSettings.fnRecordsDisplay() / oSettings._iDisplayLength )
     };
 };
 
@@ -46,10 +45,10 @@ $.extend( $.fn.dataTableExt.oPagination, {
 
             $(nPaging).addClass('pagination').append(
                 '<ul>'+
-                    '<li class="prev disabled"><a href="#">&larr; '+oLang.sPrevious+'</a></li>'+
-                    '<li class="next disabled"><a href="#">'+oLang.sNext+' &rarr; </a></li>'+
+                '<li class="prev disabled"><a href="#">&larr; '+oLang.sPrevious+'</a></li>'+
+                '<li class="next disabled"><a href="#">'+oLang.sNext+' &rarr; </a></li>'+
                 '</ul>'
-            );
+                );
             var els = $('a', nPaging);
             $(els[0]).bind( 'click.DT', { action: "previous" }, fnClickHandler );
             $(els[1]).bind( 'click.DT', { action: "next" }, fnClickHandler );
@@ -84,12 +83,12 @@ $.extend( $.fn.dataTableExt.oPagination, {
                 for ( j=iStart ; j<=iEnd ; j++ ) {
                     sClass = (j==oPaging.iPage+1) ? 'class="active"' : '';
                     $('<li '+sClass+'><a href="#">'+j+'</a></li>')
-                        .insertBefore( $('li:last', an[i])[0] )
-                        .bind('click', function (e) {
-                            e.preventDefault();
-                            oSettings._iDisplayStart = (parseInt($('a', this).text(),10)-1) * oPaging.iLength;
-                            fnDraw( oSettings );
-                        } );
+                    .insertBefore( $('li:last', an[i])[0] )
+                    .bind('click', function (e) {
+                        e.preventDefault();
+                        oSettings._iDisplayStart = (parseInt($('a', this).text(),10)-1) * oPaging.iLength;
+                        fnDraw( oSettings );
+                    } );
                 }
 
                 // Add / remove disabled classes from the static elements
@@ -113,7 +112,7 @@ $.extend( $.fn.dataTableExt.oPagination, {
  * TableTools Bootstrap compatibility
  * Required TableTools 2.1+
  */
-if ( $.fn.DataTable.TableTools ) {
+ if ( $.fn.DataTable.TableTools ) {
     // Set the classes that TableTools uses to something suitable for Bootstrap
     $.extend( true, $.fn.DataTable.TableTools.classes, {
         "container": "DTTT btn-group",

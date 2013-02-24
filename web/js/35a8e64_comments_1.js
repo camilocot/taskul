@@ -196,19 +196,21 @@
                 '.fos_comment_comment_edit_show_form',
                 function(e) {
                     var form_data = $(this).data();
-                    var that = this;
+                    var that = $(this);
 
                     FOS_COMMENT.get(
                         form_data.url,
                         {},
                         function(data) {
-                            var commentBody = $(that).parent().next();
+                            var commentBody = $(form_data.container);
 
                             // save the old comment for the cancel function
                             commentBody.data('original', commentBody.html());
 
                             // show the edit form
                             commentBody.html(data);
+
+                            that.trigger('fos_comment_show_edit_form', data);
                         }
                     );
                 }

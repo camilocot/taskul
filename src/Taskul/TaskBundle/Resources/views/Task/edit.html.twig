@@ -14,16 +14,20 @@
     <link rel="stylesheet" href="{{ asset_url }}">
     {% endstylesheets %}
     {% endblock %}
+    {% block body %}
+    {% include 'TaskBundle:partials:delete-modal.html.twig' %}
+    {{ parent() }}
+    {% endblock %}
     {% block content %}
     {% include "TaskBundle:Upload:templates.html.twig" %}
     {{ apy_breadcrumb_trail_render() }}
     <div class="row-fluid sortable">
         <div class="box span12">
             <div class="box-header" data-original-title>
-                <h2><i class="icon-user"></i><span class="break"></span>Task creation</h2>
+                <h2><i class="icon-user"></i><span class="break"></span>Task Update</h2>
             </div>
             <div class="box-content">
-                <form class="form-horizontal" action="{{ path('task_update', { 'id': entity.id, editId: editId }) }}" method="post" {{ form_enctype(edit_form) }} >
+                <form class="form-horizontal" action="{{ path('task_update', { 'id': entity.id, uploadId: uploadId }) }}" method="post" {{ form_enctype(edit_form) }} >
                     {{ form_errors(edit_form) }}
                     <fieldset>
                         {{ form_row(edit_form.name,{'help':'sdasdasasda'}) }}
@@ -47,9 +51,9 @@
                         <a class="btn btn-cancel" href="{{ path('task') }}">
                             Back to the list
                         </a>
-                        <a class="btn btn-danger" href="{{ path('task_delete', { 'id': entity.id }) }}">
+                        <button class="btn btn-danger" type="button" data-target="#deleteModal" data-toggle="modal">
                             Delete
-                        </a>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -60,59 +64,6 @@
     {% endblock %}
 
     {% block javascripts %}
-
-    <script type="text/javascript">
-//<![CDATA[
-// Enable the file uploader
-
-$(function() {
-    new PunkAveFileUploader({
-        'uploadUrl': {{ path('task_upload', { uploadId: editId, classId: entityClass , id: entity.id }) | json_encode | raw }},
-        'viewUrl': '{{ '/uploads/tmp/attachments/' ~ editId  }}' ,
-        'el': '.file-uploader',
-        'existingFiles': {{ existingFiles | json_encode | raw }},
-        'delaySubmitWhileUploading': '.form-horizontal',
-        'errorCallback': function(errorObj) {
-            if($('#msg-upload').length == 0)
-                $('<div class="page-alert"><div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><span id="msg-upload"></span></div></div>').insertAfter('.navbar');
-            $('#msg-upload').html($('#msg-upload').text()+"<div>"+errorObj.error+' '+errorObj.name)+'</div>';
-            $('.file-uploader').find('[data-spinner="1"]').hide();
-
-        }
-    });
-    $('#btn-trash').click(function(e){
-        $dp.datepicker('hide');
-        $('input#task_dateEnd').val('');
-    });
-    $dp = $('#datepick').datepicker()
-    .on('changeDate', function(ev){
-        $('input#task_dateEnd').val($('#datepick').data('date'));
-        $('#datepick').datepicker('hide');
-    });
-    $("select#task_members").select2();
-    $("input#task_tags").select2({tags:["{{ defaultTags|join('","')|raw}}"],tokenSeparators: [","] });
-    $('.wysihtml5').wysihtml5({
-        "html":true,
-        "color":true
-    });
-      $('div.btn-group[data-toggle-name=*]').each(function(){
-    var group   = $(this);
-    var form    = group.parents('form').eq(0);
-    var name    = group.attr('data-toggle-name');
-    var hidden  = $('input[name="' + name + '"]', form);
-    $('button', group).each(function(){
-      var button = $(this);
-      button.live('click', function(){
-          hidden.val($(this).val());
-      });
-      if(button.val() == hidden.val()) {
-        button.addClass('active');
-      }
-    });
-  });
-});
-//]]>
-</script>
 {% javascripts
     '@MainBundle/Resources/public/js/vendor/bootstrap-fileupload.js'
     '@MainBundle/Resources/public/js/vendor/jquery.ui.widget.js'
@@ -122,7 +73,9 @@ $(function() {
     '@MainBundle/Resources/public/js/vendor/wysihtml5-0.3.0.js'
     '@MainBundle/Resources/public/js/vendor/bootstrap-wysihtml5.js'
     '@PunkAveFileUploaderBundle/Resources/public/js/jquery.fileupload.js'
-    '@FileBundle/Resources/public/js/FileUploader.js' %}
+    '@FileBundle/Resources/public/js/FileUploader.js'
+     %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    {% include 'TaskBundle:partials:taskOp.js.twig' %}
     {% endblock %}

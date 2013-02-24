@@ -103,7 +103,10 @@ function PunkAveFileUploader(options)
       $.ajax({
         type: 'delete',
         url: setQueryParameter(uploadUrl, 'file', name),
-        success: function() {
+        success: function(data) {
+          if(data.error)
+            alert(data.error);
+          else
           file.remove();
         },
         dataType: 'json'

@@ -108,7 +108,7 @@ class TaskController extends Controller {
         return array(
             'entity' => $entity,
             'existingFiles' => $existingFiles,
-            'newId' => $newId,
+            'uploadId' => $newId,
             'form' => $form->createView(),
             'defaultTags' => $this->loadAllTags($owner,$em),
             'entityClass' =>$entity->__toString(), //@TODO Esto no se xq no va con el set en twig
@@ -119,7 +119,7 @@ class TaskController extends Controller {
     /**
      * Creates a new Task entity.
      *
-     * @Route("/create/{newId}", name="task_create")
+     * @Route("/create/{uploadId}", name="task_create")
      * @Method("POST")
      * @Template("TaskBundle:Task:new.html.twig")
      *
@@ -140,7 +140,7 @@ class TaskController extends Controller {
         // Para la carga de ficheros, id único asociado al formulario
         // se usa para mantener los ficheros aunque se recarge la web
         // (form error pej)
-        $newId = $this->getRequest()->get('newId');
+        $newId = $this->getRequest()->get('uploadId');
         $existingFiles = array();
 
 
@@ -177,7 +177,7 @@ class TaskController extends Controller {
             'entity' => $entity,
             'form' => $form->createView(),
             'existingFiles' => $existingFiles,
-            'newId' => $newId,
+            'uploadId' => $newId,
             'defaultTags' => $this->loadAllTags($user,$em),
             'entityClass' =>$entity->__toString(), //@TODO Esto no se xq no va con el set en twig
             );
@@ -259,7 +259,7 @@ class TaskController extends Controller {
 
         return array(
             'entity' => $entity,
-            'editId' => $editId,
+            'uploadId' => $editId,
             'existingFiles' => $existingFiles,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -394,7 +394,7 @@ class TaskController extends Controller {
     /**
      * Edits an existing Task entity.
      *
-     * @Route("/{id}/update/{editId}", name="task_update")
+     * @Route("/{id}/update/{uploadId}", name="task_update")
      * @Method("POST")
      * @Template("TaskBundle:Task:edit.html.twig")
      *
@@ -429,7 +429,7 @@ class TaskController extends Controller {
         // Para la carga de ficheros, id único asociado al formulario
         // se usa para mantener los ficheros aunque se recarge la web
         // (form error pej)
-        $editId = $this->getRequest()->get('editId');
+        $editId = $this->getRequest()->get('uploadId');
 
         $fileManager = $this->get('taskul.user.file_manager');
         $existingFiles = $fileManager->getFiles(array('folder' => 'tmp/attachments/' . $editId));
@@ -460,7 +460,7 @@ class TaskController extends Controller {
         }
 
         return array(
-            'editId' => $editId,
+            'uploadId' => $editId,
             'entity' => $entity,
             'existingFiles' => $existingFiles,
             'edit_form' => $editForm->createView(),
