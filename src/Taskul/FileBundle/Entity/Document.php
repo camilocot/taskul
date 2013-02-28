@@ -25,7 +25,7 @@ class Document
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
-    private $name;
+        private $name;
 
     /**
      * @var integer
@@ -40,25 +40,25 @@ class Document
      * @ORM\ManyToOne(targetEntity="\Taskul\UserBundle\Entity\User", inversedBy="documents")
      */
     private $owner;
-        /**
+    /**
      * @var string
      *
      * @ORM\Column(name="class", type="string", length=255)
      */
-private $class;
+        private $class;
     /**
      * @var integer $id
      *
      * @ORM\Column(name="id_object", type="integer")
      */
-private $idObject;
+    private $idObject;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="to_delete", type="boolean")
      */
-private $markToDelete;
+    private $markToDelete;
 
     public function __construct()
     {

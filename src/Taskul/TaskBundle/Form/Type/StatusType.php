@@ -45,6 +45,7 @@ class StatusType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         parent::buildView($view,$form,$options);
+        //@TODO esto hay que encontrar un modo mejor de ponerlo supongo que con el DBAL\Type\TaskStatusType
         $view->vars['classes'] = array('btn-warning','btn-danger','btn-success');
     }
 

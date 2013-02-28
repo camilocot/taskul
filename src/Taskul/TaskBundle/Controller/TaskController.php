@@ -61,7 +61,7 @@ class TaskController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Task entity.');
         }
-                    // check for view access
+        // check for view access
         if (false === $securityContext->isGranted('VIEW', $entity))
         {
             throw new AccessDeniedException();
@@ -72,8 +72,9 @@ class TaskController extends Controller {
         $deleteForm = $this->createDeleteForm($id);
         $uploadId = sprintf('%09d', mt_rand(0, 1999999999));
 
+
         $fileManager = $this->get('taskul.user.file_manager');
-        $fileManager->syncFiles($uploadId, $user, $entity);
+        $fileManager->syncToTmp($uploadId, $user, $entity);
 
         $existingFiles = $fileManager->getEntityFiles($entity);
         $tags = $this->loadTags($entity);
@@ -83,7 +84,7 @@ class TaskController extends Controller {
             'uploadId' => $uploadId,
             'existingFiles' => $existingFiles,
             'delete_form' => $deleteForm->createView(),
-            'entityClass' =>$entity->__toString(), //@TODO Esto no se xq no va con el set en twig
+            'entityClass' => $entity->__toString(), //@TODO Esto no se xq no va con el set en twig
             );
     }
 
@@ -173,7 +174,7 @@ class TaskController extends Controller {
                 $members = $entity->getMembers();
                 $aclManager->grant($entity,$members);
                 $members = $entity->getMembers();
-                $fileManager->syncUserFiles($newId,$user,$entity,$members);
+                $fileManager->syncFromTmp($newId,$user,$entity,$members);
 
                 return $this->redirect($this->generateUrl('task_show', array('id' => $entity->getId())));
             }
@@ -214,7 +215,7 @@ class TaskController extends Controller {
             $owner = $entity->getOwner();
             if($user->getId() !== $owner->getId())
                 array_push($members, $owner);
-            $fileManager->syncUserFiles($formId,$user,$entity);
+            $fileManager->syncFromTmp($formId,$user,$entity);
 
         }
         return $this->redirect($this->generateUrl('task_show', array('id' => $entity->getId())));
@@ -257,9 +258,9 @@ class TaskController extends Controller {
 
         $user = $this->get('security.context')->getToken()->getUser();
 
-        // @TODO: esto hay que ponerlo sobre el servicio del taskul (el toFolder)
+        // Se almacenan los ficheros asociados a la entidad en una localizacion temporal para trabajar con ellos
         $fileManager = $this->get('taskul.user.file_manager');
-        $fileManager->syncFiles($editId, $user, $entity);
+        $fileManager->syncToTmp($editId, $user, $entity);
 
         $existingFiles = $fileManager->getEntityFiles($entity);
 
@@ -458,7 +459,7 @@ class TaskController extends Controller {
                 $user = $securityContext->getToken()->getUser();
                 $members = $entity->getMembers();
                 // Sincronizamos los ficheros
-                $fileManager->syncUserFiles($editId,$user,$entity,$members);
+                $fileManager->syncFromTmp($editId,$user,$entity,$members);
 
 
                 return $this->redirect($this->generateUrl('task_show', array('id' => $id)));
@@ -507,7 +508,7 @@ class TaskController extends Controller {
 
             $user = $this->get('security.context')->getToken()->getUser();
             $fileManager = $this->get('taskul.user.file_manager');
-            $fileManager->removeUserFiles($user,$entity,$entity->getMembers());
+            $fileManager->removeUserFiles($entity);
 
             $em->remove($entity);
             $em->flush();
