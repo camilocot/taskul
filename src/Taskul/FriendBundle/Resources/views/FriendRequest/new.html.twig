@@ -1,5 +1,5 @@
-{% extends "::base.html.twig" %}
-{% block body %}
+{% extends "FriendBundle::layout.html.twig" %}
+{% block content %}
 <h1>FriendRequest creation</h1>
 
 <form action="{{ path('frequest_create') }}" method="post" {{ form_enctype(form) }}>

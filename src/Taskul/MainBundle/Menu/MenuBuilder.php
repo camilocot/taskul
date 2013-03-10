@@ -20,26 +20,28 @@ class MenuBuilder
     public function createMainMenu(Request $request)
     {
         $menu = $this->factory->createItem('main');
+
+        // Menu de tareas
         $menu->setChildrenAttribute('class','nav nav-tabs nav-stacked main-menu');
         $menu->addChild('Task',array('uri'=>'#','label'=>'<i class="icon-chevron-down icon-white"></i><span class="hidden-tablet">Tareas</span>'))->setExtra('safe_label', FALSE);
         $menu['Task']->setLinkAttribute('class', 'dropmenu');
         $menu['Task']->setChildrenAttribute('id','task_ops');
-
-        $menu['Task']->addChild('new_task',array('route'=>'task_new','label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Crear Nueva</span>'))->setExtra('safe_label', FALSE);
-        $menu['Task']['new_task']->setLinkAttribute('class', 'submenu');
+        $menu['Task']->addChild('new_task',array('route'=>'task_new','label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Crear Nueva</span>','class'=>'submenu'))->setExtra('safe_label', FALSE);
         $menu['Task']->addChild('list_task',array('route'=>'task','label'=>'<i class="fa-icon-list"></i><span class="hidden-tablet"> Ver todas</span>','class'=>'submenu'))->setExtra('safe_label', FALSE);
-        $menu->addChild('FriendRequest',array('uri'=>'#'));
-        $menu['FriendRequest']->setLinkAttribute('class', 'dropmenu btn-minimize');
 
-        $menu['FriendRequest']->addChild('new_freq',array('route'=>'frequest_new','label'=>'New','class'=>'submenu'));
-        $menu['FriendRequest']->addChild('list_freq_recibed',array('route'=>'frequest_recibed','label'=>'List Recibed','class'=>'submenu'));
-        $menu['FriendRequest']->addChild('list_freq_sended',array('route'=>'frequest_sended','label'=>'List Sended','class'=>'submenu'));
-        $menu['FriendRequest']->addChild('import',array('route'=>'import_fb','label'=>'Import FB','class'=>'submenu'));
+        // Menu de solicitudes de amistad
+        $menu->addChild('FriendRequest',array('uri'=>'#','label'=>'<i class="icon-chevron-down icon-white"></i><span class="hidden-tablet">Solicitudes amistad</span>'))->setExtra('safe_label', FALSE);
+        $menu['FriendRequest']->setLinkAttribute('class', 'dropmenu');
+        $menu['FriendRequest']->setChildrenAttribute('id','friendreq_ops');
+        $menu['FriendRequest']->addChild('new_freq',array('route'=>'frequest_new','label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Crear</span>','class'=>'submenu'))->setExtra('safe_label', FALSE);
+        $menu['FriendRequest']->addChild('list_freq_recibed',array('route'=>'frequest_recibed','label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Recibidas</span>','class'=>'submenu'))->setExtra('safe_label', FALSE);
+        $menu['FriendRequest']->addChild('list_freq_sended',array('route'=>'frequest_sended','label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Enviadas</span>','class'=>'submenu'))->setExtra('safe_label', FALSE);
+        $menu['FriendRequest']->addChild('import',array('route'=>'import_fb','label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Invitar amigos de Facebook</span>','class'=>'submenu'))->setExtra('safe_label', FALSE);
 
-        $menu->addChild('Friends',array('uri'=>'#'));
+        $menu->addChild('Friends',array('uri'=>'#','label'=>'<i class="icon-chevron-down icon-white"></i><span class="hidden-tablet">Amigos</span>'))->setExtra('safe_label', FALSE);
         $menu['Friends']->setLinkAttribute('class', 'dropmenu');
-
-        $menu['Friends']->addChild('list_fri',array('route'=>'myfriends','label'=>'List','class'=>'submenu'));
+        $menu['Friends']->setChildrenAttribute('id','friends_ops');
+        $menu['Friends']->addChild('list_fri',array('route'=>'myfriends','label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Listado</span>','class'=>'submenu'))->setExtra('safe_label', FALSE);
         return $menu;
     }
 

@@ -1,38 +1,94 @@
-{% extends "UserBundle::layout.html.twig" %}
-
+{% extends "FriendBundle::layout.html.twig" %}
+{% block stylesheets %}
+{{ parent() }}
+{% stylesheets
+    '@MainBundle/Resources/public/css/prettyCheckable.css'
+    '@MainBundle/Resources/public/css/bootstrapSwitch.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+    {% endblock %}
 {% block content %}
 {% include "UserBundle:Helper:facebook_button.html.twig" %}
 
-<h1>FriendRequest list</h1>
-{% if frequest|length > 0%}
-Se han enviado {{ frequest|length }} invitaciones.
-{% else %}
-<form action="" method="post" {{ form_enctype(form) }} id="form">
-  {% for t in form.contacts %}
-  <div class="row-fluid">
-
-  <div class="span1">{{ form_widget(t)}}</div>
-   <div class="span2"> {{ form_label(t)}}</div>
+<div class="row-fluid sortable">
+  <div class="box span12">
+    <div class="box-header" data-original-title>
+      <h2><i class="icon-user"></i><span class="break"></span>Invita a tus amigos</h2>
+      <div class="box-icon">
+        <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+      </div>
+    </div>
+    <div class="box-content">
+      {% if frequest|length > 0%}
+      Se han enviado {{ frequest|length }} invitaciones.
+      {% else %}
+      <form action="" method="post" {{ form_enctype(form) }} id="form" class="form-horizontal">
+        <legend>Selecciona los amigos</legend>
+        <div class="row-fluid">
+          <div class="span6">
+        <div class="control-group">
+        <label class="control-label" for="ckall">Seleccionar todos</label>
+        <div class="controls">
+        <div class="switch" id="checkAll" data-on-label="<i class='icon-ok icon-white'></i>" data-off-label="<i class='icon-remove'></i>" tabindex="0"><input type="checkbox" data-no-uniform="true" id="ckall"></div>
+        </div>
+        </div>
+      </div>
+<div class="span6">
+        <div class="control-group">
+        <label class="control-label" for="ckinvert">Invertir selección</label>
+        <div class="controls">
+        <div class="switch" id="checkInvert" data-on-label="<i class='icon-ok icon-white'></i>" data-off-label="<i class='icon-remove'></i>" tabindex="0"><input type="checkbox" data-no-uniform="true" id="ckinvert"></div>
+        </div>
+        </div>
 </div>
+        </div>
 
-  {% if imgUrls[loop.index0] is defined %}
-  <div class="row-fluid">
-<div class="span2 offset1"><img src="{{ imgUrls[loop.index0] }}" /></div>
+        <fieldset id="slaves">
+        {% for t in form.contacts %}
+        {% if loop.index0 % 4 == 0 %}
+          <div class="row-fluid">
+        {% endif %}
+           <span class="span3">
+        {{ form_widget(t, {'attr': {'class':'pretty', 'data-no-uniform':'true'} } )}}
+        {% if imgUrls[loop.index0] is defined %}
+        <img src="{{ imgUrls[loop.index0] }}" />
+        {% endif %}
+        {{ form_label(t)}}
+
+
+      </span>
+        {% if loop.index % 4 == 0 or loop.last %}
+        </div>
+        {% endif %}
+        {% endfor %}
+      </fieldset>
+      <legend>Introduce el mensaje a enviar</legend>
+        <fieldset>
+        {{ form_rest(form) }}
+        <input type="hidden" value="no" name="form[sended]" id="form_sended" />
+
+      <div class="form-actions">
+      <button type="button"
+      id="sendinvfb"
+       class="btn btn-primary"
+      />Send Request to Users Directly</button>
+    </div>
+  </fieldset>
+      </form>
+    {% endif %}
+  </div>
 </div>
-{% endif %}
-{% endfor %}
-    {{ form_rest(form) }}
-    <input type="hidden" value="no" name="form[sended]" id="form_sended" />
-
-</form>
-     <input type="button"
-        id="sendinvfb"
-        value="Send Request to Users Directly"
-      />
-      </p>
-      {% endif %}
+</div>
 {% endblock %}
 {% block javascripts %}
+{% javascripts
+    '@MainBundle/Resources/public/js/vendor/prettyCheckable.js'
+    '@MainBundle/Resources/public/js/vendor/jquery.checkall.js'
+    '@MainBundle/Resources/public/js/vendor/bootstrapSwitch.js'
+     %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 <script>
 $(document).ready(function(){
   $('#sendinvfb').click(function(){
@@ -45,28 +101,29 @@ $(document).ready(function(){
 
     if(0 == selectedItems.length || msg == '')
      alert('selecciona alguno');
-    else
-    {
-        FB.ui({method: 'apprequests',
-          message: msg,
-          to: selectedItems,
-        }, requestCallback);
-    }
-  });
+   else
+   {
+    /*FB.ui({method: 'apprequests',
+      message: msg,
+      to: selectedItems,
+    }, requestCallback);*/
+  }
+});
+   $('input.pretty').prettyCheckable();
 });
 
 function sendRequestViaMultiFriendSelector() {
-        FB.ui({method: 'apprequests',
-          message: 'My Great Request'
-        }, requestCallback);
-      }
+  FB.ui({method: 'apprequests',
+    message: 'My Great Request'
+  }, requestCallback);
+}
 
-      function requestCallback(response) {
+function requestCallback(response) {
         // Handle callback here
         if(response != null){
           $('input#form_sended').val(response.request);
           $('form#form').submit();
         }
       }
-</script>
-{% endblock %}
+      </script>
+      {% endblock %}

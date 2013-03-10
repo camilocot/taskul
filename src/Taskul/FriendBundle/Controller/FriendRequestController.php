@@ -26,14 +26,17 @@ class FriendRequestController extends Controller {
      * @Template()
      */
     public function indexRecibedAction() {
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->get('security.context')->getToken()->getUser();
+      $em = $this->getDoctrine()->getManager();
+      $user = $this->get('security.context')->getToken()->getUser();
+      $deleteForm = $this->createDeleteForm(-1);
 
-        $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('to'=>$user, 'active' => FALSE));
+      $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('to'=>$user, 'active' => FALSE));
 
-        return array(
-            'entities' => $entities,
-            );
+      return array(
+        'entities' => $entities,
+        'entity' => array('id' => -1),
+        'delete_form' => $deleteForm->createView(),
+        );
     }
 
     /**
@@ -43,14 +46,17 @@ class FriendRequestController extends Controller {
      * @Template()
      */
     public function indexSendedAction() {
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->get('security.context')->getToken()->getUser();
+      $em = $this->getDoctrine()->getManager();
+      $user = $this->get('security.context')->getToken()->getUser();
+      $deleteForm = $this->createDeleteForm(-1);
 
-        $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('from'=>$user, 'active' => FALSE));
+      $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('from'=>$user, 'active' => FALSE));
 
-        return array(
-            'entities' => $entities,
-            );
+      return array(
+        'entities' => $entities,
+        'entity' => array('id' => -1),
+        'delete_form' => $deleteForm->createView(),
+        );
     }
     /**
      * Finds and displays a FriendRequest entity.
@@ -60,28 +66,28 @@ class FriendRequestController extends Controller {
      */
     public function showAction($id) {
 
-        $em = $this->getDoctrine()->getManager();
-        $securityContext = $this->get('security.context');
-        $user = $securityContext->getToken()->getUser();
+      $em = $this->getDoctrine()->getManager();
+      $securityContext = $this->get('security.context');
+      $user = $securityContext->getToken()->getUser();
 
-        $entity = $em->getRepository('FriendBundle:FriendRequest')->showRequest($id, $user);
+      $entity = $em->getRepository('FriendBundle:FriendRequest')->showRequest($id, $user);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find FriendRequest entity.');
-        }
+      if (!$entity) {
+        throw $this->createNotFoundException('Unable to find FriendRequest entity.');
+      }
 
             // check for view access
-        if (false === $securityContext->isGranted('VIEW', $entity))
-        {
-            throw new AccessDeniedException();
-        }
+      if (false === $securityContext->isGranted('VIEW', $entity))
+      {
+        throw new AccessDeniedException();
+      }
 
-        $deleteForm = $this->createDeleteForm($id);
+      $deleteForm = $this->createDeleteForm($id);
 
-        return array(
-            'entity' => $entity,
-            'delete_form' => $deleteForm->createView(),
-            );
+      return array(
+        'entity' => $entity,
+        'delete_form' => $deleteForm->createView(),
+        );
     }
 
     /**
@@ -91,13 +97,13 @@ class FriendRequestController extends Controller {
      * @Template()
      */
     public function newAction() {
-        $entity = new FriendRequest();
-        $form = $this->createForm(new FriendRequestType(), $entity);
+      $entity = new FriendRequest();
+      $form = $this->createForm(new FriendRequestType(), $entity);
 
-        return array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-            );
+      return array(
+        'entity' => $entity,
+        'form' => $form->createView(),
+        );
     }
 
     /**
@@ -109,7 +115,7 @@ class FriendRequestController extends Controller {
      * @Template()
      */
     public function importFacebookAction(Request $request) {
-        $fb = $this->get('my.facebook.user');
+      $fb = $this->get('my.facebook.user');
         $fRequest = array(); //Almacenamos los objectos (si se han creado solicitudes) para darles luego permisos ace
 
 
@@ -147,66 +153,66 @@ class FriendRequestController extends Controller {
             $imgUrls[$i] = $fbc['picture']['data']['url'];
             $searchContact[$fbc['id']] = $i;
             $i++;
-        }
+          }
 
-        $formBuilder->add('contacts', 'choice', array(
+          $formBuilder->add('contacts', 'choice', array(
             'choices'   => $choices,
             'multiple'  => true,
             'expanded' => true,
             ));
 
-        $form = $formBuilder->getForm();
+          $form = $formBuilder->getForm();
 
-        if ($request->isMethod('POST')) {
+          if ($request->isMethod('POST')) {
             $form->bind($request);
             $formData = $request->request->get($form->getName());
             if($formData['sended'] != 'no' && count($formData['contacts'])>0){ /* @TODO hay que  hacer preg_match con el id del facebook */
-                foreach ($formData['contacts'] as $f){
+              foreach ($formData['contacts'] as $f){
 
-                    $friendReq = new FriendRequest();
-                    $friendReq->setFrom($user);
-                    $friendReq->setFbrequestid($formData['sended']);
-                    $friendReq->setFbid($f);
-                    $friendReq->setMessage($formData['message']);
-                    if(isset($searchContact[$f])){
-                      $id = $searchContact[$f];
-                      $fbData = array('fbdata'=>array('imgurl'=>$imgUrls[$id],'name'=>$choices[$id][$f]));
-                      $friendReq->setAddtionalData($fbData);
-                    }
-                    $em->persist($friendReq);
-                    $fRequest[] = $friendReq;
+                $friendReq = new FriendRequest();
+                $friendReq->setFrom($user);
+                $friendReq->setFbrequestid($formData['sended']);
+                $friendReq->setFbid($f);
+                $friendReq->setMessage($formData['message']);
+                if(isset($searchContact[$f])){
+                  $id = $searchContact[$f];
+                  $fbData = array('fbdata'=>array('imgurl'=>$imgUrls[$id],'name'=>$choices[$id][$f]));
+                  $friendReq->setAddtionalData($fbData);
                 }
-                $em->flush();
+                $em->persist($friendReq);
+                $fRequest[] = $friendReq;
+              }
+              $em->flush();
 
                 // Vamos a darles permiso @FIXME: comprobar si hay que hacer flush para los ace o
                 // se puede hacer antes con el persist (creo que no)
                 //
 
-                foreach ($fRequest as $f){
-                    $aclManager->grant($f);
-                }
+              foreach ($fRequest as $f){
+                $aclManager->grant($f);
+              }
             }
+          }
+        }else {
+
+          return $this->redirect($this->get('fos_facebook.api')->getLoginUrl() );
         }
-    }else {
 
-        return $this->redirect($this->get('fos_facebook.api')->getLoginUrl() );
-    }
+        return array(
+          'frequest' => $fRequest,
+          'contacts' => $fbContact,
+          'form' => $form->createView(),
+          'imgUrls' => $imgUrls,
+          );
+      }
 
-    return array(
-        'frequest' => $fRequest,
-        'contacts' => $fbContact,
-        'form' => $form->createView(),
-        'imgUrls' => $imgUrls,
-        );
-}
-
-public function checkFriendsEmail($friends, $email) {
-    foreach ($friends as $friend) {
-        if ($friend->getEmail() === $email)
+      public function checkFriendsEmail($friends, $email) {
+        foreach ($friends as $friend) {
+          if ($friend->getEmail() === $email)
             return TRUE;
-    }
-    return FALSE;
-}
+        }
+        return FALSE;
+      }
 
     /**
      * Creates a new FriendRequest entity.
@@ -216,31 +222,119 @@ public function checkFriendsEmail($friends, $email) {
      * @Template("FriendBundle:FriendRequest:new.html.twig")
      */
     public function createAction(Request $request) {
-        $entity = new FriendRequest();
-        $owner = $this->get('security.context')->getToken()->getUser();
-        $entity->setFrom($owner);
-        $time = microtime(true) . '_' . uniqid();
-        $entity->setHash(hash("sha256", $time . $owner->getId(), false));
+      $entity = new FriendRequest();
+      $owner = $this->get('security.context')->getToken()->getUser();
+      $entity->setFrom($owner);
+      $time = microtime(true) . '_' . uniqid();
+      $entity->setHash(hash("sha256", $time . $owner->getId(), false));
 
-        $form = $this->createForm(new FriendRequestType(), $entity);
+      $form = $this->createForm(new FriendRequestType(), $entity);
 
-        $form->bind($request);
+      $form->bind($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+      if ($form->isValid()) {
+        $em = $this->getDoctrine()->getManager();
 
-            $this->_processEntity($owner, $em, $form);
+        $this->_processEntity($owner, $em, $form);
 
 
-            return $this->redirect($this->generateUrl('frequest_sended'));
-        }
+        return $this->redirect($this->generateUrl('frequest_sended'));
+      }
 
-        return array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-            );
+      return array(
+        'entity' => $entity,
+        'form' => $form->createView(),
+        );
     }
+
     /**
+     * Deletes a FriendRequest entity.
+     *
+     * @Route("/{id}/delete", name="frequest_delete") options={ "expose": true })
+     * @Method("POST")
+     *
+     */
+    public function deleteAction(Request $request, $id) {
+      $em = $this->getDoctrine()->getManager();
+      $entity = $em->getRepository('FriendBundle:FriendRequest')->findOneBy(array('id' => $id, 'active' => FALSE));
+
+      if (!$entity) {
+        throw $this->createNotFoundException('Unable to find FriendRequest entity.');
+      }
+
+      $securityContext = $this->get('security.context');
+
+        // check for edit access
+      if (false === $securityContext->isGranted('DELETE', $entity))
+      {
+        throw new AccessDeniedException();
+      }
+
+      $aclManager = $this->get('taskul.acl_manager');
+      $aclManager->revokeAll($entity);
+
+      $em->remove($entity);
+      $em->flush();
+
+      return $this->redirect($this->generateUrl('frequest_recibed'));
+    }
+
+    /**
+     *
+     *
+     * @Route("/register/{hash}", name="frequest_register")
+     *
+     */
+    public function registerAction($hash) {
+      if (null !== $this->getDoctrine()->getRepository('FriendBundle:FriendRequest')
+        ->findOneBy(array('hash' => $hash, 'active' => FALSE))) {
+
+        $this->get('session')->set('request_hash', $hash);
+    }
+    return $this->redirect(
+      $this->generateUrl("fos_user_registration_register")
+      );
+  }
+
+    /**
+     *
+     *
+     * @Route("/activate/{id}", name="frequest_activate")
+     *
+     */
+    public function activateAction($id) {
+      $to = $this->get('security.context')->getToken()->getUser();
+      $em = $this->getDoctrine()->getEntityManager();
+      $request = $em->getRepository('FriendBundle:FriendRequest')
+      ->findOneBy(array('id' => $id, 'to' => $to, 'active' => FALSE));
+
+      if (!$request) {
+        throw $this->createNotFoundException('Unable to find Request entity.');
+      }
+
+      $securityContext = $this->get('security.context');
+
+        // check for edit access
+      if (false === $securityContext->isGranted('EDIT', $request))
+      {
+        throw new AccessDeniedException();
+      }
+
+      $from = $request->getFrom();
+      $to->addMyFriend($from);
+      $to->addFriendsWithMe($from);
+      $from->addMyFriend($to);
+      $from->addFriendsWithMe($to);
+      $request->setActive(TRUE);
+      $em->persist($to);
+      $em->persist($from);
+      $em->persist($request);
+      $em->flush();
+
+      return $this->redirect($this->generateUrl('myfriends'));
+    }
+
+        /**
      * Comprueba si el destinatario de una peticion de amistad esta dado
      * de alta en el sistema y si es así le asigna el campo TO del destinario
      *
@@ -249,41 +343,47 @@ public function checkFriendsEmail($friends, $email) {
      * @param  [type] $em     [description]
      * @return [type]         [description]
      */
-    private function _checkTo($entity, $email, $em) {
-        if (null === $entity->getTo()) {
+        private function _checkTo($entity, $email, $em) {
+          if (null === $entity->getTo()) {
             $to = $em->getRepository('UserBundle:User')->findOneByEmail($email);
 
             if (null !== $to) {
-                $entity->setTo($to);
+              $entity->setTo($to);
             }
+          }
+          return $entity;
         }
-        return $entity;
-    }
 
-    private  function _getHash($id){
-        $time = microtime(true) . '_' . uniqid();
-        return hash("sha256", $time . $id, false);
-    }
+        private  function _getHash($id){
+          $time = microtime(true) . '_' . uniqid();
+          return hash("sha256", $time . $id, false);
+        }
 
+  private function createDeleteForm($id) {
+                  return $this->createFormBuilder(array('id' => $id))
+                  ->add('id', 'hidden')
+                  ->getForm()
+                  ;
+                }
 
-    private function _processEntity($owner,$em,$form){
+        private function _processEntity($owner,$em,$form){
         // Buscamos los emails
-        $data = $form->getData();
-        $emails = explode(';', $data->getEmail());
-        $aclManager = $this->get('taskul.acl_manager');
-        foreach ($emails as $email) {
+          $data = $form->getData();
+          $emails = explode(';', $data->getEmail());
+          $aclManager = $this->get('taskul.acl_manager');
+          foreach ($emails as $email) {
 
 
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     // Comprobamos si estan en los contactos del usuario
-                $friends = $owner->getMyFriends();
-                if (FALSE === $this->checkFriendsEmail($friends, $email)) {
-                    $entity = $em->getRepository('FriendBundle:FriendRequest')->findOneBy(array('from' => $owner, 'email' => $email, 'active' => FALSE));
+              $friends = $owner->getMyFriends();
+              if (FALSE === $this->checkFriendsEmail($friends, $email)) {
+                $entity = $em->getRepository('FriendBundle:FriendRequest')->findOneBy(array('from' => $owner, 'email' => $email, 'active' => FALSE));
                         $newEntity = FALSE; // Nos va a indicar si la crea un nuevo objeto para crearle la ACE del dueño
                         if (null === $entity) {
-                            $entity = new FriendRequest();
-                            $entity->setFrom($owner);
-                            $newEntity = TRUE;
+                          $entity = new FriendRequest();
+                          $entity->setFrom($owner);
+                          $newEntity = TRUE;
 
                         }
                         $entity->setEmail($email);
@@ -296,103 +396,17 @@ public function checkFriendsEmail($friends, $email) {
                         $em->flush();
 
                         if(TRUE == $newEntity)
-                            $aclManager->grant($entity);
+                          $aclManager->grant($entity);
 
                         $to = $entity->getTo();
                         if(null !== $to)
-                            $aclManager->grant($entity, $to->getUsername(), 'Taskul\UserBundle\Entity\User', MaskBuilder::MASK_OPERATOR);
+                          $aclManager->grant($entity, $to->getUsername(), 'Taskul\UserBundle\Entity\User', MaskBuilder::MASK_OPERATOR);
 
 
                         /* @TODO: Aqui hay que enviar emails / mirar FOSmessagebundle */
+                      }
                     }
+                  }
+
                 }
-            }
-
-        }
-    /**
-     * Deletes a FriendRequest entity.
-     *
-     * @Route("/{id}/delete", name="frequest_delete")
-     *
-     */
-    public function deleteAction(Request $request, $id) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('FriendBundle:FriendRequest')->findOneBy(array('id' => $id, 'active' => FALSE));
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find FriendRequest entity.');
-            }
-
-            $securityContext = $this->get('security.context');
-
-        // check for edit access
-            if (false === $securityContext->isGranted('DELETE', $entity))
-            {
-                throw new AccessDeniedException();
-            }
-
-            $aclManager = $this->get('taskul.acl_manager');
-            $aclManager->revokeAll($entity);
-
-            $em->remove($entity);
-            $em->flush();
-
-        return $this->redirect($this->generateUrl('frequest_recibed'));
-    }
-
-    /**
-     *
-     *
-     * @Route("/register/{hash}", name="frequest_register")
-     *
-     */
-    public function registerAction($hash) {
-        if (null !== $this->getDoctrine()->getRepository('FriendBundle:FriendRequest')
-            ->findOneBy(array('hash' => $hash, 'active' => FALSE))) {
-
-            $this->get('session')->set('request_hash', $hash);
-    }
-    return $this->redirect(
-        $this->generateUrl("fos_user_registration_register")
-        );
-}
-
-    /**
-     *
-     *
-     * @Route("/activate/{id}", name="frequest_activate")
-     *
-     */
-    public function activateAction($id) {
-        $to = $this->get('security.context')->getToken()->getUser();
-        $em = $this->getDoctrine()->getEntityManager();
-        $request = $em->getRepository('FriendBundle:FriendRequest')
-        ->findOneBy(array('id' => $id, 'to' => $to, 'active' => FALSE));
-
-        if (!$request) {
-            throw $this->createNotFoundException('Unable to find Request entity.');
-        }
-
-        $securityContext = $this->get('security.context');
-
-        // check for edit access
-        if (false === $securityContext->isGranted('EDIT', $request))
-        {
-            throw new AccessDeniedException();
-        }
-
-        $from = $request->getFrom();
-        $to->addMyFriend($from);
-        $to->addFriendsWithMe($from);
-        $from->addMyFriend($to);
-        $from->addFriendsWithMe($to);
-        $request->setActive(TRUE);
-        $em->persist($to);
-        $em->persist($from);
-        $em->persist($request);
-        $em->flush();
-
-        return $this->redirect($this->generateUrl('myfriends'));
-    }
-
-}
+              }
