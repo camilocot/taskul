@@ -54,4 +54,13 @@ class MenuBuilder
         $menu->addChild('Register',array('route'=>'fos_user_registration_register'));
         return $menu;
     }
+
+    public function createPublicLoggedMenu(Request $request)
+    {
+        $menu = $this->factory->createItem('public_logged');
+        $menu->setChildrenAttribute('class','nav');
+        $menu->addChild('Home',array('route'=>'homepage'));
+        $menu->addChild('DashBoard',array('route'=>'dashboard'));
+        return $menu;
+    }
 }

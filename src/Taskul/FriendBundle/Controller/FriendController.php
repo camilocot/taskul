@@ -24,18 +24,20 @@ class FriendController extends Controller {
     public function indexAction() {
         $user = $this->get('security.context')->getToken()->getUser();
 
-
+        $deleteForm = $this->createDeleteForm(-1);
         $entities = $user->getMyFriends();
 
         return array(
             'entities' => $entities,
+            'entity' => array('id' => -1),
+            'delete_form' => $deleteForm->createView(),
             );
     }
 
     /**
      * Deletes a FriendRequest entity.
      *
-     * @Route("/{id}/delete", name="myfriends_delete")
+     * @Route("/{id}/delete", name="myfriends_delete", options={ "expose": true })
      *
      */
     public function deleteAction(Request $request, $id) {
@@ -85,6 +87,13 @@ class FriendController extends Controller {
 
         return $this->redirect($this->generateUrl('myfriends'));
     }
+
+            private function createDeleteForm($id) {
+          return $this->createFormBuilder(array('delete_id' => $id))
+          ->add('delete_id', 'hidden')
+          ->getForm()
+          ;
+        }
 }
 
 ?>

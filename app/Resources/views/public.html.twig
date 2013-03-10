@@ -19,7 +19,12 @@
  			</button>
  			<a class="brand" href="{{ path('homepage') }}">Taskul</a>
  			<div class="nav-collapse collapse">
+
+ 				{% if is_granted('ROLE_USER') %}
+ 				{{ knp_menu_render('public_logged', {'currentClass': 'active'})  }}
+ 				{% else %}
  				{{ knp_menu_render('public', {'currentClass': 'active'})  }}
+ 				{% endif %}
  			</div><!--/.nav-collapse -->
  		</div>
  	</div>

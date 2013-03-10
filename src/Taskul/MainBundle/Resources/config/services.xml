@@ -30,6 +30,10 @@
             <tag name="knp_menu.menu" alias="public" />
             <argument type="service" id="request" />
         </service>
+        <service id="taskul_user.menu.public.logged" class="%user_menu.item.class%" scope="request" factory-service="taskul_user.menu_builder" factory-method="createPublicLoggedMenu">
+            <tag name="knp_menu.menu" alias="public_logged" />
+            <argument type="service" id="request" />
+        </service>
         <service id="taskul.twig.status_color" class="Taskul\MainBundle\Twig\LabelsExtension">
         <tag name="twig.extension" />
         </service>
