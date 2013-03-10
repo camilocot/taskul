@@ -8,11 +8,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+
 
 /**
  * FriendRequest controller.
  *
  * @Route("/friend")
+ *
+ * @Breadcrumb("Dashboard", route="dashboard")
+ * @Breadcrumb("Friends", route="myfriends")
  */
 class FriendController extends Controller {
     /**
