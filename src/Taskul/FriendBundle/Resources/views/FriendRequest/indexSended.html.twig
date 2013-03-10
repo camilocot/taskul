@@ -4,6 +4,8 @@
     {% include 'FriendBundle:partials:delete-modal.html.twig' %}
     {% endblock %}
 {% block content %}
+    {{ apy_breadcrumb_trail_render() }}
+
 <div class="row-fluid sortable">
     <div class="box span12">
         <div class="box-header" data-original-title>
@@ -25,7 +27,6 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('frequest_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
             <td>{{ entity.message }}</td>
             <td>
                 {% if entity.email is not none %}
@@ -38,10 +39,10 @@
             </td>
             <td>
                 {% if is_granted('VIEW',entity) %}
-                    <a href="{{ path('frequest_show', { 'id': entity.id }) }}" class="btn btn-success" title="edit"><i class="icon-edit icon-white"></i></a>
+                    <a href="{{ path('frequest_show', { 'id': entity.id }) }}" class="btn btn-info" title="view"><i class="fa-icon-eye-open icon-white"></i></a>
                 {% endif %}
                 {% if is_granted('DELETE',entity) %}
-                    <button class="btn btn-danger delete-modal-btn" type="button" data-id="{{ entity.id }}" data-target="#deleteModal" data-toggle="modal"><i class="icon-trash icon-white"></i></button>
+                    <button class="btn btn-danger delete-modal-btn" type="button" data-id="{{ entity.id }}" data-target="#deleteModal" data-toggle="modal"><i class="fa-icon-trash icon-white"></i></button>
                 {% endif %}
             </td>
         </tr>

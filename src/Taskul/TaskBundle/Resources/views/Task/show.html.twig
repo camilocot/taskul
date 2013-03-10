@@ -14,9 +14,6 @@
     {% include 'TaskBundle:partials:delete-modal.html.twig' %}
     {% endblock %}
     {% block content %}
-
-
-    {% include "TaskBundle:Upload:templates.html.twig" %}
     {{ apy_breadcrumb_trail_render() }}
     <div class="row-fluid sortable">
         <div class="box span12">
@@ -52,7 +49,10 @@
                         </tr>
                     </tbody>
                 </table>
+                 <form class="form-horizontal">
+                        <fieldset>
                 <div class="form-actions">
+
                     {% if is_granted('DELETE',entity) %}
                     <button class="btn btn-danger" type="button" data-target="#deleteModal" data-toggle="modal">
                         Delete
@@ -67,7 +67,10 @@
                     <a class="btn btn-cancel" href="{{ path('task') }}">
                         Back to the list
                     </a>
+
                 </div>
+                </fieldset>
+                </form>
             </div>
         </div>
     </div>
@@ -89,10 +92,10 @@
                             <div class="file-uploader"></div>
                         </div>
                     </div>
-                </fieldset>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Update Files</button>
                 </div>
+                </fieldset>
 
 
             </form>

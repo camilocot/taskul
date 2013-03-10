@@ -7,6 +7,8 @@
 {% endif %}
 {% endblock %}
 {% block content %}
+    {{ apy_breadcrumb_trail_render() }}
+
 <div class="row-fluid sortable">
     <div class="box span12">
         <div class="box-header" data-original-title>
@@ -53,7 +55,7 @@
                         <button type="button" class="btn btn-success" title="activate" data-id="{{ entity.id }}" data-target="#activateModal" data-toggle="modal"><i class="fa-icon-ok icon-white"></i>&nbsp;Activar</button>
             {% endif %}
             <button type="button" class="btn btn-danger delete-modal-btn" data-id="{{ entity.id }}" data-target="#deleteModal" data-toggle="modal"><i class="icon-trash icon-white"></i>&nbsp;Delete</button>
-            <a href="{{ path('frequest_sended') }}" class="btn">
+            <a href="{{ path('frequest') }}" class="btn">
             <i class="fa-icon-undo"></i>&nbsp;Back to the list
             </a>
             </div>
@@ -76,4 +78,7 @@
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 {% endif %}
+  <script>
+  $('ul#friendreq_ops').show();
+  </script>
 {% endblock %}

@@ -5,6 +5,8 @@
     {% include 'FriendBundle:partials:activate-modal.html.twig' %}
     {% endblock %}
 {% block content %}
+    {{ apy_breadcrumb_trail_render() }}
+
 <div class="row-fluid sortable">
     <div class="box span12">
         <div class="box-header" data-original-title>

@@ -9,6 +9,7 @@
   {% endstylesheets %}
   {% endblock %}
   {% block content %}
+  {{ apy_breadcrumb_trail_render() }}
   {% include "UserBundle:Helper:facebook_button.html.twig" %}
 
   <div class="row-fluid sortable">

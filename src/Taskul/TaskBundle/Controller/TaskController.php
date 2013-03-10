@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\HttpFoundation\Response;
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+
 /**
  * Task controller.
  *

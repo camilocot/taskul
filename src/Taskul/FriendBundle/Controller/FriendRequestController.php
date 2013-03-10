@@ -11,27 +11,49 @@ use Taskul\FriendBundle\Entity\FriendRequest;
 use Taskul\FriendBundle\Form\FriendRequestType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
 
 /**
  * FriendRequest controller.
  *
  * @Route("/frequest")
+ * @Breadcrumb("Dashboard", route="dashboard")
+ * @Breadcrumb("Friend Request", route="frequest")
  */
 class FriendRequestController extends Controller {
+
+    /**
+     * List all friend request send and recibed
+     *
+     * @Route("/", name="frequest")
+     * @Template()
+     */
+    public function indexAction() {
+
+      $recibed = $this->getRecibed();
+      $sended = $this->getSended();
+
+      return array(
+        'sended' => count($sended),
+        'recibed' => count($recibed),
+        );
+    }
+
 
     /**
      * Lists all FriendRequest entities.
      *
      * @Route("/recibed", name="frequest_recibed")
      * @Template()
+     *
+     * @Breadcrumb("Recibidas")
      */
     public function indexRecibedAction() {
-      $em = $this->getDoctrine()->getManager();
-      $user = $this->get('security.context')->getToken()->getUser();
+
       $deleteForm = $this->createDeleteForm(-1);
       $activateForm = $this->createActivateForm(-1);
 
-      $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('to'=>$user, 'active' => FALSE));
+      $entities = $this->getRecibed();
 
       return array(
         'entities' => $entities,
@@ -46,13 +68,12 @@ class FriendRequestController extends Controller {
      *
      * @Route("/sended", name="frequest_sended")
      * @Template()
+     *
+     * @Breadcrumb("Enviadas")
      */
     public function indexSendedAction() {
-      $em = $this->getDoctrine()->getManager();
-      $user = $this->get('security.context')->getToken()->getUser();
       $deleteForm = $this->createDeleteForm(-1);
-
-      $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('from'=>$user, 'active' => FALSE));
+      $entities = $this->getSended();
 
       return array(
         'entities' => $entities,
@@ -65,6 +86,8 @@ class FriendRequestController extends Controller {
      *
      * @Route("/{id}/show", name="frequest_show")
      * @Template()
+     *
+     * @Breadcrumb("Ver")
      */
     public function showAction($id) {
 
@@ -99,6 +122,8 @@ class FriendRequestController extends Controller {
      *
      * @Route("/new", name="frequest_new")
      * @Template()
+     *
+     * @Breadcrumb("Nueva")
      */
     public function newAction() {
       $entity = new FriendRequest();
@@ -117,6 +142,8 @@ class FriendRequestController extends Controller {
      *
      * @Route("/importfb", name="import_fb")
      * @Template()
+     *
+     * @Breadcrumb("Facebook")
      */
     public function importFacebookAction(Request $request) {
       $fb = $this->get('my.facebook.user');
@@ -224,6 +251,8 @@ class FriendRequestController extends Controller {
      * @Route("/create", name="frequest_create")
      * @Method("POST")
      * @Template("FriendBundle:FriendRequest:new.html.twig")
+     *
+     * @Breadcrumb("Nueva")
      */
     public function createAction(Request $request) {
       $entity = new FriendRequest();
@@ -254,7 +283,7 @@ class FriendRequestController extends Controller {
     /**
      * Deletes a FriendRequest entity.
      *
-     * @Route("/{id}/delete", name="frequest_delete") options={ "expose": true })
+     * @Route("/{id}/delete", name="frequest_delete", options={ "expose": true })
      * @Method("POST")
      *
      */
@@ -303,7 +332,7 @@ class FriendRequestController extends Controller {
     /**
      *
      *
-     * @Route("/activate/{id}", name="frequest_activate") options={ "expose": true })
+     * @Route("/activate/{id}", name="frequest_activate", options={ "expose": true })
      * @Method("POST")
      *
      */
@@ -364,18 +393,18 @@ class FriendRequestController extends Controller {
           return hash("sha256", $time . $id, false);
         }
 
-  private function createDeleteForm($id) {
-                  return $this->createFormBuilder(array('delete_id' => $id))
-                  ->add('delete_id', 'hidden')
-                  ->getForm()
-                  ;
-                }
-  private function createActivateForm($id) {
-                  return $this->createFormBuilder(array('activate_id' => $id))
-                  ->add('activate_id', 'hidden')
-                  ->getForm()
-                  ;
-                }
+        private function createDeleteForm($id) {
+          return $this->createFormBuilder(array('delete_id' => $id))
+          ->add('delete_id', 'hidden')
+          ->getForm()
+          ;
+        }
+        private function createActivateForm($id) {
+          return $this->createFormBuilder(array('activate_id' => $id))
+          ->add('activate_id', 'hidden')
+          ->getForm()
+          ;
+        }
         private function _processEntity($owner,$em,$form){
         // Buscamos los emails
           $data = $form->getData();
@@ -419,4 +448,19 @@ class FriendRequestController extends Controller {
                   }
 
                 }
+
+    private function getRecibed(){
+      $em = $this->getDoctrine()->getManager();
+      $user = $this->get('security.context')->getToken()->getUser();
+      $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('to'=>$user, 'active' => FALSE));
+      return $entities;
+    }
+
+    private function getSended(){
+      $em = $this->getDoctrine()->getManager();
+      $user = $this->get('security.context')->getToken()->getUser();
+      $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('from'=>$user, 'active' => FALSE));
+
+      return $entities;
+    }
               }
