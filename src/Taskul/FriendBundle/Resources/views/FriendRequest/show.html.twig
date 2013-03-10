@@ -1,41 +1,79 @@
-{% extends "::base.html.twig" %}
+{% extends "FriendBundle::layout.html.twig" %}
 {% block body %}
-<h1>FriendRequest</h1>
+{{ parent() }}
+{% if is_granted('DELETE', entity) %}
+{% include 'FriendBundle:partials:delete-modal.html.twig' %}
+{% include 'FriendBundle:partials:activate-modal.html.twig' %}
+{% endif %}
+{% endblock %}
+{% block content %}
+<div class="row-fluid sortable">
+    <div class="box span12">
+        <div class="box-header" data-original-title>
+            <h2><i class="icon-user"></i><span class="break"></span>Friend Request</h2>
+            <div class="box-icon">
+            <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+            </div>
+        </div>
+        <div class="box-content">
 
-<table class="record_properties">
+<table class="table table-bordered table-striped">
     <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
         <tr>
             <th>Message</th>
             <td>{{ entity.message }}</td>
         </tr>
+        {% if is_granted('OWNER', entity) and entity.email is not empty %}
         <tr>
             <th>Email</th>
             <td>{{ entity.email }}</td>
         </tr>
+        {% else %}
+        {% if is_granted('OWNER', entity) and entity.to is not null %}
         <tr>
-            <th>Hash</th>
-            <td>{{ entity.hash }}</td>
+            <th>To</th>
+            <td>{{ entity.to }}</td>
         </tr>
+        {% else %}
+        {% if is_granted('VIEW', entity) %}
+        <tr>
+            <th>From</th>
+            <td>{{ entity.from }}</td>
+        </tr>
+        {% endif %}
+        {% endif %}
+        {% endif %}
     </tbody>
 </table>
-
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('frequest_sended') }}">
-            Back to the list
-        </a>
-    </li>
     {% if is_granted('DELETE', entity) %}
-    <li>
-        <form action="{{ path('frequest_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
+    <form class="form-horizontal">
+            <fieldset>
+            <div class="form-actions">
+            {% if app.user == entity.to %}
+                        <button type="button" class="btn btn-success" title="activate" data-id="{{ entity.id }}" data-target="#activateModal" data-toggle="modal"><i class="fa-icon-ok icon-white"></i>&nbsp;Activar</button>
+            {% endif %}
+            <button type="button" class="btn btn-danger delete-modal-btn" data-id="{{ entity.id }}" data-target="#deleteModal" data-toggle="modal"><i class="icon-trash icon-white"></i>&nbsp;Delete</button>
+            <a href="{{ path('frequest_sended') }}" class="btn">
+            <i class="fa-icon-undo"></i>&nbsp;Back to the list
+            </a>
+            </div>
+            </fieldset>
         </form>
-    </li>
     {% endif %}
-</ul>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block javascripts %}
+{% if is_granted('DELETE', entity) %}
+<script src="//ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+{% javascripts
+    '@MainBundle/Resources/public/js/datatables-boostrap.js'
+    '@FriendBundle/Resources/public/js/friendRequestOps.js'
+    %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endif %}
 {% endblock %}

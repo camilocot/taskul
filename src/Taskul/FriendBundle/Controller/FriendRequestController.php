@@ -29,6 +29,7 @@ class FriendRequestController extends Controller {
       $em = $this->getDoctrine()->getManager();
       $user = $this->get('security.context')->getToken()->getUser();
       $deleteForm = $this->createDeleteForm(-1);
+      $activateForm = $this->createActivateForm(-1);
 
       $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('to'=>$user, 'active' => FALSE));
 
@@ -36,6 +37,7 @@ class FriendRequestController extends Controller {
         'entities' => $entities,
         'entity' => array('id' => -1),
         'delete_form' => $deleteForm->createView(),
+        'activate_form' => $activateForm->createView(),
         );
     }
 
@@ -83,10 +85,12 @@ class FriendRequestController extends Controller {
       }
 
       $deleteForm = $this->createDeleteForm($id);
+      $activateForm = $this->createActivateForm(-1);
 
       return array(
         'entity' => $entity,
         'delete_form' => $deleteForm->createView(),
+        'activate_form' => $activateForm->createView(),
         );
     }
 
@@ -299,7 +303,8 @@ class FriendRequestController extends Controller {
     /**
      *
      *
-     * @Route("/activate/{id}", name="frequest_activate")
+     * @Route("/activate/{id}", name="frequest_activate") options={ "expose": true })
+     * @Method("POST")
      *
      */
     public function activateAction($id) {
@@ -360,12 +365,17 @@ class FriendRequestController extends Controller {
         }
 
   private function createDeleteForm($id) {
-                  return $this->createFormBuilder(array('id' => $id))
-                  ->add('id', 'hidden')
+                  return $this->createFormBuilder(array('delete_id' => $id))
+                  ->add('delete_id', 'hidden')
                   ->getForm()
                   ;
                 }
-
+  private function createActivateForm($id) {
+                  return $this->createFormBuilder(array('activate_id' => $id))
+                  ->add('activate_id', 'hidden')
+                  ->getForm()
+                  ;
+                }
         private function _processEntity($owner,$em,$form){
         // Buscamos los emails
           $data = $form->getData();

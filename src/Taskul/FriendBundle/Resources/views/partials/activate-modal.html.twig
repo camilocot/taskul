@@ -1,0 +1,17 @@
+<!-- Modal -->
+<div id="activateModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="activateModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="activateModalLabel">Confirmación</h3>
+	</div>
+	<div class="modal-body">
+		<p>¿ Está seguro de activar la solicutud de amistad ?</p>
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+		<button class="btn btn-success" id="modal-activate-form-submit">Activate</button>
+	</div>
+</div>
+<form action="{{ path('frequest_activate', { 'id': entity.id }) }}" method="post" {{ form_enctype(activate_form) }} id="activate-frequest" >
+	{{ form_widget(activate_form) }}
+</form>
