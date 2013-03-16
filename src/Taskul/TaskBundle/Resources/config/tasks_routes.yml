@@ -1,0 +1,15 @@
+# task:
+#     resource: "@TaskBundle/Controller/"
+#     type:     annotation
+#     prefix:   /
+
+tasks_api:
+    type: rest
+    resource: Taskul\TaskBundle\Controller\TasksRestController
+    name_prefix: api_
+    defaults: { _format: html }
+
+files_tasks_api:
+    type: rest
+    parent:   tasks_api
+    resource: Taskul\TaskBundle\Controller\FilesRestController

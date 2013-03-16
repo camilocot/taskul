@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\HttpFoundation\Response;
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+use FOS\RestBundle\Controller\FOSRestController;
 
 /**
  * Task controller.
@@ -22,7 +23,7 @@ use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
  * @Breadcrumb("Dashboard", route="dashboard")
  * @Breadcrumb("Tasks", route="task")
  */
-class TaskController extends Controller {
+class TaskController extends FOSRestController {
 
     /**
      * Lists all Task entities.

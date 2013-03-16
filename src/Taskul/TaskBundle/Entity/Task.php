@@ -8,6 +8,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use DoctrineExtensions\Taggable\Taggable;
 use Taskul\TaskBundle\DBAL\Types\TaskStatusType;
 use Fresh\Bundle\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
+use Symfony\Component\Validator\Constraints as Assert;
+
+
 /**
  * Task
  *
@@ -29,6 +32,8 @@ class Task implements Taggable {
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     *
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -36,6 +41,8 @@ class Task implements Taggable {
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     *
+     * @Assert\NotBlank()
      */
     private $description;
 
@@ -61,15 +68,17 @@ class Task implements Taggable {
     private $owner;
 
     private $tags;
-/**
- * [$status description]
- * @var [type]
- *
- * @DoctrineAssert\Enum(entity="Taskul\TaskBundle\DBAL\Types\TaskStatusType")
- * @ORM\Column(name="status", type="TaskStatusType", nullable=false)
- *
- */
-private $status;
+    /**
+     * [$status description]
+     * @var [type]
+     *
+     * @DoctrineAssert\Enum(entity="Taskul\TaskBundle\DBAL\Types\TaskStatusType")
+     * @ORM\Column(name="status", type="TaskStatusType", nullable=false)
+     *
+     * @Assert\NotBlank()
+     *
+     */
+    private $status;
 
     public function getTags()
     {
@@ -216,8 +225,8 @@ private $status;
 
     public function __toString()
     {
-    $class = explode('\\', __CLASS__);
-    return end($class);
+        $class = explode('\\', __CLASS__);
+        return end($class);
     }
 
     /**

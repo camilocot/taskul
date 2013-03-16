@@ -63,6 +63,7 @@ class TaskType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Taskul\TaskBundle\Entity\Task',
             'tags' => '',
+            'csrf_protection'   => false,
             ));
     }
 

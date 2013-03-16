@@ -1,21 +1,6 @@
 <script>
 // Enable the file uploader
 $(document).ready(function(){
-    new PunkAveFileUploader({
-        'uploadUrl': {{ path('task_upload', { uploadId: uploadId, classId: entityClass , id: entity.id }) | json_encode | raw }},
-        'viewUrl': '{{ '/uploads/tmp/attachments/' ~ uploadId  }}' ,
-        'el': '.file-uploader',
-        'existingFiles': {{ existingFiles | json_encode | raw }},
-        'delaySubmitWhileUploading': '.form-horizontal',
-        'errorCallback': function(errorObj) {
-            if($('#msg-upload').length == 0)
-                $('<div class="page-alert"><div class="alert alert-error"><a class="close" data-dismiss="alert">×</a><span id="msg-upload"></span></div></div>').insertAfter('.navbar');
-            $('#msg-upload').html($('#msg-upload').text()+"<div>"+errorObj.error+' '+errorObj.name)+'</div>';
-            $('.file-uploader').find('[data-spinner="1"]').hide();
-
-        }
-    });
-
     if ($.fn.datepicker) {
         $('#btn-trash').click(function(e){
             $dp.datepicker('hide');
@@ -54,12 +39,12 @@ $(document).ready(function(){
     $('ul#task_ops').show();
 
     $('#modal-form-submit').on('click', function(e){
-    // We don't want this to act as a link so cancel the link action
-    e.preventDefault();
+        // We don't want this to act as a link so cancel the link action
+        e.preventDefault();
 
-    // Find form and submit it
-    $('#delete-task').submit();
-});
+        // Find form and submit it
+        $('#delete-task').submit();
+    });
 
 
 });

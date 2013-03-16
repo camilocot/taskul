@@ -112,6 +112,17 @@ fos_comment:
         model:
             comment: Taskul\TaskBundle\Entity\Comment
             thread: Taskul\TaskBundle\Entity\Thread
+fos_rest:
+    view:
+        formats:
+            rss: false
+            xml: false
+        templating_formats:
+            html: true
+        force_redirects:
+            html: true
+        failed_validation: HTTP_BAD_REQUEST
+        default_engine: twig
 
 fos_message:
     db_driver: orm
@@ -125,3 +136,7 @@ fpn_tag:
 
 apy_breadcrumb_trail:
     template: MainBundle::breadcrumbtrail.html.twig
+
+fos_js_routing:
+    routes_to_expose:
+        - "^api_.*" # expose all routes with a name starting with api_
