@@ -77,12 +77,12 @@ class Manager {
         $securityIdentity = UserSecurityIdentity::fromAccount($user);
         $this->addMask($securityIdentity, MaskBuilder::MASK_OWNER, $acl);
 
-    if(count($members)>0){
-        foreach($members as $m){
-            $securityIdentity = new UserSecurityIdentity($m->getUsername(),$class);
-            $this->addMask($securityIdentity, $mask, $acl);
+        if(count($members)>0){
+            foreach($members as $m){
+                $securityIdentity = new UserSecurityIdentity($m->getUsername(),$class);
+                $this->addMask($securityIdentity, $mask, $acl);
+            }
         }
-}
 
         return $entity;
 
@@ -93,8 +93,8 @@ class Manager {
     public function grantUser($entity, $username, $class = 'Taskul\UserBundle\Entity\User', $mask = MaskBuilder::MASK_OPERATOR) {
         $acl = $this->getAcl($entity);
 
-            $securityIdentity = new UserSecurityIdentity($username,$class);
-            $this->addMask($securityIdentity, $mask, $acl);
+        $securityIdentity = new UserSecurityIdentity($username,$class);
+        $this->addMask($securityIdentity, $mask, $acl);
     }
     /**
      * Get or create an ACL object

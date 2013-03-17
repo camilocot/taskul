@@ -25,6 +25,9 @@ class FilesRestController extends BaseController {
 	public function cgetAction($id)
 	{
 		$em = $this->getEntityManager();
+        $fileManager = $this->getFileManager();
+        $user = $this->getLoggedUser();
+
 		$task = $this->checkGrant($id,'VIEW');
 		$id = $task->getId();
 
@@ -32,11 +35,11 @@ class FilesRestController extends BaseController {
 		$data['taskId'] = $id;
         $data['delete_id'] = -1;
         $data['delete_form'] = $this->createDeleteForm(-1)->createView();
+        $data['current_quota'] = $fileManager->getPercentQuota($user);
 
 		$view = $this->view($data, 200)
 		->setTemplate("TaskBundle:Task:api/listFiles.html.twig")
 		;
-var_dump($this->get('kernel')->getRootDir());
 		return $this->handleView($view);
 
     } // "api_get_task_files"   [GET] /api/tasks/{id}/files
@@ -45,17 +48,28 @@ var_dump($this->get('kernel')->getRootDir());
     {
     	$task = $this->checkGrant($id,'VIEW');
         $aclManager = $this->getAclManager();
+        $fileManager = $this->getFileManager();
+        $user = $this->getLoggedUser();
+
 
     	$data = $this->processRequest();
         $file = $data['files'][0];
 
-        $doc = $this->createDocument($task,$file);
-        $aclManager->grant($doc,$task->getMembers());
+        if(isset($file->error)){
+            $data = array('success'=>FALSE,'message'=>$file->error,'statusCode' => 400);
+        }else if($fileManager->checkUserQuota($user, $file)){
+            unlink($_SERVER['DOCUMENT_ROOT'].'/uploads/'.$file->name);
+            $data = array('success'=>FALSE,'message'=>'Quota excedida');
+        }else{
+            $doc = $fileManager->createDocument($task, $user, $file);
 
-        $file->id = $doc->getId();
-        $file->taskid = $task->getId();
+            $file->id = $doc->getId();
+            $file->taskid = $task->getId();
 
-        return $this->processView($data);
+            unset($data['delete_url']);
+        }
+
+        return $this->processView($data,$data['statusCode']);
 
     } // "api_post_task_files"   [POST] /api/tasks/{id}/files
 
@@ -63,18 +77,20 @@ var_dump($this->get('kernel')->getRootDir());
     {
         $aclManager = $this->getAclManager();
         $em = $this->getEntityManager();
+        $fileManager = $this->getFileManager();
 
-        $task = $this->checkGrant($idTask,'DELETE');
+        $task = $this->checkGrant($idTask,'VIEW');
         $document = $this->checkGrant($idDocument,'DELETE','FileBundle:Document');
 
         $_GET['file'] = $document->getName(); // Para el handler del upload
         $data = $this->processRequest();
-        $aclManager->revokeAll($document);
 
-        $em->remove($document);
-        $em->flush();
+        if(isset($data['error']))
+            $data = array('success'=>FALSE,'message'=>$data['error']);
+        else
+            $fileManager->deleteDocument($document);
 
-        return $this->processView($data);
+        return $this->processView($data,$data['statusCode']);
     } // "api_delete_task_file" [DELETE] /api/tasks/{idtask}/files/{iddocument}
 
     protected function processRequest()
@@ -88,12 +104,6 @@ var_dump($this->get('kernel')->getRootDir());
     			), false);
 
 
-        // From https://github.com/blueimp/jQuery-File-Upload/blob/master/server/php/index.php
-        // There's lots of REST fanciness here to support different upload methods, so we're
-        // keeping the blueimp implementation which goes straight to the PHP standard library.
-        // TODO: would be nice to port that code fully to Symfonyspeak.
-
-
 
     	$data = array();
 
@@ -103,50 +113,40 @@ var_dump($this->get('kernel')->getRootDir());
     		case 'HEAD':
     		case 'GET':
     		$data = $upload_handler->get(false);
+            $data['success'] = TRUE;
+            $data['message'] = 'Operacion relaizada correctamente';
+            $data['statusCode'] = 200;
     		break;
     		case 'POST':
     		if (isset($_REQUEST['_method']) && $_REQUEST['_method'] === 'DELETE') {
     			$data = $upload_handler->delete(false);
     		} else {
     			$data = $upload_handler->post(false);
-
-
-
             }
+            $data['success'] = TRUE;
+            $data['message'] = 'Operacion relaizada correctamente';
+            $data['statusCode'] = 200;
             break;
             case 'DELETE':
             $data = $upload_handler->delete(false);
             break;
             default:
     		//header('HTTP/1.1 405 Method Not Allowed');
+            $data['success'] = FALSE;
+            $data['message'] = 'Method Not Allowed';
+            $data['statusCode'] = 405;
         }
+
         return $data;
 
     }
 
-    protected function processView($data)
+    protected function processView($data, $statusCode = 200)
     {
         $json = json_decode(json_encode($data),TRUE);
-        $view = $this->view($json, 200)
+        $view = $this->view($json, $statusCode)
         ;
         return $this->handleView($view);
     }
-
-    protected function createDocument($entity, $file)
-    {
-                $doc = new Document();
-                $em = $this->getEntityManager();
-
-                $doc->setName($file->name);
-                $doc->setIdObject($entity->getId());
-                $doc->setOwner($this->getLoggedUser());
-                $doc->setClass($entity->__toString());
-                $doc->setSize($file->size);
-                $em->persist($doc);
-                $em->flush();
-
-                return $doc;
-    }
-
 
 }

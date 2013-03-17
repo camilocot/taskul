@@ -14,7 +14,7 @@ class DocumentRepository extends EntityRepository
 {
 	public function sums($user){
         	return $this->getEntityManager($user)
-            ->createQuery('SELECT SUM(d.size) FROM FileBundle:Document d WHERE d.owner = :user and d.markToDelete = TRUE')
+            ->createQuery('SELECT SUM(d.size) FROM FileBundle:Document d WHERE d.owner = :user')
             ->setParameter('user', $user->getId())
             ->getSingleResult();
     }

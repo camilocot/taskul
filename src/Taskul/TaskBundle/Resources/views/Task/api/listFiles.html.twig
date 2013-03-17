@@ -1,9 +1,9 @@
 {% extends "TaskBundle::layout.html.twig" %}
-    {% block body %}
-    {{ parent() }}
-    {% include 'TaskBundle:partials:delete-modal-rest.html.twig' %}
+{% block body %}
+{{ parent() }}
+{% include 'TaskBundle:partials:delete-modal-rest.html.twig' %}
 
-    {% endblock %}
+{% endblock %}
 {% block content %}
 {{ apy_breadcrumb_trail_render() }}
 <div class="row-fluid sortable">
@@ -11,41 +11,55 @@
         <div class="box-header" data-original-title>
             <h2><i class="icon-user"></i><span class="break"></span>List Files</h2>
             <div class="box-icon">
-            <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+                <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
             </div>
         </div>
         <div class="box-content">
 
+            <div class="row-fluid">
+                <div class="span10">
 
-            <table class="table table-striped table-bordered bootstrap-datatable datatable" id="list">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for entity in documents %}
-                    <tr id="#row{{ entity.id }}">
-                        <td>{{ entity.name }}</td>
-                        <td>
-                            {% if is_granted('DELETE', entity) %}
-                                <button class="btn btn-danger delete-modal-btn" type="button" data-task-id="{{ entity.idObject }}" data-document-id="{{ entity.id }}" data-target="#deleteModal" data-toggle="modal"><i class="icon-trash icon-white"></i></button>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                    <table class="table table-striped table-bordered bootstrap-datatable datatable" id="list">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entity in documents %}
+                            <tr id="#row{{ entity.id }}">
+                                <td>{{ entity.name }}</td>
+                                <td>
+                                    {% if is_granted('DELETE', entity) %}
+                                    <button class="btn btn-danger delete-modal-btn" type="button" data-task-id="{{ entity.idObject }}" data-document-id="{{ entity.id }}" data-target="#deleteModal" data-toggle="modal"><i class="icon-trash icon-white"></i></button>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
 
+                </div>
+                <div class="span2">
+                 <div class="circleStatsItem red">
+                    <i class="fa-icon-thumbs-up"></i>
+                    <span class="plus">+</span>
+                    <span class="percent">%</span>
+
+                    <input type="text" value="{{ current_quota }}" class="orangeCircle" id="dial-quota"/>
+                </div>
+            </div>
         </div>
         <div class="box-content">
             <input id="fileupload" type="file" name="files[]" data-url="{{ path('api_post_task_file', { id: taskId } ) }}.json" multiple>
         </div>
 
     </div><!--/box-->
+</div>
+</div>
 
-</div><!--/row-->
+
 {% endblock %}
 {% block javascripts %}
 <script src="//ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
@@ -55,12 +69,14 @@
     '@MainBundle/Resources/public/js/vendor/jquery.iframe-transport.js'
     '@MainBundle/Resources/public/js/vendor/jquery.fileupload.js'
     %}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-<script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-<script src="http://malsup.github.com/jquery.form.js"></script>
-<script type="text/javascript">
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+    <script src="/js/extra/excanvas.js"></script>
+    <script src="/js/extra/jquery.knob.js"></script>
+    <script type="text/javascript">
 //<![CDATA[]
 $(document).ready(function() {
 
@@ -75,10 +91,10 @@ $(document).ready(function() {
     $('.datatable').dataTable({
         "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
         "sPaginationType": "bootstrap",
-         "bAutoWidth": false,
-         "aoColumns" : [
-            { sWidth: '90%' },
-            { sWidth: '10%', "bSortable": false  }
+        "bAutoWidth": false,
+        "aoColumns" : [
+        { sWidth: '90%' },
+        { sWidth: '10%', "bSortable": false  }
         ],
         "oLanguage": {
             "sLengthMenu": "_MENU_ records per page"
@@ -94,32 +110,81 @@ $(document).ready(function() {
 
        nTr = this.parentNode.parentNode; //Para eliminar fila del datatables
 
-    });
+   });
 
     $('#modal-form-submit').click( function (e) {
-     e.preventDefault();
-     $('#delete-task').submit();
-    });
+       e.preventDefault();
+       $('#delete-task').submit();
+   });
 
-     $('#fileupload').fileupload({
+    $('#fileupload').fileupload({
         dataType: 'json',
         done: function (e, data) {
-            $.each(data.result.files, function (index, file) {
-                $('#list').dataTable().fnAddData( [
-                    file.name, ' <button class="btn btn-danger delete-modal-btn" type="button" data-task-id="'+ file.taskid +'" data-document-id="'+ file.id +'" data-target="#deleteModal" data-toggle="modal"><i class="icon-trash icon-white"></i></button> '
-                     ] );
-            });
+            if(data.result.success == true)
+                $.each(data.result.files, function (index, file) {
+                    $('#list').dataTable().fnAddData( [
+                        file.name, ' <button class="btn btn-danger delete-modal-btn" type="button" data-task-id="'+ file.taskid +'" data-document-id="'+ file.id +'" data-target="#deleteModal" data-toggle="modal"><i class="icon-trash icon-white"></i></button> '
+                        ] );
+                    refereshQuota();
+                });
+            else {
+                var n =noty({text: data.result.message, type: 'error', layout: 'top'});
+            }
+
+
+        },
+        fail: function (e,data) {
+            obj = jQuery.parseJSON(data.jqXHR.responseText);
+            var n =noty({text: obj.message, type: 'error', layout: 'top'});
         }
     });
+// prepare Options Object
+var options = {
+    dataType: 'json',
+    success:    function(e) {
+        $('#deleteModal').modal('hide');
+        status = ( e.success ) ? 'success' : 'error';
+        oTable = $('#list').dataTable();
+        var n = noty({text: e.message, type: status, layout: 'top'});
+        oTable.fnDeleteRow( oTable.fnGetPosition( nTr ) ) ;
+        refereshQuota();
 
-     $('#delete-task').ajaxForm(function(e) {
-                $('#deleteModal').modal('hide')
-                status = ( e.success ) ? 'success' : 'error';
-                oTable = $('#list').dataTable();
-                noty({text: e, type: status, layout: 'top'});
-                oTable.fnDeleteRow( oTable.fnGetPosition( nTr ) ) ;
-            });
+
+    },
+    error: function(e) {
+        $('#deleteModal').modal('hide');
+        obj = jQuery.parseJSON(e.responseText);
+        status = ( obj[0].success ) ? 'success' : 'error';
+        var n = noty({text: obj[0].message, type: 'error', layout: 'top'});
+    }
+};
+$('#delete-task').ajaxForm(options);
+$('ul#task_ops').show();
+
+$(".orangeCircle").knob({
+    'min':0,
+    'max':100,
+    'readOnly': true,
+    'width': 120,
+    'height': 120,
+    'fgColor': '#FA5833',
+    'dynamicDraw': true,
+    'thickness': 0.2,
+    'tickColorizeValues': true,
+    'skin':'tron'
 });
+
+});
+
+var n = null; //noty
+function refereshQuota()
+{
+    $.getJSON(Routing.generate('api_get_quota'), function(data) {
+    actualValue = $('#dial-quota').val();
+    if(data.success == true && actualValue != data.current_quota)
+            $('#dial-quota').val(data.current_quota).trigger('change');
+    });
+}
 //]]>
 </script>
 {% endblock %}

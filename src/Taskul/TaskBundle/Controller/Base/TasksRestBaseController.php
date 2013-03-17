@@ -42,6 +42,11 @@ class TasksRestBaseController extends FOSRestController {
 		return $this->get('taskul.acl_manager');
 	}
 
+	protected function getFileManager()
+	{
+		return $this->get('taskul.user.file_manager');
+	}
+
 	protected function checkGrant($id, $attr, $repository='TaskBundle:Task'){
 
 		$securityContext = $this->getSecurityContext();

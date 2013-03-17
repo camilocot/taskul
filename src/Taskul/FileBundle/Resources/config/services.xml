@@ -15,10 +15,9 @@
 
     <services>
         <service id="taskul.user.file_manager" class="%taskul.user.file_manager.class%" scope="request">
-            <argument type="service" id="punk_ave.file_uploader" />
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="taskul.acl_manager" />
-            <argument>%taskul.user.file_manager.options%</argument>
+            <argument>%taskul.user.quota%</argument>
         </service>
     </services>
 </container>

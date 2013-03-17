@@ -23,6 +23,11 @@ tasks:
     resource: "@TaskBundle/Resources/config/tasks_routes.yml"
     prefix: /api
 
+files:
+    resource: "@FileBundle/Controller/"
+    type:     annotation
+    prefix:   /api
+
 user:
     resource: "@UserBundle/Controller/"
     type: annotation
