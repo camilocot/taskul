@@ -13,10 +13,10 @@ main:
     type:     annotation
     prefix:   /
 
-message:
-    resource: "@MessageBundle/Controller/"
-    type:     annotation
-    prefix:   /
+# message:
+#     resource: "@MessageBundle/Controller/"
+#     type:     annotation
+#     prefix:   /
 
 tasks:
     type: rest

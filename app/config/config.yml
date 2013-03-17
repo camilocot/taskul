@@ -112,17 +112,6 @@ fos_comment:
         model:
             comment: Taskul\TaskBundle\Entity\Comment
             thread: Taskul\TaskBundle\Entity\Thread
-fos_rest:
-    view:
-        formats:
-            rss: false
-            xml: false
-        templating_formats:
-            html: true
-        force_redirects:
-            html: true
-        failed_validation: HTTP_BAD_REQUEST
-        default_engine: twig
 
 fos_message:
     db_driver: orm
@@ -140,3 +129,18 @@ apy_breadcrumb_trail:
 fos_js_routing:
     routes_to_expose:
         - "^api_.*" # expose all routes with a name starting with api_
+
+jms_serializer:
+    metadata:
+        directories:
+            FOSUB:
+                namespace_prefix: FOS\UserBundle
+                path: %kernel.root_dir%/serializer/FOSUB
+
+jms_serializer:
+  metadata:
+    auto_detection: true
+    directories:
+      FOSUserBundle:
+        namespace_prefix: "FOS\\UserBundle"
+        path: "@UserBundle/Resources/config/serializer/fos"

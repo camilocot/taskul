@@ -37,11 +37,16 @@ class TasksRestBaseController extends FOSRestController {
 		return $this->get('fpn_tag.tag_manager');
 	}
 
-	protected function checkGrant($id, $attr){
+	protected function getAclMAnager()
+	{
+		return $this->get('taskul.acl_manager');
+	}
+
+	protected function checkGrant($id, $attr, $repository='TaskBundle:Task'){
 
 		$securityContext = $this->getSecurityContext();
 		$em = $this->getEntityManager();
-		$task = $em->getRepository('TaskBundle:Task')->find($id);
+		$task = $em->getRepository($repository)->find($id);
 
 		if (!$task) {
 			throw $this->createNotFoundException('Unable to find Task entity.');

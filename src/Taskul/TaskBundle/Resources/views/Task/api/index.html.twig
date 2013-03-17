@@ -42,6 +42,7 @@
                             <td>
                                     {% if is_granted('VIEW', entity) %}
                                         <a href="{{ path('api_get_task', { 'id': entity.id }) }}" class="btn btn-info" title="show"><i class="icon-zoom-in icon-white"></i></a>
+                                        <a href="{{ path('api_get_task_files', { 'id': entity.id }) }}" class="btn btn-info" title="show"><i class="icon-zoom-in icon-white"></i></a>
                                     {% endif %}
                                     {% if is_granted('EDIT', entity) %}
                                         <a href="{{ path('api_edit_task', { 'id': entity.id }) }}" class="btn btn-success" title="edit"><i class="icon-edit icon-white"></i></a>
@@ -91,8 +92,8 @@ $(document).ready(function() {
             { sWidth: '10%' },
             { sWidth: '30%' },
             { sWidth: '5%' },
-            { sWidth: '45%' },
-            { sWidth: '10%', "bSortable": false  }
+            { sWidth: '40%' },
+            { sWidth: '15%', "bSortable": false  }
         ],
         "oLanguage": {
             "sLengthMenu": "_MENU_ records per page"

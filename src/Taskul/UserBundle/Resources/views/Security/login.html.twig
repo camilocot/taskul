@@ -70,7 +70,7 @@
                 noty({text: e.message, type: status, layout: 'top'});
                 if(status == 'success')
                     setTimeout(function() {
-                        window.location.href = "{{ path('task') }}";
+                        window.location.href = "{{ path('api_get_tasks') }}";
                 }, 2000);
             });
         });

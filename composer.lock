@@ -1,5 +1,5 @@
 {
-    "hash": "dc460b5e23c359b26f308fd0aa5a6adc",
+    "hash": "bb2d97146bf5237e9226e36e484973c3",
     "packages": [
         {
             "name": "apy/breadcrumbtrail-bundle",
@@ -49,16 +49,16 @@
         },
         {
             "name": "doctrine/annotations",
-            "version": "v1.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "v1.0"
+                "reference": "62d4608f70c5c411a6ad339ed8aedad3542a2be8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/doctrine/annotations/archive/v1.0.zip",
-                "reference": "v1.0",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/62d4608f70c5c411a6ad339ed8aedad3542a2be8",
+                "reference": "62d4608f70c5c411a6ad339ed8aedad3542a2be8",
                 "shasum": ""
             },
             "require": {
@@ -69,6 +69,11 @@
                 "doctrine/cache": "1.*"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "Doctrine\\Common\\Annotations\\": "lib/"
@@ -111,7 +116,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2013-01-12 19:23:32"
+            "time": "2013-03-16 18:48:48"
         },
         {
             "name": "doctrine/cache",
@@ -780,7 +785,7 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FabienPennequin/DoctrineExtensions-Taggable",
+                "url": "https://github.com/FabienPennequin/DoctrineExtensions-Taggable.git",
                 "reference": "ee7245fc7c3012ea1b1ed932f62ca258b39d8bea"
             },
             "dist": {
@@ -821,7 +826,7 @@
             "target-dir": "FPN/TagBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FabienPennequin/FPNTagBundle",
+                "url": "https://github.com/FabienPennequin/FPNTagBundle.git",
                 "reference": "7fa1408d2a57120e8d9da8a95fb7d2ad3223c5e3"
             },
             "dist": {
@@ -984,12 +989,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSFacebookBundle.git",
-                "reference": "d55db61092a2efc5d7e020ac356f1a9f90a7cae0"
+                "reference": "9752b4c83297cee3bcbcdeea0869f93e1338a7c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSFacebookBundle/zipball/d55db61092a2efc5d7e020ac356f1a9f90a7cae0",
-                "reference": "d55db61092a2efc5d7e020ac356f1a9f90a7cae0",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSFacebookBundle/zipball/9752b4c83297cee3bcbcdeea0869f93e1338a7c3",
+                "reference": "9752b4c83297cee3bcbcdeea0869f93e1338a7c3",
                 "shasum": ""
             },
             "require": {
@@ -1035,7 +1040,7 @@
             "keywords": [
                 "facebook"
             ],
-            "time": "2013-03-05 20:04:29"
+            "time": "2013-03-16 16:55:15"
         },
         {
             "name": "friendsofsymfony/jsrouting-bundle",
@@ -1340,12 +1345,12 @@
             "target-dir": "JMS/AopBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/schmittjoh/JMSAopBundle",
+                "url": "https://github.com/schmittjoh/JMSAopBundle.git",
                 "reference": "7018357f5bedf204979a88867a9da05973744422"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/schmittjoh/JMSAopBundle/archive/7018357f5bedf204979a88867a9da05973744422.zip",
+                "url": "https://api.github.com/repos/schmittjoh/JMSAopBundle/zipball/7018357f5bedf204979a88867a9da05973744422",
                 "reference": "7018357f5bedf204979a88867a9da05973744422",
                 "shasum": ""
             },
@@ -1419,7 +1424,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -1484,7 +1489,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -1535,7 +1540,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -1553,12 +1558,12 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "git://github.com/schmittjoh/parser-lib",
+                "url": "https://github.com/schmittjoh/parser-lib.git",
                 "reference": "4d469a70c6dd03f921cbdeadafbcb261bb23e8b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/schmittjoh/parser-lib/archive/4d469a70c6dd03f921cbdeadafbcb261bb23e8b0.zip",
+                "url": "https://api.github.com/repos/schmittjoh/parser-lib/zipball/4d469a70c6dd03f921cbdeadafbcb261bb23e8b0",
                 "reference": "4d469a70c6dd03f921cbdeadafbcb261bb23e8b0",
                 "shasum": ""
             },
@@ -1639,7 +1644,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -1774,7 +1779,7 @@
                 {
                     "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -1794,12 +1799,12 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "http://github.com/KnpLabs/KnpMenu.git",
+                "url": "https://github.com/KnpLabs/KnpMenu.git",
                 "reference": "730bc37232f5f813822acf80edfbd89381ea5971"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/KnpLabs/KnpMenu/archive/730bc37232f5f813822acf80edfbd89381ea5971.zip",
+                "url": "https://api.github.com/repos/KnpLabs/KnpMenu/zipball/730bc37232f5f813822acf80edfbd89381ea5971",
                 "reference": "730bc37232f5f813822acf80edfbd89381ea5971",
                 "shasum": ""
             },
@@ -1859,12 +1864,12 @@
             "target-dir": "Knp/Bundle/MenuBundle",
             "source": {
                 "type": "git",
-                "url": "http://github.com/KnpLabs/KnpMenuBundle.git",
+                "url": "https://github.com/KnpLabs/KnpMenuBundle.git",
                 "reference": "bfaa9f1a74ee590c5e6460a3139b268fce1f1885"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/KnpLabs/KnpMenuBundle/archive/bfaa9f1a74ee590c5e6460a3139b268fce1f1885.zip",
+                "url": "https://api.github.com/repos/KnpLabs/KnpMenuBundle/zipball/bfaa9f1a74ee590c5e6460a3139b268fce1f1885",
                 "reference": "bfaa9f1a74ee590c5e6460a3139b268fce1f1885",
                 "shasum": ""
             },
@@ -1988,7 +1993,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/Seldaek/monolog/zipball/1.2.1",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/1.2.1",
                 "reference": "1.2.1",
                 "shasum": ""
             },
@@ -2032,7 +2037,7 @@
                 "log",
                 "logging"
             ],
-            "time": "2012-08-29 04:53:20"
+            "time": "2012-08-29 11:53:20"
         },
         {
             "name": "phpcollection/phpcollection",
@@ -2566,12 +2571,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "6c0d2b92ac8b0be921f05550c65159d3c03b731b"
+                "reference": "3a03f3e346b12f330b6c1582d2f6d3bc7108d933"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/6c0d2b92ac8b0be921f05550c65159d3c03b731b",
-                "reference": "6c0d2b92ac8b0be921f05550c65159d3c03b731b",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/3a03f3e346b12f330b6c1582d2f6d3bc7108d933",
+                "reference": "3a03f3e346b12f330b6c1582d2f6d3bc7108d933",
                 "shasum": ""
             },
             "require": {
@@ -2646,7 +2651,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-03-15 10:53:31"
+            "time": "2013-03-16 15:52:12"
         },
         {
             "name": "twig/extensions",
@@ -2764,7 +2769,8 @@
         "fpn/tag-bundle": 20,
         "exercise/htmlpurifier-bundle": 20,
         "fresh/doctrine-enum-bundle": 20,
-        "apy/breadcrumbtrail-bundle": 20
+        "apy/breadcrumbtrail-bundle": 20,
+        "jms/serializer-bundle": 20
     },
     "platform": {
         "php": ">=5.3.3"

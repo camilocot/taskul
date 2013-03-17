@@ -10,12 +10,13 @@ use Taskul\TaskBundle\DBAL\Types\TaskStatusType;
 use Fresh\Bundle\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * Task
  *
  * @ORM\Table(name="task")
  * @ORM\Entity(repositoryClass="Taskul\TaskBundle\Entity\Repository\TaskRepository")
+ *
+ *
  */
 class Task implements Taggable {
 

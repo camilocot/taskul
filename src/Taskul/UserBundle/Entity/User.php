@@ -8,9 +8,15 @@ use Taskul\TaskBundle\Entity\Task;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\MessageBundle\Model\ParticipantInterface;
 
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Exclude;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
+ *
+ * @ExclusionPolicy("all")
  */
 class User extends BaseUser implements ParticipantInterface {
 
@@ -35,6 +41,8 @@ class User extends BaseUser implements ParticipantInterface {
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=255,nullable=true)
+     *
+     * @Expose
      */
     protected $firstname;
 
@@ -42,6 +50,8 @@ class User extends BaseUser implements ParticipantInterface {
      * @var string
      *
      * @ORM\Column(name="lastname", type="string", length=255,nullable=true)
+     *
+     * @Expose
      */
     protected $lastname;
 
@@ -115,6 +125,7 @@ class User extends BaseUser implements ParticipantInterface {
      * @ORM\Column(name="code_upload", type="string", length=255, nullable=true)
      */
     private $codeUpload;
+
 
     public function serialize() {
         return serialize(array($this->facebookId, parent::serialize()));
@@ -455,4 +466,5 @@ class User extends BaseUser implements ParticipantInterface {
        parent::setEmail($email);
        $this->setUsername($email);
    }
+
 }

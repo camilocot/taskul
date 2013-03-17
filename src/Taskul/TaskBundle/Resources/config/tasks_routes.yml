@@ -12,4 +12,6 @@ tasks_api:
 files_tasks_api:
     type: rest
     parent:   tasks_api
+    name_prefix: api_
     resource: Taskul\TaskBundle\Controller\FilesRestController
+    defaults: { _format: json }
