@@ -18,53 +18,87 @@
             <div class="box-header" data-original-title>
                 <h2><i class="icon-user"></i><span class="break"></span>Task creation</h2>
                 <div class="box-icon">
-            <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
-            </div>
+                    <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+                </div>
             </div>
             <div class="box-content">
 
                 {% set route = 'api_' ~ method|lower ~ '_task' %}
                 {% if method == 'post' %}
-                <form class="form-horizontal" action="{{ path( route ) }}" method="post" {{ form_enctype(form) }}>
-                {% else %}
-                <form class="form-horizontal" action="{{ path( route, { id: id } ) }}" method="post" {{ form_enctype(form) }}>
-                {% endif %}
-                    <input type="hidden" name="_method" value="{{ method }}" >
-                    {{ form_errors(form) }}
+                <form class="form-horizontal validate" action="{{ path( route ) }}" method="post" {{ form_enctype(form) }} id="form_task">
+                    {% else %}
+                    <form class="form-horizontal validate" action="{{ path( route, { id: id } ) }}" method="post" {{ form_enctype(form) }} id="form_task">
+                        {% endif %}
+                        <input type="hidden" name="_method" value="{{ method }}" >
+                        {{ form_errors(form) }}
 
-                    <fieldset>
-                        {{ form_row(form.name,{'help':'sdasdasasda'}) }}
-                        {{ form_row(form.status) }}
-                        {{ form_row(form.description, {'attr': {'placeholder':'Introduzca una descripción ...', 'class':'wysihtml5 span11','rows':'10'} } ) }}
-                        {{ form_row(form.dateEnd) }}
+                        <fieldset>
+                            {{ form_row(form.name,{'help':'sdasdasasda', 'atrr': { 'class':'required', 'minlength':'10' } }) }}
+                            {{ form_row(form.status) }}
+                            {{ form_row(form.description, {'attr':
+                            {'placeholder':'Introduzca una descripción ...', 'class':'wysihtml5 span11 required','rows':'10','minlength':'8' } } ) }}
+                            {{ form_row(form.dateEnd) }}
 
-                        {{ form_row(form.tags,{ 'attr': {'style':'min-width:298px'} } ) }}
-                        {{ form_row(form.members,{ 'attr': {'style':'width:298px'} } ) }}
+                            {{ form_row(form.tags,{ 'attr': {'style':'min-width:298px'} } ) }}
+                            {{ form_row(form.members,{ 'attr': {'style':'width:298px'} } ) }}
 
-                        {{ form_rest(form) }}
-                    </fieldset>
-                    <div class="form-actions">
-                        <button class="btn btn-primary" type="submit">Save changes</button>
-                        <a class="btn btn-cancel" href="{{ path('api_get_tasks') }}">
-                            Back to the list
-                        </a>
-                    </div>
-                </form>
-            </div>
+                            {{ form_rest(form) }}
+                        </fieldset>
+                        <div class="form-actions">
+                            <button class="btn btn-primary" type="submit">Save changes</button>
+                            <a class="btn btn-cancel" href="{{ path('api_get_tasks') }}">
+                                Back to the list
+                            </a>
+                        </div>
+                    </form>
+                </div>
 
-        </div><!--/box-->
+            </div><!--/box-->
 
-    </div><!--/row-->
-    {% endblock %}
+        </div><!--/row-->
+        {% endblock %}
 
-    {% block javascripts %}
-{% javascripts
-    '@MainBundle/Resources/public/js/vendor/bootstrap-datepicker.js'
-    '@MainBundle/Resources/public/js/vendor/select2.js'
-    '@MainBundle/Resources/public/js/vendor/wysihtml5-0.3.0.js'
-    '@MainBundle/Resources/public/js/vendor/bootstrap-wysihtml5.js'
-    %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-    {% include 'TaskBundle:partials:taskOp.js.twig' %}
-    {% endblock %}
+        {% block javascripts %}
+        {% javascripts
+        '@MainBundle/Resources/public/js/vendor/bootstrap-datepicker.js'
+        '@MainBundle/Resources/public/js/vendor/select2.js'
+        '@MainBundle/Resources/public/js/vendor/wysihtml5-0.3.0.js'
+        '@MainBundle/Resources/public/js/vendor/bootstrap-wysihtml5.js'
+        %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        {% include 'TaskBundle:partials:taskOp.js.twig' %}
+        <script type="text/javascript">
+        $(document).ready(function(){
+            var editor = $('.wysihtml5').data("wysihtml5").editor;
+            $(".validate").validate({
+                highlight: function(element) {
+                    $(element).closest('.control-group').removeClass('success').addClass('error');
+                },
+                success: function(element) {
+                    element
+                    .text('OK!').addClass('valid')
+                    .closest('.control-group').removeClass('error').addClass('success');
+                }
+            });
+            $('#form_task').submit(function(){
+                onChangeEditor();
+                return false;
+            });
+            editor.on("change", onChangeEditor);
+
+        });
+        function onChangeEditor()
+        {
+            label = $('label[for=task_description].error');
+            emp = editor.isEmpty();
+            if(label.length > 0 && !emp){
+                label.hide();
+            }else if (label.length === 0 && emp){
+                $('iframe.wysihtml5-sandbox').after('<label for="task_description" class="error">This field is required.</label>');
+            }else{
+                label.show();
+            }
+        }
+        </script>
+        {% endblock %}
