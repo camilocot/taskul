@@ -24,14 +24,14 @@ class MenuBuilder
         // Menu de tareas
         $menu->setChildrenAttribute('class','nav nav-tabs nav-stacked main-menu');
         $menu->addChild('Task',array('uri'=>'#','label'=>'<i class="icon-chevron-down icon-white"></i><span class="hidden-tablet">Tareas</span>'))->setExtra('safe_label', FALSE);
-        $menu['Task']->setLinkAttribute('class', 'dropmenu');
+        $menu['Task']->setLinkAttribute('class', 'dropmenu no-ajaxy');
         $menu['Task']->setChildrenAttribute('id','task_ops');
         $menu['Task']->addChild('new_task',array('route'=>'api_new_task','label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Crear Nueva</span>','class'=>'submenu'))->setExtra('safe_label', FALSE);
         $menu['Task']->addChild('list_task',array('route'=>'api_get_tasks','label'=>'<i class="fa-icon-list"></i><span class="hidden-tablet"> Ver todas</span>','class'=>'submenu'))->setExtra('safe_label', FALSE);
 
         // Menu de solicitudes de amistad
         $menu->addChild('FriendRequest',array('uri'=>'#','label'=>'<i class="icon-chevron-down icon-white"></i><span class="hidden-tablet">Solicitudes amistad</span>'))->setExtra('safe_label', FALSE);
-        $menu['FriendRequest']->setLinkAttribute('class', 'dropmenu');
+        $menu['FriendRequest']->setLinkAttribute('class', 'dropmenu no-ajaxy');
         $menu['FriendRequest']->setChildrenAttribute('id','friendreq_ops');
         $menu['FriendRequest']->addChild('new_freq',array('route'=>'frequest_new','label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Crear</span>','class'=>'submenu'))->setExtra('safe_label', FALSE);
         $menu['FriendRequest']->addChild('list_freq_recibed',array('route'=>'frequest_recibed','label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Recibidas</span>','class'=>'submenu'))->setExtra('safe_label', FALSE);
@@ -39,7 +39,7 @@ class MenuBuilder
         $menu['FriendRequest']->addChild('import',array('route'=>'import_fb','label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Invitar amigos de Facebook</span>','class'=>'submenu'))->setExtra('safe_label', FALSE);
 
         $menu->addChild('Friends',array('uri'=>'#','label'=>'<i class="icon-chevron-down icon-white"></i><span class="hidden-tablet">Amigos</span>'))->setExtra('safe_label', FALSE);
-        $menu['Friends']->setLinkAttribute('class', 'dropmenu');
+        $menu['Friends']->setLinkAttribute('class', 'dropmenu no-ajaxy');
         $menu['Friends']->setChildrenAttribute('id','friends_ops');
         $menu['Friends']->addChild('list_fri',array('route'=>'myfriends','label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Listado</span>','class'=>'submenu'))->setExtra('safe_label', FALSE);
         return $menu;
@@ -61,6 +61,7 @@ class MenuBuilder
         $menu->setChildrenAttribute('class','nav');
         $menu->addChild('Home',array('route'=>'homepage'));
         $menu->addChild('DashBoard',array('route'=>'dashboard'));
+        $menu['DashBoard']->setLinkAttribute('class', 'no-ajaxy');
         return $menu;
     }
 }

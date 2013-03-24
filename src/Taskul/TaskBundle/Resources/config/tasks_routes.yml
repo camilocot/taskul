@@ -1,8 +1,3 @@
-# task:
-#     resource: "@TaskBundle/Controller/"
-#     type:     annotation
-#     prefix:   /
-
 tasks_api:
     type: rest
     resource: Taskul\TaskBundle\Controller\TasksRestController

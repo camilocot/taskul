@@ -264,3 +264,12 @@ a.fb-button {
     padding: 2px 8px;
     margin-top: 2px;
     }
+
+      /*this is what we want the div to look like
+    when it IS showing*/
+  .loading{
+
+    filter: alpha(opacity=75); /* internet explorer */
+    -khtml-opacity: 0.75;      /* khtml, old safari */
+    -moz-opacity: 0.75;       /* mozilla, netscape */
+  }

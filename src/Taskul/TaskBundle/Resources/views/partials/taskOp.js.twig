@@ -1,6 +1,7 @@
 <script>
 // Enable the file uploader
 $(document).ready(function(){
+
     if ($.fn.datepicker) {
         $('#btn-trash').click(function(e){
             $dp.datepicker('hide');
@@ -13,9 +14,12 @@ $(document).ready(function(){
         });
     }
     if ($.fn.select2) {
-        {% if defaultTags is not defined %}{% set defaultTags = '' %}{% endif %}
         $("select#task_members").select2();
-        $("input#task_tags").select2({tags:["{{ defaultTags|join('","')|raw}}"],tokenSeparators: [","] });
+        $("input#task_tags").select2({
+            tags: defaultTags,
+            tokenSeparators: [","]
+        });
+
         $('.wysihtml5').wysihtml5({
             "html":true,
             "color":true

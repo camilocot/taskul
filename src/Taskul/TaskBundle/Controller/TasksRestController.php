@@ -147,6 +147,11 @@ class TasksRestController extends BaseController {
         return $response;
     }
 
+    public function getTags()
+    {
+
+    }
+
     private function processForm(Task $task,$formMethod)
     {
     	$statusCode = $task->getId() ? 204 : 201;

@@ -67,10 +67,14 @@
         %}
         <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
+        <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
         {% include 'TaskBundle:partials:taskOp.js.twig' %}
         <script type="text/javascript">
+        var defaultTags = [ "{{ defaultTags|join('","')|raw}}" ];
         $(document).ready(function(){
             var editor = $('.wysihtml5').data("wysihtml5").editor;
+
             $(".validate").validate({
                 highlight: function(element) {
                     $(element).closest('.control-group').removeClass('success').addClass('error');
@@ -82,8 +86,7 @@
                 }
             });
             $('#form_task').submit(function(){
-                onChangeEditor();
-                return false;
+                return onChangeEditor();
             });
             editor.on("change", onChangeEditor);
 
@@ -94,11 +97,13 @@
             emp = editor.isEmpty();
             if(label.length > 0 && !emp){
                 label.hide();
+                return true;
             }else if (label.length === 0 && emp){
                 $('iframe.wysihtml5-sandbox').after('<label for="task_description" class="error">This field is required.</label>');
             }else{
                 label.show();
             }
+            return false;
         }
         </script>
         {% endblock %}

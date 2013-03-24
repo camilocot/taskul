@@ -1,0 +1,6 @@
+tags_api:
+    type: rest
+    resource: Taskul\TagBundle\Controller\TagsRestController
+    name_prefix: api_
+    defaults: { _format: json }
+    options:  { expose: true }
