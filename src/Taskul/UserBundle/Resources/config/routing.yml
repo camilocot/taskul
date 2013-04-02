@@ -4,7 +4,7 @@ _security_logout:
 
 fos_facebook_security_check:
     pattern: /fb/login_check
-    defaults: { _controller: UserBundle:User:fbLoginCheck } 
+    defaults: { _controller: UserBundle:User:fbLoginCheck }
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
@@ -24,4 +24,9 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
+
+taskul_user_change_password_without_verification:
+    pattern:      /change_password
+    defaults:  { _controller: UserBundle:ChangePassword:changePasswordWithoutVerification }
+
 

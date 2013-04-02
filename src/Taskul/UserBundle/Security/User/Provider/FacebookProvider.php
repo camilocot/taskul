@@ -62,6 +62,7 @@ class FacebookProvider implements UserProviderInterface
                 // @TODO: esto hay que codificarlo
                 $user->setPassword(uniqid());
                 $user->setCodeUpload(hash("sha256", uniqid(), false));
+                $user->addRole('ROLE_FORCEPASSWORDCHANGE');
             }
 
 
