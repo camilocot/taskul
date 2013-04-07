@@ -1,4 +1,4 @@
-{% extends "TaskBundle::layout.html.twig" %}
+{% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "TaskBundle::layout.html.twig" %}
     {% block body %}
     {{ parent() }}
     {% include 'TaskBundle:partials:delete-modal-rest.html.twig' %}
@@ -66,52 +66,4 @@
     </div><!--/box-->
 
 </div><!--/row-->
-{% endblock %}
-{% block javascripts %}
-<script src="//ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
-{% javascripts '@MainBundle/Resources/public/js/datatables-boostrap.js' %}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-<script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-<script type="text/javascript">
-//<![CDATA[]
-$(document).ready(function() {
-
-    $('.boostrap-tp').tooltip({
-        "trigger":"click"
-    }).click(function(e){
-        e.preventDefault();
-    });
-
-    $('.datatable').dataTable({
-        "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
-        "sPaginationType": "bootstrap",
-         "bAutoWidth": false,
-         "aoColumns" : [
-            { sWidth: '10%' },
-            { sWidth: '30%' },
-            { sWidth: '5%' },
-            { sWidth: '40%' },
-            { sWidth: '15%', "bSortable": false  }
-        ],
-        "oLanguage": {
-            "sLengthMenu": "_MENU_ records per page"
-        }
-    } );
-
-    $('.delete-modal-btn').click( function (e) {
-        var taskId = $(this).data('id');
-        $('#form_id').val(taskId);
-        route = Routing.generate('api_delete_task', { "id": taskId });
-        $('#delete-task').attr('action', route);
-
-    });
-    $('#modal-form-submit').click( function (e) {
-     e.preventDefault();
-     $('#delete-task').submit();
-    });
-});
-//]]>
-</script>
 {% endblock %}

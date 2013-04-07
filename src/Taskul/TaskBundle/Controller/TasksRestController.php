@@ -142,9 +142,7 @@ class TasksRestController extends BaseController {
             $statusCode = 400;
         }
 
-        $response = $this->redirectAbsolute('api_get_task',$statusCode, array('id' => $task->getId()));
-
-        return $response;
+        return $this->returnResponse($task,$statusCode);
     }
 
     public function getTags()
@@ -189,15 +187,13 @@ class TasksRestController extends BaseController {
                 $members = $task->getMembers();
                 $aclManager->grant($task,$members);
 
-                $response = $this->redirectAbsolute('api_get_task',$statusCode, array('id' => $task->getId()));
-
-                return $response;
+                return $this->returnResponse($task,$statusCode);
 
             }else{
                 $statusCode = 400; // Form invalid
             }
         }else
-        $statusCode = 200;
+            $statusCode = 200;
 
 
         $data = array(
@@ -213,6 +209,18 @@ class TasksRestController extends BaseController {
         ->setTemplate("TaskBundle:Task:api/form.html.twig")
         ;
         return $this->handleView($view);
+    }
+
+    private function returnResponse($task,$statusCode)
+    {
+        if($this->checkAjax())
+        {
+            $data = array('success'=>TRUE,'message'=>'', 'id'=>$task->getId());
+            return $this->processView($data, $statusCode);
+        }
+        else
+            $response = $this->redirectAbsolute('api_get_task',$statusCode, array('id' => $task->getId()));
+        return $response;
     }
 
 }

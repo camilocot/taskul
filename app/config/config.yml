@@ -144,3 +144,9 @@ jms_serializer:
       FOSUserBundle:
         namespace_prefix: "FOS\\UserBundle"
         path: "@UserBundle/Resources/config/serializer/fos"
+
+fos_rest:
+    format_listener:
+        default_priorities: ['json', html, '*/*']
+        fallback_format: json
+        prefer_extension: true

@@ -141,12 +141,4 @@ class FilesRestController extends BaseController {
 
     }
 
-    protected function processView($data, $statusCode = 200)
-    {
-        $json = json_decode(json_encode($data),TRUE);
-        $view = $this->view($json, $statusCode)
-        ;
-        return $this->handleView($view);
-    }
-
 }

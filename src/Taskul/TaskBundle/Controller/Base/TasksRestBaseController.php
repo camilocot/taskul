@@ -124,4 +124,17 @@ class TasksRestBaseController extends FOSRestController {
 		return true;
 	}
 
+	protected function checkAjax()
+	{
+		return $this->get('request')->isXmlHttpRequest();
+	}
+
+	protected function processView($data, $statusCode = 200)
+    {
+        $json = json_decode(json_encode($data),TRUE);
+        $view = $this->view($json, $statusCode)
+        ;
+        return $this->handleView($view);
+    }
+
 }
