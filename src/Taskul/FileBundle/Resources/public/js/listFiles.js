@@ -2,28 +2,14 @@ $(document).ready(function() {
 
     var nTr = null; //Para eliminar fila del datatables
 
-    $('.boostrap-tp').tooltip({
-        "trigger":"click"
-    }).click(function(e){
-        e.preventDefault();
-    });
-
     $('.datatable').dataTable({
         "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
         "sPaginationType": "bootstrap",
         "bAutoWidth": false,
-    /*    "aoColumns" : [
+       "aoColumns" : [
         { sWidth: '90%' },
         { sWidth: '10%', "bSortable": false  }
-        ], listfiles
-        "aoColumns" : [
-            { sWidth: '10%' },
-            { sWidth: '30%' },
-            { sWidth: '5%' },
-            { sWidth: '40%' },
-            { sWidth: '15%', "bSortable": false  }
-        ], index
-        */
+        ],
 
         "oLanguage": {
             "sLengthMenu": "_MENU_ records per page"
@@ -52,8 +38,6 @@ $(document).ready(function() {
             var n =noty({text: obj.message, type: 'error', layout: 'top'});
         }
     });
-
-$('ul#task_ops').show();
 
 $(".orangeCircle").knob({
     'min':0,

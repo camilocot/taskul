@@ -15,7 +15,7 @@ use Taskul\TaskBundle\Controller\Base\TasksRestBaseController as BaseController;
  * @RouteResource("Task")
  *
  * @Breadcrumb("Dashboard", route="dashboard")
- * @Breadcrumb("Tasks", route="api_get_tasks")
+ * @Breadcrumb("Tasks", route="api_get_tasks", attributes={"class": "ajaxy"} )
  *
  */
 class TasksRestController extends BaseController {
@@ -145,11 +145,6 @@ class TasksRestController extends BaseController {
         return $this->returnResponse($task,$statusCode);
     }
 
-    public function getTags()
-    {
-
-    }
-
     private function processForm(Task $task,$formMethod)
     {
     	$statusCode = $task->getId() ? 204 : 201;
@@ -199,8 +194,8 @@ class TasksRestController extends BaseController {
         $data = array(
           'entity' => $task,
           'form' => $form->createView(),
-          'defaultTags' => $this->loadAllTags($user),
           'method' => $formMethod,
+          'delete_form' => $this->createDeleteForm($task->getId()?$task->getId():-1)->createView(),
           'id' => $task->getId(),
           'delete_id' => $task->getId(),
           );

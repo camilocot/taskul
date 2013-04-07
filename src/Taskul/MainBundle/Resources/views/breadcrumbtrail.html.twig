@@ -13,7 +13,7 @@
     {%- if breadcrumb.url is null or loop.last -%}
     {{ breadcrumb.title|trans }}
     {%- else -%}
-    <a href="{{ breadcrumb.url }}">{{ breadcrumb.title|trans }}</a> <span class="divider">/</span>
+    <a href="{{ breadcrumb.url }}" class="ajaxy">{{ breadcrumb.title|trans }}</a> <span class="divider">/</span>
     {%- endif -%}
   </li>
   {% endfor %}

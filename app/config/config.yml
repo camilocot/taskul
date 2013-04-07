@@ -147,6 +147,6 @@ jms_serializer:
 
 fos_rest:
     format_listener:
-        default_priorities: ['json', html, '*/*']
+        default_priorities: [ html, 'json', '*/*']
         fallback_format: json
-        prefer_extension: true
+        prefer_extension: false

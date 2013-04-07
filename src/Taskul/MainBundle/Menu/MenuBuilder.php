@@ -26,8 +26,18 @@ class MenuBuilder
         $menu->addChild('Task',array('uri'=>'#','label'=>'<i class="icon-chevron-down icon-white"></i><span class="hidden-tablet">Tareas</span>'))->setExtra('safe_label', FALSE);
         $menu['Task']->setLinkAttribute('class', 'dropmenu no-ajaxy');
         $menu['Task']->setChildrenAttribute('id','task_ops');
-        $menu['Task']->addChild('new_task',array('route'=>'api_new_task','label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Crear Nueva</span>','class'=>'submenu'))->setExtra('safe_label', FALSE);
-        $menu['Task']->addChild('list_task',array('route'=>'api_get_tasks','label'=>'<i class="fa-icon-list"></i><span class="hidden-tablet"> Ver todas</span>','class'=>'submenu'))->setExtra('safe_label', FALSE);
+        $menu['Task']->addChild('new_task',array(
+            'route'=>'api_new_task',
+            'label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Crear Nueva</span>',
+            'class'=>'submenu',
+            'attributes' => array('id' => 'task_ops_new')
+            ))->setExtra('safe_label', FALSE);
+        $menu['Task']->addChild('list_task',array(
+            'route'=>'api_get_tasks',
+            'label'=>'<i class="fa-icon-list"></i><span class="hidden-tablet"> Ver todas</span>',
+            'class'=>'submenu',
+            'attributes' => array('id' =>'task_ops_list')
+            ))->setExtra('safe_label', FALSE);
 
         // Menu de solicitudes de amistad
         $menu->addChild('FriendRequest',array('uri'=>'#','label'=>'<i class="icon-chevron-down icon-white"></i><span class="hidden-tablet">Solicitudes amistad</span>'))->setExtra('safe_label', FALSE);

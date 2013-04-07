@@ -37,7 +37,7 @@
                         <div class="form-actions">
                             <button class="btn btn-primary" type="submit" value="0">Terminar</button>
                             <button class="btn btn-primary" type="submit" value="1">Añadir ficheros</button>
-                            <a class="btn btn-cancel" href="{{ path('api_get_tasks') }}">
+                            <a class="btn btn-cancel ajaxy" href="{{ path('api_get_tasks') }}">
                                 Back to the list
                             </a>
                         </div>
@@ -47,13 +47,12 @@
             </div><!--/box-->
 
         </div><!--/row-->
-        {% endblock %}
-
-        {% block javascripts %}
-        {{ parent() }}
-        {% if defaultTags|length > 0 %}
-        <script type="text/javascript">
-            var defaultTags = [ "{{ defaultTags|join('","')|raw}}" ];
-        </script>
-        {% endif %}
-        {% endblock %}
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+{% javascripts
+    '@TaskBundle/Resources/public/js/form.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+{% endblock %}

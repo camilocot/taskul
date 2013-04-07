@@ -1,7 +1,6 @@
 {% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "TaskBundle::layout.html.twig" %}
     {% block body %}
     {{ parent() }}
-    {% include 'TaskBundle:partials:delete-modal-rest.html.twig' %}
 
     {% endblock %}
 {% block content %}
@@ -41,11 +40,11 @@
                             <td>{{ entity.tags|labelsinactive|raw }} </td>
                             <td>
                                     {% if is_granted('VIEW', entity) %}
-                                        <a href="{{ path('api_get_task', { 'id': entity.id }) }}" class="btn btn-info" title="show"><i class="icon-zoom-in icon-white"></i></a>
-                                        <a href="{{ path('api_get_task_files', { 'id': entity.id }) }}" class="btn btn-info" title="show"><i class="icon-zoom-in icon-white"></i></a>
+                                        <a href="{{ path('api_get_task', { 'id': entity.id }) }}" class="btn btn-info ajaxy" title="show"><i class="icon-zoom-in icon-white"></i></a>
+                                        <a href="{{ path('api_get_task_files', { 'id': entity.id }) }}" class="btn btn-info ajaxy" title="edit files"><i class="icon-zoom-in icon-white"></i></a>
                                     {% endif %}
                                     {% if is_granted('EDIT', entity) %}
-                                        <a href="{{ path('api_edit_task', { 'id': entity.id }) }}" class="btn btn-success" title="edit"><i class="icon-edit icon-white"></i></a>
+                                        <a href="{{ path('api_edit_task', { 'id': entity.id }) }}" class="btn btn-success ajaxy" title="edit"><i class="icon-edit icon-white"></i></a>
                                     {% endif %}
                                     {% if is_granted('DELETE', entity) %}
                                     <button class="btn btn-danger delete-modal-btn" type="button" data-id="{{ entity.id }}" data-target="#deleteModal" data-toggle="modal"><i class="icon-trash icon-white"></i></button>
@@ -57,7 +56,7 @@
                     </tbody>
                 </table>
                 <div class="form-actions" style="margin: 20px -10px -8px">
-                   <a href="{{ path('api_new_task') }}" class="btn">
+                   <a href="{{ path('api_new_task') }}" class="btn ajaxy">
                     Create a new entry
                     </a>
                 </div>
@@ -66,4 +65,12 @@
     </div><!--/box-->
 
 </div><!--/row-->
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+{% javascripts
+    '@TaskBundle/Resources/public/js/index.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
 {% endblock %}

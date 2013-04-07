@@ -1,8 +1,4 @@
 {% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "TaskBundle::layout.html.twig" %}
-    {% block body %}
-    {{ parent() }}
-    {% include 'TaskBundle:partials:delete-modal-rest.html.twig' %}
-    {% endblock %}
     {% block content %}
     {{ apy_breadcrumb_trail_render() }}
     <div class="row-fluid sortable">
@@ -50,11 +46,11 @@
 
                     {% endif %}
                     {% if is_granted('EDIT',entity) %}
-                    <a href="{{ path('api_edit_task', { 'id': entity.id }) }}" class="btn btn-success">
+                    <a href="{{ path('api_edit_task', { 'id': entity.id }) }}" class="btn btn-success ajaxy">
                         Edit
                     </a>
                     {% endif %}
-                    <a class="btn btn-cancel" href="{{ path('api_get_tasks') }}">
+                    <a class="btn btn-cancel ajaxy" href="{{ path('api_get_tasks') }}">
                         Back to the list
                     </a>
 
