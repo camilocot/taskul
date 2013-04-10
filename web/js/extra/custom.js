@@ -32,8 +32,6 @@ $(document).ready(function(){
 	/* Desplegamos los ul del menu */
 	$("li.active").parent('ul').css('display','block');
 	$("li.active").children().css('color','#0088cc');
-	/* ---------- Acivate Functions ---------- */
-	$("#overlay").delay(1250).fadeOut(500);
 	template_functions();
 	/*init_masonry();
 	sparkline_charts();

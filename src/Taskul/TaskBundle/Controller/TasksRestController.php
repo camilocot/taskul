@@ -138,16 +138,18 @@ class TasksRestController extends BaseController {
 
             $em->remove($task);
             $em->flush();
+            $data = array('success'=>TRUE,'message'=>'Operacion relaizada correctamente');
         }else{
             $statusCode = 400;
+            $data = array('success'=>FALSE,'message'=>'error',);
         }
 
-        return $this->returnResponse($task,$statusCode);
+        return $this->processView($data,$statusCode);
     }
 
     private function processForm(Task $task,$formMethod)
     {
-    	$statusCode = $task->getId() ? 204 : 201;
+    	$statusCode = 201;
 
     	$securityContext = $this->getSecurityContext();
     	$formFactory = $this->get('form.factory');

@@ -52,7 +52,7 @@ class FilesRestController extends BaseController {
         $user = $this->getLoggedUser();
 
 
-    	$data = $this->processRequest();
+    	$data = $this->processRequest($user->getCodeUpload());
         $file = $data['files'][0];
 
         if(isset($file->error)){
@@ -65,8 +65,6 @@ class FilesRestController extends BaseController {
 
             $file->id = $doc->getId();
             $file->taskid = $task->getId();
-
-            unset($data['delete_url']);
         }
 
         return $this->processView($data,$data['statusCode']);
@@ -78,12 +76,13 @@ class FilesRestController extends BaseController {
         $aclManager = $this->getAclManager();
         $em = $this->getEntityManager();
         $fileManager = $this->getFileManager();
+        $user = $this->getLoggedUser();
 
         $task = $this->checkGrant($idTask,'VIEW');
         $document = $this->checkGrant($idDocument,'DELETE','FileBundle:Document');
 
         $_GET['file'] = $document->getName(); // Para el handler del upload
-        $data = $this->processRequest();
+        $data = $this->processRequest($user->getCodeUpload());
 
         if(isset($data['error']))
             $data = array('success'=>FALSE,'message'=>$data['error']);
@@ -93,13 +92,13 @@ class FilesRestController extends BaseController {
         return $this->processView($data,$data['statusCode']);
     } // "api_delete_task_file" [DELETE] /api/tasks/{idtask}/files/{iddocument}
 
-    protected function processRequest()
+    protected function processRequest($codeUpload)
     {
 
     	$upload_handler = new \Taskul\FileBundle\BlueImp\UploadHandler(
     		array(
-    			'upload_dir' => $_SERVER['DOCUMENT_ROOT'].'/uploads/',
-    			'upload_url' => $this->getRequest()->getScheme().'://'.$this->getRequest()->getHost().'/uploads/',
+    			'upload_dir' => $_SERVER['DOCUMENT_ROOT'].'/uploads/'.$codeUpload.'/',
+    			'upload_url' => $this->getRequest()->getUri().'/',
     			'script_url' => $this->getRequest()->getUri()
     			), false);
 
@@ -136,7 +135,14 @@ class FilesRestController extends BaseController {
             $data['message'] = 'Method Not Allowed';
             $data['statusCode'] = 405;
         }
-
+        if(isset($data['files'])) {
+            for ($i=0; $i < count($data['files']); $i++) {
+                if(property_exists($data['files'][$i],'url'))
+                    unset($data['files'][$i]->url);
+                if(property_exists($data['files'][$i],'delete_url'))
+                    unset($data['files'][$i]->delete_url);
+            }
+        }
         return $data;
 
     }

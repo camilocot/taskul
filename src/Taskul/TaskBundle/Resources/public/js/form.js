@@ -10,6 +10,7 @@
                     $('input#task_dateEnd').val($('#datepick').data('date'));
                     $('#datepick').datepicker('hide');
                 });
+                $('input#task_dateEnd').datepicker();
             }
 
             if ($.fn.select2) {
@@ -54,20 +55,19 @@
         $(this).ajaxSubmit({
             success: function (data){
                 taskId = data.id;
+                title = null;
                 if(valSubmit == 1)
                 {
                     route = Routing.generate('api_get_task_files', { "id": taskId });
                     title = 'Asignar ficheros';
                 }
-                else if(valSubmit == 0)
+                else
                 {
                     route = Routing.generate('api_get_task', { "id": taskId });
                     title = 'Mostrar tarea';
                 }
                 loadPage(route);
                 History.pushState(null,title,route);
-                event.preventDefault();
-
             },
             error: function (data){
                 console.log("Error of data:", data);

@@ -2,7 +2,7 @@
 namespace Taskul\FileBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\HttpFoundation\File\File;
 /**
  * Taskul\FileBundle\Entity\Document
  *
@@ -210,5 +210,15 @@ class Document
     public function getMarkToDelete()
     {
         return $this->markToDelete;
+    }
+
+    public function getDocument($codeUpload)
+    {
+        return new File($this->getUploadRootDir($codeUpload).$this->getName());
+    }
+
+    public function getUploadRootDir($codeUpload)
+    {
+        return $_SERVER['DOCUMENT_ROOT'].'/uploads/'.$codeUpload.'/';
     }
 }

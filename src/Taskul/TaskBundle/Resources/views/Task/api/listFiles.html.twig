@@ -1,8 +1,4 @@
 {% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "TaskBundle::layout.html.twig" %}
-{% block body %}
-{{ parent() }}
-{% include 'TaskBundle:partials:delete-modal-rest.html.twig' %}<!-- TODO esto hay que adjuntarlo al final -->
-{% endblock %}
 {% block content %}
 {{ apy_breadcrumb_trail_render() }}
 <div class="row-fluid sortable">
@@ -30,6 +26,9 @@
                             <tr id="#row{{ entity.id }}">
                                 <td>{{ entity.name }}</td>
                                 <td>
+                                    {% if is_granted('VIEW', entity) %}
+                                    <a href="{{ path('api_download_file', { 'id': entity.id }) }}" class="btn btn-info" title="show"><i class="icon-zoom-in icon-white"></i></a>
+                                    {% endif %}
                                     {% if is_granted('DELETE', entity) %}
                                     <button class="btn btn-danger delete-modal-btn" type="button" data-task-id="{{ entity.idObject }}" data-document-id="{{ entity.id }}" data-target="#deleteModal" data-toggle="modal"><i class="icon-trash icon-white"></i></button>
                                     {% endif %}
@@ -51,7 +50,7 @@
             </div>
         </div>
         <div class="box-content">
-            <input id="fileupload" type="file" name="files[]" data-url="{{ path('api_post_task_file', { id: taskId } ) }}.json" multiple>
+            <div class="uploader"><input id="fileupload" type="file" name="files[]" data-url="{{ path('api_post_task_file', { id: taskId } ) }}.json" multiple></div>
         </div>
 
     </div><!--/box-->
