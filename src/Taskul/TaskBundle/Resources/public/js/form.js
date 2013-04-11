@@ -50,29 +50,33 @@
     });
 
         // Crear nueva tarea, redirecciona a ver o a aañadir ficheros
-    $('#form_task').submit(function(event){
-        var valSubmit = $("button[type=submit][clicked=true]").val();
-        $(this).ajaxSubmit({
-            success: function (data){
-                taskId = data.id;
-                title = null;
-                if(valSubmit == 1)
-                {
-                    route = Routing.generate('api_get_task_files', { "id": taskId });
-                    title = 'Asignar ficheros';
+        $('#form_task').submit(function(event){
+            var valSubmit = $("button[type=submit][clicked=true]").val();
+            $(this).ajaxSubmit({
+                success: function (data){
+                    if(data.success === true){
+                        taskId = data.id;
+                        title = null;
+                        if(valSubmit == 1)
+                        {
+                            route = Routing.generate('api_get_task_files', { "id": taskId });
+                            title = 'Asignar ficheros';
+                        }
+                        else
+                        {
+                            route = Routing.generate('api_get_task', { "id": taskId });
+                            title = 'Mostrar tarea';
+                        }
+                        loadPage(route);
+                        History.pushState(null,title,route);
+                    }else{
+                        console.log(data);
+                    }
+                },
+                error: function (data){
+                    console.log("Error of data:", data);
                 }
-                else
-                {
-                    route = Routing.generate('api_get_task', { "id": taskId });
-                    title = 'Mostrar tarea';
-                }
-                loadPage(route);
-                History.pushState(null,title,route);
-            },
-            error: function (data){
-                console.log("Error of data:", data);
-            }
-        });
+            });
         // return false to prevent normal browser submit and page navigation
         return false;
     });

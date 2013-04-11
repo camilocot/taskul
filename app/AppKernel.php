@@ -39,6 +39,7 @@ class AppKernel extends Kernel
             new Fresh\Bundle\DoctrineEnumBundle\FreshDoctrineEnumBundle(),
             new APY\BreadcrumbTrailBundle\APYBreadcrumbTrailBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Taskul\CommentBundle\TaskulCommentBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

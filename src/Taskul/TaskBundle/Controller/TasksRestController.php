@@ -176,7 +176,7 @@ class TasksRestController extends BaseController {
     			$em->persist($task);
     			$em->flush();
 
-    			$tags = $formData['tags'];
+    			$tags = strtolower($formData['tags']);
     			$this->saveTags($task, $tags);
 
             // Asignamos los permisos
@@ -187,7 +187,8 @@ class TasksRestController extends BaseController {
                 return $this->returnResponse($task,$statusCode);
 
             }else{
-                $statusCode = 400; // Form invalid
+                var_dump($form->getErrors());
+                return $this->returnResponse($task,400,FALSE);
             }
         }else
             $statusCode = 200;
@@ -208,11 +209,11 @@ class TasksRestController extends BaseController {
         return $this->handleView($view);
     }
 
-    private function returnResponse($task,$statusCode)
+    private function returnResponse($task,$statusCode,$success=TRUE,$message='')
     {
         if($this->checkAjax())
         {
-            $data = array('success'=>TRUE,'message'=>'', 'id'=>$task->getId());
+            $data = array('success'=>$success,'message'=>$message, 'id'=>$task->getId());
             return $this->processView($data, $statusCode);
         }
         else
