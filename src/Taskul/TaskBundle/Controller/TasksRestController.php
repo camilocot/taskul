@@ -167,7 +167,7 @@ class TasksRestController extends BaseController {
     	$method = $request->getMethod();
 
 
-        $tags = $task->getId() ? $this->loadTags($task) : '';
+      $tags = $task->getId() ? $this->loadTags($task) : '';
 
     	$form = $formFactory->create(new TaskType($securityContext),$task,array('tags'=>$tags));
 

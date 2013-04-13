@@ -16,10 +16,20 @@
     <!-- start: Mobile Specific -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- end: Mobile Specific -->
-
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     {% stylesheets
-    '@MainBundle/Resources/public/css/bootstrap.css'
-    '@MainBundle/Resources/public/css/bootstrap-responsive.css'
+    '@MainBundle/Resources/public/css/jquery-ui-1.8.21.custom.css'
+    '@MainBundle/Resources/public/css/uniform.default.css'
+    '@MainBundle/Resources/public/css/jquery.noty.css'
+    '@MainBundle/Resources/public/css/noty_theme_default.css'
+    '@MainBundle/Resources/public/css/jquery.iphone.toggle.css'
+    '@MainBundle/Resources/public/css/jquery.gritter.css'
+    '@MainBundle/Resources/public/css/font-awesome.css'
+    '@MainBundle/Resources/public/css/font-awesome-ie7.css'
+    '@MainBundle/Resources/public/css/style.css'
+    '@MainBundle/Resources/public/css/style-responsive.css'
     '@MainBundle/Resources/public/css/main.css'
     '@FOSCommentBundle/Resources/assets/css/comments.css'
     %}
@@ -30,8 +40,6 @@
 
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    <link id="base-style" href="/css/style.css" rel="stylesheet">
-    <link id="base-style-responsive" href="/css/style-responsive.css" rel="stylesheet">
 </head>
 <body>
     {% block body %}
@@ -50,7 +58,7 @@
 <script src="//balupton.github.com/jquery-scrollto/scripts/jquery.scrollto.min.js"></script>
 
 <!-- History.js -->
- <script src="//browserstate.github.com/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>
+ <!-- <script src="//browserstate.github.com/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>-->
     <!-- Ajaxify -->
 {% javascripts
     '@MainBundle/Resources/public/js/vendor/bootstrap.min.js'
@@ -60,6 +68,7 @@
     '@MainBundle/Resources/public/js/vendor/jquery.form.js'
     '@MainBundle/Resources/public/js/plugins.js'
     '@MainBundle/Resources/public/js/main.js'
+    '@MainBundle/Resources/public/js/ajaxify.js'
     %}
     <!--'@MainBundle/Resources/public/js/ajaxify-html5.js'-->
     <script src="{{ asset_url }}"></script>

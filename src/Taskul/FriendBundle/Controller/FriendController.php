@@ -93,7 +93,7 @@ class FriendController extends Controller {
         return $this->redirect($this->generateUrl('myfriends'));
     }
 
-            private function createDeleteForm($id) {
+    private function createDeleteForm($id) {
           return $this->createFormBuilder(array('delete_id' => $id))
           ->add('delete_id', 'hidden')
           ->getForm()

@@ -22,445 +22,446 @@ use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
  */
 class FriendRequestController extends Controller {
 
-    /**
-     * List all friend request send and recibed
-     *
-     * @Route("/", name="frequest")
-     * @Template()
-     */
-    public function indexAction() {
+  /**
+   * List all friend request send and recibed
+   *
+   * @Route("/", name="frequest")
+   * @Template()
+   */
+  public function indexAction() {
 
-      $recibed = $this->getRecibed();
-      $sended = $this->getSended();
+    $recibed = $this->getRecibed();
+    $sended = $this->getSended();
+    $deleteForm = $this->createDeleteForm(-1);
+    $activateForm = $this->createActivateForm(-1);
 
-      return array(
-        'sended' => count($sended),
-        'recibed' => count($recibed),
-        );
-    }
-
-
-    /**
-     * Lists all FriendRequest entities.
-     *
-     * @Route("/recibed", name="frequest_recibed")
-     * @Template()
-     *
-     * @Breadcrumb("Recibidas")
-     */
-    public function indexRecibedAction() {
-
-      $deleteForm = $this->createDeleteForm(-1);
-      $activateForm = $this->createActivateForm(-1);
-
-      $entities = $this->getRecibed();
-
-      return array(
-        'entities' => $entities,
-        'entity' => array('id' => -1),
-        'delete_form' => $deleteForm->createView(),
-        'activate_form' => $activateForm->createView(),
-        );
-    }
-
-    /**
-     * Lists all FriendRequest entities.
-     *
-     * @Route("/sended", name="frequest_sended")
-     * @Template()
-     *
-     * @Breadcrumb("Enviadas")
-     */
-    public function indexSendedAction() {
-      $deleteForm = $this->createDeleteForm(-1);
-      $entities = $this->getSended();
-
-      return array(
-        'entities' => $entities,
-        'entity' => array('id' => -1),
-        'delete_form' => $deleteForm->createView(),
-        );
-    }
-    /**
-     * Finds and displays a FriendRequest entity.
-     *
-     * @Route("/{id}/show", name="frequest_show")
-     * @Template()
-     *
-     * @Breadcrumb("Ver")
-     */
-    public function showAction($id) {
-
-      $em = $this->getDoctrine()->getManager();
-      $securityContext = $this->get('security.context');
-      $user = $securityContext->getToken()->getUser();
-
-      $entity = $em->getRepository('FriendBundle:FriendRequest')->showRequest($id, $user);
-
-      if (!$entity) {
-        throw $this->createNotFoundException('Unable to find FriendRequest entity.');
-      }
-
-            // check for view access
-      if (false === $securityContext->isGranted('VIEW', $entity))
-      {
-        throw new AccessDeniedException();
-      }
-
-      $deleteForm = $this->createDeleteForm($id);
-      $activateForm = $this->createActivateForm(-1);
-
-      return array(
-        'entity' => $entity,
-        'delete_form' => $deleteForm->createView(),
-        'activate_form' => $activateForm->createView(),
-        );
-    }
-
-    /**
-     * Displays a form to create a new FriendRequest entity.
-     *
-     * @Route("/new", name="frequest_new")
-     * @Template()
-     *
-     * @Breadcrumb("Nueva")
-     */
-    public function newAction() {
-      $entity = new FriendRequest();
-      $form = $this->createForm(new FriendRequestType(), $entity);
-
-      return array(
-        'entity' => $entity,
-        'form' => $form->createView(),
-        );
-    }
-
-    /**
-     * Envia solicitudes de conexion a los contactos seleccionados
-     * por el usuario y crea solicitudes de amistad asociado a
-     * id de los contactos de fb y los ids de la request realizada (en js)
-     *
-     * @Route("/importfb", name="import_fb")
-     * @Template()
-     *
-     * @Breadcrumb("Facebook")
-     */
-    public function importFacebookAction(Request $request) {
-      $fb = $this->get('my.facebook.user');
-        $fRequest = array(); //Almacenamos los objectos (si se han creado solicitudes) para darles luego permisos ace
-
-
-        $fbdata = $fb->get('/me');
-
-
-        $fbContact = array();
-
-        $defaultData = array('message' => 'Type your message here');
-        $formBuilder = $this->createFormBuilder($defaultData)
-        ->add('message', 'purified_textarea');
-
-
-
-        $imgUrls = array();
-        if (null !== $fbdata && isset($fbdata['id'])) {
-
-
-
-          //$user = $this->get('security.context')->getToken()->getUser();
-          $user = $fb->loadUserByUsername($fbdata['id']);
-
-          $aclManager = $this->get('taskul.acl_manager');
-          $em = $this->getDoctrine()->getManager();
-          $choices = array();
-
-          $searchContact = array(); // Lo usamos para buscar mas rápido dentro del array de contactos de fb
-
-          $fbContact = $fb->get('/me/friends?fields=name,id,picture');
-          $fbContact = $fbContact['data'];
-
-          $i = 0;
-          foreach ($fbContact as $fbc) {
-            $choices[$i] = array($fbc['id'] => $fbc['name']);
-            $imgUrls[$i] = $fbc['picture']['data']['url'];
-            $searchContact[$fbc['id']] = $i;
-            $i++;
-          }
-
-          $formBuilder->add('contacts', 'choice', array(
-            'choices'   => $choices,
-            'multiple'  => true,
-            'expanded' => true,
-            ));
-
-          $form = $formBuilder->getForm();
-
-          if ($request->isMethod('POST')) {
-            $form->bind($request);
-            $formData = $request->request->get($form->getName());
-            if($formData['sended'] != 'no' && count($formData['contacts'])>0){ /* @TODO hay que  hacer preg_match con el id del facebook */
-              foreach ($formData['contacts'] as $f){
-
-                $friendReq = new FriendRequest();
-                $friendReq->setFrom($user);
-                $friendReq->setFbrequestid($formData['sended']);
-                $friendReq->setFbid($f);
-                $friendReq->setMessage($formData['message']);
-                if(isset($searchContact[$f])){
-                  $id = $searchContact[$f];
-                  $fbData = array('fbdata'=>array('imgurl'=>$imgUrls[$id],'name'=>$choices[$id][$f]));
-                  $friendReq->setAddtionalData($fbData);
-                }
-                $em->persist($friendReq);
-                $fRequest[] = $friendReq;
-              }
-              $em->flush();
-
-                // Vamos a darles permiso @FIXME: comprobar si hay que hacer flush para los ace o
-                // se puede hacer antes con el persist (creo que no)
-                //
-
-              foreach ($fRequest as $f){
-                $aclManager->grant($f);
-              }
-            }
-          }
-        }else {
-
-          return $this->redirect($this->get('fos_facebook.api')->getLoginUrl() );
-        }
-
-        return array(
-          'frequest' => $fRequest,
-          'contacts' => $fbContact,
-          'form' => $form->createView(),
-          'imgUrls' => $imgUrls,
-          );
-      }
-
-      public function checkFriendsEmail($friends, $email) {
-        foreach ($friends as $friend) {
-          if ($friend->getEmail() === $email)
-            return TRUE;
-        }
-        return FALSE;
-      }
-
-    /**
-     * Creates a new FriendRequest entity.
-     *
-     * @Route("/create", name="frequest_create")
-     * @Method("POST")
-     * @Template("FriendBundle:FriendRequest:new.html.twig")
-     *
-     * @Breadcrumb("Nueva")
-     */
-    public function createAction(Request $request) {
-      $entity = new FriendRequest();
-      $owner = $this->get('security.context')->getToken()->getUser();
-      $entity->setFrom($owner);
-      $time = microtime(true) . '_' . uniqid();
-      $entity->setHash(hash("sha256", $time . $owner->getId(), false));
-
-      $form = $this->createForm(new FriendRequestType(), $entity);
-
-      $form->bind($request);
-
-      if ($form->isValid()) {
-        $em = $this->getDoctrine()->getManager();
-
-        $this->_processEntity($owner, $em, $form);
-
-
-        return $this->redirect($this->generateUrl('frequest_sended'));
-      }
-
-      return array(
-        'entity' => $entity,
-        'form' => $form->createView(),
-        );
-    }
-
-    /**
-     * Deletes a FriendRequest entity.
-     *
-     * @Route("/{id}/delete", name="frequest_delete", options={ "expose": true })
-     * @Method("POST")
-     *
-     */
-    public function deleteAction(Request $request, $id) {
-      $em = $this->getDoctrine()->getManager();
-      $entity = $em->getRepository('FriendBundle:FriendRequest')->findOneBy(array('id' => $id, 'active' => FALSE));
-
-      if (!$entity) {
-        throw $this->createNotFoundException('Unable to find FriendRequest entity.');
-      }
-
-      $securityContext = $this->get('security.context');
-
-        // check for edit access
-      if (false === $securityContext->isGranted('DELETE', $entity))
-      {
-        throw new AccessDeniedException();
-      }
-
-      $aclManager = $this->get('taskul.acl_manager');
-      $aclManager->revokeAll($entity);
-
-      $em->remove($entity);
-      $em->flush();
-
-      return $this->redirect($this->generateUrl('frequest_recibed'));
-    }
-
-    /**
-     *
-     *
-     * @Route("/register/{hash}", name="frequest_register")
-     *
-     */
-    public function registerAction($hash) {
-      if (null !== $this->getDoctrine()->getRepository('FriendBundle:FriendRequest')
-        ->findOneBy(array('hash' => $hash, 'active' => FALSE))) {
-
-        $this->get('session')->set('request_hash', $hash);
-    }
-    return $this->redirect(
-      $this->generateUrl("fos_user_registration_register")
+    return array(
+      'sended' => count($sended),
+      'recibed' => count($recibed),
+      'entity' => array('id' => -1),
+      'delete_form' => $deleteForm->createView(),
+      'activate_form' => $activateForm->createView(),
       );
   }
 
-    /**
-     *
-     *
-     * @Route("/activate/{id}", name="frequest_activate", options={ "expose": true })
-     * @Method("POST")
-     *
-     */
-    public function activateAction($id) {
-      $to = $this->get('security.context')->getToken()->getUser();
-      $em = $this->getDoctrine()->getEntityManager();
-      $request = $em->getRepository('FriendBundle:FriendRequest')
-      ->findOneBy(array('id' => $id, 'to' => $to, 'active' => FALSE));
 
-      if (!$request) {
-        throw $this->createNotFoundException('Unable to find Request entity.');
-      }
+  /**
+   * Lists all FriendRequest entities.
+   *
+   * @Route("/recibed", name="frequest_recibed")
+   * @Template()
+   *
+   * @Breadcrumb("Recibidas")
+   */
+  public function indexRecibedAction() {
 
-      $securityContext = $this->get('security.context');
+    $deleteForm = $this->createDeleteForm(-1);
+    $activateForm = $this->createActivateForm(-1);
 
-        // check for edit access
-      if (false === $securityContext->isGranted('EDIT', $request))
-      {
-        throw new AccessDeniedException();
-      }
+    $entities = $this->getRecibed();
 
-      $from = $request->getFrom();
-      $to->addMyFriend($from);
-      $to->addFriendsWithMe($from);
-      $from->addMyFriend($to);
-      $from->addFriendsWithMe($to);
-      $request->setActive(TRUE);
-      $em->persist($to);
-      $em->persist($from);
-      $em->persist($request);
-      $em->flush();
+    return array(
+      'entities' => $entities,
+      'entity' => array('id' => -1),
+      'delete_form' => $deleteForm->createView(),
+      'activate_form' => $activateForm->createView(),
+      );
+  }
 
-      return $this->redirect($this->generateUrl('myfriends'));
+  /**
+   * Lists all FriendRequest entities.
+   *
+   * @Route("/sended", name="frequest_sended")
+   * @Template()
+   *
+   * @Breadcrumb("Enviadas")
+   */
+  public function indexSendedAction() {
+    $deleteForm = $this->createDeleteForm(-1);
+    $entities = $this->getSended();
+
+    return array(
+      'entities' => $entities,
+      'entity' => array('id' => -1),
+      'delete_form' => $deleteForm->createView(),
+      'activate_form' => $this->createActivateForm(-1)->createView(),
+      );
+  }
+  /**
+   * Finds and displays a FriendRequest entity.
+   *
+   * @Route("/{id}/show", name="frequest_show")
+   * @Template()
+   *
+   * @Breadcrumb("Ver")
+   */
+  public function showAction($id) {
+
+    $em = $this->getDoctrine()->getManager();
+    $securityContext = $this->get('security.context');
+    $user = $securityContext->getToken()->getUser();
+
+    $entity = $em->getRepository('FriendBundle:FriendRequest')->showRequest($id, $user);
+
+    if (!$entity) {
+      throw $this->createNotFoundException('Unable to find FriendRequest entity.');
     }
 
-        /**
-     * Comprueba si el destinatario de una peticion de amistad esta dado
-     * de alta en el sistema y si es así le asigna el campo TO del destinario
-     *
-     * @param  [type] $entity [description]
-     * @param  [type] $email  [description]
-     * @param  [type] $em     [description]
-     * @return [type]         [description]
-     */
-        private function _checkTo($entity, $email, $em) {
-          if (null === $entity->getTo()) {
-            $to = $em->getRepository('UserBundle:User')->findOneByEmail($email);
+          // check for view access
+    if (false === $securityContext->isGranted('VIEW', $entity))
+    {
+      throw new AccessDeniedException();
+    }
 
-            if (null !== $to) {
-              $entity->setTo($to);
+    $deleteForm = $this->createDeleteForm($id);
+    $activateForm = $this->createActivateForm(-1);
+
+    return array(
+      'entity' => $entity,
+      'delete_form' => $deleteForm->createView(),
+      'activate_form' => $activateForm->createView(),
+      );
+  }
+
+  /**
+   * Displays a form to create a new FriendRequest entity.
+   *
+   * @Route("/new", name="frequest_new")
+   * @Template()
+   *
+   * @Breadcrumb("Nueva")
+   */
+  public function newAction() {
+    $entity = new FriendRequest();
+    $form = $this->createForm(new FriendRequestType(), $entity);
+
+    return array(
+      'entity' => $entity,
+      'form' => $form->createView(),
+      'delete_form' => $this->createDeleteForm(-1)->createView(),
+      'activate_form' => $this->createActivateForm(-1)->createView(),
+      );
+  }
+
+  /**
+   * Envia solicitudes de conexion a los contactos seleccionados
+   * por el usuario y crea solicitudes de amistad asociado a
+   * id de los contactos de fb y los ids de la request realizada (en js)
+   *
+   * @Route("/importfb", name="import_fb")
+   * @Template()
+   *
+   * @Breadcrumb("Facebook")
+   */
+  public function importFacebookAction(Request $request) {
+    $fb = $this->get('my.facebook.user');
+    $fRequest = array(); //Almacenamos los objectos (si se han creado solicitudes) para darles luego permisos ace
+
+
+    $fbdata = $fb->get('/me');
+
+
+    $fbContact = array();
+
+    $defaultData = array('message' => 'Type your message here');
+    $formBuilder = $this->createFormBuilder($defaultData)
+    ->add('message', 'purified_textarea');
+
+
+
+    $imgUrls = array();
+    if (null !== $fbdata && isset($fbdata['id'])) {
+
+
+
+      //$user = $this->get('security.context')->getToken()->getUser();
+      $user = $fb->loadUserByUsername($fbdata['id']);
+
+      $aclManager = $this->get('taskul.acl_manager');
+      $em = $this->getDoctrine()->getManager();
+      $choices = array();
+
+      $searchContact = array(); // Lo usamos para buscar mas rápido dentro del array de contactos de fb
+
+      $fbContact = $fb->get('/me/friends?fields=name,id,picture');
+      $fbContact = $fbContact['data'];
+
+      $i = 0;
+      foreach ($fbContact as $fbc) {
+        $choices[$i] = array($fbc['id'] => $fbc['name']);
+        $imgUrls[$i] = $fbc['picture']['data']['url'];
+        $searchContact[$fbc['id']] = $i;
+        $i++;
+      }
+
+      $formBuilder->add('contacts', 'choice', array(
+        'choices'   => $choices,
+        'multiple'  => true,
+        'expanded' => true,
+        ));
+
+      $form = $formBuilder->getForm();
+
+      if ($request->isMethod('POST')) {
+        $form->bind($request);
+        $formData = $request->request->get($form->getName());
+        if($formData['sended'] != 'no' && count($formData['contacts'])>0){ /* @TODO hay que  hacer preg_match con el id del facebook */
+          foreach ($formData['contacts'] as $f){
+
+            $friendReq = new FriendRequest();
+            $friendReq->setFrom($user);
+            $friendReq->setFbrequestid($formData['sended']);
+            $friendReq->setFbid($f);
+            $friendReq->setMessage($formData['message']);
+            if(isset($searchContact[$f])){
+              $id = $searchContact[$f];
+              $fbData = array('fbdata'=>array('imgurl'=>$imgUrls[$id],'name'=>$choices[$id][$f]));
+              $friendReq->setAddtionalData($fbData);
             }
+            $em->persist($friendReq);
+            $fRequest[] = $friendReq;
           }
-          return $entity;
+          $em->flush();
+
+            // Vamos a darles permiso @FIXME: comprobar si hay que hacer flush para los ace o
+            // se puede hacer antes con el persist (creo que no)
+            //
+
+          foreach ($fRequest as $f){
+            $aclManager->grant($f);
+          }
         }
+      }
+    }else {
 
-        private  function _getHash($id){
-          $time = microtime(true) . '_' . uniqid();
-          return hash("sha256", $time . $id, false);
-        }
-
-        private function createDeleteForm($id) {
-          return $this->createFormBuilder(array('delete_id' => $id))
-          ->add('delete_id', 'hidden')
-          ->getForm()
-          ;
-        }
-        private function createActivateForm($id) {
-          return $this->createFormBuilder(array('activate_id' => $id))
-          ->add('activate_id', 'hidden')
-          ->getForm()
-          ;
-        }
-        private function _processEntity($owner,$em,$form){
-        // Buscamos los emails
-          $data = $form->getData();
-          $emails = explode(';', $data->getEmail());
-          $aclManager = $this->get('taskul.acl_manager');
-          foreach ($emails as $email) {
-
-
-            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    // Comprobamos si estan en los contactos del usuario
-              $friends = $owner->getMyFriends();
-              if (FALSE === $this->checkFriendsEmail($friends, $email)) {
-                $entity = $em->getRepository('FriendBundle:FriendRequest')->findOneBy(array('from' => $owner, 'email' => $email, 'active' => FALSE));
-                        $newEntity = FALSE; // Nos va a indicar si la crea un nuevo objeto para crearle la ACE del dueño
-                        if (null === $entity) {
-                          $entity = new FriendRequest();
-                          $entity->setFrom($owner);
-                          $newEntity = TRUE;
-
-                        }
-                        $entity->setEmail($email);
-                        $entity->setMessage($data->getMessage());
-                        // Comprueba si el email de destino esta dado de alta como usuario
-                        $entity = $this->_checkTo($entity, $email, $em);
-                        $entity->setHash($this->_getHash($owner->getId()));
-
-                        $em->persist($entity);
-                        $em->flush();
-
-                        if(TRUE == $newEntity)
-                          $aclManager->grant($entity);
-
-                        $to = $entity->getTo();
-                        if(null !== $to)
-                          $aclManager->grant($entity, $to->getUsername(), 'Taskul\UserBundle\Entity\User', MaskBuilder::MASK_OPERATOR);
-
-
-                        /* @TODO: Aqui hay que enviar emails / mirar FOSmessagebundle */
-                      }
-                    }
-                  }
-
-                }
-
-    private function getRecibed(){
-      $em = $this->getDoctrine()->getManager();
-      $user = $this->get('security.context')->getToken()->getUser();
-      $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('to'=>$user, 'active' => FALSE));
-      return $entities;
+      return $this->redirect($this->get('fos_facebook.api')->getLoginUrl() );
     }
 
-    private function getSended(){
-      $em = $this->getDoctrine()->getManager();
-      $user = $this->get('security.context')->getToken()->getUser();
-      $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('from'=>$user, 'active' => FALSE));
+    return array(
+      'frequest' => $fRequest,
+      'contacts' => $fbContact,
+      'form' => $form->createView(),
+      'imgUrls' => $imgUrls,
+      'delete_form' => $this->createDeleteForm(-1)->createView(),
+      'activate_form' => $this->createActivateForm(-1)->createView(),
+      'entity' => array('id' => -1),
+      );
+  }
 
-      return $entities;
+  public function checkFriendsEmail($friends, $email) {
+    foreach ($friends as $friend) {
+      if ($friend->getEmail() === $email)
+        return TRUE;
     }
-              }
+    return FALSE;
+  }
+
+  /**
+   * Creates a new FriendRequest entity.
+   *
+   * @Route("/create", name="frequest_create")
+   * @Method("POST")
+   * @Template("FriendBundle:FriendRequest:new.html.twig")
+   *
+   * @Breadcrumb("Nueva")
+   */
+  public function createAction(Request $request) {
+    $entity = new FriendRequest();
+    $owner = $this->get('security.context')->getToken()->getUser();
+    $entity->setFrom($owner);
+    $time = microtime(true) . '_' . uniqid();
+    $entity->setHash(hash("sha256", $time . $owner->getId(), false));
+
+    $form = $this->createForm(new FriendRequestType(), $entity);
+
+    $form->bind($request);
+
+    if ($form->isValid()) {
+      $em = $this->getDoctrine()->getManager();
+
+      $this->_processEntity($owner, $em, $form);
+
+
+      return $this->redirect($this->generateUrl('frequest_sended'));
+    }
+
+    return array(
+      'entity' => $entity,
+      'form' => $form->createView(),
+      'delete_form' => $this->createDeleteForm(-1)->createView(),
+      'activate_form' => $this->createActivateForm(-1)->createView(),
+      );
+  }
+
+  /**
+   * Deletes a FriendRequest entity.
+   *
+   * @Route("/{id}/delete", name="frequest_delete", options={ "expose": true })
+   * @Method("POST")
+   *
+   */
+  public function deleteAction(Request $request, $id) {
+    $em = $this->getDoctrine()->getManager();
+    $entity = $em->getRepository('FriendBundle:FriendRequest')->findOneBy(array('id' => $id, 'active' => FALSE));
+
+    if (!$entity) {
+      throw $this->createNotFoundException('Unable to find FriendRequest entity.');
+    }
+
+    $securityContext = $this->get('security.context');
+
+      // check for edit access
+    if (false === $securityContext->isGranted('DELETE', $entity))
+    {
+      throw new AccessDeniedException();
+    }
+
+    $aclManager = $this->get('taskul.acl_manager');
+    $aclManager->revokeAll($entity);
+
+    $em->remove($entity);
+    $em->flush();
+
+    return $this->redirect($this->generateUrl('frequest_recibed'));
+  }
+
+  /**
+   * @Route("/register/{hash}", name="frequest_register")
+   *
+   */
+  public function registerAction($hash) {
+    if (null !== $this->getDoctrine()->getRepository('FriendBundle:FriendRequest')
+      ->findOneBy(array('hash' => $hash, 'active' => FALSE))) {
+
+      $this->get('session')->set('request_hash', $hash);
+    }
+
+    return $this->redirect(
+      $this->generateUrl("fos_user_registration_register")
+    );
+  }
+
+  /**
+   * @Route("/activate/{id}", name="frequest_activate", options={ "expose": true })
+   * @Method("POST")
+   *
+   */
+  public function activateAction($id) {
+    $to = $this->get('security.context')->getToken()->getUser();
+    $em = $this->getDoctrine()->getEntityManager();
+    $request = $em->getRepository('FriendBundle:FriendRequest')
+    ->findOneBy(array('id' => $id, 'to' => $to, 'active' => FALSE));
+
+    if (!$request) {
+      throw $this->createNotFoundException('Unable to find Request entity.');
+    }
+
+    $from = $request->getFrom();
+    $to->addMyFriend($from);
+    $to->addFriendsWithMe($from);
+    $from->addMyFriend($to);
+    $from->addFriendsWithMe($to);
+    $request->setActive(TRUE);
+    $em->persist($to);
+    $em->persist($from);
+    $em->persist($request);
+    $em->flush();
+
+    return $this->redirect($this->generateUrl('myfriends'));
+  }
+
+  /**
+   * Comprueba si el destinatario de una peticion de amistad esta dado
+   * de alta en el sistema y si es así le asigna el campo TO del destinario
+   *
+   * @param  [type] $entity [description]
+   * @param  [type] $email  [description]
+   * @param  [type] $em     [description]
+   * @return [type]         [description]
+   */
+  private function _checkTo($entity, $email, $em) {
+    if (null === $entity->getTo()) {
+      $to = $em->getRepository('UserBundle:User')->findOneByEmail($email);
+
+      if (null !== $to) {
+        $entity->setTo($to);
+      }
+    }
+    return $entity;
+  }
+
+  private  function _getHash($id){
+    $time = microtime(true) . '_' . uniqid();
+    return hash("sha256", $time . $id, false);
+  }
+
+  private function createDeleteForm($id) {
+    return $this->createFormBuilder(array('delete_id' => $id))
+    ->add('delete_id', 'hidden')
+    ->getForm()
+    ;
+  }
+  private function createActivateForm($id) {
+    return $this->createFormBuilder(array('activate_id' => $id))
+    ->add('activate_id', 'hidden')
+    ->getForm()
+    ;
+  }
+
+  private function _processEntity($owner,$em,$form){
+      // Buscamos los emails
+    $data = $form->getData();
+    $emails = explode(';', $data->getEmail());
+    $aclManager = $this->get('taskul.acl_manager');
+    foreach ($emails as $email) {
+      if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                  // Comprobamos si estan en los contactos del usuario
+        $friends = $owner->getMyFriends();
+        if (FALSE === $this->checkFriendsEmail($friends, $email)) {
+          $entity = $em->getRepository('FriendBundle:FriendRequest')->findOneBy(array('from' => $owner, 'email' => $email, 'active' => FALSE));
+          $newEntity = FALSE; // Nos va a indicar si la crea un nuevo objeto para crearle la ACE del dueño
+          if (null === $entity) {
+            $entity = new FriendRequest();
+            $entity->setFrom($owner);
+            $newEntity = TRUE;
+
+          }
+          $entity->setEmail($email);
+          $entity->setMessage($data->getMessage());
+          // Comprueba si el email de destino esta dado de alta como usuario
+          $entity = $this->_checkTo($entity, $email, $em);
+          $entity->setHash($this->_getHash($owner->getId()));
+
+          $em->persist($entity);
+          $em->flush();
+
+          if(TRUE == $newEntity)
+            $aclManager->grant($entity);
+
+          $to = $entity->getTo();
+          if(null !== $to)
+            $aclManager->grant($entity, $to->getUsername(), 'Taskul\UserBundle\Entity\User', MaskBuilder::MASK_OPERATOR);
+
+
+          /* @TODO: Aqui hay que enviar emails / mirar FOSmessagebundle */
+        }
+      }
+    }
+
+  }
+
+  private function getRecibed(){
+    $em = $this->getDoctrine()->getManager();
+    $user = $this->get('security.context')->getToken()->getUser();
+    $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('to'=>$user, 'active' => FALSE));
+    return $entities;
+  }
+
+  private function getSended(){
+    $em = $this->getDoctrine()->getManager();
+    $user = $this->get('security.context')->getToken()->getUser();
+    $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('from'=>$user, 'active' => FALSE));
+
+    return $entities;
+  }
+}

@@ -77,7 +77,7 @@ class Manager {
         $securityIdentity = UserSecurityIdentity::fromAccount($user);
         $this->addMask($securityIdentity, MaskBuilder::MASK_OWNER, $acl);
 
-        if(count($members)>0){
+        if(! is_string($members) && count($members)>0){
             foreach($members as $m){
                 $securityIdentity = new UserSecurityIdentity($m->getUsername(),$class);
                 $this->addMask($securityIdentity, $mask, $acl);

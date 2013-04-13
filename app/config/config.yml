@@ -112,6 +112,7 @@ fos_comment:
         model:
             comment: Taskul\CommentBundle\Entity\Comment
             thread: Taskul\CommentBundle\Entity\Thread
+            vote: Taskul\CommentBundle\Entity\Vote
 
 fos_message:
     db_driver: orm
