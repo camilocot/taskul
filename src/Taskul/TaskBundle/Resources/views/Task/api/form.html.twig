@@ -27,7 +27,7 @@
                             {{ form_row(form.status) }}
                             {{ form_row(form.description, {'attr':
                             {'placeholder':'Introduzca una descripción ...', 'class':'wysihtml5 span11 required','rows':'10','minlength':'8' } } ) }}
-                            {{ form_row(form.dateEnd) }}
+                            {{ form_row(form.dateEnd, { 'attr': {'data-date-format': 'dd/mm/yyyy'} }) }}
 
                             {{ form_row(form.tags,{ 'attr': {'style':'min-width:298px'} } ) }}
                             {{ form_row(form.members,{ 'attr': {'style':'width:298px'} } ) }}

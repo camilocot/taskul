@@ -3,12 +3,18 @@
 namespace Taskul\CommentBundle\EventListener;
 
 use Taskul\CommentBundle\Controller\CommentAuthenticatedController;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Bundle\TwigBundle\Controller\ExceptionController;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
+
+
 /**
  * This code gets executed everytime Kernel sends a event to a ApiBundle Controller
  * Here tokens are checked and if token is not ok, exception is thrown
@@ -17,6 +23,15 @@ use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
  */
 class AuthCommentListener
 {
+
+    protected $em;
+    protected $sc;
+
+    public function __construct(EntityManager $em, SecurityContext $security_context)
+    {
+        $this->em = $em;
+        $this->sc = $security_context;
+    }
 
     /**
      * This method handles kernelControllerEvent checking if token is valid
@@ -42,11 +57,20 @@ class AuthCommentListener
          */
         if($controller[0] instanceof ExceptionController)  return;
         if ($controller[0] instanceof CommentAuthenticatedController) {
-            $event->getRequest()->attributes->set('auth_token', rand()); // Identificamos la peticion
-            // $token = $event->getRequest()->query->get('token');
-            // if (!in_array($token, $this->tokens)) {
-            //     throw new AccessDeniedHttpException('This action needs a valid token!');
-            // }
+            $url = parse_url($event->getRequest()->getUri());
+
+            $threadId = $this->getThreadId($url);
+            if(FALSE !== $threadId) { /* Estamos accediendo a un hilo de comentarios */
+                $thread = $this->getThread($threadId);
+                if($thread){ // Si el hilo esta creado
+                /* Vamos a comprobar si el usuario tiene permisos para visualizar la
+                 entididad asociada al hilo */
+                 $entity = $this->em->getRepository($thread->getEntityType())->find($thread->getEntityId());
+                 if(! $entity || ! $this->sc->isGranted('VIEW',$entity))
+                    throw new AccessDeniedException();
+                }
+            }
+
         }
     }
 
@@ -62,6 +86,24 @@ class AuthCommentListener
     // create a hash and set it as a response header
         $hash = sha1($response->getContent().$token);
         $response->headers->set('X-Content-Hash', $hash);
+    }
+
+    private function getThreadId($url)
+    {
+        // Es una ruta de acceso a un hilo de comentarios
+        if(FALSE !== preg_match('/^(\/(app_dev\.php|app\.php))?\/api\/threads\/\d+/', mb_strtolower($url['path']),$matches) && !empty($matches[0]))
+        {
+                $aMatches = explode('/',$matches[0]);
+                $threadId = (int)$aMatches[count($aMatches)-1];
+                return $threadId;
+
+        }
+        return FALSE;
+    }
+
+    private function getThread($id)
+    {
+        return $this->em->getRepository('TaskulCommentBundle:Thread')->find($id);
     }
 }
 ?>

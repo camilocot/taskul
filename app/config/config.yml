@@ -110,8 +110,8 @@ fos_comment:
             vote:    fos_comment.manager.vote.acl
     class:
         model:
-            comment: Taskul\TaskBundle\Entity\Comment
-            thread: Taskul\TaskBundle\Entity\Thread
+            comment: Taskul\CommentBundle\Entity\Comment
+            thread: Taskul\CommentBundle\Entity\Thread
 
 fos_message:
     db_driver: orm

@@ -73,8 +73,9 @@
                         console.log(data);
                     }
                 },
-                error: function (data){
-                    console.log("Error of data:", data);
+                error: function(jqXHR,textStatus,errorThrown){
+                    alert(jqXHR.responseText.message);
+                    console.log("Error of data:", jqXHR);
                 }
             });
         // return false to prevent normal browser submit and page navigation

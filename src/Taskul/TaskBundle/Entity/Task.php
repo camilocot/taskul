@@ -261,4 +261,9 @@ class Task implements Taggable {
     {
         return $this->status;
     }
+
+    public static function getEntityName()
+    {
+        return 'TaskBundle:Task';
+    }
 }

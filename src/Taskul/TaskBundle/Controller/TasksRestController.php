@@ -96,9 +96,15 @@ class TasksRestController extends BaseController {
     {
 
     	$em = $this->getEntityManager();
+        $session = $this->getRequest()->getSession();
     	$format = $this->getRequestFormat();
 
     	$task = $this->checkGrant($id, 'VIEW');
+
+        // Alamacenamos el id de la tarea para almacenarlos en los comentarios
+        // para bloquear el acceso no autorizado a ellos
+        $session->set('entity_id', $task->getId());
+        $session->set('entity_type', Task::getEntityName()); //@TODO revisar esto por si coge el proxy en produccion
 
     	$data = array('entity' => $task);
 
@@ -187,8 +193,7 @@ class TasksRestController extends BaseController {
                 return $this->returnResponse($task,$statusCode);
 
             }else{
-                var_dump($form->getErrors());
-                return $this->returnResponse($task,400,FALSE);
+                return $this->returnResponse($task,400,FALSE,$form->getErrorsAsString());
             }
         }else
             $statusCode = 200;

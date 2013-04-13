@@ -6,13 +6,19 @@
 
     <parameters>
         <parameter key="taskul.check.user.comment.listener">Taskul\CommentBundle\EventListener\AuthCommentListener</parameter>
+        <parameter key="taskul_comment.listener.thread_link_entity.class">Taskul\CommentBundle\EventListener\ThreadLinkEntityListener</parameter>
     </parameters>
 
     <services>
         <service id="taskul.api.check.user.listener" class="%taskul.check.user.comment.listener%">
-            <argument type="service" id="service_container" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="security.context" />
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
-            <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" />
+            <!-- <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponse" /> -->
+        </service>
+        <service id="taskul_comment.listener.thread_link_entity" class="%taskul_comment.listener.thread_link_entity.class%">
+            <argument type="service" id="session" />
+            <tag name="kernel.event_subscriber" />
         </service>
     </services>
 </container>
