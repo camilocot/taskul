@@ -68,10 +68,31 @@ class MenuBuilder
             'attributes' => array('id' => 'freq_ops_import')
             ))->setExtra('safe_label', FALSE);
 
-        $menu->addChild('Friends',array('uri'=>'#','label'=>'<i class="icon-chevron-down icon-white"></i><span class="hidden-tablet">Amigos</span>'))->setExtra('safe_label', FALSE);
+        $menu->addChild('Friends',array(
+            'uri'=>'#',
+            'label'=>'<i class="icon-chevron-down icon-white"></i><span class="hidden-tablet">Amigos</span>'
+            ))->setExtra('safe_label', FALSE);
         $menu['Friends']->setLinkAttribute('class', 'dropmenu no-ajaxy');
         $menu['Friends']->setChildrenAttribute('id','friends_ops');
         $menu['Friends']->addChild('list_fri',array('route'=>'myfriends','label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Listado</span>','class'=>'submenu'))->setExtra('safe_label', FALSE);
+
+        $menu->addChild('Messages',array(
+            'uri'=>'#',
+            'label'=>'<i class="icon-chevron-down icon-white"></i><span class="hidden-tablet">Mensajes</span>'
+            ))->setExtra('safe_label', FALSE);
+        $menu['Messages']->setLinkAttribute('class', 'dropmenu no-ajaxy');
+        $menu['Messages']->setChildrenAttribute('id','msgs_ops');
+        $menu['Messages']->addChild('sended_msg',array(
+            'route'=>'fos_message_sent',
+            'label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Enviados</span>',
+            'class'=>'submenu'
+            ))->setExtra('safe_label', FALSE);
+        $menu['Messages']->addChild('recibed_msg',array(
+            'route'=>'fos_message_inbox',
+            'label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Recibidos</span>',
+            'class'=>'submenu'
+            ))->setExtra('safe_label', FALSE);
+
         return $menu;
     }
 

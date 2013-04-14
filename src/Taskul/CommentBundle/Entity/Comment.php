@@ -6,12 +6,14 @@ use FOS\CommentBundle\Entity\Comment as BaseComment;
 use FOS\CommentBundle\Model\SignedCommentInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use FOS\CommentBundle\Model\VotableCommentInterface;
+use FOS\CommentBundle\Model\RawCommentInterface;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="commnent")
  * @ORM\ChangeTrackingPolicy("DEFERRED_EXPLICIT")
  */
-class Comment extends BaseComment implements SignedCommentInterface, VotableCommentInterface
+class Comment extends BaseComment implements SignedCommentInterface, VotableCommentInterface, RawCommentInterface
 {
 
     /**
@@ -44,6 +46,11 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
     protected $score = 0;
 
     /**
+     * @ORM\Column(name="rawBody", type="text", nullable=true)
+     * @var string
+     */
+    protected $rawBody;
+    /**
      * Sets the score of the comment.
      *
      * @param integer $score
@@ -61,7 +68,19 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
     {
         return $this->score;
     }
-
+    public function setRawBody($rawBody)
+    {
+        $this->rawBody = $rawBody;
+    }
+    /**
+     * Returns the current score of the comment.
+     *
+     * @return integer
+     */
+    public function getRawBody()
+    {
+        return $this->rawBody;
+    }
     /**
      * Increments the comment score by the provided
      * value.

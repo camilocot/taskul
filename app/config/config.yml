@@ -108,6 +108,7 @@ fos_comment:
             thread:  fos_comment.manager.thread.acl
             comment: fos_comment.manager.comment.acl
             vote:    fos_comment.manager.vote.acl
+        markup: markup.exercise_html_purifier
     class:
         model:
             comment: Taskul\CommentBundle\Entity\Comment

@@ -20,5 +20,8 @@
             <argument type="service" id="session" />
             <tag name="kernel.event_subscriber" />
         </service>
+        <service id="markup.exercise_html_purifier" class="FOS\CommentBundle\Markup\HtmlPurifier">
+            <argument type="service" id="exercise_html_purifier.default" />
+        </service>
     </services>
 </container>
