@@ -13,4 +13,6 @@ $(document).ready(function() {
         }
     });
     menuColor('li#freq_ops_sended');
+    $('.delete-modal-btn').deleteModal('frequest_delete',$('#delete-frequest'), ['id'] );
+
 });

@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="box-content">
-            <form action="{{ path('frequest_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal">
+            <form action="{{ path('frequest_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal" id="form_request">
                <fieldset>
                   {{ form_errors(form) }}
                   {{ form_row(form.email,{'help':'introduzca los emails separados por punto y comas ";"'}) }}
@@ -21,7 +21,7 @@
                   <div class="form-actions">
                     <button type="submit" class="btn btn-success">Create</button>
                     <a href="{{ path('frequest') }}" class="btn ajaxy">
-                        Back to the list
+                        <i class="fa-icon-undo"></i>&nbsp;Back to the list
                     </a>
                 </div>
             </fieldset>

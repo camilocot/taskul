@@ -35,7 +35,7 @@
                         </td>
                         <td>
                             {% if is_granted('VIEW',entity) %}
-                            <a href="{{ path('frequest_show', { 'id': entity.id }) }}" class="btn btn-info" title="view"><i class="fa-icon-eye-open icon-white"></i></a>
+                            <a href="{{ path('frequest_show', { 'id': entity.id }) }}" class="btn btn-info ajaxy" title="view"><i class="fa-icon-eye-open icon-white"></i></a>
                             {% endif %}
                             {% if is_granted('DELETE',entity) %}
                             <button class="btn btn-danger delete-modal-btn" type="button" data-id="{{ entity.id }}" data-target="#deleteModal" data-toggle="modal"><i class="fa-icon-trash icon-white"></i></button>
@@ -48,9 +48,14 @@
             {% else %}
             <div class="alert alert-block ">
                 <h4 class="alert-heading">Warning!</h4>
-                <p>No hay ninguna invitación enviada. Si quieres enviar invitaciones por email utiliza <a href="{{ path('frequest_new') }}">este formulario</a> o si quieres invitar a tus amigos de facebook utiliza <a href="{{ path('import_fb') }}">este otro formulario</a>.</p>
+                <p>No hay ninguna invitación enviada. Si quieres enviar invitaciones por email utiliza <a href="{{ path('frequest_new') }}" class="ajaxy">este formulario</a> o si quieres invitar a tus amigos de facebook utiliza <a href="{{ path('import_fb') }}">este otro formulario</a>.</p>
             </div>
             {% endif %}
+                    <div class="form-actions" style="margin: 20px -10px -8px">
+                   <a href="{{ path('frequest_new') }}" class="btn ajaxy">
+                    Create a new entry
+                    </a>
+                </div>
         </div>
     </div>
 </div>

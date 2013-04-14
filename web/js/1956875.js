@@ -13,4 +13,5 @@ $(document).ready(function() {
         }
     });
     menuColor('li#freq_ops_recibed');
+    $('.delete-modal-btn').deleteModal('frequest_delete',$('#delete-frequest'), ['id'] );
 });

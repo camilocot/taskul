@@ -3,6 +3,7 @@
 namespace Taskul\FriendBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,7 +26,7 @@ class FriendRequestController extends Controller {
   /**
    * List all friend request send and recibed
    *
-   * @Route("/", name="frequest")
+   * @Route("/", name="frequest", options={ "expose": true })
    * @Template()
    */
   public function indexAction() {
@@ -71,7 +72,7 @@ class FriendRequestController extends Controller {
   /**
    * Lists all FriendRequest entities.
    *
-   * @Route("/sended", name="frequest_sended")
+   * @Route("/sended", name="frequest_sended", options={ "expose": true })
    * @Template()
    *
    * @Breadcrumb("Enviadas")
@@ -135,12 +136,12 @@ class FriendRequestController extends Controller {
     $entity = new FriendRequest();
     $form = $this->createForm(new FriendRequestType(), $entity);
 
-    return array(
-      'entity' => $entity,
-      'form' => $form->createView(),
-      'delete_form' => $this->createDeleteForm(-1)->createView(),
-      'activate_form' => $this->createActivateForm(-1)->createView(),
-      );
+      return array(
+        'entity' => $entity,
+        'form' => $form->createView(),
+        'delete_form' => $this->createDeleteForm(-1)->createView(),
+        'activate_form' => $this->createActivateForm(-1)->createView(),
+        );
   }
 
   /**
@@ -281,8 +282,12 @@ class FriendRequestController extends Controller {
 
       $this->_processEntity($owner, $em, $form);
 
-
-      return $this->redirect($this->generateUrl('frequest_sended'));
+      if ($request->isXmlHttpRequest()){
+        return new JsonResponse(array('success' => TRUE,'message'=>'OK'));
+      }
+      else {
+        return $this->redirect($this->generateUrl('frequest_sended'));
+      }
     }
 
     return array(
@@ -321,7 +326,12 @@ class FriendRequestController extends Controller {
 
     $em->remove($entity);
     $em->flush();
-
+    if ($request->isXmlHttpRequest()){
+        return new JsonResponse(array('success' => TRUE,'message'=>'OK'));
+    }
+    else {
+        return $this->redirect($this->generateUrl('frequest_sended'));
+    }
     return $this->redirect($this->generateUrl('frequest_recibed'));
   }
 
@@ -415,7 +425,7 @@ class FriendRequestController extends Controller {
     $aclManager = $this->get('taskul.acl_manager');
     foreach ($emails as $email) {
       if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                  // Comprobamos si estan en los contactos del usuario
+        // Comprobamos si estan en los contactos del usuario
         $friends = $owner->getMyFriends();
         if (FALSE === $this->checkFriendsEmail($friends, $email)) {
           $entity = $em->getRepository('FriendBundle:FriendRequest')->findOneBy(array('from' => $owner, 'email' => $email, 'active' => FALSE));
@@ -424,7 +434,6 @@ class FriendRequestController extends Controller {
             $entity = new FriendRequest();
             $entity->setFrom($owner);
             $newEntity = TRUE;
-
           }
           $entity->setEmail($email);
           $entity->setMessage($data->getMessage());
@@ -447,6 +456,7 @@ class FriendRequestController extends Controller {
         }
       }
     }
+    return TRUE;
 
   }
 

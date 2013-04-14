@@ -16,22 +16,20 @@
     <!-- start: Mobile Specific -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- end: Mobile Specific -->
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet">
-<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     {% stylesheets
+    '@MainBundle/Resources/public/css/bootstrap-combined.min.css'
+    '@MainBundle/Resources/public/css/bootstrap-responsive.min.css'
     '@MainBundle/Resources/public/css/jquery-ui-1.8.21.custom.css'
     '@MainBundle/Resources/public/css/uniform.default.css'
-    '@MainBundle/Resources/public/css/jquery.noty.css'
-    '@MainBundle/Resources/public/css/noty_theme_default.css'
     '@MainBundle/Resources/public/css/jquery.iphone.toggle.css'
-    '@MainBundle/Resources/public/css/jquery.gritter.css'
+    '@MainBundle/Resources/public/css/bootstrap-notify.css'
     '@MainBundle/Resources/public/css/font-awesome.css'
     '@MainBundle/Resources/public/css/font-awesome-ie7.css'
     '@MainBundle/Resources/public/css/style.css'
     '@MainBundle/Resources/public/css/style-responsive.css'
-    '@MainBundle/Resources/public/css/main.css'
     '@FOSCommentBundle/Resources/assets/css/comments.css'
+    '@MainBundle/Resources/public/css/main.css'
     %}
     <link rel="stylesheet" href="{{ asset_url }}">
     {% endstylesheets %}
@@ -42,6 +40,8 @@
     {% endjavascripts %}
 </head>
 <body>
+    <div class='notifications top-right'></div>
+    <div class='notifications center'></div>
     {% block body %}
     {% endblock %}
 </body>
@@ -53,32 +53,21 @@
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));*/
 </script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-<!-- jQuery ScrollTo Plugin -->
-<script src="//balupton.github.com/jquery-scrollto/scripts/jquery.scrollto.min.js"></script>
-
-<!-- History.js -->
- <!-- <script src="//browserstate.github.com/history.js/scripts/bundled/html4+html5/jquery.history.js"></script>-->
-    <!-- Ajaxify -->
 {% javascripts
+    '@MainBundle/Resources/public/js/vendor/jquery-1.9.1.js'
+    '@MainBundle/Resources/public/js/vendor/jquery-migrate-1.1.1.js'
+    '@MainBundle/Resources/public/js/vendor/jquery.scrollto.min.js'
+    '@MainBundle/Resources/public/js/vendor/jquery.history.js'
     '@MainBundle/Resources/public/js/vendor/bootstrap.min.js'
-    '@MainBundle/Resources/public/js/vendor/noty/jquery.noty.js'
-    '@MainBundle/Resources/public/js/vendor/noty/layouts/center.js'
-    '@MainBundle/Resources/public/js/vendor/noty/themes/default.js'
     '@MainBundle/Resources/public/js/vendor/jquery.form.js'
-    '@MainBundle/Resources/public/js/plugins.js'
+    '@MainBundle/Resources/public/js/vendor/jquery.uniform.js'
+    '@MainBundle/Resources/public/js/vendor/jquery.validate.min.js'
+    '@MainBundle/Resources/public/js/vendor/additional-methods.min.js'
+    '@MainBundle/Resources/public/js/vendor/bootstrap-notify.js'
     '@MainBundle/Resources/public/js/main.js'
     '@MainBundle/Resources/public/js/ajaxify.js'
     %}
-    <!--'@MainBundle/Resources/public/js/ajaxify-html5.js'-->
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/additional-methods.min.js"></script>
-
-
-    <script src="/js/extra/jquery.uniform.min.js"></script>
-    <script src="/js/extra/jquery.noty.js"></script>
-    <script src="/js/extra/custom.js"></script>
     {% block javascripts %}{% endblock %}
     </html>

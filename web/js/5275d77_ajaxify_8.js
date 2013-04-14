@@ -1,7 +1,6 @@
 // Ajaxify
 // https://github.com/browserstate/ajaxify
 (function(window,undefined){
-
 	// Prepare our Variables
 	var
 	History = window.History,

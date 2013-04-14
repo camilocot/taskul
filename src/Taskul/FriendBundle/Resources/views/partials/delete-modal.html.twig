@@ -12,6 +12,6 @@
 		<button class="btn btn-danger" id="modal-delete-form-submit">Delete</button>
 	</div>
 </div>
-<form action="" method="post" {{ form_enctype(delete_form) }} id="delete-frequest" >
+<form action="" method="post" {{ form_enctype(delete_form) }} method="post" {{ form_enctype(activate_form) }} id="delete-frequest" data-input-id="form_delete_id" data-modal-id="deleteModal">
 	{{ form_widget(delete_form) }}
 </form>

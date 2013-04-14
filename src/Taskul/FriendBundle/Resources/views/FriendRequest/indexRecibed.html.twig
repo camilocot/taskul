@@ -28,7 +28,7 @@
                         <td>{{ entity.from }}</td>
                         <td>
                            {% if is_granted('VIEW',entity) %}
-                           <a href="{{ path('frequest_show', { 'id': entity.id }) }}" class="btn btn-info" title="View"><i class="fa-icon-eye-open icon-white"></i></a>
+                           <a href="{{ path('frequest_show', { 'id': entity.id }) }}" class="btn btn-info ajaxy" title="View"><i class="fa-icon-eye-open icon-white"></i></a>
                            {% endif %}
                            {% if app.user == entity.to %}
                            <button type="button" class="btn btn-success activate-modal-btn" title="activate" data-id="{{ entity.id }}" data-target="#activateModal" data-toggle="modal"><i class="fa-icon-ok icon-white"></i></button>
@@ -46,9 +46,10 @@
            {% else %}
            <div class="alert alert-block ">
             <h4 class="alert-heading">Warning!</h4>
-            <p>No hay ninguna invitación enviada. Si quieres enviar invitaciones por email utiliza <a href="{{ path('frequest_new') }}">este formulario</a> o si quieres invitar a tus amigos de facebook utiliza <a href="{{ path('import_fb') }}">este otro formulario</a>.</p>
+            <p>No hay ninguna invitación enviada. Si quieres enviar invitaciones por email utiliza <a href="{{ path('frequest_new') }}" class="ajaxy">este formulario</a> o si quieres invitar a tus amigos de facebook utiliza <a href="{{ path('import_fb') }}" class="ajaxy">este otro formulario</a>.</p>
         </div>
         {% endif %}
+
     </div>
 </div>
 </div>
