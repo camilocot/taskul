@@ -1,5 +1,5 @@
 {
-    "hash": "48a0b1c699fe02010a7665b63539b620",
+    "hash": "446b1a5c42ac6b13ae9e47803c8f3293",
     "packages": [
         {
             "name": "apy/breadcrumbtrail-bundle",
@@ -326,12 +326,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "dd69835e0dcc44f7f0726b105e83ae5013622f5c"
+                "reference": "c75da707518488506efa93e29fb67cf278353f85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/dd69835e0dcc44f7f0726b105e83ae5013622f5c",
-                "reference": "dd69835e0dcc44f7f0726b105e83ae5013622f5c",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/c75da707518488506efa93e29fb67cf278353f85",
+                "reference": "c75da707518488506efa93e29fb67cf278353f85",
                 "shasum": ""
             },
             "require": {
@@ -381,7 +381,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2013-03-24 19:16:29"
+            "time": "2013-04-14 12:36:49"
         },
         {
             "name": "doctrine/doctrine-bundle",
@@ -582,12 +582,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "86e40a692b5b052942bd655961fed0dd696ef24e"
+                "reference": "803f2740c9073fdf94e327c555d496078f82d8ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/86e40a692b5b052942bd655961fed0dd696ef24e",
-                "reference": "86e40a692b5b052942bd655961fed0dd696ef24e",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/803f2740c9073fdf94e327c555d496078f82d8ce",
+                "reference": "803f2740c9073fdf94e327c555d496078f82d8ce",
                 "shasum": ""
             },
             "require": {
@@ -644,7 +644,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2013-04-06 17:56:15"
+            "time": "2013-04-14 07:52:39"
         },
         {
             "name": "exercise/htmlpurifier-bundle",
@@ -1275,12 +1275,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "a12abfa8ff8bb5c873309115ee59a615467d802a"
+                "reference": "20c2531805c40153112ecfdc65cddaf4a0f90f18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/a12abfa8ff8bb5c873309115ee59a615467d802a",
-                "reference": "a12abfa8ff8bb5c873309115ee59a615467d802a",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/20c2531805c40153112ecfdc65cddaf4a0f90f18",
+                "reference": "20c2531805c40153112ecfdc65cddaf4a0f90f18",
                 "shasum": ""
             },
             "require": {
@@ -1332,7 +1332,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-04-06 13:35:56"
+            "time": "2013-04-13 16:33:48"
         },
         {
             "name": "jms/aop-bundle",
@@ -2335,6 +2335,135 @@
             "time": "2013-04-01 18:11:18"
         },
         {
+            "name": "stephpy/TimelineBundle",
+            "version": "dev-master",
+            "target-dir": "Spy/TimelineBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stephpy/TimelineBundle.git",
+                "reference": "dec45383d35b1c19f36c1686d51d62563aa633ae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stephpy/TimelineBundle/zipball/dec45383d35b1c19f36c1686d51d62563aa633ae",
+                "reference": "dec45383d35b1c19f36c1686d51d62563aa633ae",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "stephpy/timeline": "1.0.*",
+                "symfony/framework-bundle": ">=2.0,<2.3-dev",
+                "symfony/options-resolver": "*"
+            },
+            "replace": {
+                "stephpy/timelinebundle": "self.version"
+            },
+            "require-dev": {
+                "atoum/atoum-bundle": "dev-master",
+                "doctrine/orm": "2.*",
+                "symfony/console": "2.*"
+            },
+            "suggest": {
+                "doctrine/mongodb-odm-bundle": "Use doctrine ODM driver",
+                "doctrine/orm": "Use doctrine ORM driver",
+                "snc/redis-bundle": "Use redis driver",
+                "symfony/console": "List spreads and deploy timelines via a command"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Spy\\TimelineBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stéphane PY",
+                    "email": "py.stephane1@gmail.com"
+                },
+                {
+                    "name": "Community contributors",
+                    "homepage": "https://github.com/stephpy/TimelineBundle/contributors"
+                }
+            ],
+            "description": "Symfony2 bundle to make timeline",
+            "homepage": "https://github.com/stephpy/TimelineBundle",
+            "keywords": [
+                "bundle",
+                "notification",
+                "symfony",
+                "timeline"
+            ],
+            "time": "2013-03-18 18:00:31"
+        },
+        {
+            "name": "stephpy/timeline",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stephpy/timeline.git",
+                "reference": "e50951be85a5ddbf85af41bc42537383020a1457"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stephpy/timeline/zipball/e50951be85a5ddbf85af41bc42537383020a1457",
+                "reference": "e50951be85a5ddbf85af41bc42537383020a1457",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/options-resolver": "*"
+            },
+            "require-dev": {
+                "atoum/atoum": "dev-master",
+                "knplabs/knp-components": "1.*",
+                "pimple/pimple": "*",
+                "symfony/event-dispatcher": "2.*"
+            },
+            "suggest": {
+                "ext-redis": "Redis C extension for PHP",
+                "knplabs/knp-components": "Knp Paginator",
+                "pimple/pimple": "Use ServiceLocator",
+                "predis/predis": "Redis PHP client library"
+            },
+            "type": "standalone",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Spy\\Timeline": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Community contributors",
+                    "homepage": "https://github.com/stephpy/timeline/contributors"
+                }
+            ],
+            "description": "Standalone library to make timeline",
+            "homepage": "https://github.com/stephpy/timeline",
+            "keywords": [
+                "standalone",
+                "timeline"
+            ],
+            "time": "2013-02-19 09:00:15"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v4.2.2",
             "source": {
@@ -2566,12 +2695,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "ef0cebfaa6b32e93aa244c4150b962b8957f80a8"
+                "reference": "324686cf2515f4d8472ccf0c7c9d983c43b475ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/ef0cebfaa6b32e93aa244c4150b962b8957f80a8",
-                "reference": "ef0cebfaa6b32e93aa244c4150b962b8957f80a8",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/324686cf2515f4d8472ccf0c7c9d983c43b475ca",
+                "reference": "324686cf2515f4d8472ccf0c7c9d983c43b475ca",
                 "shasum": ""
             },
             "require": {
@@ -2646,7 +2775,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-04-13 14:47:44"
+            "time": "2013-04-14 18:15:16"
         },
         {
             "name": "twig/extensions",
@@ -2765,7 +2894,8 @@
         "exercise/htmlpurifier-bundle": 20,
         "fresh/doctrine-enum-bundle": 20,
         "apy/breadcrumbtrail-bundle": 20,
-        "jms/serializer-bundle": 20
+        "jms/serializer-bundle": 20,
+        "stephpy/timelinebundle": 20
     },
     "platform": {
         "php": ">=5.3.3"

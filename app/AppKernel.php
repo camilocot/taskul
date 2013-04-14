@@ -40,6 +40,8 @@ class AppKernel extends Kernel
             new APY\BreadcrumbTrailBundle\APYBreadcrumbTrailBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Taskul\CommentBundle\TaskulCommentBundle(),
+            new Spy\TimelineBundle\SpyTimelineBundle(),
+            new Taskul\TimelineBundle\TimelineBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

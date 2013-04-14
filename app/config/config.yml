@@ -152,3 +152,16 @@ fos_rest:
         default_priorities: [ html, 'json', '*/*']
         fallback_format: json
         prefer_extension: false
+
+spy_timeline:
+    drivers:
+        orm:
+            object_manager: doctrine.orm.entity_manager
+            classes:
+                query_builder: ~ # Spy\TimelineBundle\Driver\ORM\QueryBuilder\QueryBuilder
+                timeline:  Taskul\TimelineBundle\Entity\Timeline
+                action:    Taskul\TimelineBundle\Entity\Action
+                component: Taskul\TimelineBundle\Entity\Component
+                action_component: Taskul\TimelineBundle\Entity\ActionComponent
+    notifiers:
+        - spy_timeline.unread_notifications

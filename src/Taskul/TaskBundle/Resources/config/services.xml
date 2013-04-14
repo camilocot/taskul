@@ -6,11 +6,18 @@
 
     <parameters>
         <parameter key="taskul.status.prefered.choice">inprogress</parameter>
+        <parameter key="taskul.task.form_handler.class">Taskul\TAskBundle\Form\Handler\ProcessFormHandler</parameter>
     </parameters>
+
     <services>
       <service id="form.type.status" class="Taskul\TaskBundle\Form\Type\StatusType">
         <tag name="form.type" alias="status" />
         <argument>%taskul.status.prefered.choice%</argument>
       </service>
+      <service id="taskul.task.form_handler" class="%taskul.task.form_handler.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="taskul.acl_manager" />
+            <argument type="service" id="taskul.tags.manager" />
+        </service>
     </services>
 </container>

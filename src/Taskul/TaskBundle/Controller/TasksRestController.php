@@ -101,10 +101,10 @@ class TasksRestController extends BaseController {
 
     	$task = $this->checkGrant($id, 'VIEW');
 
-        // Alamacenamos el id de la tarea para almacenarlos en los comentarios
-        // para bloquear el acceso no autorizado a ellos
-        $session->set('entity_id', $task->getId());
-        $session->set('entity_type', Task::getEntityName()); //@TODO revisar esto por si coge el proxy en produccion
+      // Alamacenamos el id de la tarea para almacenarlos en los comentarios
+      // para bloquear el acceso no autorizado a ellos
+      $session->set('entity_id', $task->getId());
+      $session->set('entity_type', Task::getEntityName()); //@TODO revisar esto por si coge el proxy en produccion
 
     	$data = array('entity' => $task);
 
@@ -160,8 +160,8 @@ class TasksRestController extends BaseController {
     	$securityContext = $this->getSecurityContext();
     	$formFactory = $this->get('form.factory');
     	$user = $this->getLoggedUser();
-    	$em = $this->getEntityManager();
-    	$aclManager = $this->get('taskul.acl_manager');
+      $formHandler = $this->get('taskul.task.form_handler');
+
     	$tagManager = $this->getTagsManager();
     	$request = $this->getRequest();
     	$method = $request->getMethod();
@@ -173,30 +173,13 @@ class TasksRestController extends BaseController {
 
     	if ('POST' === $method || 'PUT' === $method){
 
-    		$form->bind($request);
-
-    		if ($form->isValid()) {
-    			$formData = $request->request->get($form->getName());
-
-    			$task->setOwner($user);
-    			$em->persist($task);
-    			$em->flush();
-
-    			$tags = strtolower($formData['tags']);
-    			$this->saveTags($task, $tags);
-
-            // Asignamos los permisos
-                $aclManager->revokeAll($task);
-                $members = $task->getMembers();
-                $aclManager->grant($task,$members);
-
-                return $this->returnResponse($task,$statusCode);
-
-            }else{
-                return $this->returnResponse($task,400,FALSE,$form->getErrorsAsString());
-            }
-        }else
-            $statusCode = 200;
+    		if($formHandler->handle($form,$request,$task,$user)){
+          return $this->returnResponse($task,$statusCode);
+        }else{
+            return $this->returnResponse($task,400,FALSE,$form->getErrorsAsString());
+        }
+      }else
+        $statusCode = 200;
 
 
         $data = array(
