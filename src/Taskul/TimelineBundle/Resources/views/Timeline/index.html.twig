@@ -1,0 +1,7 @@
+{% for action in timeline %}
+        <div class="timeline-entry">
+            {{ timeline_render(action) }}
+        </div>
+    {% else %}
+        <p>There is no action</p>
+{% endfor %}

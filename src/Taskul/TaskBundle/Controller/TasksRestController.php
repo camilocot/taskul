@@ -160,26 +160,28 @@ class TasksRestController extends BaseController {
     	$securityContext = $this->getSecurityContext();
     	$formFactory = $this->get('form.factory');
     	$user = $this->getLoggedUser();
-      $formHandler = $this->get('taskul.task.form_handler');
+        $formHandler = $this->get('taskul.task.form_handler');
 
     	$tagManager = $this->getTagsManager();
     	$request = $this->getRequest();
     	$method = $request->getMethod();
 
 
-      $tags = $task->getId() ? $this->loadTags($task) : '';
+        $tags = $task->getId() ? $this->loadTags($task) : '';
 
     	$form = $formFactory->create(new TaskType($securityContext),$task,array('tags'=>$tags));
 
     	if ('POST' === $method || 'PUT' === $method){
 
-    		if($formHandler->handle($form,$request,$task,$user)){
-          return $this->returnResponse($task,$statusCode);
-        }else{
-            return $this->returnResponse($task,400,FALSE,$form->getErrorsAsString());
-        }
-      }else
-        $statusCode = 200;
+    	    if($formHandler->handle($form,$request,$task,$user)){
+                $timelineManager = $this->get('taskul.timeline_manager');
+                $timelineManager->handle($method,$task);
+                return $this->returnResponse($task,$statusCode);
+            }else{
+                return $this->returnResponse($task,400,FALSE,$form->getErrorsAsString());
+            }
+        }else
+            $statusCode = 200;
 
 
         $data = array(

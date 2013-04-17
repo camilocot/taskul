@@ -3,7 +3,6 @@
 namespace Taskul\TagBundle\Service;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\Persistence\ObjectManager;
 use DoctrineExtensions\Taggable\TagManager;
 
 /**
@@ -19,7 +18,7 @@ class TagsManager
     public function __construct(ObjectManager $em, TagManager $tagManager)
     {
         $this->tagManager = $tagManager;
-        $this->em = $aclManager;
+        $this->em = $em;
     }
 
 	public function loadTags($entity){
@@ -54,8 +53,8 @@ class TagsManager
 	public function saveTags($entity, $tags){
 		$tagsNames = $this->tagManager->splitTagNames($tags);
 		$tags = $this->tagManager->loadOrCreateTags($tagsNames);
-		$tagManager->replaceTags($tags, $entity);
-		$tagManager->saveTagging($entity);
+		$this->tagManager->replaceTags($tags, $entity);
+		$this->tagManager->saveTagging($entity);
 		return true;
 	}
 }

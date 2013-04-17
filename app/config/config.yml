@@ -165,3 +165,8 @@ spy_timeline:
                 action_component: Taskul\TimelineBundle\Entity\ActionComponent
     notifiers:
         - spy_timeline.unread_notifications
+    render:
+        path:     'TimelineBundle:Timeline'
+        fallback: 'TimelineBundle:Timeline:default.html.twig'
+        #i18n: #Do you want to use i18n when rendering ? if not, remove this not.
+            #fallback: en

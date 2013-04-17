@@ -6,7 +6,7 @@
 
     <parameters>
         <parameter key="taskul.status.prefered.choice">inprogress</parameter>
-        <parameter key="taskul.task.form_handler.class">Taskul\TAskBundle\Form\Handler\ProcessFormHandler</parameter>
+        <parameter key="taskul.task.form_handler.class">Taskul\TaskBundle\Form\Handler\ProcessFormHandler</parameter>
     </parameters>
 
     <services>
