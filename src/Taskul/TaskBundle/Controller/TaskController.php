@@ -69,7 +69,7 @@ class TaskController extends FOSRestController {
             throw new AccessDeniedException();
         }
 
-        $documents = $em->getRepository('FileBundle:Document')->findBy(array('class' => $entity->__toString(),'idObject'=>$entity->getId()));
+        $documents = $em->getRepository('FileBundle:Document')->findBy(array('class' => $entity->getClassName(),'idObject'=>$entity->getId()));
 
         $deleteForm = $this->createDeleteForm($id);
         $uploadId = sprintf('%09d', mt_rand(0, 1999999999));
@@ -86,7 +86,7 @@ class TaskController extends FOSRestController {
             'uploadId' => $uploadId,
             'existingFiles' => $existingFiles,
             'delete_form' => $deleteForm->createView(),
-            'entityClass' => $entity->__toString(), //@TODO Esto no se xq no va con el set en twig
+            'entityClass' => $entity->getClassName(), //@TODO Esto no se xq no va con el set en twig
             );
     }
 
@@ -120,7 +120,7 @@ class TaskController extends FOSRestController {
             'uploadId' => $newId,
             'form' => $form->createView(),
             'defaultTags' => $this->loadAllTags($owner,$em),
-            'entityClass' =>$entity->__toString(), //@TODO Esto no se xq no va con el set en twig
+            'entityClass' =>$entity->getClassName(), //@TODO Esto no se xq no va con el set en twig
 
             );
     }
@@ -188,7 +188,7 @@ class TaskController extends FOSRestController {
             'existingFiles' => $existingFiles,
             'uploadId' => $newId,
             'defaultTags' => $this->loadAllTags($user,$em),
-            'entityClass' =>$entity->__toString(), //@TODO Esto no se xq no va con el set en twig
+            'entityClass' =>$entity->getClassName(), //@TODO Esto no se xq no va con el set en twig
             );
     }
 
@@ -273,7 +273,7 @@ class TaskController extends FOSRestController {
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'defaultTags' => $this->loadAllTags($user,$em),
-            'entityClass' =>$entity->__toString(), //@TODO Esto no se xq no va con el set en twig
+            'entityClass' =>$entity->getClassName(), //@TODO Esto no se xq no va con el set en twig
             );
     }
 
@@ -475,7 +475,7 @@ class TaskController extends FOSRestController {
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'defaultTags' => $this->loadAllTags($user,$em),
-            'entityClass' =>$entity->__toString(), //@TODO Esto no se xq no va con el set en twig
+            'entityClass' =>$entity->getClassName(), //@TODO Esto no se xq no va con el set en twig
             );
     }
 

@@ -101,15 +101,15 @@ class TasksRestController extends BaseController {
 
     	$task = $this->checkGrant($id, 'VIEW');
 
-      // Alamacenamos el id de la tarea para almacenarlos en los comentarios
-      // para bloquear el acceso no autorizado a ellos
-      $session->set('entity_id', $task->getId());
-      $session->set('entity_type', Task::getEntityName()); //@TODO revisar esto por si coge el proxy en produccion
+        // Alamacenamos el id de la tarea para almacenarlos en los comentarios
+        // para bloquear el acceso no autorizado a ellos
+        $session->set('entity_id', $task->getId());
+        $session->set('entity_type', Task::getEntityName()); //@TODO revisar esto por si coge el proxy en produccion
 
     	$data = array('entity' => $task);
 
     	if( 'html' === strtolower($format)){
-    		$data['documents'] = $em->getRepository('FileBundle:Document')->findBy(array('class' => $task->__toString(),'idObject'=>$task->getId()));
+    		$data['documents'] = $em->getRepository('FileBundle:Document')->findBy(array('class' => $task->getClassName(),'idObject'=>$task->getId()));
     		$data['delete_form'] = $this->createDeleteForm($id)->createView();
             $data['delete_id'] = $id;
             $tags = $this->loadTags($task);
@@ -142,8 +142,13 @@ class TasksRestController extends BaseController {
             $task = $this->checkGrant($id,'DELETE');
             $aclManager->revokeAll($task);
 
+            $timelineManager = $this->get('taskul.timeline_manager');
+            $timelineManager->handle('DELETE',$task);
+
+
             $em->remove($task);
             $em->flush();
+
             $data = array('success'=>TRUE,'message'=>'Operacion relaizada correctamente');
         }else{
             $statusCode = 400;

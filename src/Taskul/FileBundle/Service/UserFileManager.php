@@ -6,6 +6,8 @@ use PunkAve\FileUploaderBundle\Services\FileUploader;
 use Taskul\FileBundle\Entity\Document;
 use Doctrine\ORM\EntityManager;
 use Taskul\UserBundle\Security\Manager;
+use Taskul\FileBundle\Documentable\Documentable;
+use DoctrineExtensions\Taggable\Taggable;
 
 class UserFileManager
 {
@@ -33,21 +35,24 @@ class UserFileManager
 	}
 
 
-	public function createDocument($entity, $user, $file)
+	public function createDocument(Documentable $entity, $user, $file)
 	{
+		if($entity instanceof Documentable) { /* Nos aseguraos que se implemente el metodo getclassname */
 
-		$doc = new Document();
-        $doc->setName($file->name);
-        $doc->setIdObject($entity->getId());
-        $doc->setOwner($user);
-        $doc->setClass($entity->__toString());
-        $doc->setSize($file->size);
-        $this->em->persist($doc);
-        $this->em->flush();
+			$doc = new Document();
+	        $doc->setName($file->name);
+	        $doc->setIdObject($entity->getId());
+	        $doc->setOwner($user);
+	        $doc->setClass($entity->getClassName()); /*@Importante ponerlo en todas la entidades */
+	        $doc->setSize($file->size);
+	        $this->em->persist($doc);
+	        $this->em->flush();
 
-		$this->aclManager->grant($doc,$entity->getMembers());
+			$this->aclManager->grant($doc,$entity->getMembers());
 
-        return $doc;
+	        return $doc;
+    	}else
+    		return FALSE;
 	}
 
 	public function getUserQuota($user)

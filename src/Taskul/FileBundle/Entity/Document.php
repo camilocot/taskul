@@ -221,4 +221,9 @@ class Document
     {
         return $_SERVER['DOCUMENT_ROOT'].'/uploads/'.$codeUpload.'/';
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

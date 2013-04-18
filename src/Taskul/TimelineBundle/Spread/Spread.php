@@ -10,6 +10,8 @@ use Spy\Timeline\Spread\Entry\EntryUnaware;
 
 class Spread implements SpreadInterface
 {
+    CONST TASK_CLASS = 'Taskul\TaskBundle\Entity\Task';
+
     public function supports(ActionInterface $action)
     {
         return true; //or false, you can look at timeline action to make your decision

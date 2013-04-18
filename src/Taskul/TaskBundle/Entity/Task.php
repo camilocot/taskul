@@ -9,6 +9,7 @@ use DoctrineExtensions\Taggable\Taggable;
 use Taskul\TaskBundle\DBAL\Types\TaskStatusType;
 use Fresh\Bundle\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
+use Taskul\FileBundle\Documentable\Documentable;
 
 /**
  * Task
@@ -18,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  *
  */
-class Task implements Taggable {
+class Task implements Documentable, Taggable {
 
     /**
      * @var integer
@@ -80,6 +81,8 @@ class Task implements Taggable {
      *
      */
     private $status;
+
+    private $className;
 
     public function getTags()
     {
@@ -226,10 +229,22 @@ class Task implements Taggable {
 
     public function __toString()
     {
-        $class = explode('\\', __CLASS__);
-        return end($class);
+        return $this->getName();
     }
 
+    public function getClassName()
+    {
+        if(null === $this->className) {
+            $class = explode('\\', __CLASS__);
+            $this->setClassName(end($class));
+        }
+        return $this->className;
+    }
+
+    public function setClassName($className)
+    {
+        $this->className=$className;
+    }
     /**
      * Constructor
      */

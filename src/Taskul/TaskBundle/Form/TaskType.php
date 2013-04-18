@@ -30,7 +30,7 @@ class TaskType extends AbstractType
         $user = $this->securityContext->getToken()->getUser();
         $builder
         ->add('name')
-        ->add('description','purified_textarea')
+        ->add('description','purified_textarea',array('required' => false))
         ->add('dateEnd','date', array('widget'=>'single_text', 'format' => 'dd/MM/yyyy','required'=>FALSE))
         ->add('status', 'status', array('expanded' => true,'choices' => TaskStatusType::getChoices()))
         ->add('tags','text', array('mapped'=>false,'data'=>$options['tags'],'required'=>FALSE))

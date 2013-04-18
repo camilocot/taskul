@@ -1,5 +1,4 @@
 <?php
-
 namespace Taskul\TaskBundle\Controller;
 
 use Taskul\TaskBundle\Entity\Task;
@@ -31,7 +30,7 @@ class FilesRestController extends BaseController {
 		$task = $this->checkGrant($id,'VIEW');
 		$id = $task->getId();
 
-		$data['documents'] = $em->getRepository('FileBundle:Document')->findBy(array('class' => $task->__toString(),'idObject'=>$id));
+		$data['documents'] = $em->getRepository('FileBundle:Document')->findBy(array('class' => $task->getClassName(),'idObject'=>$id));
 		$data['taskId'] = $id;
         $data['delete_id'] = -1;
         $data['delete_form'] = $this->createDeleteForm(-1)->createView();
@@ -59,12 +58,19 @@ class FilesRestController extends BaseController {
             $data = array('success'=>FALSE,'message'=>$file->error,'statusCode' => 400);
         }else if($fileManager->checkUserQuota($user, $file)){
             unlink($_SERVER['DOCUMENT_ROOT'].'/uploads/'.$file->name);
-            $data = array('success'=>FALSE,'message'=>'Quota excedida');
+            $data = array('success'=>FALSE,'message'=>'Quota excedida','statusCode' => 400);
         }else{
             $doc = $fileManager->createDocument($task, $user, $file);
+            if($doc){
+                $file->id = $doc->getId();
+                $file->taskid = $task->getId();
 
-            $file->id = $doc->getId();
-            $file->taskid = $task->getId();
+                $timelineManager = $this->get('taskul.timeline_manager');
+                $timelineManager->handle('POST',$doc);
+            }
+            else{
+                $data = array('success'=>FALSE,'message'=>'WTF','statusCode' => 400);
+            }
         }
 
         return $this->processView($data,$data['statusCode']);
@@ -86,8 +92,11 @@ class FilesRestController extends BaseController {
 
         if(isset($data['error']))
             $data = array('success'=>FALSE,'message'=>$data['error']);
-        else
+        else {
             $fileManager->deleteDocument($document);
+            $timelineManager = $this->get('taskul.timeline_manager');
+            $timelineManager->handle('DELETE',$file);
+        }
 
         return $this->processView($data,$data['statusCode']);
     } // "api_delete_task_file" [DELETE] /api/tasks/{idtask}/files/{iddocument}
