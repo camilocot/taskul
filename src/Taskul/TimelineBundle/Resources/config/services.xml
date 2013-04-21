@@ -7,6 +7,7 @@
 
     <parameters>
         <parameter key="taskul.timeline.manager.class">Taskul\TimelineBundle\Service\TaskulTimelineManager</parameter>
+        <parameter key="taskul.action.manager.class">Taskul\TimelineBundle\Service\TaskulActionManager</parameter>
     </parameters>
 
     <services>
@@ -14,6 +15,13 @@
             <argument type="service" id="spy_timeline.action_manager" />
             <argument type="service" id="spy_timeline.timeline_manager" />
             <argument type="service" id="security.context" />
+        </service>
+        <service id="taskul.timeline.spread" class="Taskul\TimelineBundle\Spread\Spread">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <tag name="spy_timeline.spread"/>
+        </service>
+        <service id="taskul.action.manager" class="%taskul.action.manager.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
     </services>
 

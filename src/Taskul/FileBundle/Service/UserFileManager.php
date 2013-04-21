@@ -37,7 +37,7 @@ class UserFileManager
 
 	public function createDocument(Documentable $entity, $user, $file)
 	{
-		if($entity instanceof Documentable) { /* Nos aseguraos que se implemente el metodo getclassname */
+		if($entity instanceof Documentable) { /* Nos aseguramos que se implemente el metodo getclassname */
 
 			$doc = new Document();
 	        $doc->setName($file->name);

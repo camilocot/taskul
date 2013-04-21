@@ -1,93 +1,347 @@
 {% extends "::base.html.twig" %}
 {% block stylesheets %}
 {% stylesheets
-      '@MainBundle/Resources/public/css/private.css'
-      %}
-<link rel="stylesheet" href="{{ asset_url }}">
-{% endstylesheets %}
-{% endblock %}
-{% block body %}
-<div id="overlay" style="display:none">
-  <ul>
-    <li class="li1"></li>
-    <li class="li2"></li>
-    <li class="li3"></li>
-    <li class="li4"></li>
-    <li class="li5"></li>
-    <li class="li6"></li>
-  </ul>
-</div>
-<div class="navbar">
-  <div class="navbar-inner">
-    <div class="container-fluid">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-      <a class="brand" href="{{ path('homepage')}}"><span class="hidden-phone">Taskul</span></a>
+  '@MainBundle/Resources/public/css/private.css'
+  %}
+  <link rel="stylesheet" href="{{ asset_url }}">
+  {% endstylesheets %}
+  {% endblock %}
+  {% block body %}
+  <div id="overlay" style="display:none">
+    <ul>
+      <li class="li1"></li>
+      <li class="li2"></li>
+      <li class="li3"></li>
+      <li class="li4"></li>
+      <li class="li5"></li>
+      <li class="li6"></li>
+    </ul>
+  </div>
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="{{ path('homepage')}}"><span class="hidden-phone">Taskul</span></a>
 
-      <!-- start: Header Menu -->
-      <div class="nav-no-collapse header-nav">
+        <!-- start: Header Menu -->
+        <div class="nav-no-collapse header-nav">
 
-        <ul class="nav pull-right">
-          <!-- start: User Dropdown -->
-          <li class="dropdown">
-            <a class="btn dropdown-toggle no-ajaxy" data-toggle="dropdown" href="#">
-              <i class="icon-user icon-white"></i>
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a href="{{ path('fos_user_profile_edit') }}"><i class="icon-user"></i> Profile</a></li>
-              <li><a href="{{ path('fos_user_change_password') }}"><i class="icon-user"></i> Change Password</a></li>
-              <li class="divider"></li>
-              <li><a href="{{ path('fos_user_security_logout') }}"><i class="icon-off"></i> Logout</a></li>
-            </ul>
-          </li>
-          <!-- end: User Dropdown -->
-        </ul>
-        <div class="pull-right" style="padding:10px 20px">{{app.user.username}}</div>
+          <ul class="nav pull-right">
+            <li class="dropdown hidden-phone">
+              <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"  id="task_notification">
+                <i class="icon-warning-sign icon-white"></i><span class="label label-important hidden-phone" id="notification-number">0</span>
+              </a>
+              <ul class="dropdown-menu" id="task-notification">
+                <!-- <li>
+                  <span class="dropdown-menu-title">You have 11 notifications</span>
+                </li>
+                <li>
+                  <a href="#">
+                    + <i class="icon-user"></i> <span class="message">New user registration</span> <span class="time">1 min</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    + <i class="icon-comment"></i> <span class="message">New comment</span> <span class="time">7 min</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    + <i class="icon-comment"></i> <span class="message">New comment</span> <span class="time">8 min</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    + <i class="icon-comment"></i> <span class="message">New comment</span> <span class="time">16 min</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    + <i class="icon-user"></i> <span class="message">New user registration</span> <span class="time">36 min</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    + <i class="icon-shopping-cart"></i> <span class="message">2 items sold</span> <span class="time">1 hour</span>
+                  </a>
+                </li>
+                <li class="warning">
+                  <a href="#">
+                    - <i class="icon-user icon-red"></i> <span class="message">User deleted account</span> <span class="time">2 hour</span>
+                  </a>
+                </li>
+                <li class="warning">
+                  <a href="#">
+                    - <i class="icon-shopping-cart icon-red"></i> <span class="message">Transaction was canceled</span> <span class="time">6 hour</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    + <i class="icon-comment"></i> <span class="message">New comment</span> <span class="time">yesterday</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    + <i class="icon-user"></i> <span class="message">New user registration</span> <span class="time">yesterday</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-menu-sub-footer">View all notifications</a>
+                </li>-->
+              </ul>
+            </li>
+            <!-- start: Notifications Dropdown -->
+            <li class="dropdown hidden-phone">
+              <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="icon-tasks icon-white"></i> <span class="label label-warning hidden-phone">17</span>
+              </a>
+              <ul class="dropdown-menu tasks">
+                <li>
+                  <span class="dropdown-menu-title">You have 17 tasks in progress</span>
+                </li>
+                <li>
+                  <a href="#">
+                    <span class="header">
+                      <span class="title">iOS Development</span>
+                      <span class="percent"></span>
+                    </span>
+                    <div class="taskProgress progressSlim progressYellow">80</div>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span class="header">
+                      <span class="title">Android Development</span>
+                      <span class="percent"></span>
+                    </span>
+                    <div class="taskProgress progressSlim progressYellow">47</div>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span class="header">
+                      <span class="title">Django Project For Google</span>
+                      <span class="percent"></span>
+                    </span>
+                    <div class="taskProgress progressSlim progressYellow">32</div>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span class="header">
+                      <span class="title">SEO for new sites</span>
+                      <span class="percent"></span>
+                    </span>
+                    <div class="taskProgress progressSlim progressYellow">63</div>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span class="header">
+                      <span class="title">New blog posts</span>
+                      <span class="percent"></span>
+                    </span>
+                    <div class="taskProgress progressSlim progressYellow">80</div>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-menu-sub-footer">View all tasks</a>
+                </li>
+              </ul>
+            </li>
+            <!-- end: Notifications Dropdown -->
+            <!-- start: Message Dropdown -->
+            <li class="dropdown hidden-phone">
+              <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="icon-envelope icon-white"></i> <span class="label label-success hidden-phone">9</span>
+              </a>
+              <ul class="dropdown-menu messages">
+                <li>
+                  <span class="dropdown-menu-title">You have 9 messages</span>
+                </li>
+                <li>
+                  <a href="#">
+                    <span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>
+                    <span class="header">
+                      <span class="from">
+                        Łukasz Holeczek
+                      </span>
+                      <span class="time">
+                        6 min
+                      </span>
+                    </span>
+                    <span class="message">
+                      Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span class="avatar"><img src="img/avatar2.jpg" alt="Avatar"></span>
+                    <span class="header">
+                      <span class="from">
+                        Megan Abott
+                      </span>
+                      <span class="time">
+                        56 min
+                      </span>
+                    </span>
+                    <span class="message">
+                      Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span class="avatar"><img src="img/avatar3.jpg" alt="Avatar"></span>
+                    <span class="header">
+                      <span class="from">
+                        Kate Ross
+                      </span>
+                      <span class="time">
+                        3 hours
+                      </span>
+                    </span>
+                    <span class="message">
+                      Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span class="avatar"><img src="img/avatar4.jpg" alt="Avatar"></span>
+                    <span class="header">
+                      <span class="from">
+                        Julie Blank
+                      </span>
+                      <span class="time">
+                        yesterday
+                      </span>
+                    </span>
+                    <span class="message">
+                      Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span class="avatar"><img src="img/avatar5.jpg" alt="Avatar"></span>
+                    <span class="header">
+                      <span class="from">
+                        Jane Sanders
+                      </span>
+                      <span class="time">
+                        Jul 25, 2012
+                      </span>
+                    </span>
+                    <span class="message">
+                      Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-menu-sub-footer">View all messages</a>
+                </li>
+              </ul>
+            </li>
+            <!-- end: Message Dropdown -->
+            <!-- start: User Dropdown -->
+            <li class="dropdown">
+              <a class="btn dropdown-toggle no-ajaxy" data-toggle="dropdown" href="#">
+                <i class="icon-user icon-white"></i>
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="{{ path('fos_user_profile_edit') }}"><i class="icon-user"></i> Profile</a></li>
+                <li><a href="{{ path('fos_user_change_password') }}"><i class="icon-user"></i> Change Password</a></li>
+                <li class="divider"></li>
+                <li><a href="{{ path('fos_user_security_logout') }}"><i class="icon-off"></i> Logout</a></li>
+              </ul>
+            </li>
+            <!-- end: User Dropdown -->
+          </ul>
+          <div class="pull-right" style="padding:10px 20px">{{app.user.username}}</div>
+        </div>
+        <!-- end: Header Menu -->
+
       </div>
-      <!-- end: Header Menu -->
-
     </div>
   </div>
-</div>
-<!-- start: Header -->
+  <!-- start: Header -->
 
-<div class="container-fluid">
-  <div class="row-fluid">
+  <div class="container-fluid">
+    <div class="row-fluid">
 
-    <!-- start: Main Menu -->
-    <div class="span2 main-menu-span">
-      <div class="nav-collapse sidebar-nav">
+      <!-- start: Main Menu -->
+      <div class="span2 main-menu-span">
+        <div class="nav-collapse sidebar-nav">
           {{ knp_menu_render('main', {'allow_safe_labels':true ,'template': 'MainBundle:Default:knp_menu.html.twig', 'currentClass': 'active'})  }}
-      </div><!--/.well -->
-    </div><!--/span-->
-    <!-- end: Main Menu -->
+        </div><!--/.well -->
+      </div><!--/span-->
+      <!-- end: Main Menu -->
 
-    <noscript>
-      <div class="alert alert-block span10">
-        <h4 class="alert-heading">Warning!</h4>
-        <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
-      </div>
-    </noscript>
+      <noscript>
+        <div class="alert alert-block span10">
+          <h4 class="alert-heading">Warning!</h4>
+          <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+        </div>
+      </noscript>
 
-    <div id="content" class="span10" style="min-height: 825px;">
-    <!-- start: Content -->
-    {% block content %}{% endblock %}
-    <!-- end: Content -->
-    </div><!--/#content.span10-->
-  </div><!--/fluid-row-->
+      <div id="content" class="span10" style="min-height: 825px;">
+        <!-- start: Content -->
+        {% block content %}{% endblock %}
+        <!-- end: Content -->
+      </div><!--/#content.span10-->
+    </div><!--/fluid-row-->
 
-<div class="clearfix"></div>
+    <div class="clearfix"></div>
 
-<footer>
-  <p>
-    <span style="text-align:left;float:left">&copy; <a href="http://clabs.co" target="_blank">creativeLabs</a> 2013</span>
-    <span style="text-align:right;float:right">Powered by: <a href="#">Perfectum Dashboard</a></span>
-  </p>
+    <footer>
+      <p>
+        <span style="text-align:left;float:left">&copy; <a href="http://clabs.co" target="_blank">creativeLabs</a> 2013</span>
+        <span style="text-align:right;float:right">Powered by: <a href="#">Perfectum Dashboard</a></span>
+      </p>
 
-</footer>
-</div><!--/.fluid-container-->
-{% endblock %}
+    </footer>
+  </div><!--/.fluid-container-->
+  {% verbatim %}
+  <script id="notification-html" type="text/html">
+  <li>
+    <span class="dropdown-menu-title">You have {{ total }} tasks in progress</span>
+  </li>
+  {{#result}}
+    <li>
+      <a href="#">
+        <span class="header">
+          <span class="from">
+            Qui algo
+          </span>
+          <span class="time">
+            6 min
+          </span>
+        </span>
+        <span class="message">
+          {{ summary }}
+        </span>
+      </a>
+    </li>
+    {{/result}}
+  </script>
+  {% endverbatim %}
+  {% endblock %}
+  {% block javascripts %}
+  {{ parent() }}
+  <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+  <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+  <script src="https://raw.github.com/jonnyreeves/jquery-Mustache/master/jquery.mustache.js"></script>
+  <script src="https://raw.github.com/janl/mustache.js/master/mustache.js"></script>
+  {% javascripts
+    '@MainBundle/Resources/public/js/private.js'
+  %}
+  <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+  {% endblock %}

@@ -24,7 +24,7 @@ class TaskulTimelineManager
         $this->context = $context;
     }
 
-    public function handle($method,$entity,$otherUsers=array())
+    public function handle($method,$entity,$indirectComplement=null,$otherUsers=array())
     {
     	$securityContext = $this->context;
         $user = $securityContext->getToken()->getUser();
@@ -32,7 +32,11 @@ class TaskulTimelineManager
     	if($verb = $this->getVerb($method))
     	{
     		$subject  = $this->actionManager->findOrCreateComponent($user);
-        	$action = $this->actionManager->create($subject, $verb, array('complement' =>$entity));
+            if(null !== $indirectComplement)
+                $complement = array('complement' =>$entity, 'indirectComplement' => $indirectComplement);
+            else
+                $complement = array('complement' =>$entity);
+        	$action = $this->actionManager->create($subject, $verb, $complement);
         	$this->actionManager->updateAction($action);
         	return TRUE;
         }

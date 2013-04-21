@@ -145,7 +145,6 @@ class TasksRestController extends BaseController {
             $timelineManager = $this->get('taskul.timeline_manager');
             $timelineManager->handle('DELETE',$task);
 
-
             $em->remove($task);
             $em->flush();
 

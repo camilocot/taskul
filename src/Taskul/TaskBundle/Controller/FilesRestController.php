@@ -66,7 +66,7 @@ class FilesRestController extends BaseController {
                 $file->taskid = $task->getId();
 
                 $timelineManager = $this->get('taskul.timeline_manager');
-                $timelineManager->handle('POST',$doc);
+                $timelineManager->handle('POST',$doc,$task);
             }
             else{
                 $data = array('success'=>FALSE,'message'=>'WTF','statusCode' => 400);
@@ -95,7 +95,7 @@ class FilesRestController extends BaseController {
         else {
             $fileManager->deleteDocument($document);
             $timelineManager = $this->get('taskul.timeline_manager');
-            $timelineManager->handle('DELETE',$file);
+            $timelineManager->handle('DELETE',$file,$task);
         }
 
         return $this->processView($data,$data['statusCode']);

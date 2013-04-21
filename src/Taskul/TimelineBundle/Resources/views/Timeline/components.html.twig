@@ -1,4 +1,13 @@
 {# Override for this model in any component #}
 {% block _taskul_taskbundle_entity_task_default_component %}
-tarea: {{ value }}
+una tarea <a href="{{ path('api_get_task', { 'id': value.id }) }}" class="" title="show">{{ value }}</a> el {{ value.updated|date('d-m-Y') }}
 {% endblock _taskul_taskbundle_entity_task_default_component %}
+{% block _taskul_taskbundle_entity_task_indirectComplement_component %}
+en la tarea <a href="{{ path('api_get_task', { 'id': value.id }) }}" class="" title="show">{{ value }}</a>
+{% endblock _taskul_taskbundle_entity_task_indirectComplement_component %}
+{% block _taskul_filebundle_entity_document_default_component %}
+un fichero <b>{{ value }}</b>
+{% endblock _taskul_filebundle_entity_document_default_component %}
+{% block _taskul_commentbundle_entity_comment_default_component %}
+un comentario
+{% endblock _taskul_commentbundle_entity_comment_default_component %}

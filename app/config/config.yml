@@ -174,8 +174,8 @@ spy_timeline:
     notifiers:
         - spy_timeline.unread_notifications
     render:
-        path:     'TimelineBundle:Timeline:verbs'
-        fallback: 'TimelineBundle:Timeline:verbs/default.html.twig'
+        path:     'TimelineBundle:Timeline/verbs'
+        fallback: 'TimelineBundle:Timeline:default.html.twig'
         resources:
             - 'TimelineBundle:Timeline:components.html.twig'
         #i18n: #Do you want to use i18n when rendering ? if not, remove this not.

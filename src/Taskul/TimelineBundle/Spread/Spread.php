@@ -7,10 +7,20 @@ use Spy\Timeline\Spread\SpreadInterface;
 use Spy\Timeline\Spread\Entry\EntryCollection;
 use Spy\Timeline\Spread\Entry\Entry;
 use Spy\Timeline\Spread\Entry\EntryUnaware;
+use Doctrine\ORM\EntityManager;
 
 class Spread implements SpreadInterface
 {
     CONST TASK_CLASS = 'Taskul\TaskBundle\Entity\Task';
+    CONST USER_CLASS = 'Taskul\UserBundle\Entity\User';
+    CONST FILE_CLASS = 'Taskul\FileBundle\Entity\Document';
+    CONST COMMENT_CLASS = 'Taskul\CommentBundle\Entity\Comment';
+    CONST MESSAGE_CLASS = 'Taskul\MessageBundle\Entity\Message';
+
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
 
     public function supports(ActionInterface $action)
     {
@@ -19,15 +29,42 @@ class Spread implements SpreadInterface
 
     public function process(ActionInterface $action, EntryCollection $coll)
     {
-        // can define an Entry with a ComponentInterface as argument
-        $coll->add(new Entry($action->getComponent('subject')));
+        $complement = $action->getComponent('complement');
+        $indirectComplement = $action->getComponent('indirectComplement');
+        $context = 'GLOBAL';
+        $members = array();
+        if (is_object($complement) && $complement->getModel() == self::TASK_CLASS) {
+            $task = $this->em->getRepository('TaskBundle:Task')->find($complement->getIdentifier());
+            $members = $task->getMembers();
+            $context = 'TASK';
+        } elseif (is_object($indirectComplement) && $indirectComplement->getModel() == self::TASK_CLASS) {
+            $task = $this->em->getRepository('TaskBundle:Task')->find($indirectComplement->getIdentifier());
+            $members = $task->getMembers();
 
-        // or an EntryUnware, on these examples, we are not aware about components and
-        // we don't want to retrieve them, let bundle do that for us.
+            switch ($complement->getModel())
+            {
+                case self::FILE_CLASS:
+                $context = 'DOCUMENT';
+                break;
+                case self::COMMENT_CLASS:
+                $context = 'COMMENT';
+                break;
+            }
+        }elseif (is_object($indirectComplement)
+            && is_object($complement)
+            && $indirectComplement->getModel() == self::USER_CLASS
+            && $complement->getModel() == self::MESSAGE_CLASS) {
+            $context = 'MESSAGE';
+            $members = $this->em->getRepository('UserBundle:User')->find($indirectComplement->getIdentifier());
+        }
 
-        // composite key
-        $coll->add(new EntryUnaware('model', array('1', '2')));
-        $coll->add(new EntryUnaware('some\othermodel', 1));
-        $coll->add(new EntryUnaware('othermodel', 'aodadoa'), 'CUSTOM_CONTEXT');
+        if(count($members)>0){
+            foreach($members as $m){
+                $coll->add(new EntryUnaware(self::USER_CLASS,$m->getId()),$context);
+            }
+        }
+
+        $coll->add(new Entry($action->getComponent('subject')),$context);
+
     }
 }

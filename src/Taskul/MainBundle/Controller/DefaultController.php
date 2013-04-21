@@ -41,6 +41,21 @@ class DefaultController extends Controller
      */
     public function dashboardAction(Request $request)
     {
+        $user =  $this->get('security.context')->getToken()->getUser();
 
+        $actionManager   = $this->get('spy_timeline.action_manager');
+        $timelineManager = $this->get('spy_timeline.timeline_manager');
+        $unread = $this->get('spy_timeline.unread_notifications');
+
+        $subject         = $actionManager->findOrCreateComponent($user);
+        $timeline        = $timelineManager->getTimeline($subject,array('paginate' => false, 'max_per_page' => '100'));
+
+        //count how many unread message for global context
+
+        $count  = $unread->countKeys($subject,array('context' => 'GLOBAL')); // on global context
+
+        return array(
+            'timeline' => $timeline,
+        );
     }
 }

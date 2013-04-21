@@ -7,6 +7,7 @@
     <parameters>
         <parameter key="taskul.check.user.comment.listener">Taskul\CommentBundle\EventListener\AuthCommentListener</parameter>
         <parameter key="taskul_comment.listener.thread_link_entity.class">Taskul\CommentBundle\EventListener\ThreadLinkEntityListener</parameter>
+        <parameter key="taskul_comment.listener.comment.class">Taskul\CommentBundle\EventListener\CommentListener</parameter>
     </parameters>
 
     <services>
@@ -18,6 +19,11 @@
         </service>
         <service id="taskul_comment.listener.thread_link_entity" class="%taskul_comment.listener.thread_link_entity.class%">
             <argument type="service" id="session" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+        <service id="taskul_comment.listener.comment" class="%taskul_comment.listener.comment.class%">
+            <argument type="service" id="taskul.timeline_manager" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
             <tag name="kernel.event_subscriber" />
         </service>
         <service id="markup.exercise_html_purifier" class="FOS\CommentBundle\Markup\HtmlPurifier">
