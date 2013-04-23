@@ -315,19 +315,8 @@
   </li>
   {{#result}}
     <li>
-      <a href="#">
-        <span class="header">
-          <span class="from">
-            Qui algo
-          </span>
-          <span class="time">
-            6 min
-          </span>
-        </span>
-        <span class="message">
-          {{ summary }}
-        </span>
-      </a>
+    <a href="{{ url }}">
+    + <i class="icon-th"></i> <span class="message">{{ summary }}</span> <span class="time">{{ date }}</span></a>
     </li>
     {{/result}}
   </script>

@@ -7,15 +7,20 @@ $(document).ready(function(){
       url: route,
       success:function(data){
         console.log(data);
-        if(data.success)
-          $("#notification-number").text(data.total);
+        if(data.success) {
+          total = $("#notification-number").text();
+          if(total != data.total) {
+            $("#notification-number").text(data.total);
+            generateNotification = true;
+          }
+        }
       }
     });
   }
   $('#task_notification').click(function() {
         // Only call notifications when opening the dropdown
         if(generateNotification && !$(this).parent('li').hasClass('open')) {
-          route = Routing.generate('get_notification', { "context": "TASK" });
+          route = Routing.generate('get_notifications', { "context": "TASK" });
            $.ajax({
               type: "GET",
               url: route,

@@ -22,6 +22,7 @@
         </service>
         <service id="taskul.action.manager" class="%taskul.action.manager.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="router" />
         </service>
     </services>
 

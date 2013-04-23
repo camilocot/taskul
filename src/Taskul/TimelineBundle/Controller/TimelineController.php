@@ -31,26 +31,7 @@ class TimelineController extends Controller
 		//count how many unread message for global context
 
 		$count  = $unread->countKeys($subject,'TASK'); // on global context
-		var_dump($count);
 
-		// // remove ONE unread notification
-		// $unread->markAsReadAction($subject, 'actionId'); // on global context
-		// $unread->markAsReadAction($subject, 'actionId', 'MyContext');
-
-		// // remove several unread notifications
-		// $unread->markAsReadActions(array(
-		// 	array('GLOBAL', $subject, 'actionId'),
-		// 	array('GLOBAL', $subject, 'actionId'),
-		// 	));
-
-		// // all unread notifications
-		// $unread->markAllAsRead($subject); // on global context
-		// $unread->markAllAsRead($subject, 'MyContext');
-
-		// // retrieve timeline actions
-		// $actions = $unread->getUnreadNotifications($subject); // on global context, no options
-		// $actions = $unread->getUnreadNotifications($subject, 'MyContext', $options);
-		// // in options you can define offset, limit, etc ...
 		return array(
             'timeline' => $timeline,
         );
@@ -74,11 +55,11 @@ class TimelineController extends Controller
     }
 
     /**
-     * @Route("/get_notification/{context}", name="get_notification", defaults={"context" = "GLOBAL"}, options={"expose"=true})
+     * @Route("/get_notifications/{context}", name="get_notifications", defaults={"context" = "GLOBAL"}, options={"expose"=true})
      * @Method({"GET"})
      */
 
-    public function getNotificationAction($context)
+    public function getNotificationsAction($context)
     {
     	$user =  $this->get('security.context')->getToken()->getUser();
     	$actionManager   = $this->get('spy_timeline.action_manager');
@@ -102,10 +83,43 @@ class TimelineController extends Controller
 		// add filters
 		$qb->setCriterias($criterias);
 
-		$results = $qb->execute(array('paginate' => true, 'filter' => true));
+		$results = $unread->getUnreadNotifications($subject,$context);
 		$entities = $taskulActionManager->getEntities($results->getIterator());
 
 		return new JsonResponse(array('success' => TRUE, 'total' => $count,'result'=>$entities));
+    }
+
+    /**
+     * @Route("/get_notification/{id}/{context}/{entityid}", name="get_notification", requirements={"id" = "\d+", "entityid" = "\d+"}, defaults={"context" = "GLOBAL"})
+     * @Method({"GET"})
+     */
+    public function readNotificationAction($id,$context,$entityid)
+    {
+        $unread = $this->get('spy_timeline.unread_notifications');
+        $actionManager   = $this->get('spy_timeline.action_manager');
+        $user =  $this->get('security.context')->getToken()->getUser();
+        $taskulActionManager = $this->get('taskul.action.manager');
+        $subject  = $actionManager->findOrCreateComponent($user);
+        $context = $this->parseContext($context);
+
+        $unread->markAsReadAction($subject, $id, $context);
+        // Redirigimos a donde corresponda
+        //$obj = new ArrayObject( $grocery );
+        switch ($context)
+        {
+            case 'TASK':
+            $response = $this->redirect($this->generateUrl('api_get_task', array(
+                'id'  => $entityid,
+            )));
+
+            break;
+
+            default:
+            $response = $this->redirect('dashboard');
+        }
+        return $response;
+
+
     }
 
     private function parseContext($context)
