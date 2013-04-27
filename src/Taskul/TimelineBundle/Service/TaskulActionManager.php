@@ -78,6 +78,12 @@ class TaskulActionManager extends BaseTimelineManager
 			case 'Task':
 				$summary = $entity->getName();
 				break;
+			case 'Comment':
+				$summary = $entity->getAuthor()->getUserName();
+				break;
+			case 'Document':
+				$summary = $entity->getName();
+				break;
 		}
 		return $summary;
 	}

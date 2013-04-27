@@ -31,67 +31,25 @@
         <div class="nav-no-collapse header-nav">
 
           <ul class="nav pull-right">
-            <li class="dropdown hidden-phone">
-              <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"  id="task_notification">
-                <i class="icon-warning-sign icon-white"></i><span class="label label-important hidden-phone" id="notification-number">0</span>
+            <li class="dropdown hidden-phone"><!-- Task notifications -->
+              <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#"  id="toggle-task-noti" data-context="TASK">
+                <i class="icon-tasks icon-white"></i><span class="label label-important hidden-phone notifnumber" id="task-noti-number">0</span>
               </a>
-              <ul class="dropdown-menu" id="task-notification">
-                <!-- <li>
-                  <span class="dropdown-menu-title">You have 11 notifications</span>
-                </li>
-                <li>
-                  <a href="#">
-                    + <i class="icon-user"></i> <span class="message">New user registration</span> <span class="time">1 min</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    + <i class="icon-comment"></i> <span class="message">New comment</span> <span class="time">7 min</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    + <i class="icon-comment"></i> <span class="message">New comment</span> <span class="time">8 min</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    + <i class="icon-comment"></i> <span class="message">New comment</span> <span class="time">16 min</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    + <i class="icon-user"></i> <span class="message">New user registration</span> <span class="time">36 min</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    + <i class="icon-shopping-cart"></i> <span class="message">2 items sold</span> <span class="time">1 hour</span>
-                  </a>
-                </li>
-                <li class="warning">
-                  <a href="#">
-                    - <i class="icon-user icon-red"></i> <span class="message">User deleted account</span> <span class="time">2 hour</span>
-                  </a>
-                </li>
-                <li class="warning">
-                  <a href="#">
-                    - <i class="icon-shopping-cart icon-red"></i> <span class="message">Transaction was canceled</span> <span class="time">6 hour</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    + <i class="icon-comment"></i> <span class="message">New comment</span> <span class="time">yesterday</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    + <i class="icon-user"></i> <span class="message">New user registration</span> <span class="time">yesterday</span>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-menu-sub-footer">View all notifications</a>
-                </li>-->
+              <ul class="dropdown-menu notifications" id="task-notification">
+              </ul>
+            </li>
+            <li class="dropdown hidden-phone"><!-- Files notifications -->
+              <a class="btn dropdown-toggle notiftoggle"  data-toggle="dropdown" href="#"  id="toggle-file-noti" data-context="FILE">
+                <i class="icon-file icon-white"></i><span class="label label-important hidden-phone notifnumber" id="file-noti-number">0</span>
+              </a>
+              <ul class="dropdown-menu notifications" id="files-notification">
+              </ul>
+            </li>
+            <li class="dropdown hidden-phone"><!-- Comments notifications -->
+              <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#"  id="toggle-comment-noti" data-context="COMMENT">
+                <i class="icon-comment icon-white"></i><span class="label label-important hidden-phone notifnumber" id="comment-noti-number">0</span>
+              </a>
+              <ul class="dropdown-menu notifications" id="files-notification">
               </ul>
             </li>
             <!-- start: Notifications Dropdown -->
@@ -311,7 +269,7 @@
   {% verbatim %}
   <script id="notification-html" type="text/html">
   <li>
-    <span class="dropdown-menu-title">You have {{ total }} tasks in progress</span>
+    <span class="dropdown-menu-title">Tienes {{ total }} notificaciones pendientes</span>
   </li>
   {{#result}}
     <li>

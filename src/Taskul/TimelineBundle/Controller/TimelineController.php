@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
+use Doctrine\ORM\NoResultException;
 /**
  * @Route("/api")
  */
@@ -65,23 +65,11 @@ class TimelineController extends Controller
     	$actionManager   = $this->get('spy_timeline.action_manager');
     	$taskulActionManager = $this->get('taskul.action.manager');
     	$unread = $this->get('spy_timeline.unread_notifications');
-		$qb = $this->get('spy_timeline.query_builder');
-
 
     	$subject  = $actionManager->findOrCreateComponent($user);
     	$context = $this->parseContext($context);
 
     	$count  = $unread->countKeys($subject,$context);
-
-		// filter on timeline subject(s)
-		$qb->addSubject($subject); // accept a ComponentInterface
-		$qb->setPage(1);
-		$qb->setMaxPerPage(10);
-		$qb->orderBy('createdAt', 'DESC');
-
-		$criterias = $qb->field('context')->equals($context);
-		// add filters
-		$qb->setCriterias($criterias);
 
 		$results = $unread->getUnreadNotifications($subject,$context);
 		$entities = $taskulActionManager->getEntities($results->getIterator());
@@ -101,30 +89,48 @@ class TimelineController extends Controller
         $taskulActionManager = $this->get('taskul.action.manager');
         $subject  = $actionManager->findOrCreateComponent($user);
         $context = $this->parseContext($context);
+        try {
+            $unread->markAsReadAction($subject, $id, $context);
+        } catch (NoResultException $e) {
+        }
 
-        $unread->markAsReadAction($subject, $id, $context);
-        // Redirigimos a donde corresponda
-        //$obj = new ArrayObject( $grocery );
+        try {
+            $unread->markAsReadAction($subject, $id, 'GLOBAL'); // Si esto falla es que hay algo mal
+        } catch (NoResultException $e) {
+        }
+
+        return $this->generateResponseForNotification($context,$entityid);
+
+
+    }
+
+    private function generateResponseForNotification($context,$entityid)
+    {
+
         switch ($context)
         {
+            case 'COMMENT':
             case 'TASK':
             $response = $this->redirect($this->generateUrl('api_get_task', array(
                 'id'  => $entityid,
             )));
-
+            case 'FILE':
+            $response = $this->redirect($this->generateUrl('api_get_task_files', array(
+                'id'  => $entityid,
+            )));
             break;
 
             default:
             $response = $this->redirect('dashboard');
         }
+
         return $response;
-
-
     }
 
     private function parseContext($context)
     {
     	$context = mb_strtoupper($context);
+
     	switch($context)
     	{
     		case 'TASK':
