@@ -36,4 +36,5 @@ $(document).ready(function(){
   $.Mustache.add('notification-html', $('#notification-html').html());
   setInterval(notificationUpdate,50000);
   notificationUpdate();
+  $('li.home > a').removeClass('ajaxy');
 });
