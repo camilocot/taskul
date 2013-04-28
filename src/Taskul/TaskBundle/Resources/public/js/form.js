@@ -37,7 +37,9 @@ $(document).ready(function(){
         $('button', group).each(function(){
             var button = $(this);
             button.on('click', function(){
-              hidden.val($(this).val());
+                hidden.val($(this).val());
+                /* Cambiamos el slider */
+                processSlide($(this).val());
             });
             if(button.val() == hidden.val()) {
                 button.addClass('active');
@@ -73,7 +75,6 @@ $(document).ready(function(){
             },
             error: function(jqXHR,textStatus,errorThrown){
                 alert(jqXHR.responseText.message);
-                console.log("Error of data:", jqXHR);
             }
         });
         // return false to prevent normal browser submit and page navigation
@@ -83,4 +84,58 @@ $(document).ready(function(){
     menuColor('li#task_ops_new');
     new nicEditor({fullPanel : true}).panelInstance('task_description');
 
+    /* Percent Slider */
+    $("#task_percent").bind("slider:changed", function (event, data) {
+    // The currently selected value of the slider
+        $(this).val(data.value);
+        $('#text-percent').text('('+data.value+'%)');
+        /* Activamos el boton adecuado */
+        activateStatusButton(data.value);
+
+    });
+
+    $('label[for=task_percent]').append(' <span id="text-percent">('+$("#task_percent").val()+'%)</span>');
+
 });
+
+function processSlide(val)
+{
+    switch(val)
+    {
+        case 'inprogress':
+            $("#task_percent").simpleSlider("setValue", 50);
+            break;
+        case 'todo':
+            $("#task_percent").simpleSlider("setValue", 1);
+            break;
+        case 'done':
+            $("#task_percent").simpleSlider("setValue", 100);
+            break;
+    }
+    return true;
+}
+
+function activateStatusButton(percent)
+{
+            /* Activamos el boton del estado cuando sea necesario */
+            group   = $('div.btn-group:first');
+            name    = group.data('toggle-name');
+            form    = group.parents('form').eq(0);
+            hidden  = $('input[name="' + name + '"]', form);
+            val = hidden.val();
+            $('button',group).removeClass('active');
+            if(percent == 1 && val != 'todo'){
+                $('button[value=todo]',group).addClass('active');
+                hidden.val('todo');
+            }
+            else if(percent == 100 && val != 'done'){
+                $('button[value=done]',group).addClass('active');
+                hidden.val('done');
+            }
+            else if (val != 'inprogress'){
+                $('button[value=inprogress]',group).addClass('active');
+                hidden.val('inprogress');
+            }
+
+        return true;
+}

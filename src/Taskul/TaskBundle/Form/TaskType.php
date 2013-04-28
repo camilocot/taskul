@@ -33,6 +33,7 @@ class TaskType extends AbstractType
         ->add('description','purified_textarea',array('required' => false))
         ->add('dateEnd','date', array('widget'=>'single_text', 'format' => 'dd/MM/yyyy','required'=>FALSE))
         ->add('status', 'status', array('expanded' => true,'choices' => TaskStatusType::getChoices()))
+        ->add('percent', 'integer')
         ->add('tags','text', array('mapped'=>false,'data'=>$options['tags'],'required'=>FALSE))
         ->add('members', 'entity', array(
 

@@ -31,24 +31,24 @@ class ProcessFormHandler
 
     public function handle(Form $form, Request $request, Task $task, $user)
     {
-		$form->bind($request);
+  		$form->bind($request);
 
-		if ($form->isValid()) {
-			$formData = $request->request->get($form->getName());
+  		if ($form->isValid()) {
+  			$formData = $request->request->get($form->getName());
 
-			$task->setOwner($user);
-			$this->em->persist($task);
-			$this->em->flush();
+  			$task->setOwner($user);
+  			$this->em->persist($task);
+  			$this->em->flush();
 
-			$tags = strtolower($formData['tags']);
-			$this->tagManager->saveTags($task, $tags);
+  			$tags = strtolower($formData['tags']);
+  			$this->tagManager->saveTags($task, $tags);
 
-			// Asignamos los permisos
-			$this->aclManager->revokeAll($task);
-			$members = $task->getMembers();
-			$this->aclManager->grant($task,$members);
-			return TRUE;
-      	}
+  			// Asignamos los permisos
+  			$this->aclManager->revokeAll($task);
+  			$members = $task->getMembers();
+  			$this->aclManager->grant($task,$members);
+  			return TRUE;
+      }
       return FALSE;
     }
 

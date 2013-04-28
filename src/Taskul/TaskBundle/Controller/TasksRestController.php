@@ -40,7 +40,6 @@ class TasksRestController extends BaseController {
          }
      }
 
-
      $view = $this->view($data, 200)
      ->setTemplate("TaskBundle:Task:api/index.html.twig")
      ;
@@ -156,6 +155,8 @@ class TasksRestController extends BaseController {
 
         return $this->processView($data,$statusCode);
     }
+
+
 
     private function processForm(Task $task,$formMethod)
     {

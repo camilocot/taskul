@@ -25,6 +25,7 @@
                         <fieldset>
                             {{ form_row(form.name,{'help':'sdasdasasda', 'atrr': { 'class':'required', 'minlength':'10' } }) }}
                             {{ form_row(form.status) }}
+                            {{ form_row(form.percent, {'attr': {'data-slider':'true', 'data-slider-range':'1,100', 'data-slider-step':'1'}} ) }}
                             {{ form_row(form.description, {'attr':
                             {'placeholder':'Introduzca una descripción ...', 'class':'nicEdit span11','rows':'10','minlength':'8' } } ) }}
                             {{ form_row(form.dateEnd, { 'attr': {'data-date-format': 'dd/mm/yyyy'} }) }}
@@ -52,6 +53,7 @@
 {{ parent() }}
 {% javascripts
     '@MainBundle/Resources/public/js/vendor/nicEdit-latest.js'
+    '@MainBundle/Resources/public/js/vendor/simple-slider.js'
     '@TaskBundle/Resources/public/js/form.js'
     %}
     <script src="{{ asset_url }}"></script>

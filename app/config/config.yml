@@ -151,7 +151,7 @@ fos_rest:
     format_listener:
         default_priorities: [ html, 'json', '*/*']
         fallback_format: json
-        prefer_extension: false
+        prefer_extension: true
 
 spy_timeline:
     drivers:

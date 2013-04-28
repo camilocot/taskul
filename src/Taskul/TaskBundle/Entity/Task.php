@@ -276,6 +276,7 @@ class Task implements Documentable, Taggable {
     {
         $this->members = new \Doctrine\Common\Collections\ArrayCollection();
         $this->setStatus('inprogress'); // Se le pone un estado por defecto
+        $this->setPercent(50); // Porcentaje por defecto
     }
 
     /**
@@ -378,14 +379,14 @@ class Task implements Documentable, Taggable {
     public function setPercent($percent)
     {
         $this->percent = $percent;
-    
+
         return $this;
     }
 
     /**
      * Get percent
      *
-     * @return integer 
+     * @return integer
      */
     public function getPercent()
     {
