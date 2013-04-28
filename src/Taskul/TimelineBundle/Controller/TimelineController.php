@@ -114,6 +114,7 @@ class TimelineController extends Controller
             $response = $this->redirect($this->generateUrl('api_get_task', array(
                 'id'  => $entityid,
             )));
+            break;
             case 'FILE':
             $response = $this->redirect($this->generateUrl('api_get_task_files', array(
                 'id'  => $entityid,

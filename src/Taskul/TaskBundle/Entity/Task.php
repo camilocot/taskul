@@ -98,6 +98,16 @@ class Task implements Documentable, Taggable {
      */
     private $updated;
 
+    /**
+     * @ORM\Column(name="percent", type="smallint")
+     *
+     * @Assert\NotBlank()
+     * @Assert\Max(limit = 100)
+     * @Assert\Min(limit = 0)
+    */
+    protected $percent;
+
+
     public function getTags()
     {
         $this->tags = $this->tags ?: new ArrayCollection();
@@ -357,5 +367,28 @@ class Task implements Documentable, Taggable {
     public function getUpdated()
     {
         return $this->updated;
+    }
+
+    /**
+     * Set percent
+     *
+     * @param integer $percent
+     * @return Task
+     */
+    public function setPercent($percent)
+    {
+        $this->percent = $percent;
+    
+        return $this;
+    }
+
+    /**
+     * Get percent
+     *
+     * @return integer 
+     */
+    public function getPercent()
+    {
+        return $this->percent;
     }
 }

@@ -1,7 +1,6 @@
 $(document).ready(function(){
   var generateNotification = [];
 
-
   $('.notiftoggle').click(function() {
         // Only call notifications when opening the dropdown
         $this = $(this);
@@ -29,24 +28,26 @@ $(document).ready(function(){
   $('.notifnumber').bind('notificationUpdate',function() {
     $this = $(this);
     context = $this.parent().data('context');
+
     route = Routing.generate('notification', { "context": context });
     $.ajax({
       method:'get',
       url: route,
+      async: false,
       success:function(data){
-        console.log($this.data('id'));
         if(data.success) {
           total = $this.text();
           if(total != data.total) {
             $this.text(data.total);
-            generateNotification = true;
+            generateNotification[context] = true;
           }
         }
       }
     });
   });
+
   $('.notifnumber').trigger('notificationUpdate');
   setInterval(function(){
-      $('.notifnumber').trigger('notificationUpdate');
-  },50000);
+       $('.notifnumber').trigger('notificationUpdate');
+  },60000);
 });
