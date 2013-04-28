@@ -1,13 +1,16 @@
 {% extends "::private.html.twig" %}
 {% block stylesheets %}
-{{ parent() }}
 {% stylesheets
     '@MainBundle/Resources/public/css/datepicker.css'
     '@MainBundle/Resources/public/css/select2.css'
     '@MainBundle/Resources/public/css/simple-slider.css'
+    '@MainBundle/Resources/public/css/footable-0.1.css'
+    '@MainBundle/Resources/public/css/footable.paginate.css'
+    '@MainBundle/Resources/public/css/footable.sortable-0.1.css'
     %}
     <link rel="stylesheet" href="{{ asset_url }}">
     {% endstylesheets %}
+    {{ parent() }}
     {% endblock %}
 {% block body %}
 {{ parent()}}
@@ -16,8 +19,10 @@
 {% block javascripts %}
 {{ parent() }}
 {% javascripts
-    '@MainBundle/Resources/public/js/vendor/jquery.dataTables.min.js'
-    '@MainBundle/Resources/public/js/vendor/datatables-boostrap.js'
+    '@MainBundle/Resources/public/js/vendor/footable.js'
+    '@MainBundle/Resources/public/js/vendor/footable.filter.js'
+    '@MainBundle/Resources/public/js/vendor/footable.paginate.js'
+    '@MainBundle/Resources/public/js/vendor/footable.sortable.js'
     '@MainBundle/Resources/public/js/vendor/jquery.ui.widget.js'
     '@MainBundle/Resources/public/js/vendor/jquery.iframe-transport.js'
     '@MainBundle/Resources/public/js/vendor/jquery.fileupload.js'

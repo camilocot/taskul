@@ -122,3 +122,27 @@ a.brand span {
 		width: 0;
 		background-color: #0099ff;
 }
+
+/* FooTables */
+.footable > tbody > tr:hover {
+  background: #dddddd;
+}
+
+.footable > thead > tr > th, .footable > thead > tr > td, .footable > tfoot > tr > th, .footable > tfoot > tr > td {
+  background-color: #FAFAFA;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#FAFAFA), to(#EFEFEF));
+  background-image: -webkit-linear-gradient(top, #FAFAFA, #EFEFEF);
+  background-image: -moz-linear-gradient(top, #FAFAFA, #EFEFEF);
+  background-image: -ms-linear-gradient(top, #FAFAFA, #EFEFEF);
+  background-image: -o-linear-gradient(top, #FAFAFA, #EFEFEF);
+  background-image: linear-gradient(to bottom, #FAFAFA, #EFEFEF);
+  color: #888;
+}
+
+.footable-nav li a {
+    color: #888;
+}
+
+.footable {
+  font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
