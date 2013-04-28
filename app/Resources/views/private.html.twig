@@ -32,21 +32,21 @@
 
           <ul class="nav pull-right">
             <li class="dropdown hidden-phone"><!-- Task notifications -->
-              <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#"  id="toggle-task-noti" data-context="TASK">
+              <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#"  id="toggle-task-noti" data-context="TASK" data-route="notification" data-route-content="get_notifications">
                 <i class="icon-tasks icon-white"></i><span class="label label-important hidden-phone notifnumber" id="task-noti-number">0</span>
               </a>
               <ul class="dropdown-menu notifications" id="task-notification">
               </ul>
             </li>
             <li class="dropdown hidden-phone"><!-- Files notifications -->
-              <a class="btn dropdown-toggle notiftoggle"  data-toggle="dropdown" href="#"  id="toggle-file-noti" data-context="FILE">
+              <a class="btn dropdown-toggle notiftoggle"  data-toggle="dropdown" href="#"  id="toggle-file-noti" data-context="FILE" data-route="notification" data-route-content="get_notifications">
                 <i class="icon-file icon-white"></i><span class="label label-important hidden-phone notifnumber" id="file-noti-number">0</span>
               </a>
               <ul class="dropdown-menu notifications" id="files-notification">
               </ul>
             </li>
             <li class="dropdown hidden-phone"><!-- Comments notifications -->
-              <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#"  id="toggle-comment-noti" data-context="COMMENT">
+              <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#"  id="toggle-comment-noti" data-context="COMMENT" data-route="notification" data-route-content="get_notifications">
                 <i class="icon-comment icon-white"></i><span class="label label-important hidden-phone notifnumber" id="comment-noti-number">0</span>
               </a>
               <ul class="dropdown-menu notifications" id="files-notification">
@@ -54,61 +54,10 @@
             </li>
             <!-- start: Notifications Dropdown -->
             <li class="dropdown hidden-phone">
-              <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="icon-tasks icon-white"></i> <span class="label label-warning hidden-phone">17</span>
+              <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#" id="toggle-task-inprogress" data-context="inprogress" data-route="api_count_task_list_status" data-route-content="api_list_task_status">
+                <i class="icon-tasks icon-white"></i> <span class="label label-warning hidden-phone notifnumber" id="task-inprogress-number">0</span>
               </a>
-              <ul class="dropdown-menu tasks">
-                <li>
-                  <span class="dropdown-menu-title">You have 17 tasks in progress</span>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="header">
-                      <span class="title">iOS Development</span>
-                      <span class="percent"></span>
-                    </span>
-                    <div class="taskProgress progressSlim progressYellow">80</div>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="header">
-                      <span class="title">Android Development</span>
-                      <span class="percent"></span>
-                    </span>
-                    <div class="taskProgress progressSlim progressYellow">47</div>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="header">
-                      <span class="title">Django Project For Google</span>
-                      <span class="percent"></span>
-                    </span>
-                    <div class="taskProgress progressSlim progressYellow">32</div>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="header">
-                      <span class="title">SEO for new sites</span>
-                      <span class="percent"></span>
-                    </span>
-                    <div class="taskProgress progressSlim progressYellow">63</div>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="header">
-                      <span class="title">New blog posts</span>
-                      <span class="percent"></span>
-                    </span>
-                    <div class="taskProgress progressSlim progressYellow">80</div>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-menu-sub-footer">View all tasks</a>
-                </li>
+              <ul class="dropdown-menu tasks-inprogress tasks">
               </ul>
             </li>
             <!-- end: Notifications Dropdown -->
@@ -267,7 +216,7 @@
     </footer>
   </div><!--/.fluid-container-->
   {% verbatim %}
-  <script id="notification-html" type="text/html">
+  <script id="get_notifications-html" type="text/html">
   <li>
     <span class="dropdown-menu-title">Tienes {{ total }} notificaciones pendientes</span>
   </li>
@@ -278,6 +227,22 @@
     </li>
     {{/result}}
   </script>
+  <script id="api_list_task_status-html" type="text/html">
+  <li>
+    <span class="dropdown-menu-title">Tienes {{ total }} un total de tareas pendientes</span>
+  </li>
+  {{#result}}
+  <li>
+    <a href="{{url}}">
+      <span class="header">
+        <span class="title">{{summary}}</span>
+        <span class="percent"></span>
+      </span>
+      <div class="taskProgress progressSlim progressYellow">{{percent}}</div>
+    </a>
+  </li>
+  {{/result}}
+  </script>
   {% endverbatim %}
   {% endblock %}
   {% block javascripts %}
@@ -287,6 +252,7 @@
   <script src="https://raw.github.com/jonnyreeves/jquery-Mustache/master/jquery.mustache.js"></script>
   <script src="https://raw.github.com/janl/mustache.js/master/mustache.js"></script>
   {% javascripts
+    '@MainBundle/Resources/public/js/vendor/jquery-ui-1.10.2.custom.js'
     '@MainBundle/Resources/public/js/private.js'
   %}
   <script src="{{ asset_url }}"></script>

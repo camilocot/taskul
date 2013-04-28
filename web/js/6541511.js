@@ -259,7 +259,7 @@ function activateStatusButton(percent)
                 $('button[value=done]',group).addClass('active');
                 hidden.val('done');
             }
-            else if (val != 'inprogress'){
+            else {
                 $('button[value=inprogress]',group).addClass('active');
                 hidden.val('inprogress');
             }

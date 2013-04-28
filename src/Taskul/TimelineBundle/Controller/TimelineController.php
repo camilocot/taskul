@@ -72,7 +72,7 @@ class TimelineController extends Controller
     	$count  = $unread->countKeys($subject,$context);
 
 		$results = $unread->getUnreadNotifications($subject,$context);
-		$entities = $taskulActionManager->getEntities($results->getIterator());
+		$entities = $taskulActionManager->getEntities($results->getIterator(),10);
 
 		return new JsonResponse(array('success' => TRUE, 'total' => $count,'result'=>$entities));
     }

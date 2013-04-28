@@ -5,7 +5,7 @@ namespace Taskul\TaskBundle\Controller;
 use Taskul\TaskBundle\Entity\Task;
 use Taskul\TaskBundle\Form\TaskType;
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 
 use Taskul\TaskBundle\Controller\Base\TasksRestBaseController as BaseController;
@@ -45,7 +45,7 @@ class TasksRestController extends BaseController {
      ;
 
      return $this->handleView($view);
- }
+    }
 
     /**
      * Displays a form to create a new Task entity.
@@ -157,6 +157,42 @@ class TasksRestController extends BaseController {
     }
 
 
+    public function listStatusAction($context) {
+        $user = $this->get('security.context')->getToken()->getUser();
+        $entities = $this->getDoctrine()->getManager()->getRepository('TaskBundle:Task')->findStatusTasks($user,$context);
+        $result = array();
+        $i = 0; // Limitamos el numero a 10
+        foreach($entities as $e){
+            $result[] = array(
+                'summary' => $e->getName(),
+                'url' => $this->get('router')->generate('api_get_task',array('id'=>$e->getId())),
+                'percent' => $e->getPercent(),
+            );
+            $i++;
+            if($i == 10)
+                break;
+
+        }
+        return new JsonResponse(array(
+            'success' => TRUE,
+            'result' => $result,
+            'total' => count($result),
+        ));
+    }
+
+    public function countListStatusAction($context) {
+        $user = $this->get('security.context')->getToken()->getUser();
+
+    try {
+        $count = $this->getDoctrine()->getManager()->getRepository('TaskBundle:Task')->countStatusTasks($user,$context);
+    } catch (\Doctrine\Orm\NoResultException $e) {
+        $count[] = null;
+    }
+            return new JsonResponse(array(
+            'success' => TRUE,
+            'total' => array_shift($count),
+        ));
+    }
 
     private function processForm(Task $task,$formMethod)
     {

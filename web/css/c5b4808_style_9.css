@@ -495,7 +495,7 @@ h6 {
   	display: none;
   	float: left;
   	min-width: 160px;
-	max-width: 300px;
+	/*max-width: 300px;*/
   	padding: 0px 0;
   	margin: 2px 0 0;
   	list-style: none;

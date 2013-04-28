@@ -12,11 +12,29 @@ use Doctrine\ORM\EntityRepository;
  */
 class TaskRepository extends EntityRepository
 {
-	    public function findTasks($user)
+	public function findTasks($user)
     {
         return $this->getEntityManager($user)
-            ->createQuery('SELECT t FROM TaskBundle:Task t WHERE t.owner = :user or :user MEMBER OF t.members')
+            ->createQuery('SELECT t FROM TaskBundle:Task t WHERE t.owner = :user or :user MEMBER OF t.members order by t.updated DESC')
             ->setParameter('user', $user->getId())
             ->getResult();
+    }
+
+    public function findStatusTasks($user,$status)
+    {
+        return $this->getEntityManager($user)
+            ->createQuery('SELECT t FROM TaskBundle:Task t WHERE t.owner = :user and t.status = :status order by t.updated DESC')
+            ->setParameter('user', $user->getId())
+            ->setParameter('status', $status)
+            ->getResult();
+    }
+
+    public function countStatusTasks($user,$status)
+    {
+        return $this->getEntityManager($user)
+            ->createQuery('SELECT COUNT(t) FROM TaskBundle:Task t WHERE t.owner = :user and t.status = :status order by t.updated DESC')
+            ->setParameter('user', $user->getId())
+            ->setParameter('status', $status)
+            ->getSingleResult();
     }
 }

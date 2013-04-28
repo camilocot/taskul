@@ -10,3 +10,4 @@ files_tasks_api:
     name_prefix: api_
     resource: Taskul\TaskBundle\Controller\FilesRestController
     defaults: { _format: json }
+

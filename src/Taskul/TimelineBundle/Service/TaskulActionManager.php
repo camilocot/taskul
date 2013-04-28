@@ -43,10 +43,11 @@ class TaskulActionManager extends BaseTimelineManager
 		return $this->em->getRepository($respository)->find($id);
 	}
 
-	public function getEntities(\ArrayIterator $components)
+	public function getEntities(\ArrayIterator $components,$limit = null)
 	{
 		$result = $this->getComponents($components);
 		$entities = array();
+		$i = 0;
 		foreach($result as $res){
 			if($res['type'] !== 'subject') {
 				$entity = $this->getComponentEntity($res['model'],$res['identifier']);
@@ -59,7 +60,10 @@ class TaskulActionManager extends BaseTimelineManager
 					'date'=>$res['date']->format('Y-m-d H:i:s'),
 					'url'=> $this->router->generate('get_notification',array('id'=>$res['id'], 'context'=>strtoupper($class),'entityid'=>$entity->getId())),
 					);
+				$i++;
 			}
+			if(NULL !== $limit && $i == $limit)
+				break;
 		}
 		return $entities;
 	}
