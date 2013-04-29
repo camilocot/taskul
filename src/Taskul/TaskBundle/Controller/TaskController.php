@@ -13,5 +13,4 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  *
  */
 class TaskController extends Controller {
-
-
+}

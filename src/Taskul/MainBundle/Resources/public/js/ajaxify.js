@@ -25,7 +25,7 @@
             title = $this.attr('title')||null;
 
             // Continue as normal for cmd clicks etc
-            if ( event.which == 2 || event.metaKey ) { return true; }
+            //if ( event.which == 2 || event.metaKey ) { return true; }
 
             // Ajaxify this link
             History.pushState(null,title,url);

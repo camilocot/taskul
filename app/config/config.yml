@@ -168,7 +168,7 @@ spy_timeline:
             priority: 10
         data_hydrator:
             priority: 20
-            filter_unresolved: false
+            filter_unresolved: true
             locators:
                 - spy_timeline.filter.data_hydrator.locator.doctrine_orm
     notifiers:

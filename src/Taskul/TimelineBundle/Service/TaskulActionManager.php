@@ -51,16 +51,21 @@ class TaskulActionManager extends BaseTimelineManager
 		foreach($result as $res){
 			if($res['type'] !== 'subject') {
 				$entity = $this->getComponentEntity($res['model'],$res['identifier']);
-				$summary = $this->getSummary($entity);
-				$class = $this->getClass($entity);
-				$entities[] = array(
-					'actionid'=>$res['id'],
-					'type' => $class,
-					'summary'=>$summary,
-					'date'=>$res['date']->format('Y-m-d H:i:s'),
-					'url'=> $this->router->generate('get_notification',array('id'=>$res['id'], 'context'=>strtoupper($class),'entityid'=>$entity->getId())),
-					);
-				$i++;
+				if(is_object($entity))
+				{
+					$summary = $this->getSummary($entity);
+					$class = $this->getClass($entity);
+					$entities[] = array(
+						'actionid'=>$res['id'],
+						'type' => $class,
+						'summary'=>$summary,
+						'date'=>$res['date']->format('Y-m-d H:i:s'),
+						'url'=> $this->router->generate('get_notification',array('id'=>$res['id'], 'context'=>strtoupper($class),'entityid'=>$entity->getId())),
+						);
+					$i++;
+				}else{
+					/* Se ha borrado antes de*/
+				}
 			}
 			if(NULL !== $limit && $i == $limit)
 				break;

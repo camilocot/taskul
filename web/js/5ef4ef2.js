@@ -6926,10 +6926,9 @@ $(function () {
 $(document).ready(function(){
 
     clearMenuActive('task_ops');
-    var nTr = null; //Para eliminar fila del datatables
 
     // Borrado de tareas y ficheros asociados a estas, ponemos los valores correctos dependiendo del boton pulsado
-    $('.delete-modal-btn').on( 'click', function (e) {
+    $(document).on( 'click', '.delete-modal-btn', function (e) {
         taskId = $(this).data('id');
         if (typeof taskId === 'undefined') // Borra ficheros
         {
@@ -6941,7 +6940,8 @@ $(document).ready(function(){
         {
             route = Routing.generate('api_delete_task', { "id": taskId });
         }
-        nTr = this.parentNode.parentNode; //Para eliminar fila del datatables
+        $remove = $(this); //Para eliminar fila del datatables
+
         $('#form_id').val(taskId);
         $('#delete-task').attr('action', route);
 
@@ -6953,15 +6953,24 @@ $(document).ready(function(){
         success:    function(e) {
             $('#deleteModal').modal('hide');
             status = ( e.success ) ? 'success' : 'error';
-            oTable = $('#list').dataTable();
+
             $('.top-right').notify({
                     message: { text: e.message },
                     type: status,
                     fadeOut: { enabled: true, delay: 3000 }
             }).show();
-            oTable.fnDeleteRow( oTable.fnGetPosition( nTr ) ) ;
-            refereshQuota();
+            console.log($remove);
+            if(status == 'success' && typeof $remove !== 'undefined'){
+                $remove.deleteTableRow();
+                refereshQuota();
 
+            }
+            /* Por si estamos en una ficha */
+            $('a.btn-success').remove();
+            $('a.btn-back-list').trigger('click');
+
+            launchNotifications();
+            activateNotifications();
 
         },
         error: function(e) {
@@ -6981,7 +6990,7 @@ $(document).ready(function(){
     $('#modal-form-submit').click( function (e) {
         e.preventDefault();
         $('#delete-task').submit();
-    });
 
+    });
 
 });

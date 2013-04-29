@@ -40,7 +40,7 @@
                 <div class="form-actions">
 
                     {% if is_granted('DELETE',entity) %}
-                    <button class="btn btn-danger" type="button" data-target="#deleteModal" data-toggle="modal">
+                    <button class="btn btn-danger delete-modal-btn" type="button" data-target="#deleteModal" data-toggle="modal" data-id="{{ entity.id }}">
                         Delete
                     </button>
 
@@ -50,7 +50,7 @@
                         Edit
                     </a>
                     {% endif %}
-                    <a class="btn btn-cancel ajaxy" href="{{ path('api_get_tasks') }}">
+                    <a class="btn btn-cancel ajaxy btn-back-list" href="{{ path('api_get_tasks') }}">
                         Back to the list
                     </a>
 

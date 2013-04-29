@@ -15,6 +15,8 @@ $(document).ready(function() {
     //         "sLengthMenu": "_MENU_ records per page"
     //     }
     // } );
+
+    $remove = null;
     $('.footable').footable();
     $('.clear-filter').click(function (e) {
         e.preventDefault();

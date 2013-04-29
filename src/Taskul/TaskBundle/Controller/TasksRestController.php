@@ -141,9 +141,6 @@ class TasksRestController extends BaseController {
             $task = $this->checkGrant($id,'DELETE');
             $aclManager->revokeAll($task);
 
-            $timelineManager = $this->get('taskul.timeline_manager');
-            $timelineManager->handle('DELETE',$task);
-
             $em->remove($task);
             $em->flush();
 

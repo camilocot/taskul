@@ -46,11 +46,13 @@ class TimelineController extends Controller
     	$user =  $this->get('security.context')->getToken()->getUser();
     	$actionManager   = $this->get('spy_timeline.action_manager');
     	$unread = $this->get('spy_timeline.unread_notifications');
+        $timelineManager = $this->get('spy_timeline.timeline_manager');
 
     	$subject  = $actionManager->findOrCreateComponent($user);
     	$context = $this->parseContext($context);
 
-    	$count  = $unread->countKeys($subject,$context);
+    	// $count  = $unread->countKeys($subject,$context); /* Muestra las borradas */
+        $count = count($timelineManager->getTimeline($subject,array('paginate' => false,'context'=>$context)));
 		return new JsonResponse(array('success' => TRUE, 'total' => $count));
     }
 
@@ -65,11 +67,14 @@ class TimelineController extends Controller
     	$actionManager   = $this->get('spy_timeline.action_manager');
     	$taskulActionManager = $this->get('taskul.action.manager');
     	$unread = $this->get('spy_timeline.unread_notifications');
+        $timelineManager = $this->get('spy_timeline.timeline_manager');
 
     	$subject  = $actionManager->findOrCreateComponent($user);
     	$context = $this->parseContext($context);
 
-    	$count  = $unread->countKeys($subject,$context);
+    	// $count  = $unread->countKeys($subject,$context); /* Muestra las borradas */
+
+        $count = count($timelineManager->getTimeline($subject,array('paginate' => false,'context'=>$context)));
 
 		$results = $unread->getUnreadNotifications($subject,$context);
 		$entities = $taskulActionManager->getEntities($results->getIterator(),10);
