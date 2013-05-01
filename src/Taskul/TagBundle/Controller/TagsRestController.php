@@ -3,15 +3,11 @@
 namespace Taskul\TagBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
-use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 
 /**
  * Task Rest controller.
  * @RouteResource("Tag")
- *
- * @Breadcrumb("Dashboard", route="dashboard")
- * @Breadcrumb("Tasks", route="api_get_tasks")
  *
  */
 
