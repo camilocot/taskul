@@ -46,10 +46,11 @@ class FriendController extends Controller {
      *
      */
     public function deleteAction(Request $request, $id) {
-        $user = $this->get('security.context')->getToken()->getUser();
+
         $em = $this->getDoctrine()->getManager();
         $aclManager = $this->get('taskul.acl_manager');
 
+        $user = $this->get('security.context')->getToken()->getUser();
         $friend = $em->getRepository('UserBundle:User')->find($id);
         $friends = $user->getMyFriends();
 
@@ -57,19 +58,6 @@ class FriendController extends Controller {
         if (!$friend) {
             throw $this->createNotFoundException('Unable to find Friend.');
         }
-        // Comprobamos si son amigos
-        // $fId = $friend->getId();
-        // $find = FALSE;
-        // foreach ($friends as $f) {
-        //     if($f->getId() == $fId) {
-        //         $find = TRUE;
-        //         break;
-        //     }
-
-        // }
-        // if(FALSE === $find){
-        //     throw $this->createNotFoundException('Unable to find Friend.');
-        // }
 
         $user->removeFriendsWithMe($friend);
         $user->removeMyFriend($friend);

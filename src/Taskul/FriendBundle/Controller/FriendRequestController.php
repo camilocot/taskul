@@ -156,99 +156,55 @@ class FriendRequestController extends Controller {
    */
   public function importFacebookAction(Request $request) {
     $fb = $this->get('my.facebook.user');
-    $fRequest = array(); //Almacenamos los objectos (si se han creado solicitudes) para darles luego permisos ace
-
-
     $fbdata = $fb->get('/me');
+    $fRequest = array();
 
-
-    $fbContact = array();
-
-    $defaultData = array('message' => 'Type your message here');
-    $formBuilder = $this->createFormBuilder($defaultData)
-    ->add('message', 'purified_textarea');
-
-
-
-    $imgUrls = array();
     if (null !== $fbdata && isset($fbdata['id'])) {
+      /* Obtenemos el listado de amigos */
+      list($choices,$imgUrls,$searchContact,$fbContact) = $this->getFriendsChoices();
 
+      $defaultData = array('message' => 'Type your message here');
 
-
-      //$user = $this->get('security.context')->getToken()->getUser();
-      $user = $fb->loadUserByUsername($fbdata['id']);
-
-      $aclManager = $this->get('taskul.acl_manager');
-      $em = $this->getDoctrine()->getManager();
-      $choices = array();
-
-      $searchContact = array(); // Lo usamos para buscar mas rápido dentro del array de contactos de fb
-
-      $fbContact = $fb->get('/me/friends?fields=name,id,picture');
-      $fbContact = $fbContact['data'];
-
-      $i = 0;
-      foreach ($fbContact as $fbc) {
-        $choices[$i] = array($fbc['id'] => $fbc['name']);
-        $imgUrls[$i] = $fbc['picture']['data']['url'];
-        $searchContact[$fbc['id']] = $i;
-        $i++;
-      }
-
-      $formBuilder->add('contacts', 'choice', array(
+      $formBuilder = $this->createFormBuilder($defaultData)
+      ->add('message', 'purified_textarea')
+      ->add('contacts', 'choice', array(
         'choices'   => $choices,
         'multiple'  => true,
         'expanded' => true,
         ));
 
       $form = $formBuilder->getForm();
-
       if ($request->isMethod('POST')) {
         $form->bind($request);
         $formData = $request->request->get($form->getName());
-        if($formData['sended'] != 'no' && count($formData['contacts'])>0){ /* @TODO hay que  hacer preg_match con el id del facebook */
-          foreach ($formData['contacts'] as $f){
-
-            $friendReq = new FriendRequest();
-            $friendReq->setFrom($user);
-            $friendReq->setFbrequestid($formData['sended']);
-            $friendReq->setFbid($f);
-            $friendReq->setMessage($formData['message']);
-            if(isset($searchContact[$f])){
-              $id = $searchContact[$f];
-              $fbData = array('fbdata'=>array('imgurl'=>$imgUrls[$id],'name'=>$choices[$id][$f]));
-              $friendReq->setAddtionalData($fbData);
-            }
-            $em->persist($friendReq);
-            $fRequest[] = $friendReq;
-          }
-          $em->flush();
-
-            // Vamos a darles permiso @FIXME: comprobar si hay que hacer flush para los ace o
-            // se puede hacer antes con el persist (creo que no)
-            //
-
-          foreach ($fRequest as $f){
-            $aclManager->grant($f);
-          }
-        }
+        $fRequest = $this->processFriendRequestsFBForm($formData,$choices,$searchContact,$imgUrls);
       }
-    }else {
 
+      return array(
+        'frequest' => $fRequest,
+        'contacts' => $fbContact,
+        'form' => $form->createView(),
+        'imgUrls' => $imgUrls,
+        'delete_form' => $this->createDeleteForm(-1)->createView(),
+        'activate_form' => $this->createActivateForm(-1)->createView(),
+        'entity' => array('id' => -1),
+        );
+
+    }
+    else {
       return $this->redirect($this->get('fos_facebook.api')->getLoginUrl() );
     }
-
-    return array(
-      'frequest' => $fRequest,
-      'contacts' => $fbContact,
-      'form' => $form->createView(),
-      'imgUrls' => $imgUrls,
-      'delete_form' => $this->createDeleteForm(-1)->createView(),
-      'activate_form' => $this->createActivateForm(-1)->createView(),
-      'entity' => array('id' => -1),
-      );
   }
 
+
+
+  /**
+   * Comprueba si un email esta dentro del array de amigos
+   *
+   * @param  [type] $friends [description]
+   * @param  [type] $email   [description]
+   * @return [type]          [description]
+   */
   public function checkFriendsEmail($friends, $email) {
     foreach ($friends as $friend) {
       if ($friend->getEmail() === $email)
@@ -280,7 +236,7 @@ class FriendRequestController extends Controller {
     if ($form->isValid()) {
       $em = $this->getDoctrine()->getManager();
 
-      $this->_processEntity($owner, $em, $form);
+      $this->processFriendRequestsEmailForm($owner, $em, $form);
 
       if ($request->isXmlHttpRequest()){
         return new JsonResponse(array('success' => TRUE,'message'=>'OK'));
@@ -359,6 +315,7 @@ class FriendRequestController extends Controller {
   public function activateAction($id) {
     $to = $this->get('security.context')->getToken()->getUser();
     $em = $this->getDoctrine()->getEntityManager();
+
     $request = $em->getRepository('FriendBundle:FriendRequest')
     ->findOneBy(array('id' => $id, 'to' => $to, 'active' => FALSE));
 
@@ -366,18 +323,35 @@ class FriendRequestController extends Controller {
       throw $this->createNotFoundException('Unable to find Request entity.');
     }
 
-    $from = $request->getFrom();
-    $to->addMyFriend($from);
-    $to->addFriendsWithMe($from);
-    $from->addMyFriend($to);
-    $from->addFriendsWithMe($to);
+    $request = $this->processFriendRequestActivate($request);
     $request->setActive(TRUE);
-    $em->persist($to);
-    $em->persist($from);
+
     $em->persist($request);
     $em->flush();
 
     return $this->redirect($this->generateUrl('myfriends'));
+  }
+
+  /**
+   * Crea la relacion de amistad entre los usuarios perteneceentes a la slocitud
+   * @param  [type] $request [description]
+   * @return [type]          [description]
+   */
+  private function processFriendRequestActivate($request)
+  {
+    $em = $this->getDoctrine()->getEntityManager();
+
+    $to = $request->getTo();
+    $from = $request->getFrom();
+
+    $to->addMyFriend($from);
+    $to->addFriendsWithMe($from);
+    $from->addMyFriend($to);
+    $from->addFriendsWithMe($to);
+    $em->persist($to);
+    $em->persist($from);
+
+    return $this;
   }
 
   /**
@@ -389,7 +363,8 @@ class FriendRequestController extends Controller {
    * @param  [type] $em     [description]
    * @return [type]         [description]
    */
-  private function _checkTo($entity, $email, $em) {
+  private function checkTo($entity, $email) {
+    $em = $this->getDoctrine()->getEntityManager();
     if (null === $entity->getTo()) {
       $to = $em->getRepository('UserBundle:User')->findOneByEmail($email);
 
@@ -400,7 +375,7 @@ class FriendRequestController extends Controller {
     return $entity;
   }
 
-  private  function _getHash($id){
+  private  function getHash($id){
     $time = microtime(true) . '_' . uniqid();
     return hash("sha256", $time . $id, false);
   }
@@ -411,6 +386,7 @@ class FriendRequestController extends Controller {
     ->getForm()
     ;
   }
+
   private function createActivateForm($id) {
     return $this->createFormBuilder(array('activate_id' => $id))
     ->add('activate_id', 'hidden')
@@ -418,40 +394,23 @@ class FriendRequestController extends Controller {
     ;
   }
 
-  private function _processEntity($owner,$em,$form){
-      // Buscamos los emails
+  /**
+   * Procesa un formulario de envio de solicitudes de amistad por email
+   * @param  [type] $owner [description]
+   * @param  [type] $em    [description]
+   * @param  [type] $form  [description]
+   * @return [type]        [description]
+   */
+  private function processFriendRequestsEmailForm($owner,$em,$form){
+    // Buscamos los emails
     $data = $form->getData();
     $emails = explode(';', $data->getEmail());
-    $aclManager = $this->get('taskul.acl_manager');
     foreach ($emails as $email) {
       if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
         // Comprobamos si estan en los contactos del usuario
         $friends = $owner->getMyFriends();
         if (FALSE === $this->checkFriendsEmail($friends, $email)) {
-          $entity = $em->getRepository('FriendBundle:FriendRequest')->findOneBy(array('from' => $owner, 'email' => $email, 'active' => FALSE));
-          $newEntity = FALSE; // Nos va a indicar si la crea un nuevo objeto para crearle la ACE del dueño
-          if (null === $entity) {
-            $entity = new FriendRequest();
-            $entity->setFrom($owner);
-            $newEntity = TRUE;
-          }
-          $entity->setEmail($email);
-          $entity->setMessage($data->getMessage());
-          // Comprueba si el email de destino esta dado de alta como usuario
-          $entity = $this->_checkTo($entity, $email, $em);
-          $entity->setHash($this->_getHash($owner->getId()));
-
-          $em->persist($entity);
-          $em->flush();
-
-          if(TRUE == $newEntity)
-            $aclManager->grant($entity);
-
-          $to = $entity->getTo();
-          if(null !== $to)
-            $aclManager->grant($entity, $to->getUsername(), 'Taskul\UserBundle\Entity\User', MaskBuilder::MASK_OPERATOR);
-
-
+          $entity = $this->processFriendRequestEmail($owner,$email,$data);
           /* @TODO: Aqui hay que enviar emails / mirar FOSmessagebundle */
         }
       }
@@ -460,6 +419,38 @@ class FriendRequestController extends Controller {
 
   }
 
+  /**
+   * Procesa una solicitud de amistad por email
+   * @param  [type] $owner [description]
+   * @param  [type] $email [description]
+   * @return [type]        [description]
+   */
+  private function processFriendRequestEmail($owner,$email,$data)
+  {
+    $aclManager = $this->get('taskul.acl_manager');
+    $em = $this->getDoctrine()->getEntityManager();
+
+    $entity = new FriendRequest();
+    $entity->setFrom($owner);
+    $entity->setEmail($email);
+    $entity->setMessage($data->getMessage());
+
+    // Comprueba si el email de destino esta dado de alta como usuario
+    $entity = $this->checkTo($entity, $email, $em);
+    $entity->setHash($this->getHash($owner->getId()));
+
+    $em->persist($entity);
+    $em->flush();
+
+    $this->grantAclsFriendRequest(array($entity));
+
+    return $entity;
+  }
+
+  /**
+   * Obtiene el listado de solicitudes recibidas
+   * @return [type] [description]
+   */
   private function getRecibed(){
     $em = $this->getDoctrine()->getManager();
     $user = $this->get('security.context')->getToken()->getUser();
@@ -467,11 +458,118 @@ class FriendRequestController extends Controller {
     return $entities;
   }
 
+  /**
+   * Obtiene el listado de solicitudes enviadas
+   * @return [type] [description]
+   */
   private function getSended(){
     $em = $this->getDoctrine()->getManager();
     $user = $this->get('security.context')->getToken()->getUser();
     $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('from'=>$user, 'active' => FALSE));
 
     return $entities;
+  }
+
+  /**
+   * Se procesa el formulario de las solicitudes de amistad
+   *
+   * @param  [type] $formData [description]
+   * @return [type]           [description]
+   */
+  private function processFriendRequestsFBForm($formData,$choices,$searchContact,$imgUrls)
+  {
+    $fRequest = array(); //Almacenamos los objectos (si se han creado solicitudes) para darles luego permisos ace
+    $em = $this->getDoctrine()->getManager();
+    if($formData['sended'] != 'no' && count($formData['contacts'])>0){ /* @TODO hay que  hacer preg_match con el id del facebook */
+      foreach ($formData['contacts'] as $f){
+        $fRequest[] = $friendReq = $this->processFriendRequestFB($f,$choices,$searchContact,$imgUrls,$formData);
+        $em->persist($friendReq);
+      }
+      $em->flush();
+
+      $this->grantAclsFriendRequest($fRequest);
+    }
+    return $this;
+  }
+
+  /**
+   * Se crea una nueva solicitu de amistad
+   * @param  [type] $f             [description]
+   * @param  [type] $choices       [description]
+   * @param  [type] $searchContact [description]
+   * @param  [type] $imgUrls       [description]
+   * @return [type]                [description]
+   */
+  private function processFriendRequestFB($f,$choices,$searchContact,$imgUrls,$formData)
+  {
+
+    $user = $this->getUserDataFB();
+    $friendReq = new FriendRequest();
+    $friendReq->setFrom($user);
+    $friendReq->setFbrequestid($formData['sended']);
+    $friendReq->setFbid($f);
+    $friendReq->setMessage($formData['message']);
+    if(isset($searchContact[$f])){
+      $id = $searchContact[$f];
+      $fbData = array('fbdata'=>array('imgurl'=>$imgUrls[$id],'name'=>$choices[$id][$f]));
+      $friendReq->setAddtionalData($fbData);
+    }
+    return $friendReq;
+  }
+
+  /**
+   * Obtine los datos asociados al usuario activo de FB
+   * @return [type] [description]
+   */
+  private function getUserDataFB()
+  {
+    $fb = $this->get('my.facebook.user');
+    $fbdata = $fb->get('/me');
+    $user = $fb->loadUserByUsername($fbdata['id']);
+    return $user;
+  }
+
+  /**
+   * Se le otorga permisos al propietario de la solicitud
+   *
+   * @param  [type] $fRequest [description]
+   * @return [type]           [description]
+   */
+  private function grantAclsFriendRequest($fRequest)
+  {
+    $aclManager = $this->get('taskul.acl_manager');
+    foreach ($fRequest as $f){
+        $aclManager->grant($f);
+        $to = $f->getTo();
+        if(null !== $to)
+          $aclManager->grant($f, $to->getUsername(), 'Taskul\UserBundle\Entity\User', MaskBuilder::MASK_OPERATOR);
+    }
+    return $this;
+  }
+
+  /**
+   * Se obtiene un listado de los amigos de fb con otras variables para optimizar el proceso.
+   *
+   * @return [type] [description]
+   */
+  private function getFriendsChoices()
+  {
+      $fb = $this->get('my.facebook.user');
+
+      $choices = array();
+      $imgUrls = array();
+      $searchContact = array(); // Lo usamos para buscar mas rápido dentro del array de contactos de fb
+
+      $fbContact = $fb->get('/me/friends?fields=name,id,picture');
+      $fbContact = $fbContact['data'];
+
+      $i = 0;
+      foreach ($fbContact as $fbc) {
+        $choices[$i] = array($fbc['id'] => $fbc['name']);
+        $imgUrls[$i] = $fbc['picture']['data']['url'];
+        $searchContact[$fbc['id']] = $i;
+        $i++;
+      }
+      return array($choices,$imgUrls,$searchContact,$fbContact);
   }
 }
