@@ -6,24 +6,34 @@
 
 
     <parameters>
-        <parameter key="taskul.timeline.manager.class">Taskul\TimelineBundle\Service\TaskulTimelineManager</parameter>
-        <parameter key="taskul.action.manager.class">Taskul\TimelineBundle\Service\TaskulActionManager</parameter>
+        <parameter key="taskul_timeline.spread.class">Taskul\TimelineBundle\Spread\Spread</parameter>
+        <parameter key="taskul_timeline.unread_notifications.class">Taskul\TimelineBundle\Notification\Unread\UnreadNotificationManager</parameter>
+        <parameter key="taskul_timeline.action_manager.orm.class">Taskul\TimelineBundle\Driver\ORM\ActionManager</parameter>
+        <parameter key="taskul_timeline.timeline_manager.orm.class">Taskul\TimelineBundle\Driver\ORM\TimelineManager</parameter>
     </parameters>
 
     <services>
-        <service id="taskul.timeline_manager" class="%taskul.timeline.manager.class%">
-            <argument type="service" id="spy_timeline.action_manager" />
-            <argument type="service" id="spy_timeline.timeline_manager" />
-            <argument type="service" id="security.context" />
-        </service>
-        <service id="taskul.timeline.spread" class="Taskul\TimelineBundle\Spread\Spread">
+        <service id="taskul_timeline.spread" class="%taskul_timeline.spread.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <tag name="spy_timeline.spread"/>
         </service>
-        <service id="taskul.action.manager" class="%taskul.action.manager.class%">
-            <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument type="service" id="router" />
+        <service id="taskul_timeline.unread_notifications" class="%taskul_timeline.unread_notifications.class%">
+            <argument type="service" id="taskul_timeline.timeline_manager.orm" />
+        </service>
+        <service id="taskul_timeline.action_manager.orm" class="%taskul_timeline.action_manager.orm.class%">
+            <argument type="service" id="spy_timeline.driver.object_manager" />
+            <argument type="service" id="spy_timeline.result_builder" />
+            <argument>%spy_timeline.class.action%</argument>
+            <argument>%spy_timeline.class.component%</argument>
+            <argument>%spy_timeline.class.action_component%</argument>
+            <call method="setDeployer">
+                <argument type="service" id="spy_timeline.spread.deployer" />
+            </call>
+        </service>
+         <service id="taskul_timeline.timeline_manager.orm" class="%taskul_timeline.timeline_manager.orm.class%">
+            <argument type="service" id="spy_timeline.driver.object_manager" />
+            <argument type="service" id="spy_timeline.result_builder" />
+            <argument>%spy_timeline.class.timeline%</argument>
         </service>
     </services>
-
 </container>

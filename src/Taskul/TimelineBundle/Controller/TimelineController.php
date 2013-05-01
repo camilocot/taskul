@@ -14,72 +14,51 @@ use Doctrine\ORM\NoResultException;
 class TimelineController extends Controller
 {
     /**
-     * @Route("/toriririri")
-     * @Template()
-     */
-    public function indexAction()
-    {
-    	$user =  $this->get('security.context')->getToken()->getUser();
-
-		$actionManager   = $this->get('spy_timeline.action_manager');
-        $timelineManager = $this->get('spy_timeline.timeline_manager');
-        $unread = $this->get('spy_timeline.unread_notifications');
-
-        $subject         = $actionManager->findOrCreateComponent($user);
-        $timeline        = $timelineManager->getTimeline($subject,array('paginate' => false, 'max_per_page' => '100'));
-
-		//count how many unread message for global context
-
-		$count  = $unread->countKeys($subject,'TASK'); // on global context
-
-		return array(
-            'timeline' => $timeline,
-        );
-    }
-    /**
+     * Devuelve el numero de notificaciones no leidas asociadas a un contexto
+     *
      * @Route("/notification/{context}", name="notification", defaults={"context" = "GLOBAL"}, options={"expose"=true})
      * @Method({"GET"})
      */
 
     public function notificationAction($context)
     {
-    	$user =  $this->get('security.context')->getToken()->getUser();
-    	$actionManager   = $this->get('spy_timeline.action_manager');
-    	$unread = $this->get('spy_timeline.unread_notifications');
-        $timelineManager = $this->get('spy_timeline.timeline_manager');
-
-    	$subject  = $actionManager->findOrCreateComponent($user);
-    	$context = $this->parseContext($context);
-
-    	// $count  = $unread->countKeys($subject,$context); /* Muestra las borradas */
-        $count = count($timelineManager->getTimeline($subject,array('paginate' => false,'context'=>$context)));
-		return new JsonResponse(array('success' => TRUE, 'total' => $count));
+		return new JsonResponse(array('success' => TRUE, 'total' => $this->getNotificationCount($context)));
     }
 
     /**
+     * Devuelve el numero y una descripcion de las notificaciones
+     *
      * @Route("/get_notifications/{context}", name="get_notifications", defaults={"context" = "GLOBAL"}, options={"expose"=true})
      * @Method({"GET"})
      */
 
     public function getNotificationsAction($context)
     {
-    	$user =  $this->get('security.context')->getToken()->getUser();
-    	$actionManager   = $this->get('spy_timeline.action_manager');
-    	$taskulActionManager = $this->get('taskul.action.manager');
-    	$unread = $this->get('spy_timeline.unread_notifications');
-        $timelineManager = $this->get('spy_timeline.timeline_manager');
+        $actions = $this->getNotificationDesc($context);
+        $results = array();
+        foreach($actions as $action)
+        {
+            if($action->hasComponent('complement')){
+                $complement = $action->getComponent('complement');
+                $model = $complement->getModel();
+                $actionId = $action->getId();
+                $entity = $this->getComponentEntity($model,$complement->getIdentifier());
+                $class = $this->getClass($entity);
+                $results[] = array(
+                        'actionid'=>$actionId,
+                        'type' => $class,
+                        'summary'=> $this->getSummary($entity),
+                        'date'=>$action->getCreatedAt()->format('Y-m-d H:i:s'),
+                        'url'=> $this->get('router')->generate('get_notification',array('id'=>$actionId, 'context'=>strtoupper($class),'entityid'=>$entity->getId())),
+                        );
+            }
 
-    	$subject  = $actionManager->findOrCreateComponent($user);
-    	$context = $this->parseContext($context);
-
-    	// $count  = $unread->countKeys($subject,$context); /* Muestra las borradas */
-
-        $count = count($timelineManager->getTimeline($subject,array('paginate' => false,'context'=>$context)));
-
-		$results = $unread->getUnreadNotifications($subject,$context);
-		$entities = $taskulActionManager->getEntities($results->getIterator(),10);
-
-		return new JsonResponse(array('success' => TRUE, 'total' => $count,'result'=>$entities));
+        }
+		return new JsonResponse(array(
+            'success' => TRUE,
+            'total' => $this->getNotificationCount($context) ,
+            'result'=> $results,
+            ));
     }
 
     /**
@@ -111,23 +90,31 @@ class TimelineController extends Controller
 
     private function generateResponseForNotification($context,$entityid)
     {
-
+        $em = $this->getDoctrine()->getManager();
         switch ($context)
         {
             case 'COMMENT':
-            case 'TASK':
-            $response = $this->redirect($this->generateUrl('api_get_task', array(
-                'id'  => $entityid,
-            )));
-            break;
-            case 'FILE':
-            $response = $this->redirect($this->generateUrl('api_get_task_files', array(
-                'id'  => $entityid,
-            )));
-            break;
+                $comment = $em->getRepository('TaskulCommentBundle:Comment')->find($entityid);
+                $thread = $comment->getThread();
 
+                $response = $this->redirect($this->generateUrl('api_get_task', array(
+                    'id'  => $thread->getEntityId(),
+                )));
+                break;
+            break;
+                case 'TASK':
+                $response = $this->redirect($this->generateUrl('api_get_task', array(
+                    'id'  => $entityid,
+                )));
+                break;
+            case 'FILE':
+                $document = $em->getRepository('FileBundle:Document')->find($entityid);
+                $response = $this->redirect($this->generateUrl('api_get_task_files', array(
+                    'id'  => $document->getIdObject(),
+                )));
+                break;
             default:
-            $response = $this->redirect('dashboard');
+                $response = $this->redirect('dashboard');
         }
 
         return $response;
@@ -150,5 +137,65 @@ class TimelineController extends Controller
     	}
 
     	return $context;
+    }
+
+    private function getNotificationCount($context='GLOBAL')
+    {
+        $unread = $this->get('taskul_timeline.unread_notifications');
+        $subject = $this->getSubject();
+        $context = $this->parseContext($context);
+
+        $count  = $unread->countKeys($subject,$context);
+
+        return $count;
+    }
+
+    private function getNotificationDesc($context='GLOBAL')
+    {
+        $unread = $this->get('taskul_timeline.unread_notifications');
+        $subject = $this->getSubject();
+        $context = $this->parseContext($context);
+
+        $actions = $unread->getUnreadNotifications($subject, $context);
+
+        return $actions;
+    }
+
+    private function getSubject()
+    {
+        $user =  $this->get('security.context')->getToken()->getUser();
+        $actionManager   = $this->get('taskul_timeline.action_manager.orm');
+
+        $subject  = $actionManager->findOrCreateComponent($user);
+        return $subject;
+    }
+
+    protected function getClass($entity)
+    {
+        $class = explode('\\', get_class($entity));
+        return end($class);
+    }
+
+    public function getComponentEntity($respository,$id)
+    {
+        return $this->getDoctrine()->getManager()->getRepository($respository)->find($id);
+    }
+
+    protected function getSummary($entity)
+    {
+        $class = $this->getClass($entity);
+        $summary = '';
+        switch ($class){
+            case 'Task':
+                $summary = $entity->getName();
+                break;
+            case 'Comment':
+                $summary = $entity->getAuthor()->getUserName();
+                break;
+            case 'Document':
+                $summary = $entity->getName();
+                break;
+        }
+        return $summary;
     }
 }

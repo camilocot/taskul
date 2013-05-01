@@ -6,17 +6,17 @@ use FOS\CommentBundle\Events;
 use FOS\CommentBundle\Event\CommentEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Taskul\TimelineBundle\Service\TaskulTimelineManager;
+use Taskul\TimelineBundle\Driver\ORM\ActionManager;
 use Doctrine\ORM\EntityManager;
 
 class CommentListener implements EventSubscriberInterface
 {
-    protected $timelineManager;
+    protected $actionManager;
     protected $em;
 
-    public function __construct(TaskulTimelineManager $timelineManager, EntityManager $em)
+    public function __construct(ActionManager $actionManager, EntityManager $em)
     {
-        $this->timelineManager = $timelineManager;
+        $this->actionManager = $actionManager;
         $this->em = $em;
     }
 
@@ -27,9 +27,9 @@ class CommentListener implements EventSubscriberInterface
         $thread = $comment->getThread();
         $entityRepository = $thread->getEntityType();
         $entityId = $thread->getEntityId();
-
         $entity = $this->em->getRepository($entityRepository)->find($entityId);
-        $this->timelineManager->handle('POST',$comment,$entity);
+
+        $this->actionManager->handle($comment->getAuthor(),'POST',$comment,$entity);
 
     }
 

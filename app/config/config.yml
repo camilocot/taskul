@@ -172,7 +172,7 @@ spy_timeline:
             locators:
                 - spy_timeline.filter.data_hydrator.locator.doctrine_orm
     notifiers:
-        - spy_timeline.unread_notifications
+        - taskul_timeline.unread_notifications
     render:
         path:     'TimelineBundle:Timeline/verbs'
         fallback: 'TimelineBundle:Timeline:default.html.twig'

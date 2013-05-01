@@ -34,17 +34,17 @@ class TasksRestController extends BaseController {
 
     	if('html' === strtolower($format)){
     		$data['delete_form'] = $this->createDeleteForm(-1)->createView();
-            $data['delete_id'] = -1;
-            foreach ($data['entities'] as $e){
-             $this->loadTags($e);
-         }
-     }
+        $data['delete_id'] = -1;
+        foreach ($data['entities'] as $e){
+          $this->loadTags($e);
+        }
+      }
 
-     $view = $this->view($data, 200)
-     ->setTemplate("TaskBundle:Task:api/index.html.twig")
-     ;
+      $view = $this->view($data, 200)
+      ->setTemplate("TaskBundle:Task:api/index.html.twig")
+      ;
 
-     return $this->handleView($view);
+      return $this->handleView($view);
     }
 
     /**
@@ -95,7 +95,7 @@ class TasksRestController extends BaseController {
     {
 
     	$em = $this->getEntityManager();
-        $session = $this->getRequest()->getSession();
+      $session = $this->getRequest()->getSession();
     	$format = $this->getRequestFormat();
 
     	$task = $this->checkGrant($id, 'VIEW');
@@ -110,9 +110,9 @@ class TasksRestController extends BaseController {
     	if( 'html' === strtolower($format)){
     		$data['documents'] = $em->getRepository('FileBundle:Document')->findBy(array('class' => $task->getClassName(),'idObject'=>$task->getId()));
     		$data['delete_form'] = $this->createDeleteForm($id)->createView();
-            $data['delete_id'] = $id;
-            $tags = $this->loadTags($task);
-        }
+        $data['delete_id'] = $id;
+        $tags = $this->loadTags($task);
+      }
 
         $view = $this->view($data, 200)
         ->setTemplate("TaskBundle:Task:api/show.html.twig")
@@ -198,22 +198,23 @@ class TasksRestController extends BaseController {
     	$securityContext = $this->getSecurityContext();
     	$formFactory = $this->get('form.factory');
     	$user = $this->getLoggedUser();
-        $formHandler = $this->get('taskul.task.form_handler');
+      $formHandler = $this->get('taskul.task.form_handler');
 
     	$tagManager = $this->getTagsManager();
     	$request = $this->getRequest();
     	$method = $request->getMethod();
 
 
-        $tags = $task->getId() ? $this->loadTags($task) : '';
+      $tags = $task->getId() ? $this->loadTags($task) : '';
 
     	$form = $formFactory->create(new TaskType($securityContext),$task,array('tags'=>$tags));
 
     	if ('POST' === $method || 'PUT' === $method){
 
     	    if($formHandler->handle($form,$request,$task,$user)){
-                $timelineManager = $this->get('taskul.timeline_manager');
-                $timelineManager->handle($method,$task);
+                $actionManager = $this->get('taskul_timeline.action_manager.orm');
+                $actionManager->handle($user,$method,$task);
+
                 return $this->returnResponse($task,$statusCode);
             }else{
                 return $this->returnResponse($task,400,FALSE,$form->getErrorsAsString());

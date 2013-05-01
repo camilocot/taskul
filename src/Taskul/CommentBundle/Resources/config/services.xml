@@ -22,7 +22,7 @@
             <tag name="kernel.event_subscriber" />
         </service>
         <service id="taskul_comment.listener.comment" class="%taskul_comment.listener.comment.class%">
-            <argument type="service" id="taskul.timeline_manager" />
+            <argument type="service" id="taskul_timeline.action_manager.orm" />
             <argument type="service" id="doctrine.orm.entity_manager" />
             <tag name="kernel.event_subscriber" />
         </service>
