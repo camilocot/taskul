@@ -249,9 +249,9 @@
   {{ parent() }}
   <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
   <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-  <script src="https://raw.github.com/jonnyreeves/jquery-Mustache/master/jquery.mustache.js"></script>
-  <script src="https://raw.github.com/janl/mustache.js/master/mustache.js"></script>
   {% javascripts
+    '@MainBundle/Resources/public/js/vendor/mustache.js'
+    '@MainBundle/Resources/public/js/vendor/jquery.mustache.js'
     '@MainBundle/Resources/public/js/vendor/jquery-ui-1.10.2.custom.js'
     '@MainBundle/Resources/public/js/private.js'
   %}

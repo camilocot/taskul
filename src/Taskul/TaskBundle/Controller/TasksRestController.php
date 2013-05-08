@@ -147,7 +147,7 @@ class TasksRestController extends BaseController {
             $data = array('success'=>TRUE,'message'=>'Operacion relaizada correctamente');
         }else{
             $statusCode = 400;
-            $data = array('success'=>FALSE,'message'=>'error',);
+            $data = array('success'=>FALSE,'message'=>'error');
         }
 
         return $this->processView($data,$statusCode);

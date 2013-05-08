@@ -19,5 +19,5 @@ $('#form_request').submit(function(event){
         // return false to prevent normal browser submit and page navigation
         return false;
     });
-	menuColor('li#freq_ops_new');
+    menuColor('li#freq_ops_new');
 });

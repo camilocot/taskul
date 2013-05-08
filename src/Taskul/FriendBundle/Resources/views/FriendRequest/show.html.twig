@@ -41,13 +41,13 @@
     </tbody>
 </table>
     {% if is_granted('DELETE', entity) %}
-    <form class="form-horizontal">
+    <form class="form-horizontal" >
             <fieldset>
             <div class="form-actions">
             {% if app.user == entity.to %}
-                        <button type="button" class="btn btn-success" title="activate" data-id="{{ entity.id }}" data-target="#activateModal" data-toggle="modal"><i class="fa-icon-ok icon-white"></i>&nbsp;Activar</button>
+                <button type="button" class="btn btn-success modal-button" title="activate" data-id="{{ entity.id }}" data-target="#activateModal" data-toggle="modal" data-redirect="frequest"><i class="fa-icon-ok icon-white"></i>&nbsp;Activar</button>
             {% endif %}
-            <button type="button" class="btn btn-danger delete-modal-btn" data-id="{{ entity.id }}" data-target="#deleteModal" data-toggle="modal"><i class="icon-trash icon-white"></i>&nbsp;Delete</button>
+            <button type="button" class="btn btn-danger modal-button" title="Delete" data-id="{{ entity.id }}" data-target="#deleteModal" data-toggle="modal" data-redirect="frequest"><i class="icon-trash icon-white"></i>&nbsp;Delete</button>
             <a href="{{ path('frequest') }}" class="btn ajaxy">
             <i class="fa-icon-undo"></i>&nbsp;Back to the list
             </a>

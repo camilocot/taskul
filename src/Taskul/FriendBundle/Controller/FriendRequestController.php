@@ -312,24 +312,28 @@ class FriendRequestController extends Controller {
    * @Method("POST")
    *
    */
-  public function activateAction($id) {
+  public function activateAction(Request $request,$id) {
     $to = $this->get('security.context')->getToken()->getUser();
     $em = $this->getDoctrine()->getEntityManager();
 
-    $request = $em->getRepository('FriendBundle:FriendRequest')
+    $frequest = $em->getRepository('FriendBundle:FriendRequest')
     ->findOneBy(array('id' => $id, 'to' => $to, 'active' => FALSE));
 
-    if (!$request) {
+    if (!$frequest) {
       throw $this->createNotFoundException('Unable to find Request entity.');
     }
 
-    $request = $this->processFriendRequestActivate($request);
-    $request->setActive(TRUE);
+    $this->processFriendRequestActivate($frequest);
+    $frequest->setActive(TRUE);
 
-    $em->persist($request);
+    $em->persist($frequest);
     $em->flush();
-
-    return $this->redirect($this->generateUrl('myfriends'));
+    if ($request->isXmlHttpRequest()){
+        return new JsonResponse(array('success' => TRUE,'message'=>'Solicitud aceptadsa correctamente'));
+    }
+    else {
+        return $this->redirect($this->generateUrl('myfriends'));
+    }
   }
 
   /**
@@ -344,14 +348,28 @@ class FriendRequestController extends Controller {
     $to = $request->getTo();
     $from = $request->getFrom();
 
-    $to->addMyFriend($from);
-    $to->addFriendsWithMe($from);
-    $from->addMyFriend($to);
-    $from->addFriendsWithMe($to);
-    $em->persist($to);
-    $em->persist($from);
+    if(! $this->checkFriends($to,$from)){
+      $to->addMyFriend($from);
+      $to->addFriendsWithMe($from);
+      $em->persist($to);
+    }
+    if(! $this->checkFriends($from,$to)){
+      $from->addMyFriend($to);
+      $from->addFriendsWithMe($to);
+      $em->persist($from);
+    }
 
     return $this;
+  }
+
+  private function checkFriends($user,$friend)
+  {
+    $friends = $user->getMyFriends();
+    foreach ($friends as $f) {
+      if($f->getId() === $friend->getId())
+        return TRUE;
+    }
+    return FALSE;
   }
 
   /**
@@ -541,8 +559,9 @@ class FriendRequestController extends Controller {
     foreach ($fRequest as $f){
         $aclManager->grant($f);
         $to = $f->getTo();
-        if(null !== $to)
-          $aclManager->grant($f, $to->getUsername(), 'Taskul\UserBundle\Entity\User', MaskBuilder::MASK_OPERATOR);
+        if(NULL !== $to){
+          $aclManager->grantUser($f, $to->getUsername(), 'Taskul\UserBundle\Entity\User', MaskBuilder::MASK_OPERATOR);
+        }
     }
     return $this;
   }

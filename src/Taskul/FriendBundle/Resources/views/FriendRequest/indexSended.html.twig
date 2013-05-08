@@ -4,7 +4,7 @@
 
 <div class="row-fluid sortable">
     <div class="box span12">
-        <div class="box-header" data-original-title>
+        <div class="box-header" data-original-title="Request Sended">
             <h2><i class="icon-user"></i><span class="break"></span>Request Sended</h2>
             <div class="box-icon">
                 <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
@@ -12,18 +12,18 @@
         </div>
         <div class="box-content">
             {% if entities|length > 0 %}
-            <table class="table table-striped table-bordered bootstrap-datatable datatable" id="list">
+            <div class="pull-right" id="filter-list">Search: <input id="filter" type="text" autocomplete="off" /> e.g. jun, elec, 1981 <a href="#clear" class="clear-filter" title="clear filter">X</a></div>
+            <table class="table table-striped table-bordered bootstrap-datatable footable" id="list" data-filter="#filter">
                 <thead>
                     <tr>
-                        <th>Message</th>
-                        <th>Destinatarios</th>
-                        <th>Actions</th>
+                        <th data-class="expand" data-sort-initial="true">Destinatarios</th>
+                        <th data-hide="phone,tablet">Message</th>
+                        <th data-sort-ignore="true" data-hide="phone,tablet">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for entity in entities %}
                     <tr>
-                        <td>{{ entity.message }}</td>
                         <td>
                             {% if entity.email is not none %}
                             {{ entity.email }}
@@ -33,29 +33,35 @@
                             {% endif %}
                             {% endif %}
                         </td>
+                        <td>{{ entity.message }}</td>
                         <td>
                             {% if is_granted('VIEW',entity) %}
                             <a href="{{ path('frequest_show', { 'id': entity.id }) }}" class="btn btn-info ajaxy" title="view"><i class="fa-icon-eye-open icon-white"></i></a>
                             {% endif %}
                             {% if is_granted('DELETE',entity) %}
-                            <button class="btn btn-danger delete-modal-btn" type="button" data-id="{{ entity.id }}" data-target="#deleteModal" data-toggle="modal"><i class="fa-icon-trash icon-white"></i></button>
+                            <button class="btn btn-danger delete-modal-btn modal-button" type="button" data-id="{{ entity.id }}" data-target="#deleteModal" data-toggle="modal"><i class="fa-icon-trash icon-white"></i></button>
                             {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
+                <tfoot class="footable-pagination">
+                    <tr>
+                      <td colspan="5"><ul id="pagination" class="footable-nav" /></td>
+                    </tr>
+                  </tfoot>
             </table>
-            {% else %}
-            <div class="alert alert-block ">
-                <h4 class="alert-heading">Warning!</h4>
-                <p>No hay ninguna invitación enviada. Si quieres enviar invitaciones por email utiliza <a href="{{ path('frequest_new') }}" class="ajaxy">este formulario</a> o si quieres invitar a tus amigos de facebook utiliza <a href="{{ path('import_fb') }}">este otro formulario</a>.</p>
-            </div>
             {% endif %}
-                    <div class="form-actions" style="margin: 20px -10px -8px">
-                   <a href="{{ path('frequest_new') }}" class="btn ajaxy">
+            {% include 'FriendBundle:partials:warning-message-request.html.twig' %}
+            <form class="form-horizontal">
+            <fieldset>
+            <div class="form-actions">
+                <a class="btn btn-cancel ajaxy" href="{{ path('frequest_new') }}">
                     Create a new entry
-                    </a>
-                </div>
+                </a>
+            </div>
+            </fieldset>
+            </form>
         </div>
     </div>
 </div>
@@ -63,7 +69,8 @@
 {% block javascripts %}
 {{ parent() }}
 {% javascripts
-    '@FriendBundle/Resources/public/js/friendrequest/indexSended.js'
+'@FriendBundle/Resources/public/js/friendsfootable.js'
+'@FriendBundle/Resources/public/js/friendrequest/indexSended.js'
 %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}

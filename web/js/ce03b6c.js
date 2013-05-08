@@ -12824,6 +12824,7 @@ function widthFunctions( e ) {
 
     }); // end onDomLoad
 
+    loadAjaxModalForms();
 
 })(window); // end closure
 
@@ -12837,10 +12838,72 @@ function loadPage(url)
         success: function(data, textStatus, jqXHR){
             $("#content").filter(':first').html(data).ajaxify().fadeIn();
             $("#overlay").fadeOut(500);
+            loadAjaxModalForms();
+
         },
         error: function(jqXHR, textStatus, errorThrown){
             document.location.href = url;
             return false;
         }
     }); // end ajax
+}
+
+function loadAjaxModalForms()
+{
+
+    $('.ajaxmodalform').each(function(index){
+        var $form = $(this);
+        var $modal = $($form.data('modal-id'));
+
+        var options = {
+            dataType: 'json',
+            success:    function(e) {
+                var redirect = $form.data('redirect');
+
+                $modal.modal('hide');
+                status = ( e.success ) ? 'success' : 'error';
+
+                $('.top-right').notify({
+                        message: { text: e.message },
+                        type: status,
+                        fadeOut: { enabled: true, delay: 3000 }
+                }).show();
+
+
+
+                if(status == 'success' && typeof $remove !== 'undefined'){
+                    $remove.deleteTableRow();
+                }
+
+                if($('#list > tbody > tr').length == 1)
+                {
+                    $('#list').hide();
+                    $('#filter-list').hide();
+                    $('#list').next('div.warning').show();
+                }
+
+                if(typeof redirect !== 'undefined')
+                {
+                    url = Routing.generate(redirect);
+                    $('.box-content').fadeOut();
+                    loadPage(url);
+                }
+
+                launchNotifications();
+                activateNotifications();
+
+            },
+            error: function(e) {
+                $modal.modal('hide');
+                obj = jQuery.parseJSON(e.responseText);
+                status = ( obj[0].success ) ? 'success' : 'info';
+                            $('.top-right').notify({
+                        message: { text: obj[0].message },
+                        type: status,
+                        fadeOut: { enabled: true, delay: 3000 }
+                }).show();
+            }
+        };
+        $form.ajaxForm(options);
+    });
 }

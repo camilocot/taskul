@@ -7596,15 +7596,11 @@ $(document).ready(function(){
                     type: status,
                     fadeOut: { enabled: true, delay: 3000 }
             }).show();
-            console.log($remove);
             if(status == 'success' && typeof $remove !== 'undefined'){
                 $remove.deleteTableRow();
                 refereshQuota();
 
             }
-            /* Por si estamos en una ficha */
-            $('a.btn-success').remove();
-            $('a.btn-back-list').trigger('click');
 
             launchNotifications();
             activateNotifications();
@@ -7627,7 +7623,6 @@ $(document).ready(function(){
     $('#modal-form-submit').click( function (e) {
         e.preventDefault();
         $('#delete-task').submit();
-
     });
 
 });

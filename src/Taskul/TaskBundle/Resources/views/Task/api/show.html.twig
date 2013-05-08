@@ -75,9 +75,12 @@
 </div>
 {% endblock %}
 {% block javascripts %}
-
 {{ parent() }}
-{% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
+{% javascripts
+    '@FOSCommentBundle/Resources/assets/js/comments.js'
+    '@TaskBundle/Resources/public/js/show.js'
+    %}
+    <script src="{{ asset_url }}"></script>
 <script type="text/javascript">
 // thread id
 var fos_comment_thread_id = '{{ entity.id }}';

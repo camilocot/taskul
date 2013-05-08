@@ -9,9 +9,9 @@
 	</div>
 	<div class="modal-footer">
 		<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-		<button class="btn btn-success" id="modal-activate-form-submit">Activate</button>
+		<button class="btn btn-success btn-confirm-modal">Activate</button>
 	</div>
 </div>
-<form action="{{ path('frequest_activate', { 'id': entity.id }) }}" method="post" {{ form_enctype(activate_form) }} id="activate-frequest" data-input-id="form_activate_id" data-modal-id="activateModal">>
+<form action="" method="post" {{ form_enctype(activate_form) }} id="activate-frequest" data-input-id="#form_activate_id" data-modal-id="#activateModal" data-action="{{ type }}" class="ajaxmodalform">
 	{{ form_widget(activate_form) }}
 </form>

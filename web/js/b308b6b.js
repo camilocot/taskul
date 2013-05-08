@@ -982,10 +982,6 @@ $(document).ready(function(){
   $.Mustache.add('get_notifications-html', $('#get_notifications-html').html());
   $.Mustache.add('api_list_task_status-html', $('#api_list_task_status-html').html());
 
-  $(window).bind('statechange',function(){
-    $('li.home > a').removeClass('ajaxy');
-  });
-
   /* Numero de notificaciones */
   $('.notifnumber').bind('notificationUpdate',function() {
     $this = $(this);
@@ -1036,7 +1032,13 @@ $(document).ready(function(){
     $remove.fadeOut(function() {
         $remove.remove();
     });
+    $('body').trigger('delete-submit');
   }
+
+  /* Quitamos la clase ajaxy del dashboard */
+  $(window).bind('statechange',function(){
+    $('li.home > a').removeClass('ajaxy');
+  });
 
 });
 
@@ -1058,13 +1060,13 @@ function activateNotifications()
 }
 
 function activateProgessBar(){
-    if($(".taskProgress")) {
+  if($(".taskProgress")) {
     $(".taskProgress").each(function(){
-            var endValue = parseInt($(this).html());
-            $(this).progressbar({
-                    value: endValue
-            });
-            $(this).parent().find(".percent").html(endValue + "%");
+      var endValue = parseInt($(this).html());
+      $(this).progressbar({
+              value: endValue
+      });
+      $(this).parent().find(".percent").html(endValue + "%");
     });
   }
 }

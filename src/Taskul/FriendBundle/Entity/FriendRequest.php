@@ -4,11 +4,14 @@ namespace Taskul\FriendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
+//@ORM\Table(name="friend_request", uniqueConstraints={@ORM\UniqueConstraint(name="request_idx", columns={"from_id", "email"})})
 /**
  * FriendtRequest
  *
- * @ORM\Table(name="friend_request", uniqueConstraints={@ORM\UniqueConstraint(name="request_idx", columns={"from_id", "email"})})
+ *
  * @ORM\Entity(repositoryClass="Taskul\FriendBundle\Entity\Repository\FriendRequestRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class FriendRequest {
 
@@ -80,6 +83,20 @@ class FriendRequest {
      * @ORM\Column(name="data", type="text", nullable=true)
      */
     private $addtionalData;
+
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updated", type="datetime")
+     */
+    private $updated;
 
     public function __construct() {
         $this->active = FALSE;
@@ -290,4 +307,68 @@ class FriendRequest {
     {
         return unserialize(base64_decode($this->addtionalData));
     }
+
+        /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedValue()
+    {
+        $this->created = new \DateTime();
+        $this->updated = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedValue()
+    {
+        $this->updated = new \DateTime();
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Task
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Task
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
 }

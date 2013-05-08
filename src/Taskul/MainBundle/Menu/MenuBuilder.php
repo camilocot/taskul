@@ -74,7 +74,12 @@ class MenuBuilder
             ))->setExtra('safe_label', FALSE);
         $menu['Friends']->setLinkAttribute('class', 'dropmenu no-ajaxy');
         $menu['Friends']->setChildrenAttribute('id','friends_ops');
-        $menu['Friends']->addChild('list_fri',array('route'=>'myfriends','label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Listado</span>','class'=>'submenu'))->setExtra('safe_label', FALSE);
+        $menu['Friends']->addChild('list_fri',array(
+            'route'=>'myfriends',
+            'label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Listado</span>',
+            'class'=>'submenu',
+            'attributes' => array('id' => 'friends_index')
+            ))->setExtra('safe_label', FALSE);
 
         $menu->addChild('Messages',array(
             'uri'=>'#',

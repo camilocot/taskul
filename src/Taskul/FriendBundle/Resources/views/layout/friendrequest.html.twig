@@ -1,32 +1,38 @@
 {% extends "::private.html.twig" %}
 {% block stylesheets %}
-{{ parent() }}
 {% stylesheets
 '@MainBundle/Resources/public/css/prettyCheckable.css'
 '@MainBundle/Resources/public/css/bootstrapSwitch.css'
 '@MainBundle/Resources/public/css/bootstrap-wysihtml5.css'
 '@MainBundle/Resources/public/css/wysiwyg-color.css'
+'@MainBundle/Resources/public/css/footable-0.1.css'
+'@MainBundle/Resources/public/css/footable.paginate.css'
+'@MainBundle/Resources/public/css/footable.sortable-0.1.css'
 %}
 <link rel="stylesheet" href="{{ asset_url }}">
+{{ parent() }}
 {% endstylesheets %}
 {% endblock %}
 {% block body %}
 {{ parent()}}
-{% include 'FriendBundle:partials:delete-modal.html.twig' %}
-{% include 'FriendBundle:partials:activate-modal.html.twig' %}
+{% include 'FriendBundle:partials:delete-modal.html.twig' with {'type': 'frequest_delete'} %}
+{% include 'FriendBundle:partials:activate-modal.html.twig' with {'type': 'frequest_activate'}%}
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}
 <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 {% javascripts
-'@MainBundle/Resources/public/js/vendor/jquery.dataTables.min.js'
-'@MainBundle/Resources/public/js/vendor/datatables-boostrap.js'
-'@MainBundle/Resources/public/js/vendor/wysihtml5-0.3.0.js'
-'@MainBundle/Resources/public/js/vendor/bootstrap-wysihtml5.js'
-'@MainBundle/Resources/public/js/vendor/excanvas.js'
-'@MainBundle/Resources/public/js/vendor/jquery.knob.js'
-'@FriendBundle/Resources/public/js/friendRequestOps.js'
+	'@MainBundle/Resources/public/js/vendor/footable.js'
+	'@MainBundle/Resources/public/js/vendor/footable.filter.js'
+	'@MainBundle/Resources/public/js/vendor/footable.paginate.js'
+	'@MainBundle/Resources/public/js/vendor/footable.sortable.js'
+	'@MainBundle/Resources/public/js/vendor/wysihtml5-0.3.0.js'
+	'@MainBundle/Resources/public/js/vendor/bootstrap-wysihtml5.js'
+	'@MainBundle/Resources/public/js/vendor/excanvas.js'
+	'@MainBundle/Resources/public/js/vendor/jquery.knob.js'
+	'@FriendBundle/Resources/public/js/common.js'
+	'@FriendBundle/Resources/public/js/friendRequestOps.js'
 %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}

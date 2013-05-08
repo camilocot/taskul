@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
@@ -46,18 +47,25 @@ class FriendController extends Controller {
      *
      */
     public function deleteAction(Request $request, $id) {
-
         $em = $this->getDoctrine()->getManager();
-        $aclManager = $this->get('taskul.acl_manager');
-
         $user = $this->get('security.context')->getToken()->getUser();
         $friend = $em->getRepository('UserBundle:User')->find($id);
-        $friends = $user->getMyFriends();
 
+        $this->deleteFriend($user,$friend)->deleteFriend($friend,$user);
 
-        if (!$friend) {
-            throw $this->createNotFoundException('Unable to find Friend.');
-        }
+        if($request->isXmlHttpRequest())
+          return new JsonResponse(array(
+            'success' => TRUE,
+            'message' => 'Borrado satisfactoriamente',
+            ));
+        else
+          return $this->redirect($this->generateUrl('myfriends'));
+    }
+
+    private function deleteFriend($user, $friend)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $aclManager = $this->get('taskul.acl_manager');
 
         $user->removeFriendsWithMe($friend);
         $user->removeMyFriend($friend);
@@ -71,6 +79,8 @@ class FriendController extends Controller {
             $em->persist($task);
         }
 
+        /* Ahora a la inversa */
+
         $em->flush();
 
 
@@ -78,7 +88,7 @@ class FriendController extends Controller {
             $aclManager->revoke($task, $friend->getUsername(), 'Taskul\UserBundle\Entity\User', MaskBuilder::MASK_VIEW);
         }
 
-        return $this->redirect($this->generateUrl('myfriends'));
+        return $this;
     }
 
     private function createDeleteForm($id) {

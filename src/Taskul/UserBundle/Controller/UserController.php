@@ -7,9 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class UserController extends Controller {
 
-public function fbLoginCheckAction()
-{
-    return array();
-}
+	public function fbLoginCheckAction()
+	{
+	    return array();
+	}
 
 }
