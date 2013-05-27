@@ -22,55 +22,7 @@
 }());
 
 
-$.fn.deleteModal = function(route, form, params, redirect){
-    $(this).on( 'click', function (e) {
-        form.attr('action', '');
-        var arrayParams = {};
-        for(i=0;i<params.length;i++)
-        {
-            arrayParams[params[i]] = $(this).data(params[i]);
-        }
-
-        id = $(this).data('id');
-        inputid = form.data('input-id');
-        $('#'+inputid).val(id);
-
-        generatedroute = Routing.generate(route, arrayParams);
-        form.attr('action', generatedroute);
-        if(! redirect)
-            nTr = this.parentNode.parentNode; //Para eliminar fila del datatables
-
-    });
-    var modalid = form.data('modal-id');
-    // Borrado de tareas y ficheros asociados desde el listado
-    var options = {
-        dataType: 'json',
-        success:    function(e) {
-            $('#'+modalid).modal('hide');
-            status = ( e.success ) ? 'success' : 'info';
-            notificacion('top-rigth',e.message,status);
-
-            if(redirect){
-                $('.box-content').fadeOut();
-                setTimeout('loadPage("'+redirect+'")',3000);
-            }
-            else{
-                oTable = $('#list').dataTable();
-                if(oTable.length>0)
-                    oTable.fnDeleteRow( oTable.fnGetPosition( nTr ) ) ;
-            }
-        },
-        error: function(e) {
-            $('#'+modalid).modal('hide');
-            obj = jQuery.parseJSON(e.responseText);
-            status = ( obj[0].success ) ? 'success' : 'info';
-            notificacion('top-rigth',obj[0].message,status);
-        }
-    };
-    form.ajaxForm(options);
-};
-
-function notificacion(zone, message, status)
+function notificacion(message, status)
 {
     $('.top-right').notify({
                     message: { text: message },
@@ -104,7 +56,6 @@ function clearMenuActive(ulid)
     $liactive = $('ul#'+ulid).children('li.active');
     $liactive.find('a').css('color','');
     $liactive.removeClass('active');
-    return true;
 }
 
 $(document).ready(function(){

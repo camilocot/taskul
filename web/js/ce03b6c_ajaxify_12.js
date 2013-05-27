@@ -58,6 +58,7 @@
     }); // end onDomLoad
 
     loadAjaxModalForms();
+    showWarningNoRecords();
 
 })(window); // end closure
 
@@ -72,6 +73,7 @@ function loadPage(url)
             $("#content").filter(':first').html(data).ajaxify().fadeIn();
             $("#overlay").fadeOut(500);
             loadAjaxModalForms();
+            showWarningNoRecords();
 
         },
         error: function(jqXHR, textStatus, errorThrown){
@@ -91,29 +93,19 @@ function loadAjaxModalForms()
         var options = {
             dataType: 'json',
             success:    function(e) {
+                /* Este dato se asocia al formulario dinamicamente desde el boton que abre el modal */
                 var redirect = $form.data('redirect');
 
                 $modal.modal('hide');
                 status = ( e.success ) ? 'success' : 'error';
-
-                $('.top-right').notify({
-                        message: { text: e.message },
-                        type: status,
-                        fadeOut: { enabled: true, delay: 3000 }
-                }).show();
-
+                notification(message,status);
 
 
                 if(status == 'success' && typeof $remove !== 'undefined'){
                     $remove.deleteTableRow();
                 }
 
-                if($('#list > tbody > tr').length == 1)
-                {
-                    $('#list').hide();
-                    $('#filter-list').hide();
-                    $('#list').next('div.warning').show();
-                }
+                toggleWarning();
 
                 if(typeof redirect !== 'undefined')
                 {
@@ -139,4 +131,31 @@ function loadAjaxModalForms()
         };
         $form.ajaxForm(options);
     });
+}
+
+function showWarningNoRecords()
+{
+   if($('.warning').length > 0) {
+    /* Mostrar / ocultar la capa warning si no hay resultados en los listados */
+    toggleWarning();
+    /* Footable para los listados */
+    $remove = null;
+    $('.footable').footable();
+    $('.clear-filter').click(function (e) {
+        e.preventDefault();
+        $('table').trigger('footable_clear_filter');
+    });
+  }
+}
+
+function toggleWarning()
+{
+    $warning = $('.warning:first');
+    if($('#list > tbody > tr').length == 0)
+    {
+        $('#list').hide();
+        $('#filter-list').hide();
+        $warning.show();
+    }else
+        $warning.hide();
 }

@@ -14,7 +14,8 @@
             </div>
         </div>
         <div class="box-content">
-            <div class="pull-right">Search: <input id="filter" type="text" /> e.g. jun, elec, 1981 <a href="#clear" class="clear-filter" title="clear filter">X</a></div>
+            {% if entities|length > 0 %}
+            <div class="pull-right" id="filter-list">Search: <input id="filter" type="text" /> e.g. jun, elec, 1981 <a href="#clear" class="clear-filter" title="clear filter">X</a></div>
             <table class="table table-striped table-bordered bootstrap-datatable footable" id="list" data-filter="#filter">
                 <thead>
                     <tr>
@@ -42,15 +43,15 @@
                             <td>
                                     {% if is_granted('VIEW', entity) %}
                                         <a href="{{ path('api_get_task', { 'id': entity.id }) }}" class="btn btn-info ajaxy" title="show"><i class="icon-zoom-in icon-white"></i></a>
-                                        <a href="{{ path('api_get_task_files', { 'id': entity.id }) }}" class="btn btn-info ajaxy" title="edit files"><i class="icon-zoom-in icon-white"></i></a>
+                                        <a href="{{ path('api_get_task_files', { 'id': entity.id }) }}" class="btn btn-warning ajaxy" title="edit files"><i class=" icon-file icon-white"></i></a>
                                     {% endif %}
                                     {% if is_granted('EDIT', entity) %}
                                         <a href="{{ path('api_edit_task', { 'id': entity.id }) }}" class="btn btn-success ajaxy" title="edit"><i class="icon-edit icon-white"></i></a>
                                     {% endif %}
                                     {% if is_granted('DELETE', entity) %}
-                                    <button class="btn btn-danger delete-modal-btn" type="button" data-id="{{ entity.id }}" data-target="#deleteModal" data-toggle="modal"><i class="icon-trash icon-white"></i></button>
+                                    <button class="btn btn-danger delete-modal-btn modal-button" type="button" data-id="{{ entity.id }}" data-target="#deleteModal" data-toggle="modal"><i class="icon-trash icon-white"></i></button>
                                     {% endif %}
-                                                                </td>
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -60,13 +61,14 @@
                     </tr>
                   </tfoot>
                 </table>
+                {% endif %}
+                {% include 'TaskBundle:partials:warning-message-task.html.twig' %}
                 <div class="form-actions" style="margin: 20px -10px -8px">
                    <a href="{{ path('api_new_task') }}" class="btn ajaxy">
                     Create a new entry
                     </a>
                 </div>
         </div>
-
     </div><!--/box-->
 
 </div><!--/row-->

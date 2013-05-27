@@ -1,18 +1,18 @@
 <!-- Modal -->
-<div id="deleteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="deleteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h3 id="myModalLabel">Modal header</h3>
+		<h3 id="deleteModalLabel">Confirmación</h3>
 	</div>
 	<div class="modal-body">
-		<p>One fine body…</p>
+		<p>¿ Está seguro de querer borrarlo ?</p>
 	</div>
 	<div class="modal-footer">
 		<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-		<button class="btn btn-danger" id="modal-form-submit">Delete</button>
+		<button class="btn btn-danger btn-confirm-modal">Delete</button>
 	</div>
 </div>
-<form action="{{ path('api_delete_task', { 'id': delete_id }) }}" method="post" {{ form_enctype(delete_form) }} id="delete-task" >
+<form action="" method="post" {{ form_enctype(delete_form) }} id="delete-frequest" data-input-id="#form_delete_id" data-modal-id="#deleteModal" data-action="{{ type }}" class="ajaxmodalform">
 	<input name="_method" type="hidden" value="DELETE" />
 	{{ form_widget(delete_form) }}
 </form>

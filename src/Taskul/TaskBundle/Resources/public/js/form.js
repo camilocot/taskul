@@ -49,7 +49,10 @@ $(document).ready(function(){
 
     // Crear nueva tarea, redirecciona a ver o a aañadir ficheros
     $('#form_task').submit(function(event){
-        var valSubmit = $("button[type=submit][clicked=true]").val();
+        /* Para saber donde redirigir */
+        valSubmit = $("button[type=submit][clicked=true]").val();
+        $('button[name=goto_upload]').val(valSubmit);
+
         ne = nicEditors.findEditor('task_description');
         $('#task_description').val(ne.getContent());
         $(this).ajaxSubmit({

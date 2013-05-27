@@ -14,15 +14,11 @@
     {% endblock %}
 {% block body %}
 {{ parent()}}
-{% include 'TaskBundle:partials:delete-modal-rest.html.twig' %}
+{% include 'TaskBundle:partials:delete-modal-rest.html.twig' with {'type': 'api_delete_task'}%}
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}
 {% javascripts
-    '@MainBundle/Resources/public/js/vendor/footable.js'
-    '@MainBundle/Resources/public/js/vendor/footable.filter.js'
-    '@MainBundle/Resources/public/js/vendor/footable.paginate.js'
-    '@MainBundle/Resources/public/js/vendor/footable.sortable.js'
     '@MainBundle/Resources/public/js/vendor/jquery.ui.widget.js'
     '@MainBundle/Resources/public/js/vendor/jquery.iframe-transport.js'
     '@MainBundle/Resources/public/js/vendor/jquery.fileupload.js'
