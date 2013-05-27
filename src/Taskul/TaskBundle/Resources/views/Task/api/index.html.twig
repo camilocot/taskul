@@ -1,8 +1,4 @@
 {% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "TaskBundle::layout.html.twig" %}
-    {% block body %}
-    {{ parent() }}
-
-    {% endblock %}
 {% block content %}
 {{ apy_breadcrumb_trail_render() }}
 <div class="row-fluid sortable">
@@ -57,7 +53,7 @@
                     </tbody>
                     <tfoot class="footable-pagination">
                     <tr>
-                      <td colspan="5"><ul id="pagination" class="footable-nav" /></td>
+                      <td colspan="5"><ul id="pagination" class="footable-nav"></ul></td>
                     </tr>
                   </tfoot>
                 </table>

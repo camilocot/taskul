@@ -26,7 +26,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ "FOSCommentBundle", "TaskBundle", "FileBundle", "MainBundle", "FriendBundle" ]
+    bundles:        [ "FOSCommentBundle", "TaskBundle", "FileBundle", "MainBundle", "FriendBundle", "MessageBundle" ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~

@@ -1,0 +1,67 @@
+{% if threads %}
+<div class="pull-right" id="filter-list">Search: <input id="filter" type="text" /> e.g. jun, elec, 1981 <a href="#clear" class="clear-filter" title="clear filter">X</a></div>
+<table class="table table-striped table-bordered bootstrap-datatable footable" id="list" data-filter="#filter">
+    <thead>
+        <tr>
+            <th data-class="expand" data-sort-initial="true">{% trans from 'FOSMessageBundle' %}subject{% endtrans %}</th>
+            <th data-hide="phone,tablet">{% trans from 'FOSMessageBundle' %}starter{% endtrans %}</th>
+            <th data-hide="phone,tablet">{% trans from 'FOSMessageBundle' %}startdate{% endtrans %}</th>
+            <th>{% trans from 'FOSMessageBundle' %}messages{% endtrans %}</th>
+            <th data-hide="phone,tablet">{% trans from 'FOSMessageBundle' %}last_message{% endtrans %}</th>
+            <th data-sort-ignore="true">{% trans from 'FOSMessageBundle' %}actions{% endtrans %}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for thread in threads %}
+            <tr>
+                <td>
+                    <a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}">
+                        {{ thread.subject }}
+                    </a>
+
+                    {% if not fos_message_is_read(thread) %}
+                        ({% trans from 'FOSMessageBundle' %}new{% endtrans %})
+                    {% endif %}
+                </td>
+                <td>
+                    {{ thread.createdBy }}
+                </td>
+                <td>
+                    {{ thread.createdAt|date }}
+                </td>
+                <td>
+                    {{ thread.messages|length }}
+                </td>
+                <td>
+                    {% if thread.lastMessage %}
+                        <a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}#message_{{ thread.lastMessage.id }}" title="{% trans from 'FOSMessageBundle' %}goto_last{% endtrans %}">
+                            →
+                        </a>
+                        {% trans with {'%date%': thread.lastMessage.createdAt|date} from 'FOSMessageBundle' %}on{% endtrans %}
+                        <br />
+                        {% trans with {'%sender%': thread.lastMessage.sender|e } from 'FOSMessageBundle' %}by{% endtrans %}
+                    {% else %}
+                        ----
+                    {% endif %}
+                </td>
+                <td>
+                    <form action="{{ url('fos_message_thread_delete', {'threadId': thread.id}) }}" method="post">
+                        <input type="submit" value="{% trans from 'FOSMessageBundle' %}delete{% endtrans %}" class="btn btn-danger delete-modal-btn modal-button"/>
+                    </form>
+
+                </td>
+            </tr>
+        {% endfor %}
+
+    </tbody>
+    <tfoot class="footable-pagination">
+                    <tr>
+                      <td colspan="6"><ul id="pagination" class="footable-nav"></ul></td>
+                    </tr>
+    </tfoot>
+
+</table>
+{% else %}
+            {% trans from 'FOSMessageBundle' %}no_thread{% endtrans %}.
+{% endif %}
