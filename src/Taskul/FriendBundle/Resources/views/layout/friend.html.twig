@@ -22,15 +22,10 @@
 <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 {% javascripts
-	'@MainBundle/Resources/public/js/vendor/footable.js'
-    '@MainBundle/Resources/public/js/vendor/footable.filter.js'
-    '@MainBundle/Resources/public/js/vendor/footable.paginate.js'
-    '@MainBundle/Resources/public/js/vendor/footable.sortable.js'
 	'@MainBundle/Resources/public/js/vendor/wysihtml5-0.3.0.js'
 	'@MainBundle/Resources/public/js/vendor/bootstrap-wysihtml5.js'
 	'@MainBundle/Resources/public/js/vendor/excanvas.js'
 	'@MainBundle/Resources/public/js/vendor/jquery.knob.js'
-	'@FriendBundle/Resources/public/js/common.js'
 	'@FriendBundle/Resources/public/js/friendOps.js'
 %}
 <script src="{{ asset_url }}"></script>

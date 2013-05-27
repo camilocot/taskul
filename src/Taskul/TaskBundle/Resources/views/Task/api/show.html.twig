@@ -40,13 +40,13 @@
                 <div class="form-actions">
 
                     {% if is_granted('DELETE',entity) %}
-                    <button class="btn btn-danger delete-modal-btn" type="button" data-target="#deleteModal" data-toggle="modal" data-id="{{ entity.id }}">
+                    <button class="btn btn-danger modal-button" type="button" data-target="#deleteModal" data-toggle="modal" data-id="{{ entity.id }}">
                         Delete
                     </button>
 
                     {% endif %}
                     {% if is_granted('EDIT',entity) %}
-                    <a href="{{ path('api_edit_task', { 'id': entity.id }) }}" class="btn btn-success ajaxy">
+                    <a href="{{ path('api_edit_task', { 'id': entity.id }) }}" class="btn btn-success ajaxy" data-redirect="api_get_tasks">
                         Edit
                     </a>
                     {% endif %}

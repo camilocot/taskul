@@ -21,6 +21,7 @@
                   });
                   editor.on("change", onChangeEditor);
             }
+
             $("form button[type=submit]").click(function() {
             	$("button[type=submit]", $(this).parents("form")).removeAttr("clicked");
             	$(this).attr("clicked", "true");
