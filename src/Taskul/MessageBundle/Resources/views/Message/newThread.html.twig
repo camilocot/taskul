@@ -13,7 +13,12 @@
         <div class="box-content">
 			<form action="{{ url('fos_message_thread_new') }}" method="post" class="form-horizontal validate" id="form_thread">
 				<fieldset>
-			    {{ form_widget(form) }}
+	                {{ form_row(form.recipient,{'help':'sdasdasasda', 'atrr': { 'class':'required', 'minlength':'10' } }) }}
+                    {{ form_row(form.subject) }}
+                    {{ form_row(form.body, {'attr':
+                    {'placeholder':'Introduzca una descripción ...', 'class':'nicEdit span11','rows':'10','minlength':'8' } } ) }}
+
+                    {{ form_rest(form) }}
 				</fieldset>
 				<div class="form-actions">
 			        <button class="btn btn-primary" type="submit">Enviar</button>
@@ -23,4 +28,12 @@
     </div><!--/box-->
 
 </div><!--/row-->
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+{% javascripts
+    '@MessageBundle/Resources/public/js/newThread.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

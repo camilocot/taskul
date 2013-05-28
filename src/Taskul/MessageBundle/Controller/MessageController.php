@@ -7,6 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\MessageBundle\Provider\ProviderInterface;
 use FOS\MessageBundle\Controller\MessageController as BaseController;
+use Taskul\MainBundle\Component\CheckAjaxResponse;
 
 class MessageController extends BaseController
 {
@@ -73,12 +74,15 @@ class MessageController extends BaseController
         $formHandler = $this->container->get('fos_message.new_thread_form.handler');
 
         if ($message = $formHandler->process($form)) {
-            return new RedirectResponse($this->container->get('router')->generate('fos_message_thread_view', array(
-                'threadId' => $message->getThread()->getId()
-            )));
+            return new CheckAjaxResponse(
+                $this->container->get('router')->generate('fos_message_thread_view', array(
+                    'threadId' => $message->getThread()->getId()
+                )),
+                array('success'=>TRUE)
+            );
         }
 
-        return $this->container->get('templating')->renderResponse('FOSMessageBundle:Message:newThread.html.twig', array(
+        return $this->container->get('templating')->renderResponse('MessageBundle:Message:newThread.html.twig', array(
             'form' => $form->createView(),
             'data' => $form->getData()
         ));
@@ -122,5 +126,24 @@ class MessageController extends BaseController
     protected function getProvider()
     {
         return $this->container->get('fos_message.provider');
+    }
+
+
+    private function getErrorMessages(\Symfony\Component\Form\Form $form) {
+        $errors = array();
+
+        if ($form->hasChildren()) {
+            foreach ($form->getChildren() as $child) {
+                if ($child->isBound() && !$child->isValid()) {
+                    $errors[$child->getName()] = $this->getErrorMessages($child);
+                }
+            }
+        } else {
+            foreach ($form->getErrors() as $key => $error) {
+                $errors[] = $error->getMessage();
+            }
+        }
+
+        return $errors;
     }
 }

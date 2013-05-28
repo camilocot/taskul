@@ -7,6 +7,7 @@
     <parameters>
         <parameter key="user_menu.item.class">Knp\Menu\MenuItem</parameter>
         <parameter key="user_menu.builder.class">Taskul\MainBundle\Menu\MenuBuilder</parameter>
+        <parameter key="taskul.kernelview.listener">Taskul\MainBundle\EventListener\ViewListener</parameter>
     </parameters>
 
     <services>
@@ -37,5 +38,9 @@
         <service id="taskul.twig.status_color" class="Taskul\MainBundle\Twig\LabelsExtension">
         <tag name="twig.extension" />
         </service>
+        <service id="taskul.kernelview.listener" class="%taskul.kernelview.listener%">
+            <tag name="kernel.event_listener" event="kernel.view" method="onKernelView" />
+        </service>
+
     </services>
 </container>
