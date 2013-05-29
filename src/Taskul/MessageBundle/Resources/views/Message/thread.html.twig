@@ -19,7 +19,8 @@
                 </div>
 
                 <div class="messenger_thread_message_body" id="message_{{ message.id }}">
-                    {{ message.body }}
+                    {{ message.body|raw }}
+                    <hr/>
                 </div>
             </div>
             {% endfor %}
@@ -35,13 +36,27 @@
         <div class="box-content">
             <h3>{% trans from 'FOSMessageBundle' %}reply{% endtrans %}</h3>
 
-            <form action="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}" method="post">
-                {{ form_widget(form) }}
+            <form action="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}" method="post" class="form-horizontal validate" id="form_thread">
+                <fieldset>
+                    {{ form_row(form.body, {'attr':
+                    {'placeholder':'Introduzca una descripción ...', 'class':'nicEdit span11','rows':'10','minlength':'8' } } ) }}
 
-                <input type="submit" />
+                    {{ form_rest(form) }}
+                </fieldset>
+                <div class="form-actions">
+                    <button class="btn btn-primary" type="submit">Enviar</button>
+                </div>
             </form>
         </div>
     </div>
 </div>
 
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+{% javascripts
+    '@MessageBundle/Resources/public/js/thread.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

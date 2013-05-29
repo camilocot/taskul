@@ -1,5 +1,7 @@
 {% extends "::private.html.twig" %}
-{% block content %}
+{% block body %}
+{{ parent()}}
+{% include 'MessageBundle:partials:delete-modal.html.twig' with {'type': 'fos_message_thread_delete'} %}
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}

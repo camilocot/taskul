@@ -19,9 +19,11 @@ class MessageController extends BaseController
     public function inboxAction()
     {
         $threads = $this->getProvider()->getInboxThreads();
+        $deleteForm = $this->createDeleteForm(-1);
 
-        return $this->container->get('templating')->renderResponse('FOSMessageBundle:Message:inbox.html.twig', array(
-            'threads' => $threads
+        return $this->container->get('templating')->renderResponse('MessageBundle:Message:inbox.html.twig', array(
+            'threads' => $threads,
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -33,9 +35,11 @@ class MessageController extends BaseController
     public function sentAction()
     {
         $threads = $this->getProvider()->getSentThreads();
+        $deleteForm = $this->createDeleteForm(-1);
 
-        return $this->container->get('templating')->renderResponse('FOSMessageBundle:Message:sent.html.twig', array(
-            'threads' => $threads
+        return $this->container->get('templating')->renderResponse('MessageBundle:Message:sent.html.twig', array(
+            'threads' => $threads,
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -51,15 +55,21 @@ class MessageController extends BaseController
         $form = $this->container->get('fos_message.reply_form.factory')->create($thread);
         $formHandler = $this->container->get('fos_message.reply_form.handler');
 
+        $deleteForm = $this->createDeleteForm($thread->getId());
+
         if ($message = $formHandler->process($form)) {
-            return new RedirectResponse($this->container->get('router')->generate('fos_message_thread_view', array(
-                'threadId' => $message->getThread()->getId()
-            )));
+            return new CheckAjaxResponse(
+                    $this->container->get('router')->generate('fos_message_thread_view', array(
+                    'threadId' => $message->getThread()->getId()
+                    )),
+                    array('success'=>TRUE,'threadid'=>$message->getThread()->getId())
+                );
         }
 
-        return $this->container->get('templating')->renderResponse('FOSMessageBundle:Message:thread.html.twig', array(
+        return $this->container->get('templating')->renderResponse('MessageBundle:Message:thread.html.twig', array(
             'form' => $form->createView(),
-            'thread' => $thread
+            'thread' => $thread,
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -70,22 +80,32 @@ class MessageController extends BaseController
      */
     public function newThreadAction()
     {
-        $form = $this->container->get('fos_message.new_thread_form.factory')->create();
-        $formHandler = $this->container->get('fos_message.new_thread_form.handler');
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $friends = $user->getMyFriends();
 
-        if ($message = $formHandler->process($form)) {
-            return new CheckAjaxResponse(
-                $this->container->get('router')->generate('fos_message_thread_view', array(
-                    'threadId' => $message->getThread()->getId()
-                )),
-                array('success'=>TRUE)
-            );
+        if(count($friends) == 0){
+            return $this->container->get('templating')->renderResponse('MessageBundle:Message:nofriends.html.twig');
         }
+        else {
+            $form = $this->container->get('fos_message.new_thread_form.factory')->create();
+            $formHandler = $this->container->get('fos_message.new_thread_form.handler');
 
-        return $this->container->get('templating')->renderResponse('MessageBundle:Message:newThread.html.twig', array(
-            'form' => $form->createView(),
-            'data' => $form->getData()
-        ));
+            $deleteForm = $this->createDeleteForm(-1);
+            if ($message = $formHandler->process($form)) {
+                return new CheckAjaxResponse(
+                    $this->container->get('router')->generate('fos_message_thread_view', array(
+                        'threadId' => $message->getThread()->getId()
+                    )),
+                    array('success' => TRUE, 'message'=>'OK')
+                );
+            }
+
+            return $this->container->get('templating')->renderResponse('MessageBundle:Message:newThread.html.twig', array(
+                'form' => $form->createView(),
+                'data' => $form->getData(),
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }
     }
 
     /**
@@ -93,13 +113,15 @@ class MessageController extends BaseController
      *
      * @return Response
      */
-    public function deleteAction($threadId)
+    public function deleteAction($id)
     {
-        $thread = $this->getProvider()->getThread($threadId);
+        $thread = $this->getProvider()->getThread($id);
         $this->container->get('fos_message.deleter')->markAsDeleted($thread);
         $this->container->get('fos_message.thread_manager')->saveThread($thread);
-
-        return new RedirectResponse($this->container->get('router')->generate('fos_message_inbox'));
+        return new CheckAjaxResponse(
+                    $this->container->get('router')->generate('fos_message_inbox'),
+                    array('success'=>TRUE,'message'=>'OK')
+                );
     }
 
     /**
@@ -145,5 +167,12 @@ class MessageController extends BaseController
         }
 
         return $errors;
+    }
+
+    private function createDeleteForm($id) {
+      return $this->container->get('form.factory')->createBuilder('form', array('delete_id' => $id))
+      ->add('delete_id', 'hidden')
+      ->getForm()
+      ;
     }
 }

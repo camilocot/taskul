@@ -1,0 +1,21 @@
+{% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "MessageBundle::layout.html.twig" %}
+{% block content %}
+{{ apy_breadcrumb_trail_render() }}
+<div class="row-fluid sortable">
+    <div class="box span12">
+        <div class="box-header" data-original-title="Listado de amigos">
+            <h2><i class="icon-user"></i><span class="break"></span>Nuevo mensaje</h2>
+            <div class="box-icon">
+            <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+            </div>
+        </div>
+        <div class="box-content">
+
+			<div class="alert alert-block warning" id="no-friends" style="display:none">
+			    <h4 class="alert-heading">Warning!</h4>
+			    <p>No hay ningún amigo. Si quieres enviar invitaciones por email utiliza <a href="{{ path('frequest_new') }}">este formulario</a> o si quieres invitar a tus amigos de facebook utiliza <a href="{{ path('import_fb') }}">este otro formulario</a>.</p>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

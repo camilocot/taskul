@@ -119,6 +119,8 @@ fos_message:
     db_driver: orm
     thread_class: Taskul\MessageBundle\Entity\Thread
     message_class: Taskul\MessageBundle\Entity\Message
+    new_thread_form:
+        type:               taskul_message.new_thread_form.type
 
 fpn_tag:
     model:

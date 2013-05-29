@@ -10,13 +10,21 @@
             </div>
         </div>
 		<div class="box-content">
-			{% include 'FOSMessageBundle:Message:threads_list.html.twig' with {'threads': threads} %}
+			{% include 'MessageBundle:Message:threads_list.html.twig' with {'threads': threads} %}
 			<div class="form-actions" style="margin: 20px -10px -8px">
-                    <a href="{{ url('fos_message_thread_new' )}}" class="btn">{% trans from 'FOSMessageBundle' %}send_new{% endtrans %}</a>
+                    <a href="{{ url('fos_message_thread_new' )}}" class="btn ajaxy">{% trans from 'FOSMessageBundle' %}send_new{% endtrans %}</a>
             </div>
         </div>
     </div><!--/box-->
 
 </div><!--/row-->
 
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+{% javascripts
+    '@MessageBundle/Resources/public/js/sent.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

@@ -29,4 +29,10 @@ taskul_user_change_password_without_verification:
     pattern:      /change_password
     defaults:  { _controller: UserBundle:ChangePassword:changePasswordWithoutVerification }
 
+taskul_user_get_friends:
+    pattern:    /get_friends
+    defaults: { _controller: UserBundle:User:getFriends, _format: json}
+    options:
+        expose: true
+
 

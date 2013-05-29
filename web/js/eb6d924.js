@@ -1800,7 +1800,6 @@ $(document).ready(function(){
         formAction = $form.data('action');
         redirect = $remove.data('redirect');
         formAction = Routing.generate(formAction, { "id": id });
-
         $form.removeData('redirect');
         $(inputId).val(id);
         $form.attr('action', formAction);

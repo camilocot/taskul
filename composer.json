@@ -30,8 +30,9 @@
         "fresh/doctrine-enum-bundle": "dev-master",
         "apy/breadcrumbtrail-bundle": "dev-master",
 	"friendsofsymfony/jsrouting-bundle": "1.1.*",
-        "jms/serializer-bundle": "0.11.*@dev",
-	"stephpy/TimelineBundle": "dev-master"
+        "jms/serializer-bundle": "0.12.*@dev",
+	"stephpy/TimelineBundle": "dev-master",
+        "friendsofsymfony/rest-bundle": "0.12.*"
     },
     "scripts": {
         "post-install-cmd": [

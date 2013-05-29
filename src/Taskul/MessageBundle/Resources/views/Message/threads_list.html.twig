@@ -16,7 +16,7 @@
         {% for thread in threads %}
             <tr>
                 <td>
-                    <a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}">
+                    <a href="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}" class="ajaxy">
                         {{ thread.subject }}
                     </a>
 
@@ -46,9 +46,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    <form action="{{ url('fos_message_thread_delete', {'threadId': thread.id}) }}" method="post">
-                        <input type="submit" value="{% trans from 'FOSMessageBundle' %}delete{% endtrans %}" class="btn btn-danger delete-modal-btn modal-button"/>
-                    </form>
+                     <button class="btn btn-danger delete-modal-btn modal-button" type="button" data-id="{{ thread.id }}" data-target="#deleteModal" data-toggle="modal"><i class="icon-trash icon-white"></i></button>
 
                 </td>
             </tr>

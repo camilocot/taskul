@@ -1,14 +1,12 @@
 $(document).ready(function(){
 	new nicEditor({fullPanel : true}).panelInstance('message_body');
-    $('#form_thread').submit(function(event){
+	 $('#form_thread').submit(function(event){
         $(this).ajaxSubmit({
             success: function (data){
                 if(data.success === true){
-                    route = Routing.generate('fos_message_sent');
+                	route = Routing.generate('fos_message_thread_view', {threadId : data.threadid});
                     title = 'Sent';
                     loadPage(route);
-                    History.pushState(null,title,route);
-                }else{
                     $('#content').html(data);
                 }
             },
@@ -26,9 +24,4 @@ $(document).ready(function(){
         $('#message_body').val(ne.getContent());
         $('#form_thread').submit();
     });
-
-    if ($.fn.select2) {
-        $("select#message_recipient").select2();
-    }
-
 });

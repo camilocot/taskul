@@ -1,0 +1,17 @@
+<!-- Modal -->
+<div id="deleteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="deleteModalLabel">Confirmación</h3>
+	</div>
+	<div class="modal-body">
+		<p>¿ Está seguro de querer borrarlo ?</p>
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+		<button class="btn btn-danger btn-confirm-modal">Delete</button>
+	</div>
+</div>
+<form action="" method="post" {{ form_enctype(delete_form) }} id="delete-frequest" data-input-id="#form_delete_id" data-modal-id="#deleteModal" data-action="{{ type }}" class="ajaxmodalform">
+	{{ form_widget(delete_form) }}
+</form>

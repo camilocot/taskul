@@ -13756,7 +13756,7 @@ function loadAjaxModalForms()
 
                 $modal.modal('hide');
                 status = ( e.success ) ? 'success' : 'error';
-                notification(message,status);
+                notificacion(e.message,status);
 
 
                 if(status == 'success' && typeof $remove !== 'undefined'){

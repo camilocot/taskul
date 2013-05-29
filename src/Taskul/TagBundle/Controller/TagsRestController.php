@@ -26,7 +26,8 @@ class TagsRestController extends FOSRestController
 			$tags = $task->getTags();
 			foreach ($tags as $tag) {
 				$name = $tag->getName();
-				$tagsArray[] = $name;
+				if(!in_array($name, $tagsArray))
+					$tagsArray[] = $name;
 			}
 
 		}
