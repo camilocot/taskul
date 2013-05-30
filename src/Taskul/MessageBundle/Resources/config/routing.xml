@@ -5,31 +5,39 @@
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
     <route id="fos_message_inbox" pattern="/">
-        <default key="_controller">FOSMessageBundle:Message:inbox</default>
+        <default key="_controller">MessageBundle:Message:inbox</default>
     </route>
 
     <route id="fos_message_sent" pattern="/sent">
-        <default key="_controller">FOSMessageBundle:Message:sent</default>
+        <default key="_controller">MessageBundle:Message:sent</default>
         <option key="expose">true</option>
     </route>
 
     <route id="fos_message_search" pattern="/search">
-        <default key="_controller">FOSMessageBundle:Message:search</default>
+        <default key="_controller">MessageBundle:Message:search</default>
     </route>
 
     <route id="fos_message_thread_new" pattern="/new">
-        <default key="_controller">FOSMessageBundle:Message:newThread</default>
+        <default key="_controller">MessageBundle:Message:newThread</default>
     </route>
 
+    <route id="taskul_message_unread_messages" pattern="/unread">
+        <default key="_controller">MessageBundle:Message:getUnreadMessages</default>
+        <option key="expose">true</option>
+    </route>
+    <route id="taskul_message_list_unread_messages" pattern="/inbox/unread">
+        <default key="_controller">MessageBundle:Message:listUnreadMessages</default>
+        <option key="expose">true</option>
+    </route>
     <route id="fos_message_thread_view" pattern="/{threadId}">
-        <default key="_controller">FOSMessageBundle:Message:thread</default>
+        <default key="_controller">MessageBundle:Message:thread</default>
+        <requirement key="threadId">\d+</requirement>
         <option key="expose">true</option>
     </route>
 
     <route id="fos_message_thread_delete" pattern="/{id}/delete">
-        <default key="_controller">FOSMessageBundle:Message:delete</default>
+        <default key="_controller">MessageBundle:Message:delete</default>
         <requirement key="_method">POST|DELETE</requirement>
         <option key="expose">true</option>
     </route>
-
 </routes>

@@ -63,96 +63,10 @@
             <!-- end: Notifications Dropdown -->
             <!-- start: Message Dropdown -->
             <li class="dropdown hidden-phone">
-              <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="icon-envelope icon-white"></i> <span class="label label-success hidden-phone">9</span>
+              <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#" data-context="messages" data-route="taskul_message_unread_messages" data-route-content="taskul_message_list_unread_messages">
+                <i class="icon-envelope icon-white"></i> <span class="label label-success hidden-phone notifnumber">0</span>
               </a>
               <ul class="dropdown-menu messages">
-                <li>
-                  <span class="dropdown-menu-title">You have 9 messages</span>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="avatar"><img src="img/avatar.jpg" alt="Avatar"></span>
-                    <span class="header">
-                      <span class="from">
-                        Łukasz Holeczek
-                      </span>
-                      <span class="time">
-                        6 min
-                      </span>
-                    </span>
-                    <span class="message">
-                      Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="avatar"><img src="img/avatar2.jpg" alt="Avatar"></span>
-                    <span class="header">
-                      <span class="from">
-                        Megan Abott
-                      </span>
-                      <span class="time">
-                        56 min
-                      </span>
-                    </span>
-                    <span class="message">
-                      Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="avatar"><img src="img/avatar3.jpg" alt="Avatar"></span>
-                    <span class="header">
-                      <span class="from">
-                        Kate Ross
-                      </span>
-                      <span class="time">
-                        3 hours
-                      </span>
-                    </span>
-                    <span class="message">
-                      Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="avatar"><img src="img/avatar4.jpg" alt="Avatar"></span>
-                    <span class="header">
-                      <span class="from">
-                        Julie Blank
-                      </span>
-                      <span class="time">
-                        yesterday
-                      </span>
-                    </span>
-                    <span class="message">
-                      Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="avatar"><img src="img/avatar5.jpg" alt="Avatar"></span>
-                    <span class="header">
-                      <span class="from">
-                        Jane Sanders
-                      </span>
-                      <span class="time">
-                        Jul 25, 2012
-                      </span>
-                    </span>
-                    <span class="message">
-                      Lorem ipsum dolor sit amet consectetur adipiscing elit, et al commore
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-menu-sub-footer">View all messages</a>
-                </li>
               </ul>
             </li>
             <!-- end: Message Dropdown -->
@@ -239,6 +153,36 @@
         <span class="percent"></span>
       </span>
       <div class="taskProgress progressSlim progressYellow">{{percent}}</div>
+    </a>
+  </li>
+  {{/result}}
+  </script>
+  <script id="taskul_message_list_unread_messages-html" type="text/html">
+  <li>
+    <span class="dropdown-menu-title">You have {{ total }} messages</span>
+  </li>
+  {{#result}}
+  <li>
+    <a href="{{ url }}">
+      <span class="avatar">
+      {{#sender.facebookId}}
+        <img src="https://graph.facebook.com/{{ sender.facebookId }}/picture"/>
+      {{/sender.facebookId}}
+      {{^sender.facebookId}}
+        <img src="http://www.gravatar.com/avatar/{{ sender.gravatar }}" />
+      {{/sender.facebookId}}
+      </span>
+      <span class="header">
+        <span class="from">
+          {{ sender.firstname }}
+        </span>
+        <span class="time">
+          {{ time }}
+        </span>
+      </span>
+      <span class="message">
+      {{#limitLength}}{{body}}{{/limitLength}}
+      </span>
     </a>
   </li>
   {{/result}}

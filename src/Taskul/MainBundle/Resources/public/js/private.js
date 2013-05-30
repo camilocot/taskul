@@ -3,7 +3,7 @@ $(document).ready(function(){
   $('.notiftoggle').click(function() {
         // Only call notifications when opening the dropdown
         $this = $(this);
-        context = $this.data('context');
+        var context = $this.data('context');
         var dynroute = $this.data('route-content');
         if( (typeof generateNotification[context] === 'undefined' || generateNotification[context] ) && !$(this).parent('li').hasClass('open')) {
           route = Routing.generate(dynroute, { "context": context });
@@ -13,6 +13,12 @@ $(document).ready(function(){
               async: false,
               dataType: "json",
               success: function(data) {
+                // Añadimos una funcion para limitar el tamano
+                data.limitLength = function() {
+                  return function(text, render) {
+                    return render(text).substr(0,10) + '...';
+                  };
+                }
                 $this.siblings('ul:first').mustache(dynroute+'-html', data);
                 generateNotification[context] = false;
                 activateProgessBar();
@@ -23,11 +29,12 @@ $(document).ready(function(){
 
   $.Mustache.add('get_notifications-html', $('#get_notifications-html').html());
   $.Mustache.add('api_list_task_status-html', $('#api_list_task_status-html').html());
+  $.Mustache.add('taskul_message_list_unread_messages-html', $('#taskul_message_list_unread_messages-html').html());
 
   /* Numero de notificaciones */
   $('.notifnumber').bind('notificationUpdate',function() {
     $this = $(this);
-    context = $this.parent().data('context');
+    var context = $this.parent().data('context');
     dynroute = $this.parent().data('route');
     route = Routing.generate(dynroute, { "context": context });
     $.ajax({

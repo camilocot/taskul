@@ -14,6 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity
  * @ORM\Table(name="message")
+ * @ORM\Entity(repositoryClass="Taskul\MessageBundle\Entity\Repository\MessageRepository")
  */
 class Message extends BaseMessage
 {

@@ -5,6 +5,7 @@ namespace Taskul\MessageBundle\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use FOS\MessageBundle\Provider\ProviderInterface;
 use FOS\MessageBundle\Controller\MessageController as BaseController;
 use Taskul\MainBundle\Component\CheckAjaxResponse;
@@ -124,49 +125,46 @@ class MessageController extends BaseController
                 );
     }
 
-    /**
-     * Searches for messages in the inbox and sentbox
-     *
-     * @return Response
-     */
-    public function searchAction()
+    public function getUnreadMessagesAction()
     {
-        $query = $this->container->get('fos_message.search_query_factory')->createFromRequest();
-        $threads = $this->container->get('fos_message.search_finder')->find($query);
-
-        return $this->container->get('templating')->renderResponse('FOSMessageBundle:Message:search.html.twig', array(
-            'query' => $query,
-            'threads' => $threads
-        ));
+        return new JsonResponse(array('success'=>TRUE, 'total' => $this->getProvider()->getNbUnreadMessages()));
     }
 
-    /**
-     * Gets the provider service
-     *
-     * @return ProviderInterface
-     */
-    protected function getProvider()
+    public function listUnreadMessagesAction()
     {
-        return $this->container->get('fos_message.provider');
-    }
+        $participant = $this->container->get('security.context')->getToken()->getUser();
+        $serializer = $this->container->get('serializer');
+        $em = $this->container->get("doctrine.orm.entity_manager");
+        $userRepository = $em->getRepository('UserBundle:User');
 
+        $msgs = array();
+        $senders = array();
 
-    private function getErrorMessages(\Symfony\Component\Form\Form $form) {
-        $errors = array();
+        $result = $em->getRepository('MessageBundle:Message')->findUnreadMessages($participant);
 
-        if ($form->hasChildren()) {
-            foreach ($form->getChildren() as $child) {
-                if ($child->isBound() && !$child->isValid()) {
-                    $errors[$child->getName()] = $this->getErrorMessages($child);
-                }
-            }
-        } else {
-            foreach ($form->getErrors() as $key => $error) {
-                $errors[] = $error->getMessage();
-            }
+        for($i = 0; $i < count($result); $i++)
+        {
+            $msgs[$i] = json_decode($serializer->serialize($result[$i], 'json'));
+            $msgs[$i]->url = $this->container->get('router')->generate(
+                    'fos_message_thread_view',
+                    array('threadId' => $msgs[$i]->thread->id)
+                );
+            $emailSender = $msgs[$i]->sender->email;
+            if(!isset($sender[$emailSender]))
+                $sender[$emailSender] = $userRepository->findOneByEmail($emailSender);
+            $msgs[$i]->sender->facebookId = $sender[$emailSender]->getFacebookId();
+            $msgs[$i]->sender->gravatar = md5( strtolower( trim( $emailSender ) ) );
+
+            $start = new \DateTime($msgs[$i]->created_at);
+            $time_span = $start->diff(new \DateTime('now'));
+            if((int)$time_span->format('%a')>0)
+                $msgs[$i]->time = $time_span->format('%R%a days');
+            else
+                $msgs[$i]->time = $time_span->h.' horas y '.$time_span->m.' min';
+
         }
 
-        return $errors;
+        return new JsonResponse(array('success'=>TRUE, 'total' => count($result), 'result'=>$msgs));
     }
 
     private function createDeleteForm($id) {
@@ -175,4 +173,5 @@ class MessageController extends BaseController
       ->getForm()
       ;
     }
+
 }
