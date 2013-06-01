@@ -3,7 +3,8 @@
 namespace Taskul\MessageBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
-
+use Symfony\Component\Routing\RouterInterface;
+use FOS\UserBundle\Model\UserInterface;
 /**
  * MessageRepository
  *
@@ -12,12 +13,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class MessageRepository extends EntityRepository
 {
-	public function findUnreadMessages($participant)
+
+	public function findUnreadMessages(UserInterface $participant)
     {
         return $this->createQueryBuilder('m')
             ->innerJoin('m.metadata', 'mm')
             ->innerJoin('mm.participant', 'p')
-
             ->where('p.id = :participant_id')
             ->setParameter('participant_id', $participant->getId())
 
@@ -30,4 +31,5 @@ class MessageRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
 }

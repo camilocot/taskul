@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use FOS\MessageBundle\Provider\ProviderInterface;
 use FOS\MessageBundle\Controller\MessageController as BaseController;
 use Taskul\MainBundle\Component\CheckAjaxResponse;
+use Taskul\MainBundle\Component\DateClass;
 
 class MessageController extends BaseController
 {
@@ -133,36 +134,10 @@ class MessageController extends BaseController
     public function listUnreadMessagesAction()
     {
         $participant = $this->container->get('security.context')->getToken()->getUser();
-        $serializer = $this->container->get('serializer');
         $em = $this->container->get("doctrine.orm.entity_manager");
-        $userRepository = $em->getRepository('UserBundle:User');
-
-        $msgs = array();
-        $senders = array();
 
         $result = $em->getRepository('MessageBundle:Message')->findUnreadMessages($participant);
-
-        for($i = 0; $i < count($result); $i++)
-        {
-            $msgs[$i] = json_decode($serializer->serialize($result[$i], 'json'));
-            $msgs[$i]->url = $this->container->get('router')->generate(
-                    'fos_message_thread_view',
-                    array('threadId' => $msgs[$i]->thread->id)
-                );
-            $emailSender = $msgs[$i]->sender->email;
-            if(!isset($sender[$emailSender]))
-                $sender[$emailSender] = $userRepository->findOneByEmail($emailSender);
-            $msgs[$i]->sender->facebookId = $sender[$emailSender]->getFacebookId();
-            $msgs[$i]->sender->gravatar = md5( strtolower( trim( $emailSender ) ) );
-
-            $start = new \DateTime($msgs[$i]->created_at);
-            $time_span = $start->diff(new \DateTime('now'));
-            if((int)$time_span->format('%a')>0)
-                $msgs[$i]->time = $time_span->format('%R%a days');
-            else
-                $msgs[$i]->time = $time_span->h.' horas y '.$time_span->m.' min';
-
-        }
+        $msgs = $this->processMessages($result);
 
         return new JsonResponse(array('success'=>TRUE, 'total' => count($result), 'result'=>$msgs));
     }
@@ -172,6 +147,38 @@ class MessageController extends BaseController
       ->add('delete_id', 'hidden')
       ->getForm()
       ;
+    }
+
+    private function getThreadViewUrl($msg)
+    {
+        return $this->container->get('router')->generate(
+                    'fos_message_thread_view',
+                    array('threadId' => $msg->getThread()->getId())
+                );
+    }
+
+    private function processMessages($result)
+    {
+        $serializer = $this->container->get('serializer');
+        $userRepository = $this->container->get("doctrine.orm.entity_manager")->getRepository('UserBundle:User');
+        $msgs = array();
+        $senders = array();
+
+        for($i = 0; $i < count($result); $i++)
+        {
+            $msgs[$i] = json_decode($serializer->serialize($result[$i], 'json'));
+            $msgs[$i]->url = $this->getThreadViewUrl($result[$i]);
+            $emailSender = $msgs[$i]->sender->email;
+            if(!isset($sender[$emailSender]))
+                $sender[$emailSender] = $userRepository->findOneByEmail($emailSender);
+            $msgs[$i]->sender->facebookId = $sender[$emailSender]->getFacebookId();
+            $msgs[$i]->sender->gravatar = md5( strtolower( trim( $emailSender ) ) );
+
+            $msgs[$i]->time = DateClass::getHumanDiff(new \DateTime($msgs[$i]->created_at));
+
+        }
+
+        return $msgs;
     }
 
 }
