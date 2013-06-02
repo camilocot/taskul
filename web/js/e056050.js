@@ -13716,6 +13716,7 @@ function widthFunctions( e ) {
     }); // end onDomLoad
 
     loadAjaxModalForms();
+    loadAjaxForms();
     showWarningNoRecords();
 
 })(window); // end closure
@@ -13731,6 +13732,7 @@ function loadPage(url)
             $("#content").filter(':first').html(data).ajaxify().fadeIn();
             $("#overlay").fadeOut(500);
             loadAjaxModalForms();
+            loadAjaxForms();
             showWarningNoRecords();
 
         },
@@ -13741,6 +13743,30 @@ function loadPage(url)
     }); // end ajax
 }
 
+function loadAjaxForms()
+{
+    $("form.ajaxform").each(function(index) {
+        var $form = $(this);
+        $form.validate({
+            submitHandler: function(form) {
+                $(form).ajaxSubmit({
+                    success: function (data){
+                        if(data.success == true && data.url) {
+                            loadPage(data.url);
+                            History.pushState(null,data.title,data.url);
+                        }else if (data.success == true && data.content){
+                            $('#content').html(data.content);
+                            loadAjaxForms();
+                        }
+                    },
+                    error: function(jqXHR,textStatus,errorThrown){
+                        alert(jqXHR.responseText.message);
+                    }
+                });
+            }
+        });
+    });
+}
 function loadAjaxModalForms()
 {
 

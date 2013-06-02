@@ -9,12 +9,20 @@
 			</div>
 		</div>
 		<div class="box-content">
-			<form class="form-horizontal" action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST">
+			<form class="form-horizontal validate ajaxform" action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" id="form_profile">
 				<fieldset>
-					{{ form_widget(form) }}
+                        {{ form_errors(form) }}
+
+                        <fieldset>
+                            {{ form_row(form.firstname,{'help':'sdasdasasda', 'attr': { 'class':'required dadsasda', 'minlength':'10' } }) }}
+                            {{ form_row(form.lastname,{'help':'sdasdasasda', 'attr': { 'class':'required', 'minlength':'10' } }) }}
+                            {{ form_row(form.email,{'help':'sdasdasasda', 'attr': { 'class':'required', 'minlength':'10' } }) }}
+
+                            {{ form_rest(form) }}
+                        </fieldset>
 				</fieldset>
 				<div class="form-actions">
-					<button type="submit" class="btn btn-primary"/>{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}</button>
+					<button type="submit" class="btn btn-primary">{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}</button>
 				</div>
 			</form>
 		</div>

@@ -13,7 +13,7 @@
         <div class="box-content">
 			<form action="{{ url('fos_message_thread_new') }}" method="post" class="form-horizontal validate" id="form_thread">
 				<fieldset>
-	                {{ form_row(form.recipient,{'help':'sdasdasasda', 'atrr': { 'class':'required', 'minlength':'10' } }) }}
+	                {{ form_row(form.recipient,{'help':'sdasdasasda', 'attr': { 'class':'required', 'minlength':'10' } }) }}
                     {{ form_row(form.subject) }}
                     {{ form_row(form.body, {'attr':
                     {'placeholder':'Introduzca una descripción ...', 'class':'nicEdit span11','rows':'10','minlength':'8' } } ) }}

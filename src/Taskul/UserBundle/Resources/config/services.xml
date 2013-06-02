@@ -10,6 +10,7 @@
         <parameter key="taskul.user.handler.authentication_handler.class">Taskul\UserBundle\Handler\AuthenticationHandler</parameter>
         <parameter key="taskul.user.forcepasswordchange.class">Taskul\UserBundle\EventListener\ForcePasswordChange</parameter>
         <parameter key="taskul.user.passwordchangelistener.class">Taskul\UserBundle\EventListener\PasswordChangeListener</parameter>
+        <parameter key="taskul_user.model.user.class">Taskul\UserBundle\Entity\User</parameter>
     </parameters>
 
     <services>
@@ -38,25 +39,33 @@
             <argument type="service" id="router"/>
             <argument type="service" id="security.context"/>
         </service>
-        <service id="taskul_user.registration.form.type" class="Taskul\UserBundle\Form\Type\RegistrationFormType">
-            <tag name="form.type" alias="taskul_user_registration" />
-            <argument>%fos_user.model.user.class%</argument>
-        </service>
-        <service id="taskul_user.resetting.form.type" class="Taskul\UserBundle\Form\Type\ResettingFormType">
-            <tag name="form.type" alias="taskul_user_resetting" />
-            <argument>%fos_user.model.user.class%</argument>
-        </service>
+
+
         <service id="taskul_user.forcepasswordchange" class="%taskul.user.forcepasswordchange.class%">
             <argument type="service" id="router" />
             <argument type="service" id="security.context" />
             <argument type="service" id="session" />
             <tag name="kernel.event_listener" event="kernel.request" method="onCheckStatus" priority="1" />
         </service>
+
         <service id="taskul_user.passwordchange" class="%taskul.user.passwordchangelistener.class%">
             <argument type="service" id="router" />
             <argument type="service" id="security.context" />
             <argument type="service" id="fos_user.user_manager" />
             <tag name="kernel.event_subscriber" />
+        </service>
+
+        <service id="taskul_user.profile.form.type" class="Taskul\UserBundle\Form\Type\ProfileFormType">
+            <argument>%taskul_user.model.user.class%</argument>
+            <tag name="form.type" alias="taskul_user_profile" />
+        </service>
+        <service id="taskul_user.registration.form.type" class="Taskul\UserBundle\Form\Type\RegistrationFormType">
+            <tag name="form.type" alias="taskul_user_registration" />
+            <argument>%taskul_user.model.user.class%</argument>
+        </service>
+        <service id="taskul_user.resetting.form.type" class="Taskul\UserBundle\Form\Type\ResettingFormType">
+            <tag name="form.type" alias="taskul_user_resetting" />
+            <argument>%taskul_user.model.user.class%</argument>
         </service>
     </services>
 </container>

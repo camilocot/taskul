@@ -2,7 +2,7 @@
 
 namespace Taskul\UserBundle\Entity;
 
-use FOS\UserBundle\Entity\User as BaseUser;
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Taskul\TaskBundle\Entity\Task;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -11,6 +11,7 @@ use FOS\MessageBundle\Model\ParticipantInterface;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Exclude;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity

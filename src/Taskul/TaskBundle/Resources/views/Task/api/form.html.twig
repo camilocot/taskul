@@ -23,7 +23,7 @@
                         {{ form_errors(form) }}
 
                         <fieldset>
-                            {{ form_row(form.name,{'help':'sdasdasasda', 'atrr': { 'class':'required', 'minlength':'10' } }) }}
+                            {{ form_row(form.name,{'help':'sdasdasasda', 'attr': { 'class':'required', 'minlength':'10' } }) }}
                             {{ form_row(form.status) }}
                             {{ form_row(form.percent, {'attr': {'data-slider':'true', 'data-slider-range':'1,100', 'data-slider-step':'1'}} ) }}
                             {{ form_row(form.description, {'attr':

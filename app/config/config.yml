@@ -26,7 +26,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ "FOSCommentBundle", "TaskBundle", "FileBundle", "MainBundle", "FriendBundle", "MessageBundle" ]
+    bundles:        [ "FOSCommentBundle", "TaskBundle", "FileBundle", "MainBundle", "FriendBundle", "MessageBundle", "UserBundle" ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -81,7 +81,10 @@ fos_user:
             type: taskul_user_registration
     resetting:
         form:
-             type: taskul_user_resetting
+            type: taskul_user_resetting
+    profile:
+        form:
+            type: taskul_user_profile
 
 fos_facebook:
     #file:   %kernel.root_dir%/../vendor/facebook/php-sdk/src/base_facebook.php

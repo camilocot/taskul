@@ -6,6 +6,8 @@ use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Taskul\MainBundle\Component\CheckAjaxResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+
 
 /* Listener utilizado para comprobar si una peticion es ajax o normal */
 class ViewListener
@@ -18,12 +20,15 @@ class ViewListener
 	{
 		$request = $event->getRequest();
 		$result = $event->getControllerResult();
+		$isRedirect = $result->getIsRedirect();
 
 		if ($result instanceof CheckAjaxResponse) {
 	        if ($request->isXmlHttpRequest()) {
 	            $event->setResponse(new JsonResponse($result->getAjaxData()));
-	        } else {
-	            $event->setResponse(new RedirectResponse($result->getRedirectUrl()));
+	        } else if ($isRedirect){
+	            $event->setResponse(new RedirectResponse($result->gettResponse()));
+	        }else{
+	        	$event->setResponse(new Response($result->getResponse()));
 	        }
     	}
 	}

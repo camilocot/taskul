@@ -5,21 +5,29 @@ namespace Taskul\MainBundle\Component;
 
 class CheckAjaxResponse
 {
-	protected $redirectUrl;
+	protected $response;
 	protected $ajaxData;
+	protected $isRedirect;
 
-	public function __construct($redirectUrl, $ajaxData)
+	public function __construct($response, $ajaxData, $isRedirect=TRUE)
 	{
-		$this->redirectUrl = $redirectUrl;
+		$this->isRedirect = $isRedirect;
+		$this->response = $response;
 		$this->ajaxData = $ajaxData;
+
 	}
 
-	public function getRedirectUrl() {
-	    return $this->redirectUrl;
+	public function getResponse() {
+	    return $this->response;
 	}
 
 	public function getAjaxData() {
 	    return $this->ajaxData;
+	}
+
+	public function getIsRedirect()
+	{
+		return $this->isRedirect;
 	}
 
 }
