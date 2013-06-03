@@ -1,4 +1,4 @@
-{% extends "::private.html.twig" %}
+{% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "::private.html.twig" %}
 {% block content %}
 
 <div class="row-fluid">

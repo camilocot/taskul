@@ -29,6 +29,8 @@ class ProfileController extends BaseController
     public function editAction(Request $request)
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
+        $t = $this->container->get('translator');
+
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
@@ -63,12 +65,13 @@ class ProfileController extends BaseController
 
                 if (null === $response = $event->getResponse()) {
                     $url = $this->container->get('router')->generate('fos_user_profile_show',array(),true);
+                    $response = new RedirectResponse($url);
                 }
                 $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
                 return new CheckAjaxResponse(
                             $url,
-                            array('success'=>TRUE, 'message' => 'dsadsadsadsa','url'=>$url, 'title'=>'Ver Profile')
+                            array('success'=>TRUE, 'message' => $t->trans('Profile updated successfully'),'url'=>$url, 'title'=>$t->trans('View Profile'))
                         );
             }
         }

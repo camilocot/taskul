@@ -13422,11 +13422,73 @@ function clearMenuActive(ulid)
 }
 
 $(document).ready(function(){
-	// Almacena el boton pulsado para el envio
+
+    $(document).on('click','.btn-close',function(e){
+        e.preventDefault();
+        $(this).parent().parent().parent().fadeOut();
+    });
+
+    $(document).on('click','.btn-minimize', function(e){
+        e.preventDefault();
+        var $target = $(this).parent().parent().next('.box-content');
+        if($target.is(':visible')) $('i',$(this)).removeClass('icon-chevron-up').addClass('icon-chevron-down');
+        else                       $('i',$(this)).removeClass('icon-chevron-down').addClass('icon-chevron-up');
+        $target.slideToggle();
+    });
+
+        // Almacena el boton pulsado para el envio
     $("form button[type=submit]").on('click',function() {
         $("button[type=submit]", $(this).parents("form")).removeAttr("clicked");
         $(this).attr("clicked", "true");
     });
+
+    /* ---------- Submenu  ---------- */
+
+    $(document).on('click','.dropmenu',function(e){
+
+        e.preventDefault();
+
+        $(this).parent().find('ul').slideToggle();
+        $(this).find('i').toggleClass('icon-chevron-down').toggleClass('icon-chevron-up');
+
+    });
+    //$("li.active").children().css('color','#0088cc');
+    template_functions();
+    widthFunctions();
+    /*init_masonry();
+    sparkline_charts();
+    charts();
+    calendars();
+    growlLikeNotifications();
+
+    circle_progess();*/
+
+
+});
+
+/* ---------- Numbers Sepparator ---------- */
+
+function numberWithCommas(x) {
+    x = x.toString();
+    var pattern = /(-?\d+)(\d{3})/;
+    while (pattern.test(x))
+        x = x.replace(pattern, "$1.$2");
+    return x;
+}
+
+/* ---------- Template Functions ---------- */
+
+function template_functions(){
+
+    /* ---------- Disable moving to top ---------- */
+    $('a[href="#"][data-top!=true]').click(function(e){
+        e.preventDefault();
+    });
+    /* ---------- Uniform ---------- */
+    $("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
+
+    /* ---------- Tooltip ---------- */
+    $('[rel="tooltip"],[data-rel="tooltip"]').tooltip({"placement":"bottom",delay: { show: 400, hide: 200 }});
 
     $('.boostrap-tp').tooltip({
         "trigger":"click"
@@ -13435,7 +13497,7 @@ $(document).ready(function(){
     });
 
 
-        /* ---------- Login Box Styles ---------- */
+    /* ---------- Login Box Styles ---------- */
     if($(".login-box")) {
 
         $("#username").focus(function() {
@@ -13466,66 +13528,6 @@ $(document).ready(function(){
 
     /* Desplegamos los ul del menu */
     $("li.active").parent('ul').css('display','block');
-    $("li.active").children().css('color','#0088cc');
-    template_functions();
-    /*init_masonry();
-    sparkline_charts();
-    charts();
-    calendars();
-    growlLikeNotifications();
-    widthFunctions();
-    circle_progess();*/
-
-
-});
-
-/* ---------- Numbers Sepparator ---------- */
-
-function numberWithCommas(x) {
-    x = x.toString();
-    var pattern = /(-?\d+)(\d{3})/;
-    while (pattern.test(x))
-        x = x.replace(pattern, "$1.$2");
-    return x;
-}
-
-/* ---------- Template Functions ---------- */
-
-function template_functions(){
-
-
-    /* ---------- Submenu  ---------- */
-
-    $('.dropmenu').click(function(e){
-
-        e.preventDefault();
-
-        $(this).parent().find('ul').slideToggle();
-        $(this).find('i').toggleClass('icon-chevron-down').toggleClass('icon-chevron-up');
-
-    });
-    /* ---------- Disable moving to top ---------- */
-    $('a[href="#"][data-top!=true]').click(function(e){
-        e.preventDefault();
-    });
-    /* ---------- Uniform ---------- */
-    $("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
-
-    /* ---------- Tooltip ---------- */
-    $('[rel="tooltip"],[data-rel="tooltip"]').tooltip({"placement":"bottom",delay: { show: 400, hide: 200 }});
-
-    $(document).on('click','.btn-close',function(e){
-        e.preventDefault();
-        $(this).parent().parent().parent().fadeOut();
-    });
-
-    $(document).on('click','.btn-minimize', function(e){
-        e.preventDefault();
-        var $target = $(this).parent().parent().next('.box-content');
-        if($target.is(':visible')) $('i',$(this)).removeClass('icon-chevron-up').addClass('icon-chevron-down');
-        else                       $('i',$(this)).removeClass('icon-chevron-down').addClass('icon-chevron-up');
-        $target.slideToggle();
-    });
 
 }
 /* ---------- Page width functions ---------- */
@@ -13670,56 +13672,60 @@ function widthFunctions( e ) {
 		return false;
 	}
 
-	// Ajaxify Helper
-    $.fn.ajaxify = function(){
-
-        // Prepare
-        var $this = $(this);
-        $($this).on('click','a.ajaxy',function(event){
-            // Prepare
-            var
-            $this = $(this),
-            url = $this.attr('href'),
-            title = $this.attr('title')||null;
-
-            // Continue as normal for cmd clicks etc
-            //if ( event.which == 2 || event.metaKey ) { return true; }
-
-            // Ajaxify this link
-            History.pushState(null,title,url);
-            event.preventDefault();
-            return false;
-        });
-
-        // Chain
-        return $this;
-    };
 	// Wait for Document
 	$(function(){
+        $menu = $('#menu,#nav,nav:first,.nav:first').filter(':first');
+        var
+            $window = $(window),
+            $body = $(document.body),
+            rootUrl = History.getRootUrl();
+        // Ajaxify Helper
+        $.fn.ajaxify = function(){
 
-    $window = $(window);
-    $body = $(document.body),
-    rootUrl = History.getRootUrl();
+            // Prepare
+            var $this = $(this);
+            $($this).on('click','a.ajaxy',function(event){
+                // Prepare
+                var
+                $this = $(this),
+                url = $this.attr('href'),
+                title = $this.attr('title')||null;
 
-    // Ajaxify our Internal Links
-    $body.ajaxify();
+                // Continue as normal for cmd clicks etc
+                //if ( event.which == 2 || event.metaKey ) { return true; }
 
-    $window.bind('statechange',function(){
-            // Prepare Variables
-            var
-            State = History.getState(),
-            url = State.url,
-            relativeUrl = url.replace(rootUrl,'');
-            loadPage(url);
-    });
+                // Ajaxify this link
+                History.pushState(null,title,url);
+                event.preventDefault();
+                return false;
+            });
 
+            // Chain
+            return $this;
+        };
+        // Ajaxify our Internal Links
+        $body.ajaxify();
+
+        $window.bind('statechange',function(){
+                // Prepare Variables
+                var
+                State = History.getState(),
+                url = State.url;
+                relativeUrl = url.replace(rootUrl,'');
+                loadPage(url);
+        });
+        loadAjaxModalForms();
+        loadAjaxForms();
+        showWarningNoRecords();
     }); // end onDomLoad
 
-    loadAjaxModalForms();
-    loadAjaxForms();
-    showWarningNoRecords();
-
 })(window); // end closure
+
+var $menu,
+    activeClass = 'active selected current youarehere',
+    activeSelector = '.active,.selected,.current,.youarehere',
+    menuChildrenSelector = '> li,> ul > li',
+    relativeUrl;
 
 function loadPage(url)
 {
@@ -13729,11 +13735,24 @@ function loadPage(url)
     $.ajax({
         url: url,
         success: function(data, textStatus, jqXHR){
-            $("#content").filter(':first').html(data).ajaxify().fadeIn();
+            var $menuChildren;
+
+            if(data.success == true && data.content)
+                $("#content").filter(':first').html(data.content).ajaxify().fadeIn();
+            else
+                $("#content").filter(':first').html(data).ajaxify().fadeIn();
             $("#overlay").fadeOut(500);
             loadAjaxModalForms();
             loadAjaxForms();
             showWarningNoRecords();
+            template_functions(); //main.js
+            widthFunctions(); //main.js
+
+            // Update the menu
+            $menuChildren = $menu.find(menuChildrenSelector);
+            $menuChildren.filter(activeSelector).removeClass(activeClass);
+            $menuChildren = $menuChildren.has('a[href^="'+relativeUrl+'"],a[href^="/'+relativeUrl+'"],a[href^="'+url+'"]');
+            if ( $menuChildren.length === 1 ) { $menuChildren.addClass(activeClass); }
 
         },
         error: function(jqXHR, textStatus, errorThrown){
@@ -13751,7 +13770,9 @@ function loadAjaxForms()
             submitHandler: function(form) {
                 $(form).ajaxSubmit({
                     success: function (data){
-                        if(data.success == true && data.url) {
+                        if(data.success == true && data.url && data.forceredirect) {
+                            window.location.replace(data.url);
+                        }else if(data.success == true && data.url) {
                             loadPage(data.url);
                             History.pushState(null,data.title,data.url);
                         }else if (data.success == true && data.content){

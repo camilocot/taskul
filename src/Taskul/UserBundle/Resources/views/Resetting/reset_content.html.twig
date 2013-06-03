@@ -1,57 +1,21 @@
-{% extends "UserBundle::layout.html.twig" %}
-{% block stylesheets %}
-<style type="text/css">
-body { background: url(/img/bg-login.jpg) !important; }
-</style>
-{% endblock %}
-
-{% block fos_user_content %}
+{% form_theme form 'MainBundle:Form:fields.html.twig' %}
 <div class="row-fluid">
+    <div class="login-box">
+        <div class="icons">
+            <a href="{{ path('homepage') }}"><i class="icon-home"></i></a>
+        </div>
+        <h2>{% trans %}Reset your password{% endtrans %}</h2>
 
-    <div class="row-fluid">
-        <div class="login-box">
-            <div class="icons">
-                <a href="{{ path('homepage') }}"><i class="icon-home"></i></a>
+		<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset" id="reset-pw-form">
+        <fieldset>
+            {% include "UserBundle:partials:password.html.twig" with {'form_name' : 'fos_user_resetting_form'} %}
+            {{ form_errors(form.plainPassword.password)}}
+            {{ form_widget(form._token) }}
+            <div class="clearfix"></div>
+            <div class="button-login">
+             <button type="submit" class="btn btn-primary" name="_submit" ><i class="icon-off icon-white"></i> {{ 'resetting.reset.submit'|trans({}, 'FOSUserBundle') }}</button>
             </div>
-            <h2>Reset your password</h2>
-
-			<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset" id="reset-pw-form">
-            <fieldset>
-                <div class="control-group">
-                <div class="input-prepend" title="Password">
-                    <span class="add-on"><i class="icon-lock"></i></span>
-                    {{ form_widget(form.plainPassword.password, {'attr': {'class':'input-large span10','placeholder':'type password'}  } )}}
-                </div>
-                <div class="clearfix"></div>
-                <div class="input-prepend" title="Retype Password">
-                    <span class="add-on"><i class="icon-lock"></i></span>
-                    {{ form_widget(form.plainPassword.password_confirmation, {'attr': {'class':'input-large span10','placeholder':'retype password'}  } )}}
-
-                </div>
-                {{ form_errors(form)}}
-                </div>
-                <div class="clearfix"></div>
-                <div class="button-login">
-                 <button type="submit" class="btn btn-primary" name="_submit" ><i class="icon-off icon-white"></i> {{ 'resetting.reset.submit'|trans({}, 'FOSUserBundle') }}</button>
-                </div>
-                {{ form_rest(form) }}
-            </fieldset>
-            </form>
-        </div><!--/span-->
+        </fieldset>
+        </form>
     </div><!--/row-->
-
 </div><!--/fluid-row-->
-
-{% endblock %}
-{% block javascripts %}
-<script type="text/javascript">
-        // wait for the DOM to be loaded
-        $(document).ready(function() {
-            // bind 'myForm' and provide a simple callback function
-            $('#reset-pw-form').ajaxForm(function(e) {
-                status = ( e.success ) ? 'success' : 'error';
-                noty({text: e.message, type: status, layout: 'top'});
-            });
-        });
-</script>
-{% endblock %}

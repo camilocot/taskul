@@ -1,63 +1,31 @@
-{% extends "UserBundle::layout.html.twig" %}
-{% block stylesheets %}
-<style type="text/css">
-body { background: url(/img/bg-login.jpg) !important; }
-</style>
-{% endblock %}
-
-{% block fos_user_content %}
-
 <div class="row-fluid">
+    <div class="login-box">
+        <div class="icons">
+            <a href="{{ path('homepage') }}"><i class="icon-home"></i></a>
+        </div>
+        <h2>{% trans %}Request your password{% endtrans %}</h2>
+        <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="ajaxform" id="form_request-password">
 
-    <div class="row-fluid">
-        <div class="login-box">
-            <div class="icons">
-                <a href="{{ path('homepage') }}"><i class="icon-home"></i></a>
-            </div>
-
-
-            <h2>Reset your password</h2>
-            <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request" id="reset-pw-form">
-
-                <fieldset>
-                    <div class="control-group  {% if invalid_username is defined %} error {% endif %}">
-                        <div class="input-prepend" title="Username">
-                            <span class="add-on"><i class="icon-user"></i></span>
-                            <input class="input-large span10" name="username" id="username"  name="_username" value="" type="text" placeholder="{{ 'resetting.request.username'|trans({}, 'FOSUserBundle') }}"/>
-                        </div>
-                        {% if invalid_username is defined %}
-                        <div class="help-inline" ><p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle') }}</p></div>
-                        {% endif %}
+            <fieldset>
+                <div class="control-group  {% if invalid_username is defined %} error {% endif %}">
+                    <div class="input-prepend" title="Username">
+                        <span class="add-on"><i class="icon-user"></i></span>
+                        <input class="input-large span10 email required" name="username" id="username"  name="_username" value="" type="text" placeholder="{% trans %}Enter your email to contact{% endtrans %}"/>
                     </div>
-                    <div class="clearfix"></div>
+                    {% if invalid_username is defined %}
+                    <label class="error" for="username">{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle') }}</label>
+                    {% endif %}
+                </div>
+                <div class="clearfix"></div>
 
-                    <div class="button-login">
-                        <button type="submit" class="btn btn-primary" name="_submit" ><i class="icon-off icon-white"></i> {{ 'resetting.request.submit'|trans({}, 'FOSUserBundle') }}</button>
-                    </div>
-                    <div class="clearfix"></div>
-                </fieldset>
-            </form>
-            <hr>
-            {% include "UserBundle:Helper:facebook_button.html.twig" %}
-            <hr>
-            <h3>Register</h3>
-            <p>
-                No problem, <a href="{{ path("fos_user_registration_register") }}">click here</a>.
-            </p>
-        </div><!--/span-->
-    </div><!--/row-->
-
+                <div class="button-login">
+                    <button type="submit" class="btn btn-primary" name="_submit" ><i class="icon-off icon-white"></i> {{ 'resetting.request.submit'|trans({}, 'FOSUserBundle') }}</button>
+                </div>
+                <div class="clearfix"></div>
+            </fieldset>
+        </form>
+        <hr>
+        {% include "UserBundle:Helper:facebook_button.html.twig" %}
+        {% include "UserBundle:partials:new_account.html.twig" %}
+    </div><!--/login-box-->
 </div><!--/fluid-row-->
-{% endblock %}
-{% block javascripts %}
-<script type="text/javascript">
-        // wait for the DOM to be loaded
-        $(document).ready(function() {
-            // bind 'myForm' and provide a simple callback function
-            $('#reset-pw-form').ajaxForm(function(e) {
-                status = ( e.success ) ? 'success' : 'error';
-                noty({text: e.message, type: status, layout: 'top'});
-            });
-        });
-</script>
-{% endblock %}

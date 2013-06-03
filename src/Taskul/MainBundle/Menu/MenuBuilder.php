@@ -101,13 +101,16 @@ class MenuBuilder
         return $menu;
     }
 
-        public function createPublicMenu(Request $request)
+    public function createPublicMenu(Request $request)
     {
         $menu = $this->factory->createItem('public');
         $menu->setChildrenAttribute('class','nav');
         $menu->addChild('Home',array('route'=>'homepage'));
+        $menu['Home']->setLinkAttribute('class', 'ajaxy');
         $menu->addChild('Login',array('route'=>'fos_user_security_login'));
+        $menu['Login']->setLinkAttribute('class', 'ajaxy');
         $menu->addChild('Register',array('route'=>'fos_user_registration_register'));
+        $menu['Register']->setLinkAttribute('class', 'ajaxy');
         return $menu;
     }
 

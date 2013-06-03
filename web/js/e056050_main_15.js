@@ -59,11 +59,73 @@ function clearMenuActive(ulid)
 }
 
 $(document).ready(function(){
-	// Almacena el boton pulsado para el envio
+
+    $(document).on('click','.btn-close',function(e){
+        e.preventDefault();
+        $(this).parent().parent().parent().fadeOut();
+    });
+
+    $(document).on('click','.btn-minimize', function(e){
+        e.preventDefault();
+        var $target = $(this).parent().parent().next('.box-content');
+        if($target.is(':visible')) $('i',$(this)).removeClass('icon-chevron-up').addClass('icon-chevron-down');
+        else                       $('i',$(this)).removeClass('icon-chevron-down').addClass('icon-chevron-up');
+        $target.slideToggle();
+    });
+
+        // Almacena el boton pulsado para el envio
     $("form button[type=submit]").on('click',function() {
         $("button[type=submit]", $(this).parents("form")).removeAttr("clicked");
         $(this).attr("clicked", "true");
     });
+
+    /* ---------- Submenu  ---------- */
+
+    $(document).on('click','.dropmenu',function(e){
+
+        e.preventDefault();
+
+        $(this).parent().find('ul').slideToggle();
+        $(this).find('i').toggleClass('icon-chevron-down').toggleClass('icon-chevron-up');
+
+    });
+    //$("li.active").children().css('color','#0088cc');
+    template_functions();
+    widthFunctions();
+    /*init_masonry();
+    sparkline_charts();
+    charts();
+    calendars();
+    growlLikeNotifications();
+
+    circle_progess();*/
+
+
+});
+
+/* ---------- Numbers Sepparator ---------- */
+
+function numberWithCommas(x) {
+    x = x.toString();
+    var pattern = /(-?\d+)(\d{3})/;
+    while (pattern.test(x))
+        x = x.replace(pattern, "$1.$2");
+    return x;
+}
+
+/* ---------- Template Functions ---------- */
+
+function template_functions(){
+
+    /* ---------- Disable moving to top ---------- */
+    $('a[href="#"][data-top!=true]').click(function(e){
+        e.preventDefault();
+    });
+    /* ---------- Uniform ---------- */
+    $("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
+
+    /* ---------- Tooltip ---------- */
+    $('[rel="tooltip"],[data-rel="tooltip"]').tooltip({"placement":"bottom",delay: { show: 400, hide: 200 }});
 
     $('.boostrap-tp').tooltip({
         "trigger":"click"
@@ -72,7 +134,7 @@ $(document).ready(function(){
     });
 
 
-        /* ---------- Login Box Styles ---------- */
+    /* ---------- Login Box Styles ---------- */
     if($(".login-box")) {
 
         $("#username").focus(function() {
@@ -103,66 +165,6 @@ $(document).ready(function(){
 
     /* Desplegamos los ul del menu */
     $("li.active").parent('ul').css('display','block');
-    $("li.active").children().css('color','#0088cc');
-    template_functions();
-    /*init_masonry();
-    sparkline_charts();
-    charts();
-    calendars();
-    growlLikeNotifications();
-    widthFunctions();
-    circle_progess();*/
-
-
-});
-
-/* ---------- Numbers Sepparator ---------- */
-
-function numberWithCommas(x) {
-    x = x.toString();
-    var pattern = /(-?\d+)(\d{3})/;
-    while (pattern.test(x))
-        x = x.replace(pattern, "$1.$2");
-    return x;
-}
-
-/* ---------- Template Functions ---------- */
-
-function template_functions(){
-
-
-    /* ---------- Submenu  ---------- */
-
-    $('.dropmenu').click(function(e){
-
-        e.preventDefault();
-
-        $(this).parent().find('ul').slideToggle();
-        $(this).find('i').toggleClass('icon-chevron-down').toggleClass('icon-chevron-up');
-
-    });
-    /* ---------- Disable moving to top ---------- */
-    $('a[href="#"][data-top!=true]').click(function(e){
-        e.preventDefault();
-    });
-    /* ---------- Uniform ---------- */
-    $("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
-
-    /* ---------- Tooltip ---------- */
-    $('[rel="tooltip"],[data-rel="tooltip"]').tooltip({"placement":"bottom",delay: { show: 400, hide: 200 }});
-
-    $(document).on('click','.btn-close',function(e){
-        e.preventDefault();
-        $(this).parent().parent().parent().fadeOut();
-    });
-
-    $(document).on('click','.btn-minimize', function(e){
-        e.preventDefault();
-        var $target = $(this).parent().parent().next('.box-content');
-        if($target.is(':visible')) $('i',$(this)).removeClass('icon-chevron-up').addClass('icon-chevron-down');
-        else                       $('i',$(this)).removeClass('icon-chevron-down').addClass('icon-chevron-up');
-        $target.slideToggle();
-    });
 
 }
 /* ---------- Page width functions ---------- */

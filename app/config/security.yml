@@ -70,6 +70,7 @@ security:
         - { path: ^/friend/, role: ROLE_USER }
         - { path: ^/api/, role: ROLE_USER }
         - { path: ^/msg/, role: ROLE_USER }
+        - { path: ^/dashboard, role: ROLE_USER }
         #- { path: ^/_internal/secure, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
 
 

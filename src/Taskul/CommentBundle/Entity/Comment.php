@@ -34,7 +34,7 @@ class Comment extends BaseComment implements SignedCommentInterface, VotableComm
     /**
      * Author of the comment
      *
-     * @ORM\ManyToOne(targetEntity="Taskul\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Taskul\UserBundle\Entity\User", cascade={"remove"})
      * @var User
      */
     protected $author;

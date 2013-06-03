@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Password created correctly</source>
+                <target>Contraseña creada correctamente</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>View Profile</source>
+                <target>Ver el perfil</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Password changed correctly</source>
+                <target>Contraseña cambiada correctamente</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Profile updated successfully</source>
+                <target>Perfil actualizado correctamente</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Enter your email to contact</source>
+                <target>Introduce tu email de contacto</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Request your password</source>
+                <target>Recupera tu contraseña</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Sign in with Facebook</source>
+                <target>Accede con Facebook</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Want a New Account ?</source>
+                <target>¿ Quieres una cuenta ?</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>No problem</source>
+                <target>Sin problema</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>click here</source>
+                <target>haz click aquí</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Email confirmation sent</source>
+                <target>Email de confirmación enviado</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Reset your password</source>
+                <target>Introduce tu nueva contraseña</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Type password</source>
+                <target>Introduce tu nueva contraseña</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>Retype password</source>
+                <target>Vuelve a introducir tu contraseña</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>to get a new password</source>
+                <target>para obtener una nueva contraseña</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>Forgot Password?</source>
+                <target>¿ Ha olvidado su contraseña ?</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>Login</source>
+                <target>Acceder</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>Forgot Password?</source>
+                <target>¿ Ha olvidado su contraseña ?</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>Create your account</source>
+                <target>Crea tu cuenta de TasKul.net</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>Type email</source>
+                <target>Introduce tu email</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>Password updated successfullyl</source>
+                <target>Contraseña actualizada correctamente</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

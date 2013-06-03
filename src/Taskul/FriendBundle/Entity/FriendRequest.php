@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity(repositoryClass="Taskul\FriendBundle\Entity\Repository\FriendRequestRepository")
  * @ORM\HasLifecycleCallbacks()
+ * @ORM\Table(name="friend_request")
  */
 class FriendRequest {
 

@@ -3,13 +3,7 @@
 {% if not  app.request.isXmlHttpRequest %}
 <div id="content">
 {% endif %}
-{% block fos_user_content %}
-<div class="row-fluid">
-<div class="login-box">
-<label class="error">{{ 'resetting.password_already_requested'|trans({}, 'FOSUserBundle') }}</label>
-</div>
-</div>
-{% endblock fos_user_content %}
+{% include "UserBundle:Registration:register_content.html.twig" %}
 {% if not  app.request.isXmlHttpRequest %}
 </div>
 {% endif %}

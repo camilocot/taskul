@@ -1,3 +1,10 @@
-{% block fos_user_content %}
+{% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "UserBundle::layout.html.twig" %}
+{% block content %}
+{% if not  app.request.isXmlHttpRequest %}
+<div id="content">
+{% endif %}
 {% include "UserBundle:Resetting:request_content.html.twig" %}
-{% endblock fos_user_content %}
+{% if not  app.request.isXmlHttpRequest %}
+</div>
+{% endif %}
+{% endblock %}

@@ -1,1 +1,1 @@
-{% extends "::public.html.twig" %}
+{% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "::public.html.twig" %}

@@ -11,6 +11,7 @@ use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
+use Taskul\MainBundle\Component\CheckAjaxResponse;
 
 /**
  * @todo : hay que crear los mensajes de idiomas
@@ -18,37 +19,26 @@ use FOS\UserBundle\Event\FilterUserResponseEvent;
 
 class ResettingController extends BaseController
 {
+    const NO_USER = 1;
+    const TTL_EXPIRED = 2;
+    const RESET = 3;
+
     /**
      * Request reset user password: submit form and send email
      */
     public function sendEmailAction(Request $request)
     {
         $username = $request->request->get('username');
+        $t = $this->container->get('translator');
 
         /** @var $user UserInterface */
         $user = $this->container->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
 
         if (null === $user) {
-            if ($request->isXmlHttpRequest()) {
-                $result = array('success' => false, 'message' => 'invalid_username');
-                $response = new Response(json_encode($result));
-                $response->headers->set('Content-Type', 'application/json');
-                return $response;
-            } else {
-                return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:request.html.'.$this->getEngine(), array('invalid_username' => $username));
-            }
+             return $this->returnAjaxResponse(self::NO_USER, array('invalid_username' => $username));
         }
-
         if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
-            if ($request->isXmlHttpRequest()) {
-                $result = array('success' => false,'message' => 'passwordAlreadyRequested');
-                $response = new Response(json_encode($result));
-                $response->headers->set('Content-Type', 'application/json');
-                return $response;
-            } else {
-
-                return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:passwordAlreadyRequested.html.'.$this->getEngine());
-            }
+            return $this->returnAjaxResponse(self::TTL_EXPIRED);
         }
 
         if (null === $user->getConfirmationToken()) {
@@ -62,15 +52,30 @@ class ResettingController extends BaseController
         $user->setPasswordRequestedAt(new \DateTime());
         $this->container->get('fos_user.user_manager')->updateUser($user);
 
-        if ($request->isXmlHttpRequest()) {
-            $result = array('success' => true,'message' => 'fos_user_resetting_check_email');
-            $response = new Response(json_encode($result));
-            $response->headers->set('Content-Type', 'application/json');
-            return $response;
-        } else {
+        $url = $this->container->get('router')->generate('fos_user_resetting_check_email');
+        return new CheckAjaxResponse(
+                        $url,
+                        array('success'=>TRUE, 'url' => $url, 'title'=>$t->trans('Email confirmation sent'))
+                    );
+    }
 
-            return new RedirectResponse($this->container->get('router')->generate('fos_user_resetting_check_email'));
+    /**
+     * Tell the user to check his email provider
+     */
+    public function checkEmailAction()
+    {
+        $session = $this->container->get('session');
+        $email = $session->get(static::SESSION_EMAIL);
+        $session->remove(static::SESSION_EMAIL);
+
+        if (empty($email)) {
+            // the user does not come from the sendEmail action
+            return new RedirectResponse($this->container->get('router')->generate('fos_user_resetting_request'));
         }
+
+        return $this->container->get('templating')->renderResponse('UserBundle:Resetting:checkEmail.html.'.$this->getEngine(), array(
+            'email' => $email,
+        ));
     }
 
     /**
@@ -116,28 +121,40 @@ class ResettingController extends BaseController
                 }
 
                 $dispatcher->dispatch(FOSUserEvents::RESETTING_RESET_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-                if ($request->isXmlHttpRequest()) {
-                  $result = array('success' => true,'message' => 'fos_user_resetting_success');
-                  $response = new Response(json_encode($result));
-                  $response->headers->set('Content-Type', 'application/json');
-                   return $response;
-                 } else {
 
-                     return $response;
-                  }
-        }else{
-           if ($request->isXmlHttpRequest()) {
-             $result = array('success' => false,'message' => 'for_user_not_valid_password');
-             $response = new Response(json_encode($result));
-             $response->headers->set('Content-Type', 'application/json');
-             return $response;
-         }
-     }
- }
+                return new CheckAjaxResponse($url,
+                            array(
+                                'success'=>TRUE,
+                                'message' => $t->trans('Password updated successfully'),
+                                'url'=>$url,
+                                'title'=>$t->trans('View Profile')
+                                ));
+            }
+        }
 
- return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:reset.html.'.$this->getEngine(), array(
-    'token' => $token,
-    'form' => $form->createView(),
-    ));
-}
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:reset.html.'.$this->getEngine(), array(
+            'token' => $token,
+            'form' => $form->createView(),
+        ));
+    }
+
+    private function returnAjaxResponse ($type,$attributes = array())
+    {
+        $content = '';
+
+        switch ($type)
+        {
+            case self::NO_USER:
+                $content = $this->container->get('templating')->render('UserBundle:Resetting:request.html.'.$this->getEngine(), $attributes );
+                break;
+            case self::TTL_EXPIRED:
+                $content = $this->container->get('templating')->render('UserBundle:Resetting:passwordAlreadyRequested.html.'.$this->getEngine());
+                break;
+        }
+        return new CheckAjaxResponse(
+            $content,
+            array('success'=>TRUE, 'content' => $content),
+            FALSE
+        );
+    }
 }

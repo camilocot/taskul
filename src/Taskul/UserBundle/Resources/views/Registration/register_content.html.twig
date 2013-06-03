@@ -1,85 +1,36 @@
-{% extends "UserBundle::layout.html.twig" %}
-{% form_theme form _self %}
-{% block form_errors %}
-{% spaceless %}
-    {% if errors|length > 0 %}
-    <div class="help-inline error"><p>
-        {% for error in errors %}
-            {{
-                error.messagePluralization is null
-                    ? error.messageTemplate|trans(error.messageParameters, 'validators')
-                    : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
-            }}<br>
-        {% endfor %}
-</p></div>
-    {% endif %}
-{% endspaceless %}
-{% endblock form_errors %}
-
-
-{% block stylesheets %}
-<style type="text/css">
-body { background: url(/img/bg-login.jpg) !important; }
-</style>
-{% endblock %}
-
-{% block fos_user_content %}
+{% form_theme form 'MainBundle:Form:fields.html.twig' %}
 <div class="row-fluid">
-
     <div class="row-fluid">
         <div class="login-box">
             <div class="icons">
                 <a href="{{ path('homepage') }}"><i class="icon-home"></i></a>
             </div>
-            <h2>Create your account</h2>
+            <h2>{% trans %}Create your account{% endtrans %}</h2>
 
-            <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+            <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="validate ajaxform">
             <fieldset>
                 <div class="control-group {% if form_errors(form.email) %} error {% endif %}">
                 <div class="input-prepend" title="Email">
                     <span class="add-on"><i class="icon-user"></i></span>
-                    {{ form_widget(form.email, {'attr': {'class':'input-large span10','placeholder':'type username'}  } )}}
-
+                    <input type="email" id="fos_user_registration_form_email" name="fos_user_registration_form[email]" required="required" class="input-large span10 email required" placeholder="{% trans %}Type email{% endtrans %}" {% if user.email %} value="{{ user.email }}" {% endif %}>
                 </div>
                 {{ form_errors(form.email)}}
                 </div>
                 <div class="clearfix"></div>
-                <div class="control-group">
-                <div class="input-prepend" title="Password">
-                    <span class="add-on"><i class="icon-lock"></i></span>
-                    {{ form_widget(form.plainPassword.password, {'attr': {'class':'input-large span10','placeholder':'type password'}  } )}}
-                </div>
-                <div class="clearfix"></div>
-                <div class="input-prepend" title="Retype Password">
-                    <span class="add-on"><i class="icon-lock"></i></span>
-                    {{ form_widget(form.plainPassword.password_confirmation, {'attr': {'class':'input-large span10','placeholder':'retype password'}  } )}}
-
-                </div>
-                {{ form_errors(form.plainPassword)}}
-                </div>
+                {% include "UserBundle:partials:password.html.twig" with {'form_name' : 'fos_user_registration_form'} %}
+                {{ form_errors(form.plainPassword.password)}}
                 <div class="clearfix"></div>
                 <div class="button-login">
                         <button type="submit" class="btn btn-primary" name="_submit" ><i class="icon-off icon-white"></i> {{ 'registration.submit'|trans({}, 'FOSUserBundle') }}</button>
                     </div>
-                {{ form_rest(form) }}
+               {{ form_widget(form._token) }}
             </fieldset>
             </form>
              <hr>
             {% include "UserBundle:Helper:facebook_button.html.twig" %}
-
-            <hr>
-            <h3>Forgot Password?</h3>
-            <p>
-                No problem, <a href="{{ path("fos_user_resetting_request") }}">click here</a> to get a new password.
-            </p>
-            <hr>
-            <h3>Login</h3>
-            <p>
-                No problem, <a href="{{ path("fos_user_security_login") }}">click here</a>.
-            </p>
+            {% include "UserBundle:partials:forgot_password.html.twig" %}
+            {% include "UserBundle:partials:login.html.twig" %}
         </div><!--/span-->
     </div><!--/row-->
 
 </div><!--/fluid-row-->
-
-{% endblock %}

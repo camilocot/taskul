@@ -142,10 +142,10 @@
 					}
 
 					// Update the menu
-					// $menuChildren = $menu.find(menuChildrenSelector);
-					// $menuChildren.filter(activeSelector).removeClass(activeClass);
-					// $menuChildren = $menuChildren.has('a[href^="'+relativeUrl+'"],a[href^="/'+relativeUrl+'"],a[href^="'+url+'"]');
-					// if ( $menuChildren.length === 1 ) { $menuChildren.addClass(activeClass); }
+					$menuChildren = $menu.find(menuChildrenSelector);
+					$menuChildren.filter(activeSelector).removeClass(activeClass);
+					$menuChildren = $menuChildren.has('a[href^="'+relativeUrl+'"],a[href^="/'+relativeUrl+'"],a[href^="'+url+'"]');
+					if ( $menuChildren.length === 1 ) { $menuChildren.addClass(activeClass); }
 
 					// Update the content
 					$content.stop(true,true);
