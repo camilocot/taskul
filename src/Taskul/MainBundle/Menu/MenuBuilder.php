@@ -107,10 +107,13 @@ class MenuBuilder
         $menu->setChildrenAttribute('class','nav');
         $menu->addChild('Home',array('route'=>'homepage'));
         $menu['Home']->setLinkAttribute('class', 'ajaxy');
+        $menu['Home']->setLinkAttribute('title', 'Home');
         $menu->addChild('Login',array('route'=>'fos_user_security_login'));
         $menu['Login']->setLinkAttribute('class', 'ajaxy');
+        $menu['Login']->setLinkAttribute('title', 'Login');
         $menu->addChild('Register',array('route'=>'fos_user_registration_register'));
         $menu['Register']->setLinkAttribute('class', 'ajaxy');
+        $menu['Register']->setLinkAttribute('title', 'Register');
         return $menu;
     }
 

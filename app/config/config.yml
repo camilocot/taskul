@@ -72,8 +72,8 @@ fos_user:
     firewall_name: public
     user_class: Taskul\UserBundle\Entity\User
     from_email:
-        address: me@example.com
-        sender_name: Example
+        address: camilocot@gmail.com
+        sender_name: Taskul.net
     registration:
         confirmation:
             enabled: false
@@ -185,3 +185,4 @@ spy_timeline:
             - 'TimelineBundle:Timeline:components.html.twig'
         #i18n: #Do you want to use i18n when rendering ? if not, remove this not.
             #fallback: en
+ornicar_gravatar: ~

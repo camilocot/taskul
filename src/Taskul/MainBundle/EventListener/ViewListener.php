@@ -20,13 +20,13 @@ class ViewListener
 	{
 		$request = $event->getRequest();
 		$result = $event->getControllerResult();
-		$isRedirect = $result->getIsRedirect();
 
 		if ($result instanceof CheckAjaxResponse) {
+			$isRedirect = $result->getIsRedirect();
 	        if ($request->isXmlHttpRequest()) {
 	            $event->setResponse(new JsonResponse($result->getAjaxData()));
 	        } else if ($isRedirect){
-	            $event->setResponse(new RedirectResponse($result->gettResponse()));
+	            $event->setResponse(new RedirectResponse($result->getResponse()));
 	        }else{
 	        	$event->setResponse(new Response($result->getResponse()));
 	        }

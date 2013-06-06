@@ -66,19 +66,19 @@ a.fb-button {
 }
 
 
-    label.valid {
+  label.valid {
     width: 24px;
     height: 24px;
     background: url(assets/img/valid.png) center center no-repeat;
     display: inline-block;
     text-indent: -9999px;
-    }
-    label.error {
+  }
+  label.error {
     font-weight: bold;
     color: red;
-    padding: 2px 8px;
+    padding: 2px 0px;
     margin-top: 2px;
-    }
+  }
 
       /*this is what we want the div to look like
     when it IS showing*/
@@ -87,4 +87,13 @@ a.fb-button {
     filter: alpha(opacity=75); /* internet explorer */
     -khtml-opacity: 0.75;      /* khtml, old safari */
     -moz-opacity: 0.75;       /* mozilla, netscape */
+  }
+  .avatar img {
+    height: 36px;
+    width: 36px;
+    padding: 1px;
+    float: left;
+    margin-top: 1px;
+    margin-right: 10px;
+    border: 1px solid #EBEBEB;
   }

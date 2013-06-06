@@ -3,7 +3,7 @@
 <div class="row-fluid sortable">
 	<div class="box span12">
 		<div class="box-header" data-original-title>
-			<h2><i class="icon-user"></i><span class="break"></span>Edit Profile</h2>
+			<h2><i class="icon-user"></i><span class="break"></span>{{ 'profile.edit'|trans({},'UserBundle') }}</h2>
 			<div class="box-icon">
 			<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
 			</div>
@@ -11,18 +11,19 @@
 		<div class="box-content">
 			<form class="form-horizontal validate ajaxform" action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" id="form_profile">
 				<fieldset>
-                        {{ form_errors(form) }}
-
                         <fieldset>
-                            {{ form_row(form.firstname,{'help':'sdasdasasda', 'attr': { 'class':'required dadsasda', 'minlength':'10' } }) }}
-                            {{ form_row(form.lastname,{'help':'sdasdasasda', 'attr': { 'class':'required', 'minlength':'10' } }) }}
-                            {{ form_row(form.email,{'help':'sdasdasasda', 'attr': { 'class':'required', 'minlength':'10' } }) }}
-
+                            {{ form_row(form.firstname,{'attr': { 'class':'required dadsasda', 'minlength':'5' } }) }}
+                            {{ form_row(form.lastname,{'attr': { 'class':'required', 'minlength':'5' } }) }}
+                            {{ form_row(form.email,{'help':'form.help.email'|trans({},'UserBundle'), 'attr': { 'class':'required', 'minlength':'5' } }) }}
+                            {{ form_row(form.current_password,{'help':'form.help.current_password'|trans({},'UserBundle'), 'attr': { 'class':'required', 'minlength':'10' } }) }}
                             {{ form_rest(form) }}
                         </fieldset>
 				</fieldset>
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary">{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}</button>
+					<a class="btn btn-cancel ajaxy" href="{{ path('fos_user_profile_show') }}" title="{{ 'profile.view'|trans({},'UserBundle') }}">
+                       <i class="fa-icon-undo"></i>&nbsp;{{ 'profile.back'|trans({},'UserBundle') }}
+                    </a>
 				</div>
 			</form>
 		</div>

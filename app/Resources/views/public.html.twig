@@ -31,10 +31,14 @@ body {
 </div>
 {% block content%}
 <div class="container">
-
+{% if not  app.request.isXmlHttpRequest %}
+<div id="content">
+{% endif %}
 	<h1>Bootstrap starter template</h1>
 	<p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
-
+{% if not  app.request.isXmlHttpRequest %}
+</div>
+{% endif %}
 </div> <!-- /container -->
-{% endblock %}
-{% endblock %}
+{% endblock content %}
+{% endblock body %}

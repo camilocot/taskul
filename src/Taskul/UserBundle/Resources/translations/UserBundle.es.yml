@@ -1,0 +1,21 @@
+user:
+    logout: "Desconectarse"
+    created: "Fecha de alta"
+    last_login: "Último acceso"
+    password: "Contraseña"
+    profile: "Perfil"
+
+profile:
+    edit: "Modificar perfil"
+    change_password: "Cambiar contraseña"
+    show_email: "Email"
+    complete_name: "Nombre completo"
+    view: "Ver perfil"
+    back: "Volver al perfil"
+form:
+    firstname: Nombre
+    lastname: Apellidos
+    email: Email
+    help:
+        email: 'Introduce tu email, este será tu nombre de usuario para acceder a Taskul'
+        current_password: 'Introduce tu contraseña, para validar tus datos'

@@ -22,6 +22,16 @@ class ResettingController extends BaseController
     const NO_USER = 1;
     const TTL_EXPIRED = 2;
     const RESET = 3;
+    const CHECK_EMAIL = 4;
+    const REQUEST = 5;
+
+    /**
+     * Request reset user password: show form
+     */
+    public function requestAction()
+    {
+        return $this->returnAjaxResponse(self::REQUEST);
+    }
 
     /**
      * Request reset user password: submit form and send email
@@ -52,7 +62,7 @@ class ResettingController extends BaseController
         $user->setPasswordRequestedAt(new \DateTime());
         $this->container->get('fos_user.user_manager')->updateUser($user);
 
-        $url = $this->container->get('router')->generate('fos_user_resetting_check_email');
+        $url = $this->container->get('router')->generate('fos_user_resetting_check_email',array(),TRUE);
         return new CheckAjaxResponse(
                         $url,
                         array('success'=>TRUE, 'url' => $url, 'title'=>$t->trans('Email confirmation sent'))
@@ -67,13 +77,18 @@ class ResettingController extends BaseController
         $session = $this->container->get('session');
         $email = $session->get(static::SESSION_EMAIL);
         $session->remove(static::SESSION_EMAIL);
+        $t = $this->container->get('translator');
 
         if (empty($email)) {
             // the user does not come from the sendEmail action
-            return new RedirectResponse($this->container->get('router')->generate('fos_user_resetting_request'));
+            $url = $this->container->get('router')->generate('fos_user_resetting_request',array(),TRUE);
+            return new CheckAjaxResponse(
+                        $url,
+                        array('success'=>TRUE, 'url' => $url, 'title'=>$t->trans('Email confirmation sent'))
+                    );
         }
 
-        return $this->container->get('templating')->renderResponse('UserBundle:Resetting:checkEmail.html.'.$this->getEngine(), array(
+        return $this->returnAjaxResponse(self::CHECK_EMAIL, array(
             'email' => $email,
         ));
     }
@@ -89,7 +104,7 @@ class ResettingController extends BaseController
         $userManager = $this->container->get('fos_user.user_manager');
         /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
         $dispatcher = $this->container->get('event_dispatcher');
-
+        $t = $this->container->get('translator');
         $user = $userManager->findUserByConfirmationToken($token);
 
         if (null === $user) {
@@ -131,8 +146,7 @@ class ResettingController extends BaseController
                                 ));
             }
         }
-
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:reset.html.'.$this->getEngine(), array(
+        return $this->returnAjaxResponse(self::RESET, array(
             'token' => $token,
             'form' => $form->createView(),
         ));
@@ -149,6 +163,15 @@ class ResettingController extends BaseController
                 break;
             case self::TTL_EXPIRED:
                 $content = $this->container->get('templating')->render('UserBundle:Resetting:passwordAlreadyRequested.html.'.$this->getEngine());
+                break;
+            case self::RESET:
+                $content = $this->container->get('templating')->render('FOSUserBundle:Resetting:reset.html.'.$this->getEngine(), $attributes);
+                break;
+            case self::CHECK_EMAIL:
+                $content = $this->container->get('templating')->render('UserBundle:Resetting:checkEmail.html.'.$this->getEngine(), $attributes);
+                break;
+            case self::REQUEST:
+                $content = $this->container->get('templating')->render('UserBundle:Resetting:request.html.'.$this->getEngine());
                 break;
         }
         return new CheckAjaxResponse(

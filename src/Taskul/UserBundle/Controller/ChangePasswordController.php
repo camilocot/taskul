@@ -4,6 +4,7 @@ namespace Taskul\UserBundle\Controller;
 
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Controller\ChangePasswordController as BaseController;
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
 use Taskul\UserBundle\Form\Type\ChangePasswordWithoutVerificationFormType;
@@ -76,6 +77,7 @@ class ChangePasswordController extends BaseController
      */
     public function changePasswordAction(Request $request)
     {
+        $t = $this->container->get('translator');
         $user = $this->container->get('security.context')->getToken()->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');

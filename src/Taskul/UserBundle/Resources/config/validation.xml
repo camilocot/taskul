@@ -19,7 +19,6 @@
             <constraint name="Taskul\UserBundle\Validator\Constraints\ContainsAlphaAndNumeric" >
              	<option name="groups">
                     <value>Registration</value>
-                    <value>Profile</value>
                     <value>ResetPassword</value>
                     <value>ChangePassword</value>
                 </option>

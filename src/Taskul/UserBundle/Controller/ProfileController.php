@@ -17,19 +17,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-/**
- * @Breadcrumb("Dashboard", route="dashboard")
- */
 class ProfileController extends BaseController
 {
 
-    /**
-     * @Breadcrumb("Change Profile")
-     */
     public function editAction(Request $request)
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
         $t = $this->container->get('translator');
+        $this->container->get("apy_breadcrumb_trail")
+            ->add('Dashboard', 'dashboard')
+            ->add($t->trans('profile.edit',array(),'UserBundle'), 'fos_user_profile_show');
 
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
@@ -86,5 +83,14 @@ class ProfileController extends BaseController
                     FALSE
                 );
 
+    }
+
+    public function showAction()
+    {
+        $t = $this->container->get('translator');
+        $this->container->get("apy_breadcrumb_trail")
+            ->add('Dashboard', 'dashboard')
+            ->add($t->trans('profile.view',array(),'UserBundle'), 'fos_user_profile_show');
+        return parent::showAction();
     }
 }
