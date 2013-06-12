@@ -1,0 +1,6 @@
+user:
+    password:
+        alphanumeric: "La contraseña debe tener tanto letras como números."
+fos_user:
+    password:
+        short: "[-Inf,Inf]La contraseña es demasiado corta (mínimo 6 caractéres)."

@@ -26,10 +26,6 @@
                 <source>Request your password</source>
                 <target>Recupera tu contraseña</target>
             </trans-unit>
-            <trans-unit id="7">
-                <source>Sign in with Facebook</source>
-                <target>Accede con Facebook</target>
-            </trans-unit>
             <trans-unit id="8">
                 <source>Want a New Account ?</source>
                 <target>¿ Quieres una cuenta ?</target>

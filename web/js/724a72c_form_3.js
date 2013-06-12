@@ -37,9 +37,9 @@ $(document).ready(function(){
         $('button', group).each(function(){
             var button = $(this);
             button.on('click', function(){
-                hidden.val($(this).val());
                 /* Cambiamos el slider */
                 processSlide($(this).val());
+                hidden.val($(this).val());
             });
             if(button.val() == hidden.val()) {
                 button.addClass('active');
@@ -103,16 +103,20 @@ $(document).ready(function(){
 
 function processSlide(val)
 {
+
     switch(val)
     {
         case 'inprogress':
             $("#task_percent").simpleSlider("setValue", 50);
+            $("#task_percent").val(50);
             break;
         case 'todo':
             $("#task_percent").simpleSlider("setValue", 1);
+            $("#task_percent").val(1);
             break;
         case 'done':
             $("#task_percent").simpleSlider("setValue", 100);
+            $("#task_percent").val(100);
             break;
     }
     return true;

@@ -118,7 +118,8 @@ function loadAjaxForms()
                         }else if (data.success == true && data.content){
                             $('#content').html(data.content);
                             loadAjaxForms();
-                        }
+                        }else if(data.success == false && data.message)
+                            notificacion(data.message,'error');
                     },
                     error: function(jqXHR,textStatus,errorThrown){
                         alert(jqXHR.responseText.message);

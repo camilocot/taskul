@@ -30,7 +30,7 @@
                         <td>
                             {% set desc = entity.description|striptags %}
                             {% if desc|length > 30 %}
-                            {{ desc|slice(0,30) }} ... <a class="boostrap-tp"  title="{{ desc }}" href="#"><i class="icon-download"></i></a>
+                            {{ desc|slice(0,30) }} ... <a class="ajaxy"  title="ver mas" href="{{ path('api_get_task', { 'id': entity.id }) }}"><i class="icon-download"></i></a>
                             {% else %}
                             {{ desc }}
                             {% endif %}</td>

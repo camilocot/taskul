@@ -29,5 +29,12 @@
         <service id="markup.exercise_html_purifier" class="FOS\CommentBundle\Markup\HtmlPurifier">
             <argument type="service" id="exercise_html_purifier.default" />
         </service>
+
+        <service id="taskul_comment.acl.vote.security" class="Taskul\CommentBundle\Acl\SecurityVoteAcl" public="false">
+            <argument type="service" id="security.context" />
+            <argument type="service" id="security.acl.object_identity_retrieval_strategy" />
+            <argument type="service" id="security.acl.provider" />
+            <argument>%fos_comment.model.vote.class%</argument>
+        </service>
     </services>
 </container>

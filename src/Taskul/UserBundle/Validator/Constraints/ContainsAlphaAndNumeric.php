@@ -8,5 +8,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class ContainsAlphaAndNumeric extends Constraint
 {
-    public $message = 'The password should have both letters and numbers.';
+    public $message = 'user.password.alphanumeric';
 }

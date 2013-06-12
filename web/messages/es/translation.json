@@ -1,0 +1,8 @@
+{
+	"msg": {
+		"comment": {
+			"empty": "El comentario no debe estar vacío",
+			"success_send": "Comentario correctamente enviado"
+		}
+	}
+}

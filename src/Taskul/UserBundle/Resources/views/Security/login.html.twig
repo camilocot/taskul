@@ -9,21 +9,18 @@
         <div class="icons">
             <a href="{{ path('homepage') }}"><i class="icon-home"></i></a>
         </div>
-
-
-        <h2>Login to your account</h2>
-        <form action="{{ path("fos_user_security_check") }}" method="post" class="form-horizontal" id="login-form">
-
+        <h2>{{ 'login.account'|trans({},'UserBundle') }}</h2>
+        <form action="{{ path("fos_user_security_check") }}" method="post" class="form-horizontal validate ajaxform" id="login-form">
             <fieldset>
                     <div class="input-prepend" title="Username">
                         <span class="add-on"><i class="icon-user"></i></span>
-                        <input class="input-large span10" id="username"  name="_username" value="{{ last_username }}" type="text" placeholder="type username"/>
+                        <input class="input-large span10" id="username"  name="_username" value="{{ last_username }}" type="text" placeholder="{{ 'form.login.type_email'|trans({}, 'UserBundle') }}"/>
                     </div>
                 <div class="clearfix"></div>
                 <div class="control-group  {% if error %} error {% endif %}">
                 <div class="input-prepend" title="Password">
                     <span class="add-on"><i class="icon-lock"></i></span>
-                    <input class="input-large span10" id="password" type="password" placeholder="type password" name="_password" />
+                    <input class="input-large span10" id="password" type="password" placeholder="{{ 'form.login.type_password'|trans({}, 'UserBundle') }}" name="_password" />
                 </div>
                 {% if error %}
                 <div class="help-inline" ><p>{{ error|trans({}, 'FOSUserBundle') }}</p></div>
@@ -42,17 +39,8 @@
         </form>
         <hr>
         {% include "UserBundle:Helper:facebook_button.html.twig" %}
-
-        <hr>
-        <h3>Forgot Password?</h3>
-        <p>
-            No problem, <a href="{{ path("fos_user_resetting_request") }}">click here</a> to get a new password.
-        </p>
-        <hr>
-        <h3>Register</h3>
-        <p>
-            No problem, <a href="{{ path("fos_user_registration_register") }}">click here</a>.
-        </p>
+        {% include "UserBundle:partials:forgot_password.html.twig" %}
+        {% include "UserBundle:partials:new_account.html.twig" %}
     </div><!--/row-->
 
 </div><!--/fluid-row-->

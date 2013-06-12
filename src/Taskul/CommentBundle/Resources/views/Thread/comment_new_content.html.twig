@@ -1,0 +1,50 @@
+{% set first = first|default(false) %}
+
+{% set url_parameters = {'id': id } %}
+{% set random = random() %}
+{% if parent is not null %}
+    {% set url_parameters = url_parameters|merge({'parentId': parent.id}) %}
+{% endif %}
+
+{% block fos_comment_comment_form_holder %}
+    <div class="fos_comment_comment_form_holder">
+        {% block fos_comment_form_title %}
+            {% if first %}
+                <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_headline_first{% endtrans %}</h3>
+            {% elseif parent is not null %}
+                <h3>{% trans with {"%name%": parent.authorName } from 'FOSCommentBundle' %}fos_comment_comment_reply_reply_to{% endtrans %}</h3>
+            {% else %}
+                <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_headline{% endtrans %}</h3>
+            {% endif %}
+        {% endblock %}
+
+        {% block fos_comment_comment_new_form %}
+            <form class="fos_comment_comment_new_form" action="{{ url('fos_comment_post_thread_comments', url_parameters) }}" data-parent="{{ parent.id|default() }}" method="POST" data-textarea-id="fos_comment_comment_body_{{random}}" novalidate="novalidate">
+
+                {% block fos_comment_form_fields %}
+                    <div class="fos_comment_form_errors">
+                    {{ form_errors(form) }}
+                    {{ form_errors(form.body) }}
+                    </div>
+                     <textarea minlength="8" rows="10" class="nicEdit span11" placeholder="Introduzca una descripción ..." required="required" name="fos_comment_comment[body]" id="fos_comment_comment_body_{{random}}"></textarea>
+
+                     {{ form_widget(form._token) }}
+                {% endblock %}
+
+                <div class="fos_comment_submit">
+                    {% block fos_comment_form_submit %}
+                        {% if parent is not null %}
+                            <input type="button" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_reply_cancel{% endtrans %}" class="fos_comment_comment_reply_cancel btn" />
+                        {% endif %}
+                        <input type="submit" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_submit{% endtrans %}" class="btn submit-comment"/>
+                    {% endblock %}
+                </div>
+
+            </form>
+        {% endblock fos_comment_comment_new_form %}
+
+    </div>
+    <script type="text/javascript">
+    new nicEditor({fullPanel : true}).panelInstance('fos_comment_comment_body_{{random}}');
+    </script>
+{% endblock fos_comment_comment_form_holder %}

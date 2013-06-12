@@ -1,0 +1,17 @@
+task:
+    view:
+        title: 'Ver tarea'
+        name: 'Nombre'
+        description: 'Descripción'
+        dateend: 'Fecha de prevista de finalización'
+        tags: 'Etiquetas'
+        status: 'Estado'
+        percent: 'Porcentaje finalizado'
+    status:
+        inprogress: 'En proceso'
+        todo: 'Por hacer'
+        done: 'Terminado'
+    actions:
+        delete: 'Borrar'
+        edit: 'Modificar'
+        back: 'Volver al listado'

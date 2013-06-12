@@ -111,6 +111,10 @@ fos_comment:
             thread:  fos_comment.manager.thread.acl
             comment: fos_comment.manager.comment.acl
             vote:    fos_comment.manager.vote.acl
+        acl:
+            thread:  fos_comment.acl.thread.security
+            comment: fos_comment.acl.comment.security
+            vote:    taskul_comment.acl.vote.security
         markup: markup.exercise_html_purifier
     class:
         model:

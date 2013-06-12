@@ -2,9 +2,9 @@
     {% block content %}
     {{ apy_breadcrumb_trail_render() }}
     <div class="row-fluid sortable">
-        <div class="box span12">
+        <div class="box span8">
             <div class="box-header" data-original-title>
-                <h2><i class="icon-user"></i><span class="break"></span>Task</h2>
+                <h2><i class="icon-user"></i><span class="break"></span>{{ 'task.view.title'|trans({}, 'TaskBundle') }}</h2>
                 <div class="box-icon">
                     <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
                 </div>
@@ -14,24 +14,28 @@
                 <table class="table">
                     <tbody>
                         <tr>
-                            <th>Name</th>
+                            <th>{{ 'task.view.name'|trans({}, 'TaskBundle') }}</th>
                             <td>{{ entity.name }}</td>
                         </tr>
                         <tr>
-                            <th>Description</th>
+                            <th>{{ 'task.view.description'|trans({}, 'TaskBundle') }}</th>
                             <td>{{ entity.description|raw }}</td>
                         </tr>
                         <tr>
-                            <th>Dateend</th>
-                            <td>{{ entity.dateEnd|date('Y-m-d H:i:s') }}</td>
+                            <th>{{ 'task.view.dateend'|trans({}, 'TaskBundle') }}</th>
+                            <td>{{ entity.dateEnd|date('d-m-Y') }}</td>
                         </tr>
                         <tr>
-                            <th>Tags</th>
+                            <th>{{ 'task.view.tags'|trans({}, 'TaskBundle') }}</th>
                             <td>{{ entity.tags|labelsinactive|raw }}</td>
                         </tr>
                         <tr>
-                            <th>Status</th>
+                            <th>{{ 'task.view.status'|trans({}, 'TaskBundle') }}</th>
                             <td>{{ entity.status|status(entity.status)|raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'task.view.percent'|trans({}, 'TaskBundle') }}</th>
+                            <td>{{ entity.percent }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -41,17 +45,17 @@
 
                     {% if is_granted('DELETE',entity) %}
                     <button class="btn btn-danger modal-button" type="button" data-target="#deleteModal" data-toggle="modal" data-id="{{ entity.id }}">
-                        Delete
+                        <i class="icon-trash icon-white"></i>&nbsp;{{ 'task.actions.delete'|trans({}, 'TaskBundle') }}
                     </button>
 
                     {% endif %}
                     {% if is_granted('EDIT',entity) %}
                     <a href="{{ path('api_edit_task', { 'id': entity.id }) }}" class="btn btn-success ajaxy" data-redirect="api_get_tasks">
-                        Edit
+                        <i class="icon-edit icon-white"></i>&nbsp;{{ 'task.actions.edit'|trans({}, 'TaskBundle') }}
                     </a>
                     {% endif %}
                     <a class="btn btn-cancel ajaxy btn-back-list" href="{{ path('api_get_tasks') }}">
-                        Back to the list
+                        <i class="fa-icon-undo"></i>&nbsp;{{ 'task.actions.back'|trans({}, 'TaskBundle') }}
                     </a>
 
                 </div>
@@ -59,44 +63,26 @@
                 </form>
             </div>
         </div>
-    </div>
-    <div class="row-fluid sortable">
-    <div class="box span12">
-        <div class="box-header" data-original-title>
-            <h2><i class="icon-user"></i><span class="break"></span>Comentarios</h2>
-            <div class="box-icon">
-                <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+        <div class="box span4">
+            <div class="box-header" data-original-title>
+                <h2><i class="icon-user"></i><span class="break"></span>Comentarios</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+                </div>
+            </div>
+            <div class="box-content">
+               <div id="fos_comment_thread"></div>
             </div>
         </div>
-        <div class="box-content">
-           <div id="fos_comment_thread"></div>
-        </div>
     </div>
-</div>
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}
 {% javascripts
-    '@FOSCommentBundle/Resources/assets/js/comments.js'
+    '@MainBundle/Resources/public/js/vendor/nicEdit-latest.js'
     '@TaskBundle/Resources/public/js/show.js'
     %}
     <script src="{{ asset_url }}"></script>
-<script type="text/javascript">
-// thread id
-var fos_comment_thread_id = '{{ entity.id }}';
-
-// api base url to use for initial requests
-var fos_comment_thread_api_base_url = '{{ path('fos_comment_get_threads') }}';
-
-// Snippet for asynchronously loading the comments
-(function() {
-    var fos_comment_script = document.createElement('script');
-    fos_comment_script.async = true;
-    fos_comment_script.src = '{{ asset_url }}';
-    fos_comment_script.type = 'text/javascript';
-
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(fos_comment_script);
-})();
-</script>
 {% endjavascripts %}
+{% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': entity.id} %}
 {% endblock %}

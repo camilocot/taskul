@@ -1,3 +1,5 @@
+#Esto es para el timeline bundle para que muestre uunicamente los campos
+#necesarios en la serializacion
 FOS\UserBundle\Model\User:
     exclusion_policy: ALL
     properties:

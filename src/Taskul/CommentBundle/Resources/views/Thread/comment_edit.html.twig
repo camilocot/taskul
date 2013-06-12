@@ -1,0 +1,34 @@
+{#
+
+ This file is part of the FOSCommentBundle package.
+
+ (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+
+ This source file is subject to the MIT license that is bundled
+ with this source code in the file LICENSE.
+
+#}
+
+<div class="fos_comment_comment_form_holder">
+    <form class="fos_comment_comment_edit_form" action="{{ url('fos_comment_put_thread_comments', {'id': comment.thread.id, 'commentId': comment.id}) }}" method="POST">
+
+        {% block fos_comment_form_fields %}
+            {{ form_errors(form) }}
+            {{ form_errors(form.body) }}
+            <textarea minlength="8" rows="10" class="nicEdit span11" placeholder="Introduzca una descripción ..." required="required" name="fos_comment_comment[body]" id="fos_comment_comment_body_{{ comment.thread.id}}_{{comment.id}}"></textarea>
+            {{ form_widget(form._token) }}
+        {% endblock %}
+
+        <div class="fos_comment_submit">
+            <button type="button" class="fos_comment_comment_edit_cancel btn">{% trans from 'FOSCommentBundle' %}fos_comment_comment_edit_cancel{% endtrans %}</button>
+            {% block fos_comment_form_submit %}
+                <input type="submit" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_edit_submit{% endtrans %}" class="btn"/>
+            {% endblock %}
+        </div>
+
+        <input type="hidden" name="_method" value="PUT">
+
+    </form>
+</div>
+<script type="text/javascript">new nicEditor({fullPanel : true}).panelInstance('fos_comment_comment_body_{{ comment.thread.id}}_{{comment.id}}');</script>
+

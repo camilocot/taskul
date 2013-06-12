@@ -105,6 +105,6 @@
         {% set selected = item.value %}
         {% endfor %}
         {% endif %}
-        <input type="hidden" name="{{ form.get('full_name') }}" value="{{ selected }}" class="hidden-status" />
+        <input type="hidden" name="{{ form.get('full_name') }}" value="{{ selected }}" class="hidden-status" id="{{ id }}" />
     {% endspaceless %}
 {% endblock %}

@@ -24,11 +24,41 @@
 
 function notificacion(message, status)
 {
-    $('.top-right').notify({
-                    message: { text: message },
-                    type: status,
-                    fadeOut: { enabled: true, delay: 3000 }
-    }).show();
+    // $('.top-right').notify({
+    //                 message: { text: message },
+    //                 type: status,
+    //                 fadeOut: { enabled: true, delay: 3000 }
+    // }).show();
+    notif = 'jNotify';
+    switch (status)
+    {
+        case 'error':
+            notif='jError';
+            break;
+        case 'success':
+            notif='jSuccess';
+            break;
+    }
+    window[notif](
+        message,
+        {
+          autoHide : true, // added in v2.0
+          clickOverlay : false, // added in v2.0
+          MinWidth : 250,
+          TimeShown : 3000,
+          ShowTimeEffect : 200,
+          HideTimeEffect : 200,
+          LongTrip :20,
+          HorizontalPosition : 'center',
+          VerticalPosition : 'top',
+          ShowOverlay : true,
+          ColorOverlay : '#000',
+          OpacityOverlay : 0.3,
+          onClosed : function(){ // added in v2.0
+          },
+          onCompleted : function(){ // added in v2.0
+          }
+        });
 }
 
 function menuColor(selector) {
@@ -43,7 +73,7 @@ function refereshQuota()
 {
     $.getJSON(Routing.generate('api_get_quota'), function(data) {
         actualValue = $('#dial-quota').val();
-        if(data.success == true && actualValue != data.current_quota)
+        if(data.success === true && actualValue != data.current_quota)
             $('#dial-quota').val(data.current_quota).trigger('change');
     });
 }
@@ -57,6 +87,7 @@ function clearMenuActive(ulid)
     $liactive.find('a').css('color','');
     $liactive.removeClass('active');
 }
+
 
 $(document).ready(function(){
 
@@ -100,7 +131,8 @@ $(document).ready(function(){
 
     circle_progess();*/
 
-
+    var option = { resGetPath: 'messages/__lng__/__ns__.json' };
+    $.i18n.init(option);
 });
 
 /* ---------- Numbers Sepparator ---------- */
@@ -127,11 +159,11 @@ function template_functions(){
     /* ---------- Tooltip ---------- */
     $('[rel="tooltip"],[data-rel="tooltip"]').tooltip({"placement":"bottom",delay: { show: 400, hide: 200 }});
 
-    $('.boostrap-tp').tooltip({
-        "trigger":"click"
-    }).click(function(e){
-        e.preventDefault();
-    });
+    // $('.boostrap-tp').tooltip({
+    //     "trigger":"click"
+    // }).click(function(e){
+    //     e.preventDefault();
+    // });
 
 
     /* ---------- Login Box Styles ---------- */
@@ -294,4 +326,9 @@ function widthFunctions( e ) {
 
     }
 
+}
+
+function checkMobile()
+{
+    return (( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent))?true:false);
 }

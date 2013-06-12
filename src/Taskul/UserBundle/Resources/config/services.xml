@@ -38,6 +38,7 @@
             <argument type="service" id="taskul.friend.request"/>
             <argument type="service" id="router"/>
             <argument type="service" id="security.context"/>
+            <argument type="service" id="translator"/>
         </service>
 
 

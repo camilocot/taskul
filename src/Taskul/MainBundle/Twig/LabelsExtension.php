@@ -2,8 +2,15 @@
 namespace Taskul\MainBundle\Twig;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Translation\TranslatorInterface;
+
 class LabelsExtension extends \Twig_Extension
 {
+    private $translator;
+
+    function __construct(TranslatorInterface $translator) {
+        $this->translator = $translator;
+    }
     public function getFilters()
     {
         return array(
@@ -27,7 +34,7 @@ class LabelsExtension extends \Twig_Extension
     			break;
     	}
 
-        return '<span class="'.$class.'">'.$text.'</span>';
+        return '<span class="'.$class.'">'.$this->translator->trans('task.status.'.$text,array(),'TaskBundle').'</span>';
     }
 
 	public function labelArray(ArrayCollection $array){

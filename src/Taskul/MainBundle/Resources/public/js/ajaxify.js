@@ -111,14 +111,19 @@ function loadAjaxForms()
                 $(form).ajaxSubmit({
                     success: function (data){
                         if(data.success == true && data.url && data.forceredirect) {
-                            window.location.replace(data.url);
+                            if(data.message){
+                                notificacion(data.message,'success')
+                                setTimeout("redirect('"+data.url+"')",3000);
+                            }else
+                                redirect(data.url);
                         }else if(data.success == true && data.url) {
                             loadPage(data.url);
                             History.pushState(null,data.title,data.url);
                         }else if (data.success == true && data.content){
                             $('#content').html(data.content);
                             loadAjaxForms();
-                        }
+                        }else if(data.success == false && data.message)
+                            notificacion(data.message,'error');
                     },
                     error: function(jqXHR,textStatus,errorThrown){
                         alert(jqXHR.responseText.message);
@@ -128,6 +133,11 @@ function loadAjaxForms()
         });
     });
 }
+
+function redirect(url){
+    window.location.replace(url);
+}
+
 function loadAjaxModalForms()
 {
 

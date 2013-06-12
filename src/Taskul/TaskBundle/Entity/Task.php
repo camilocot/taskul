@@ -289,6 +289,7 @@ class Task implements Documentable, Taggable {
     {
         $this->status = $status;
 
+
         return $this;
     }
 

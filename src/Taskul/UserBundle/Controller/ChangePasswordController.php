@@ -6,7 +6,6 @@ namespace Taskul\UserBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Controller\ChangePasswordController as BaseController;
-use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
 use Taskul\UserBundle\Form\Type\ChangePasswordWithoutVerificationFormType;
 use Taskul\UserBundle\TaskulUserEvents;
 use FOS\UserBundle\Event\FormEvent;
@@ -17,9 +16,6 @@ use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Model\UserInterface;
 use Taskul\MainBundle\Component\CheckAjaxResponse;
 
-/**
- * @Breadcrumb("Dashboard", route="dashboard")
- */
 class ChangePasswordController extends BaseController
 {
 
@@ -29,6 +25,9 @@ class ChangePasswordController extends BaseController
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
         $t = $this->container->get('translator');
+        $this->container->get("apy_breadcrumb_trail")
+            ->add('Dashboard', 'dashboard')
+            ->add($t->trans('profile.change_password',array(),'UserBundle'), 'fos_user_change_password');
 
         if (!is_object($user) || !$user instanceof UserInterface || !$user->hasRole('ROLE_FORCEPASSWORDCHANGE')) {
             throw new AccessDeniedException('This user does not have access to this section.');
@@ -72,13 +71,15 @@ class ChangePasswordController extends BaseController
 
     }
 
-    /**
-     * @Breadcrumb("Change Password")
-     */
+
     public function changePasswordAction(Request $request)
     {
         $t = $this->container->get('translator');
         $user = $this->container->get('security.context')->getToken()->getUser();
+        $this->container->get("apy_breadcrumb_trail")
+            ->add('Dashboard', 'dashboard')
+            ->add($t->trans('profile.change_password',array(),'UserBundle'), 'fos_user_change_password');
+
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
@@ -118,7 +119,7 @@ class ChangePasswordController extends BaseController
 
                 $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
-                                return new CheckAjaxResponse(
+                        return new CheckAjaxResponse(
                             $url,
                             array('success'=>TRUE, 'message' =>  $t->trans('Password changed correctly'),'url'=>$url, 'title'=>$t->trans('View Profile'))
                         );

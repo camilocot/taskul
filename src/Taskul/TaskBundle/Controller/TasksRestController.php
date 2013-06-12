@@ -144,7 +144,7 @@ class TasksRestController extends BaseController {
             $em->remove($task);
             $em->flush();
 
-            $data = array('success'=>TRUE,'message'=>'Operacion relaizada correctamente');
+            $data = array('success'=>TRUE, 'message'=> 'Operacion relaizada correctamente');
         }else{
             $statusCode = 400;
             $data = array('success'=>FALSE,'message'=>'error');
@@ -178,17 +178,17 @@ class TasksRestController extends BaseController {
     }
 
     public function countListStatusAction($context) {
-        $user = $this->get('security.context')->getToken()->getUser();
+      $user = $this->get('security.context')->getToken()->getUser();
 
-    try {
-        $count = $this->getDoctrine()->getManager()->getRepository('TaskBundle:Task')->countStatusTasks($user,$context);
-    } catch (\Doctrine\Orm\NoResultException $e) {
-        $count[] = null;
-    }
-            return new JsonResponse(array(
-            'success' => TRUE,
-            'total' => array_shift($count),
-        ));
+      try {
+          $count = $this->getDoctrine()->getManager()->getRepository('TaskBundle:Task')->countStatusTasks($user,$context);
+      } catch (\Doctrine\Orm\NoResultException $e) {
+          $count[] = null;
+      }
+      return new JsonResponse(array(
+              'success' => TRUE,
+              'total' => array_shift($count),
+          ));
     }
 
     private function processForm(Task $task,$formMethod)

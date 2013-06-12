@@ -4,7 +4,8 @@ user:
     last_login: "Último acceso"
     password: "Contraseña"
     profile: "Perfil"
-
+    facebook:
+        login: "Accede con Facebook"
 profile:
     edit: "Modificar perfil"
     change_password: "Cambiar contraseña"
@@ -19,3 +20,9 @@ form:
     help:
         email: 'Introduce tu email, este será tu nombre de usuario para acceder a Taskul'
         current_password: 'Introduce tu contraseña, para validar tus datos'
+    login:
+        type_email: 'Introducce tu email'
+        type_password: 'Introduce tu contraseña'
+        success: 'Ha accedido correctamente, redirigiendo a su panel de control.'
+login:
+    account: Acceder

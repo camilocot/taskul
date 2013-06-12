@@ -36,7 +36,8 @@
             <argument type="service" id="request" />
         </service>
         <service id="taskul.twig.status_color" class="Taskul\MainBundle\Twig\LabelsExtension">
-        <tag name="twig.extension" />
+            <tag name="twig.extension" />
+            <argument type="service" id="translator"/>
         </service>
         <service id="taskul.kernelview.listener" class="%taskul.kernelview.listener%">
             <tag name="kernel.event_listener" event="kernel.view" method="onKernelView" />

@@ -4,9 +4,7 @@ namespace Taskul\UserBundle\Controller;
 
 
 use FOS\UserBundle\Controller\ProfileController as BaseController;
-use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
 use Taskul\MainBundle\Component\CheckAjaxResponse;
-
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
