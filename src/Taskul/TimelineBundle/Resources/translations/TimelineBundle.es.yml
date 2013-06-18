@@ -1,4 +1,6 @@
 notification:
+    latest: 'Últimas actualizaciones en tu cuenta'
+    no_result: 'No se ha encontrado actividad reciente en tu cuenta'
     pending:
         TASK: 'Tienes una notificación nueva|Tienes %total% notificaciones nuevas'
     FILE:
@@ -11,3 +13,9 @@ notification:
         delete: 'Tarea borrada (%extra%)'
         name: 'tareas'
         title: 'Listado de notificaciones relativas a tareas'
+timeline:
+    one_task: 'una tarea'
+    assoc_task: 'en la tarea'
+    one_file: 'un fichero'
+    one_comment: 'un comentario'
+    the: el

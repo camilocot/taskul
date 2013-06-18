@@ -1,19 +1,19 @@
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-   body {
-    font-family: "Lato", "Helvetica Neue",Helvetica,Arial,sans-serif;
-    /*background: url(/img/bg-login.jpg) !important;*/
-  }
-  .active {
-    color: #0088cc;
-  }
+ body {
+  font-family: "Lato", "Helvetica Neue",Helvetica,Arial,sans-serif;
+  /*background: url(/img/bg-login.jpg) !important;*/
+}
+.active {
+  color: #0088cc;
+}
 
-  /* IE 6 */
-  * html footer {
-     position:absolute;
-     top:expression((0-(footer.offsetHeight)+(document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight)+(ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop))+'px');
-  }
+/* IE 6 */
+* html footer {
+   position:absolute;
+   top:expression((0-(footer.offsetHeight)+(document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight)+(ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop))+'px');
+}
 
 
 .well [class^="span"] {
@@ -51,7 +51,7 @@ a.fb-button {
     height: 23px;
     line-height: 23px;
     padding: 0px 5px 0px 30px;
-       text-align: left;
+    text-align: left;
 
 }
 
@@ -66,40 +66,46 @@ a.fb-button {
 }
 
 
-  label.valid {
-    width: 24px;
-    height: 24px;
-    background: url(assets/img/valid.png) center center no-repeat;
-    display: inline-block;
-    text-indent: -9999px;
-  }
-  label.error {
-    font-weight: bold;
-    color: red;
-    padding: 2px 0px;
-    margin-top: 2px;
-  }
+label.valid {
+  width: 24px;
+  height: 24px;
+  background: url(assets/img/valid.png) center center no-repeat;
+  display: inline-block;
+  text-indent: -9999px;
+}
+label.error {
+  font-weight: bold;
+  color: red;
+  padding: 2px 0px;
+  margin-top: 2px;
+}
 
-      /*this is what we want the div to look like
-    when it IS showing*/
-  .loading{
+    /*this is what we want the div to look like
+  when it IS showing*/
+.loading{
 
-    filter: alpha(opacity=75); /* internet explorer */
-    -khtml-opacity: 0.75;      /* khtml, old safari */
-    -moz-opacity: 0.75;       /* mozilla, netscape */
-  }
-  .avatar img {
-    height: 36px;
-    width: 36px;
-    padding: 1px;
-    float: left;
-    margin-top: 1px;
-    margin-right: 10px;
-    border: 1px solid #EBEBEB;
-  }
-  /* Boton cacelar de los comentarios */
-  .fos_comment_submit button {
-    font-size: 1.2em;
-    margin-top: 3px;
-    padding: 3px 12px;
-  }
+  filter: alpha(opacity=75); /* internet explorer */
+  -khtml-opacity: 0.75;      /* khtml, old safari */
+  -moz-opacity: 0.75;       /* mozilla, netscape */
+}
+.avatar img {
+  height: 36px;
+  width: 36px;
+  padding: 1px;
+  float: left;
+  margin-top: 1px;
+  margin-right: 10px;
+  border: 1px solid #EBEBEB;
+}
+/* Boton cacelar de los comentarios */
+.fos_comment_submit button {
+  font-size: 1.2em;
+  margin-top: 3px;
+  padding: 3px 12px;
+}
+
+/* Varios iconos con diferentes clases a las estandar */
+.icon-task {
+  background-position: -384px -144px;
+}
+

@@ -187,6 +187,6 @@ spy_timeline:
         fallback: 'TimelineBundle:Timeline:default.html.twig'
         resources:
             - 'TimelineBundle:Timeline:components.html.twig'
-        #i18n: #Do you want to use i18n when rendering ? if not, remove this not.
-            #fallback: en
+        i18n:
+            fallback: es
 ornicar_gravatar: ~

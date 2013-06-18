@@ -1,13 +1,21 @@
+{% timeline_action_theme timeline _self %}
 {# Override for this model in any component #}
 {% block _taskul_taskbundle_entity_task_default_component %}
-una tarea <a href="{{ path('api_get_task', { 'id': value.id }) }}" class="" title="show">{{ value }}</a> el {{ value.updated|date('d-m-Y') }}
+{{ 'timeline.one_task'|trans({}, 'TimelineBundle') }} <a href="{{ path('api_get_task', { 'id': value.id }) }}" class="btn btn-mini btn-inverse" title="{{ 'task.view.title'|trans({}, 'TaskBundleBundle') }}">{{ value }}&nbsp;<i class="fa-icon-arrow-right icon-white"></i></a> {{ 'timeline.the'|trans({}, 'TimelineBundle') }} {{ value.updated|date('d-m-Y') }}
 {% endblock _taskul_taskbundle_entity_task_default_component %}
 {% block _taskul_taskbundle_entity_task_indirectComplement_component %}
-en la tarea <a href="{{ path('api_get_task', { 'id': value.id }) }}" class="" title="show">{{ value }}</a>
+{{ 'timeline.assoc_task'|trans({}, 'TimelineBundle') }} <a href="{{ path('api_get_task', { 'id': value.id }) }}" class="btn btn-mini btn-inverse" title="{{ 'task.view.title'|trans({}, 'TaskBundleBundle') }}">{{ value }}&nbsp;<i class="fa-icon-arrow-right icon-white"></i></a> </a>
 {% endblock _taskul_taskbundle_entity_task_indirectComplement_component %}
 {% block _taskul_filebundle_entity_document_default_component %}
-un fichero <b>{{ value }}</b>
+{{ 'timeline.one_file'|trans({}, 'TimelineBundle') }} <b>{{ value }}</b>
 {% endblock _taskul_filebundle_entity_document_default_component %}
 {% block _taskul_commentbundle_entity_comment_default_component %}
-un comentario
+{{ 'timeline.one_comment'|trans({}, 'TimelineBundle') }} {{ 'timeline.the'|trans({}, 'TimelineBundle') }} {{ value.createdat|date('d-m-Y') }}
 {% endblock _taskul_commentbundle_entity_comment_default_component %}
+
+{% block subject_component %}
+    {% spaceless %}
+    {% set type = type|default('subject') %}
+    <strong>{{ block('action_component') }}</strong>
+	{% endspaceless %}
+{% endblock %}

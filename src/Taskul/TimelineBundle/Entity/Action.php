@@ -27,4 +27,16 @@ class Action extends BaseAction
      * @ORM\OneToMany(targetEntity="Timeline", mappedBy="action")
      */
     protected $timelines;
+
+    public function getModelDesc($type)
+    {
+        foreach($this->actionComponents as $actionComponent)
+        {
+            if($type === $actionComponent->getType()){
+                $model = explode('\\',$actionComponent->getComponent()->getModel());
+                return strtolower(end($model));
+            }
+        }
+        return FALSE;
+    }
 }

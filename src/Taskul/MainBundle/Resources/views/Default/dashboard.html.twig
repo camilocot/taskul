@@ -5,19 +5,24 @@
 
 	<div ondesktop="span8" ontablet="span12" class="box span8">
 		<div class="box-header">
-			<h2><i class="icon-signal"></i><span class="break"></span>Site Statistics</h2>
+			<h2><i class="icon-signal"></i><span class="break"></span>{{ 'notification.latest'|trans( {}, 'TimelineBundle' ) }}</h2>
 			<div class="box-icon">
 				<a class="btn-minimize" href="#"><i class="icon-chevron-up"></i></a>
 			</div>
 		</div>
 		<div class="box-content">
-			{% for action in timeline %}
-        <div class="timeline-entry">
-            {{ timeline_render(action) }}
-        </div>
-    		{% else %}
-        <p>There is no action</p>
-			{% endfor %}
+			<ul class="dashboard-list">
+				{% for action in timeline %}
+						<li>
+				            <i class="icon-{{ action.modelDesc('complement') }}"></i>{{ i18n_timeline_render(action, app.request.locale) }}
+				        </li>
+	    		{% else %}
+				    <div class="alert alert-info" id="no-result">
+                    <h4 class="alert-heading">Info</h4>
+                    <p>{{ 'notification.no_result'|trans( {}, 'TimelineBundle' ) }}</p>
+                    </div>
+				{% endfor %}
+			</ul>
 		</div>
 	</div>
 
