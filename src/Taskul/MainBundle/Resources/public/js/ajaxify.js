@@ -77,7 +77,7 @@ function loadPage(url)
         success: function(data, textStatus, jqXHR){
             var $menuChildren;
 
-            if(data.success == true && data.content)
+            if(data.success === true && data.content)
                 $("#content").filter(':first').html(data.content).ajaxify().fadeIn();
             else
                 $("#content").filter(':first').html(data).ajaxify().fadeIn();
@@ -87,6 +87,7 @@ function loadPage(url)
             showWarningNoRecords();
             template_functions(); //main.js
             widthFunctions(); //main.js
+            launchNotifications(); // private.js
 
             // Update the menu
             $menuChildren = $menu.find(menuChildrenSelector);
@@ -110,19 +111,19 @@ function loadAjaxForms()
             submitHandler: function(form) {
                 $(form).ajaxSubmit({
                     success: function (data){
-                        if(data.success == true && data.url && data.forceredirect) {
+                        if(data.success === true && data.url && data.forceredirect) {
                             if(data.message){
-                                notificacion(data.message,'success')
+                                notificacion(data.message,'success');
                                 setTimeout("redirect('"+data.url+"')",3000);
                             }else
                                 redirect(data.url);
-                        }else if(data.success == true && data.url) {
+                        }else if(data.success === true && data.url) {
                             loadPage(data.url);
                             History.pushState(null,data.title,data.url);
-                        }else if (data.success == true && data.content){
+                        }else if (data.success === true && data.content){
                             $('#content').html(data.content);
                             loadAjaxForms();
-                        }else if(data.success == false && data.message)
+                        }else if(data.success === false && data.message)
                             notificacion(data.message,'error');
                     },
                     error: function(jqXHR,textStatus,errorThrown){
@@ -152,7 +153,7 @@ function loadAjaxModalForms()
                 var redirect = $form.data('redirect');
 
                 $modal.modal('hide');
-                status = ( e.success ) ? 'success' : 'error';
+                var status = ( e.success ) ? 'success' : 'error';
                 notificacion(e.message,status);
 
 
@@ -169,14 +170,11 @@ function loadAjaxModalForms()
                     loadPage(url);
                 }
 
-                launchNotifications();
-                activateNotifications();
-
             },
             error: function(e) {
                 $modal.modal('hide');
                 obj = jQuery.parseJSON(e.responseText);
-                status = ( obj[0].success ) ? 'success' : 'info';
+                var status = ( obj[0].success ) ? 'success' : 'info';
                             $('.top-right').notify({
                         message: { text: obj[0].message },
                         type: status,
@@ -206,7 +204,7 @@ function showWarningNoRecords()
 function toggleWarning()
 {
     $warning = $('.warning:first');
-    if($('#list > tbody > tr').length == 0)
+    if($('#list > tbody > tr').length === 0)
     {
         $('#list').hide();
         $('#filter-list').hide();

@@ -32,24 +32,10 @@
 
           <ul class="nav pull-right">
             <li class="dropdown hidden-phone"><!-- Task notifications -->
-              <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#"  id="toggle-task-noti" data-context="TASK" data-route="notification" data-route-content="get_notifications">
-                <i class="icon-tasks icon-white"></i><span class="label label-important hidden-phone notifnumber" id="task-noti-number">0</span>
+              <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#"  id="toggle-task-noti" data-context="TASK" data-route="notification" data-route-content="get_notifications" rel="tooltip" title="{{ 'notification.TASK.title'|trans({}, 'TimelineBundle') }}">
+                <i class="icon-tasks icon-white"></i><span class="label label-important hidden-phone notifnumber">0</span>
               </a>
-              <ul class="dropdown-menu notifications" id="task-notification">
-              </ul>
-            </li>
-            <li class="dropdown hidden-phone"><!-- Files notifications -->
-              <a class="btn dropdown-toggle notiftoggle"  data-toggle="dropdown" href="#"  id="toggle-file-noti" data-context="FILE" data-route="notification" data-route-content="get_notifications">
-                <i class="icon-file icon-white"></i><span class="label label-important hidden-phone notifnumber" id="file-noti-number">0</span>
-              </a>
-              <ul class="dropdown-menu notifications" id="files-notification">
-              </ul>
-            </li>
-            <li class="dropdown hidden-phone"><!-- Comments notifications -->
-              <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#"  id="toggle-comment-noti" data-context="COMMENT" data-route="notification" data-route-content="get_notifications">
-                <i class="icon-comment icon-white"></i><span class="label label-important hidden-phone notifnumber" id="comment-noti-number">0</span>
-              </a>
-              <ul class="dropdown-menu notifications" id="files-notification">
+              <ul class="dropdown-menu notifications">
               </ul>
             </li>
             <!-- start: Notifications Dropdown -->
@@ -132,18 +118,18 @@
   {% verbatim %}
   <script id="get_notifications-html" type="text/html">
   <li>
-    <span class="dropdown-menu-title">Tienes {{ total }} notificaciones pendientes</span>
+    <span class="dropdown-menu-title">{{message}}</span>
   </li>
   {{#result}}
     <li>
     <a href="{{ url }}">
-    + <i class="icon-th"></i> <span class="message">{{ summary }}</span> <span class="time">{{ date }}</span></a>
+    + <i class="{{icon}}"></i> <span class="message">{{ msg }}</span> <span class="time">{{ time }}</span></a>
     </li>
     {{/result}}
   </script>
   <script id="api_list_task_status-html" type="text/html">
   <li>
-    <span class="dropdown-menu-title">Tienes {{ total }} un total de tareas pendientes</span>
+    <span class="dropdown-menu-title">{{message}}</span>
   </li>
   {{#result}}
   <li>
@@ -156,6 +142,7 @@
     </a>
   </li>
   {{/result}}
+  {{{viewall}}}
   </script>
   <script id="taskul_message_list_unread_messages-html" type="text/html">
   <li>

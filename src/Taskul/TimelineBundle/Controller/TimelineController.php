@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\NoResultException;
+use Taskul\MainBundle\Component\DateClass;
+use Spy\Timeline\Model\ActionInterface;
 /**
  * @Route("/api")
  */
@@ -35,11 +37,15 @@ class TimelineController extends Controller
     public function getNotificationsAction($context)
     {
         $results = $this->processActions($this->getNotificationDesc($context));
-
+        $t = $this->container->get('translator');
+        $total = $this->getNotificationCount($context);
 		return new JsonResponse(array(
             'success' => TRUE,
-            'total' => $this->getNotificationCount($context) ,
+            'total' =>  $total,
             'result'=> $results,
+            'message' => $t->transChoice('notification.pending.'.$context,$total,array(
+                '%total%'=>$total,
+                ),'TimelineBundle')
             ));
     }
 
@@ -49,8 +55,8 @@ class TimelineController extends Controller
      */
     public function readNotificationAction($id,$context,$entityid)
     {
-        $context = $this->parseContext($context);
-        $this->markReadNotification($id,$context);
+        $contextNotification = $this->parseContext($context);
+        $this->markReadNotification($id,$contextNotification);
         return $this->generateResponseForNotification($context,$entityid);
 
 
@@ -67,7 +73,7 @@ class TimelineController extends Controller
         switch ($context)
         {
             case 'COMMENT':
-                $reponse = $this->getCommentNotificationResponse($entityid);
+                $response = $this->getCommentNotificationResponse($entityid);
                 break;
             break;
                 case 'TASK':
@@ -135,10 +141,13 @@ class TimelineController extends Controller
     	switch($context)
     	{
     		case 'TASK':
-    		case 'FILE':
     		case 'MESSAGE':
-    		case 'COMMENT':
     		break;
+
+            case 'FILE': /* Esto por ahora se ponen como notificaciones de tareas*/
+            case 'COMMENT':
+                $context = 'TASK';
+                break;
 
     		default:
     			$context = 'GLOBAL';
@@ -298,20 +307,56 @@ class TimelineController extends Controller
      * @param  [type] $action [description]
      * @return [type]         [description]
      */
-    private function processAction($action)
+    private function processAction(ActionInterface $action)
     {
         $complement = $action->getComponent('complement');
         $model = $complement->getModel();
-        $actionId = $action->getId();
         $entity = $this->getComponentEntity($model,$complement->getIdentifier());
-        $class = $this->getClass($entity);
 
         return array(
-                'actionid'=>$actionId,
-                'type' => $class,
-                'summary'=> $this->getSummary($entity),
-                'date'=>$action->getCreatedAt()->format('Y-m-d H:i:s'),
-                'url'=> $this->get('router')->generate('get_notification',array('id'=>$actionId, 'context'=>strtoupper($class),'entityid'=>$entity->getId())),
+                'msg' => $this->generateNotifMsg($action,$entity),
+                'icon' => $this->generateNotifIcon($entity),
+                'time' => DateClass::getHumanDiff(new \DateTime($action->getCreatedAt()->format('Y-m-d H:i:s'))),
+                'url'=> $this->generateNotifUrl($action,$entity),
                 );
+    }
+
+    private function generateNotifMsg(ActionInterface $action, $entity)
+    {
+
+        $class = $this->getClass($entity);
+        $summary = $this->getSummary($entity);
+        $verb = $action->getVerb();
+        $t = $this->container->get('translator');
+        return
+        $t->trans('notification.'.strtoupper($class).'.'.$verb,array('%extra%'=>$summary),'TimelineBundle');
+
+    }
+
+    private function generateNotifUrl(ActionInterface $action,$entity)
+    {
+        $actionId = $action->getId();
+        $class = $this->getClass($entity);
+
+        return $this->get('router')->generate('get_notification',array('id'=>$actionId, 'context'=>strtoupper($class),'entityid'=>$entity->getId()));
+    }
+
+    private function generateNotifIcon($entity)
+    {
+        $class = $this->getClass($entity);
+        $icon = '';
+        switch ($class){
+            case 'Task':
+                $icon = 'icon-fire icon-red';
+                break;
+            case 'Comment':
+                $icon = 'icon-comment';
+                break;
+            case 'Document':
+                $icon = 'icon-file';
+                break;
+            default:
+                $icon = 'icon-th';        }
+        return $icon;
     }
 }

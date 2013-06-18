@@ -15,7 +15,7 @@
         {% block fos_comment_form_fields %}
             {{ form_errors(form) }}
             {{ form_errors(form.body) }}
-            <textarea minlength="8" rows="10" class="nicEdit span11" placeholder="Introduzca una descripción ..." required="required" name="fos_comment_comment[body]" id="fos_comment_comment_body_{{ comment.thread.id}}_{{comment.id}}"></textarea>
+            <textarea minlength="8" rows="10" class="nicEdit" placeholder="Introduzca una descripción ..." required="required" name="fos_comment_comment[body]" id="fos_comment_comment_body_{{ comment.thread.id}}_{{comment.id}}" style="width:100%"></textarea>
             {{ form_widget(form._token) }}
         {% endblock %}
 

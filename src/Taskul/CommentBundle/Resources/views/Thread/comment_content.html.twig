@@ -34,11 +34,13 @@
 
             {% block fos_comment_comment_metas_voting %}
                 {% if fos_comment_can_vote(comment) %}
+                {#  @TODO Se comenta hasta introducir un limete de votos
                     <div class="fos_comment_comment_voting">
                         <button data-url="{{ url("fos_comment_new_thread_comment_votes", {"id": comment.thread.id, "commentId": comment.id, "value": 1}) }}" class="fos_comment_comment_vote btn-info btn" title="{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_voteup{% endtrans %}"><i class="icon-thumbs-up icon-white"></i></button>
                         <button data-url="{{ url("fos_comment_new_thread_comment_votes", {"id": comment.thread.id, "commentId": comment.id, "value": -1}) }}" class="fos_comment_comment_vote btn-inverse btn" title="{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_votedown{% endtrans %}"><i class="icon-thumbs-down icon-white"></i></button>
                         <div class="fos_comment_comment_score" id="fos_comment_score_{{ comment.id }}">{% include "FOSCommentBundle:Thread:comment_votes.html.twig" with { 'commentScore': comment.score } %}</div>
                     </div>
+                #}
                 {% endif %}
             {% endblock fos_comment_comment_metas_voting %}
         {% endblock fos_comment_comment_metas %}

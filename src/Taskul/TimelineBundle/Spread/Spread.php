@@ -17,9 +17,13 @@ class Spread implements SpreadInterface
     CONST COMMENT_CLASS = 'Taskul\CommentBundle\Entity\Comment';
     CONST MESSAGE_CLASS = 'Taskul\MessageBundle\Entity\Message';
 
-    public function __construct(EntityManager $em)
+    private $em;
+    private $logger;
+
+    public function __construct(EntityManager $em, $logger)
     {
         $this->em = $em;
+        $this->logger = $logger;
     }
 
     public function supports(ActionInterface $action)
@@ -35,21 +39,22 @@ class Spread implements SpreadInterface
         $members = array();
         if (is_object($complement) && $complement->getModel() == self::TASK_CLASS) {
             $task = $this->em->getRepository('TaskBundle:Task')->find($complement->getIdentifier());
-            $members = $task->getMembers();
+            $members = $task->getMembersWithoutOwner();
             $context = 'TASK';
         } elseif (is_object($indirectComplement) && $indirectComplement->getModel() == self::TASK_CLASS) {
             $task = $this->em->getRepository('TaskBundle:Task')->find($indirectComplement->getIdentifier());
-            $members = $task->getMembers();
-
-            switch ($complement->getModel())
-            {
-                case self::FILE_CLASS:
-                $context = 'DOCUMENT';
-                break;
-                case self::COMMENT_CLASS:
-                $context = 'COMMENT';
-                break;
-            }
+            $members = $task->getMembersWithoutOwner();
+            // $this->logger->info(count($members));
+            // switch ($complement->getModel())
+            // {
+            //     case self::FILE_CLASS:
+            //     $context = 'DOCUMENT';
+            //     break;
+            //     case self::COMMENT_CLASS:
+            //     $context = 'COMMENT';
+            //     break;
+            // }
+            $context = 'TASK'; // En principio vamos a poner todas las notificaciones de tareas en un único contexto
         }elseif (is_object($indirectComplement)
             && is_object($complement)
             && $indirectComplement->getModel() == self::USER_CLASS
@@ -63,8 +68,8 @@ class Spread implements SpreadInterface
                 $coll->add(new EntryUnaware(self::USER_CLASS,$m->getId()),$context);
             }
         }
-
-        $coll->add(new Entry($action->getComponent('subject')),$context);
+        // No se le envia notificacion al creador
+        //$coll->add(new Entry($action->getComponent('subject')),$context);
 
     }
 }

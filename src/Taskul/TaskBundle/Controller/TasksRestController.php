@@ -20,6 +20,7 @@ use Taskul\TaskBundle\Controller\Base\TasksRestBaseController as BaseController;
  */
 class TasksRestController extends BaseController {
 
+    private $numNotification = 10;
     /**
      * Lists all Task entities.
      */
@@ -153,31 +154,91 @@ class TasksRestController extends BaseController {
         return $this->processView($data,$statusCode);
     }
 
-
+    /**
+     * Acción que devuelve un numero determinado de tareas pendientes por realizar
+     * @param  [type] $context [description]
+     * @return [type]          [description]
+     */
     public function listStatusAction($context) {
         $user = $this->get('security.context')->getToken()->getUser();
+        $t = $this->get('translator');
         $entities = $this->getDoctrine()->getManager()->getRepository('TaskBundle:Task')->findStatusTasks($user,$context);
+
+        $total = $this->countList($context);
+
+        $msg = $this->generateViewAllList($total);
+
+        return new JsonResponse(array(
+            'success' => TRUE,
+            'result' => $this->generateResultList($entities),
+            'message' => $t->transChoice('notification.task.pending',$total,array('%count%'=>$total),'TaskBundle'),
+            'total' => $total,
+            'viewall'=>$msg
+        ));
+    }
+
+    /**
+     * Función auxiliar para generar el array con el listado de tareas pendientes
+     * @param  [type] $entities [description]
+     * @return [type]           [description]
+     */
+    private function generateResultList($entities)
+    {
         $result = array();
+        $router = $this->get('router');
         $i = 0; // Limitamos el numero a 10
         foreach($entities as $e){
             $result[] = array(
                 'summary' => $e->getName(),
-                'url' => $this->get('router')->generate('api_get_task',array('id'=>$e->getId())),
+                'url' => $router->generate('api_get_task',array('id'=>$e->getId())),
                 'percent' => $e->getPercent(),
             );
             $i++;
-            if($i == 10)
+            if($i === $this->numNotification)
                 break;
 
         }
-        return new JsonResponse(array(
-            'success' => TRUE,
-            'result' => $result,
-            'total' => count($result),
-        ));
+        return $result;
+    }
+    /**
+     * Función auxiliar para generar el mensaje de ver todas las tareas
+     * @param  [type] $total [description]
+     * @return [type]        [description]
+     */
+    private function generateViewAllList($total)
+    {
+        $msg = '';
+        $t = $this->get('translator');
+        $router = $this->get('router');
+        if($total > $this->numNotification)
+        {
+          $msg = '<a href="'.$router->generate('api_get_tasks').'">'.$t->trans('notification.task.view_all',array(),'TaskBundle').'</a>';
+        }
+        return $msg;
     }
 
+    /**
+     * Acción que devuelve el total de tareas pendientes codificado en json
+     *
+     * @param  [type] $context [description]
+     * @return [type]          [description]
+     */
     public function countListStatusAction($context) {
+
+      return new JsonResponse(array(
+              'success' => TRUE,
+              'total' => $this->countList($context),
+          ));
+    }
+    /**
+     * Función auxiliar que devuelve el número de tareas pendientes
+     *
+     * @param  [type] $context [description]
+     * @return [type]          [description]
+     */
+    private function countList($context)
+    {
+
       $user = $this->get('security.context')->getToken()->getUser();
 
       try {
@@ -185,10 +246,7 @@ class TasksRestController extends BaseController {
       } catch (\Doctrine\Orm\NoResultException $e) {
           $count[] = null;
       }
-      return new JsonResponse(array(
-              'success' => TRUE,
-              'total' => array_shift($count),
-          ));
+      return array_shift($count);
     }
 
     private function processForm(Task $task,$formMethod)

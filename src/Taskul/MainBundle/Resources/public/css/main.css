@@ -97,3 +97,9 @@ a.fb-button {
     margin-right: 10px;
     border: 1px solid #EBEBEB;
   }
+  /* Boton cacelar de los comentarios */
+  .fos_comment_submit button {
+    font-size: 1.2em;
+    margin-top: 3px;
+    padding: 3px 12px;
+  }

@@ -1,0 +1,13 @@
+notification:
+    pending:
+        TASK: 'Tienes una notificación nueva|Tienes %total% notificaciones nuevas'
+    FILE:
+        create: 'Nuevo fichero añadido por %extra%'
+    COMMENT:
+        create: 'Nuevo comentario creado por %extra%'
+    TASK:
+        create: 'Nueva tarea creada (%extra%)'
+        update: 'Tarea actualizada (%extra%)'
+        delete: 'Tarea borrada (%extra%)'
+        name: 'tareas'
+        title: 'Listado de notificaciones relativas a tareas'

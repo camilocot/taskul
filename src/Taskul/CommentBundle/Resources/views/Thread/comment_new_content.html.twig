@@ -26,7 +26,7 @@
                     {{ form_errors(form) }}
                     {{ form_errors(form.body) }}
                     </div>
-                     <textarea minlength="8" rows="10" class="nicEdit span11" placeholder="Introduzca una descripción ..." required="required" name="fos_comment_comment[body]" id="fos_comment_comment_body_{{random}}"></textarea>
+                     <textarea minlength="8" rows="10" class="nicEdit" placeholder="Introduzca una descripción ..." required="required" name="fos_comment_comment[body]" id="fos_comment_comment_body_{{random}}" style="width:100%"></textarea>
 
                      {{ form_widget(form._token) }}
                 {% endblock %}

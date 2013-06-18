@@ -226,8 +226,6 @@ class Task implements Documentable, Taggable {
      */
     public function addMember(\Taskul\UserBundle\Entity\User $members)
     {
-        $this->members[] = $members;
-
         return $this;
     }
 
@@ -248,6 +246,7 @@ class Task implements Documentable, Taggable {
      */
     public function getMembers()
     {
+
         return $this->members;
     }
 
@@ -274,7 +273,7 @@ class Task implements Documentable, Taggable {
      */
     public function __construct()
     {
-        $this->members = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->members = new ArrayCollection();
         $this->setStatus('inprogress'); // Se le pone un estado por defecto
         $this->setPercent(50); // Porcentaje por defecto
     }
@@ -392,5 +391,16 @@ class Task implements Documentable, Taggable {
     public function getPercent()
     {
         return $this->percent;
+    }
+
+    public function getMembersWithoutOwner()
+    {
+        $members = new ArrayCollection();
+        foreach ($this->members as $m) {
+            if ($m->getId() != $this->owner->getId()) {
+                $members[] = $m;
+            }
+        }
+        return $members;
     }
 }

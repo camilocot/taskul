@@ -1708,11 +1708,13 @@ $.widget( "ui.progressbar", {
 
 $(document).ready(function(){
 
+  /* COntenido del listado de las notificaciones */
   $('.notiftoggle').click(function() {
         // Only call notifications when opening the dropdown
         $this = $(this);
         var context = $this.data('context');
         var dynroute = $this.data('route-content');
+        /* Si el numero de notificaciones no ha cambioado no se actualiza */
         if( (typeof generateNotification[context] === 'undefined' || generateNotification[context] ) && !$(this).parent('li').hasClass('open')) {
           route = Routing.generate(dynroute, { "context": context });
            $.ajax({
@@ -1726,7 +1728,7 @@ $(document).ready(function(){
                   return function(text, render) {
                     return render(text).substr(0,10) + '...';
                   };
-                }
+                };
                 $this.siblings('ul:first').mustache(dynroute+'-html', data);
                 generateNotification[context] = false;
                 activateProgessBar();
@@ -1763,7 +1765,7 @@ $(document).ready(function(){
 
 
   launchNotifications();
-  setInterval('launchNotifications',60000);
+  //setInterval('launchNotifications',60000);
 
   /* Para eliminar las filas de las tablas al pulsar sobre el boton */
   $.fn.deleteTableRow = function ()
@@ -1790,7 +1792,7 @@ $(document).ready(function(){
         $remove.remove();
     });
     $('body').trigger('delete-submit');
-  }
+  };
 
   /* Quitamos la clase ajaxy del dashboard */
   $(window).bind('statechange',function(){

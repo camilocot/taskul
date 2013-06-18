@@ -15,3 +15,7 @@ task:
         delete: 'Borrar'
         edit: 'Modificar'
         back: 'Volver al listado'
+notification:
+    task:
+        pending: '{0} No tiene tareas pendientes|{1} Tienes una tarea pendiente|]1,Inf] Tienes %count% tareas pendientes'
+        view_all: 'Ver todas las tareas'

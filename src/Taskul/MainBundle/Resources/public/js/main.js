@@ -59,6 +59,7 @@ function notificacion(message, status)
           onCompleted : function(){ // added in v2.0
           }
         });
+    launchNotifications();
 }
 
 function menuColor(selector) {
@@ -157,7 +158,7 @@ function template_functions(){
     $("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
 
     /* ---------- Tooltip ---------- */
-    $('[rel="tooltip"],[data-rel="tooltip"]').tooltip({"placement":"bottom",delay: { show: 400, hide: 200 }});
+    $('[rel="tooltip"],[data-rel="tooltip"]').tooltip({ "placement":"bottom" });
 
     // $('.boostrap-tp').tooltip({
     //     "trigger":"click"
