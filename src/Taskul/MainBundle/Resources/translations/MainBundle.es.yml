@@ -1,0 +1,18 @@
+dashboard:
+    current_quota:
+        box_header: 'Espacio en disco usado'
+        title: 'Aquí puedes ver el espacio ocupado por tus ficheros'
+        content: 'Aquí se muestra el porcentaje ocupada de tu espacio asignado. Este espacio es calculado a partir del tamaño de los ficheros que hayas subido en tus tareas. En principio está limitado a 50Mb por usuario.'
+    quick_links:
+        box_header: 'Accesos rápidos'
+        list_tasks: 'Lista de tareas'
+        new_task: 'Crear tarea'
+        new_message: 'Enviar mensaje'
+        new_friend_request: 'Enviar invitacion'
+        new_fb: 'Invitar a amigos'
+        titles:
+            list_tasks: 'Aquí podrás ver y gestionar todas tus tareas, también en las que te hayan agregado tus contactos'
+            new_task: 'Desde aquí podrás crear tus tareas'
+            new_message: 'Envía un mensaje a alguno de tus contactos'
+            new_friend_request: 'Invita a darse de alta a tus contactos por email, luego podrás agregarlos a tus tareas'
+            new_fb: 'Invita a darse de alta a tus contactos de facebook, luego podrás agregarlos a tus tareas'

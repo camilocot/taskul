@@ -28,64 +28,33 @@
 		</div>
 		<div class="box">
 			<div class="box-header">
-				<h2><i class="icon-hand-up"></i><span class="break"></span>Small Quick Buttons</h2>
+				<h2><i class="icon-hand-up"></i><span class="break"></span>{{ 'dashboard.quick_links.box_header'|trans( {}, 'MainBundle' ) }}</h2>
+				<div class="box-icon">
+					<a class="btn-minimize" href="#"><i class="icon-chevron-up"></i></a>
+				</div>
 			</div>
 			<div class="box-content">
 
-				<a class="quick-button-small span1">
-					<i class="fa-icon-group"></i>
-					<p>Users</p>
-					<span class="notification">7</span>
+				<a class="quick-button-small span1" href="{{path('api_get_tasks')}}" rel="tooltip" title="{{ 'dashboard.quick_links.titles.list_tasks'|trans( {}, 'MainBundle' ) }}">
+					<i class="fa-icon-tasks"></i>
+					<p>{{ 'dashboard.quick_links.list_tasks'|trans( {}, 'MainBundle' ) }}</p>
 				</a>
-				<a class="quick-button-small span1">
+				<a class="quick-button-small span1" href="{{path('api_new_task')}}" rel="tooltip" title="{{ 'dashboard.quick_links.titles.new_task'|trans( {}, 'MainBundle' ) }}">
+					<i class="fa-icon-plus-sign"></i>
+					<p>{{ 'dashboard.quick_links.new_task'|trans( {}, 'MainBundle' ) }}</p>
+				</a>
+				<a class="quick-button-small span1" href="{{path('fos_message_thread_new')}}" rel="tooltip" title="{{ 'dashboard.quick_links.titles.new_message'|trans( {}, 'MainBundle' ) }}">
 					<i class="fa-icon-comments-alt"></i>
-					<p>Comments</p>
-					<span class="notification green">4</span>
+					<p>{{ 'dashboard.quick_links.new_message'|trans( {}, 'MainBundle' ) }}</p>
 				</a>
-				<a class="quick-button-small span1">
-					<i class="fa-icon-shopping-cart"></i>
-					<p>Orders</p>
-				</a>
-				<a class="quick-button-small span1">
-					<i class="fa-icon-barcode"></i>
-					<p>Products</p>
-				</a>
-				<a class="quick-button-small span1">
+				<a class="quick-button-small span1" href="{{path('frequest_new')}}" rel="tooltip" title="{{ 'dashboard.quick_links.titles.new_friend_request'|trans( {}, 'MainBundle' ) }}">
 					<i class="fa-icon-envelope"></i>
-					<p>Messages</p>
+					<p>{{ 'dashboard.quick_links.new_friend_request'|trans( {}, 'MainBundle' ) }}</p>
 				</a>
-				<a class="quick-button-small span1">
-					<i class="fa-icon-calendar"></i>
-					<p>Calendar</p>
-					<span class="notification red">8</span>
+				<a class="quick-button-small span1" href="{{path('import_fb')}}" rel="tooltip" title="{{ 'dashboard.quick_links.titles.new_fb'|trans( {}, 'MainBundle' ) }}">
+					<i class="fa-icon-facebook"></i>
+					<p>{{ 'dashboard.quick_links.new_fb'|trans( {}, 'MainBundle' ) }}</p>
 				</a>
-				<a class="quick-button-small span1">
-					<i class="fa-icon-beaker"></i>
-					<p>Projects</p>
-				</a>
-				<a class="quick-button-small span1">
-					<i class="fa-icon-thumbs-up"></i>
-					<p>Likes</p>
-					<span class="notification green">+ 11</span>
-				</a>
-				<a class="quick-button-small span1">
-					<i class="fa-icon-heart-empty"></i>
-					<p>Favorites</p>
-				</a>
-				<a class="quick-button-small span1">
-					<i class="fa-icon-bullhorn"></i>
-					<p>Notifications</p>
-					<span class="notification yellow">7</span>
-				</a>
-				<a class="quick-button-small span1">
-					<i class="fa-icon-cogs"></i>
-					<p>Settings</p>
-				</a>
-				<a class="quick-button-small span1">
-					<i class="fa-icon-dashboard"></i>
-					<p>Dashboard</p>
-				</a>
-
 				<div class="clearfix"></div>
 			</div>
 		</div>
@@ -94,23 +63,43 @@
 	<div ondesktop="span4" ontablet="span12" class="box span4 noMargin">
 		<div class="box">
 			<div class="box-header">
-				<h2><i class="icon-list"></i><span class="break"></span>Weekly Stat</h2>
+				<h2><i class="icon-list"></i><span class="break"></span>{{ 'dashboard.current_quota.box_header'|trans( {}, 'MainBundle') }}</h2>
 				<div class="box-icon">
 					<a class="btn-minimize" href="#"><i class="icon-chevron-up"></i></a>
-					<a class="btn-close" href="#"><i class="icon-remove"></i></a>
 				</div>
 			</div>
 			<div class="box-content">
-				<div class="circleStatsItem red">
-                    <i class="fa-icon-thumbs-up"></i>
-                    <span class="plus">+</span>
-                    <span class="percent">%</span>
+				<div class="row-fluid">
+					<div class="span12">
+						<h2>{{ 'dashboard.current_quota.title'|trans( {}, 'MainBundle') }}</h2>
+						<div class="well">
+						  <p style="margin-bottom: 0;" class="muted">
+							{{ 'dashboard.current_quota.content'|trans( {}, 'MainBundle') }}
+						  </p>
+						</div>
+					</div>
+					<div class="span12">
+						<div class="circleStatsItem red">
+		                    <i class="fa-icon-thumbs-up"></i>
+		                    <span class="plus">+</span>
+		                    <span class="percent">%</span>
 
-                    <input type="text" value="10" class="orangeCircle" id="dial-quota"/>
-                </div>
+		                    <input type="text" value="{{current_quota}}" class="orangeCircle" id="dial-quota"/>
+		                </div>
+	                </div>
+				</div>
 			</div>
 		</div>
 	</div><!--/span-->
 
 </div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+{% javascripts
+	'@MainBundle/Resources/public/js/vendor/jquery.knob.js'
+    '@MainBundle/Resources/public/js/dashboard.js'
+    %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
 {% endblock %}

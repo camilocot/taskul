@@ -87,7 +87,7 @@ function loadPage(url)
             showWarningNoRecords();
             template_functions(); //main.js
             widthFunctions(); //main.js
-            launchNotifications(); // private.js
+            launchNotifications(); // main.js
 
             // Update the menu
             $menuChildren = $menu.find(menuChildrenSelector);

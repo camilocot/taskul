@@ -42,6 +42,7 @@ class DefaultController extends Controller
     {
         $user =  $this->get('security.context')->getToken()->getUser();
 
+        $fileManager = $this->get('taskul.user.file_manager');
         $actionManager   = $this->get('spy_timeline.action_manager');
         $timelineManager = $this->get('spy_timeline.timeline_manager');
 
@@ -50,6 +51,7 @@ class DefaultController extends Controller
 
         return array(
             'timeline' => $timeline,
+            'current_quota' => $fileManager->getPercentQuota($user)
         );
     }
 }

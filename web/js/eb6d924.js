@@ -1829,13 +1829,6 @@ $(document).ready(function(){
 var generateNotification = [];
 var $remove; // Elemento a eliminar de las tablas
 
-function launchNotifications()
-{
-  $.each($('.notifnumber'), function(){
-    $(this).trigger('notificationUpdate');
-  });
-}
-
 function activateNotifications()
 {
   for (var i = generateNotification.length - 1; i >= 0; i--) {

@@ -116,7 +116,7 @@ label.error {
   background-position: -72px 0;
 }
 /* Scroll para los menus de notificaciones */
-.dropdown-menu {
+.dropdown-menu, .dashboard-list {
   max-height: 400px;
   overflow: hidden;
   overflow-y: auto;

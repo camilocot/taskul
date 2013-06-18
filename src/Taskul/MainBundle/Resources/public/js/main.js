@@ -59,7 +59,7 @@ function notificacion(message, status)
           onCompleted : function(){ // added in v2.0
           }
         });
-    launchNotifications();
+        launchNotifications();
 }
 
 function menuColor(selector) {
@@ -135,6 +135,13 @@ $(document).ready(function(){
     var option = { resGetPath: 'messages/__lng__/__ns__.json' };
     $.i18n.init(option);
 });
+
+function launchNotifications()
+{
+  $.each($('.notifnumber'), function(){
+    $(this).trigger('notificationUpdate');
+  });
+}
 
 /* ---------- Numbers Sepparator ---------- */
 

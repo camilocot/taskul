@@ -4,7 +4,7 @@ $(document).ready(function() {
     $('#fileupload').fileupload({
         dataType: 'json',
         done: function (e, data) {
-            if(data.result.success == true)
+            if(data.result.success === true)
                 $.each(data.result.files, function (index, file) {
 
                     route = Routing.generate('api_download_file', { "id": file.id });
