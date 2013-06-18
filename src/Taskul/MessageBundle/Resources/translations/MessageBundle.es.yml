@@ -1,0 +1,6 @@
+message:
+    view:
+        title: 'Ver el mensaje'
+notification:
+    message:
+        pending: '{0} No tiene mensajes nuevos|{1} Tienes un mesaje nuevo|]1,Inf] Tienes %count% mensajes nuevos'

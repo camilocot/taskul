@@ -158,10 +158,8 @@ function loadAjaxModalForms()
 
 
                 if(status == 'success' && typeof $remove !== 'undefined'){
-                    $remove.deleteTableRow();
+                    $remove.deleteTableRow(); // private.js
                 }
-
-                toggleWarning();
 
                 if(typeof redirect !== 'undefined')
                 {

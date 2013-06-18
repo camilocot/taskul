@@ -38,7 +38,12 @@ class ActionManager extends BaseActionManager
     		case 'DELETE':
     			$verb = 'delete';
     			break;
-
+            case 'RECIBED':
+                $verb = 'recibed';
+                break;
+            case 'SEND':
+                $verb = 'send';
+                break;
     	}
     	return $verb;
     }

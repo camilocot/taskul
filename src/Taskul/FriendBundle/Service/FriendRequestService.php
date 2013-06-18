@@ -8,18 +8,21 @@ use Taskul\UserBundle\Security\Manager;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use Spy\Timeline\Driver\ActionManagerInterface;
 
 class FriendRequestService
 {
 	private $em;
 	private $aclManager;
 	private $session;
+	private $notificationManager;
 
-	function __construct(EntityManager $em, Manager $aclManager, SessionInterface $session)
+	function __construct(EntityManager $em, Manager $aclManager, SessionInterface $session, ActionManagerInterface $notificationManager)
 	{
 		$this->em = $em;
 		$this->aclManager = $aclManager;
 		$this->session = $session;
+		$this->notificationManager = $notificationManager;
 	}
 
 	private function checkFacebookRequest($fbid, $requestid,$user) {
@@ -53,6 +56,12 @@ class FriendRequestService
 		foreach ($requests as $f) {
             $this->aclManager->grantUser($f, $f->getTo()->getUsername(), 'Taskul\UserBundle\Entity\User', MaskBuilder::MASK_OPERATOR); /* Debe de tener permisos de edit para activarla*/
         }
+
+        // Generamos las notificaciones al usuario
+        foreach ($requests as $f) {
+        	$this->$notificationManager->handle($f->getTo(),'RECIBED',$f,$f->getFrom());
+    	}
+
         return $this;
 	}
 

@@ -29,8 +29,14 @@
 
         <!-- start: Header Menu -->
         <div class="nav-no-collapse header-nav">
-
           <ul class="nav pull-right">
+            <li class="dropdown hidden-phone"><!-- Friend Request notifications -->
+              <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#"  id="toggle-task-noti" data-context="FRIENDREQUEST" data-route="notification" data-route-content="get_notifications" rel="tooltip" title="{{ 'notification.FRIENDREQUEST.title'|trans({}, 'TimelineBundle') }}">
+                <i class="icon-flag icon-white"></i><span class="label label-important hidden-phone notifnumber">0</span>
+              </a>
+              <ul class="dropdown-menu notifications">
+              </ul>
+            </li>
             <li class="dropdown hidden-phone"><!-- Task notifications -->
               <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#"  id="toggle-task-noti" data-context="TASK" data-route="notification" data-route-content="get_notifications" rel="tooltip" title="{{ 'notification.TASK.title'|trans({}, 'TimelineBundle') }}">
                 <i class="icon-tasks icon-white"></i><span class="label label-important hidden-phone notifnumber">0</span>
@@ -38,10 +44,10 @@
               <ul class="dropdown-menu notifications">
               </ul>
             </li>
-            <!-- start: Notifications Dropdown -->
+            <!-- start: Pending task Dropdown -->
             <li class="dropdown hidden-phone">
-              <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#" id="toggle-task-inprogress" data-context="inprogress" data-route="api_count_task_list_status" data-route-content="api_list_task_status">
-                <i class="icon-tasks icon-white"></i> <span class="label label-warning hidden-phone notifnumber" id="task-inprogress-number">0</span>
+              <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#" id="toggle-task-inprogress" data-context="inprogress" data-route="api_count_task_list_status" data-route-content="api_list_task_status" rel="tooltip" title="{{ 'notification.TASK.pending.title'|trans({}, 'TimelineBundle') }}">
+                <i class="icon-fire icon-white"></i> <span class="label label-warning hidden-phone notifnumber" id="task-inprogress-number">0</span>
               </a>
               <ul class="dropdown-menu tasks-inprogress tasks">
               </ul>
@@ -146,7 +152,7 @@
   </script>
   <script id="taskul_message_list_unread_messages-html" type="text/html">
   <li>
-    <span class="dropdown-menu-title">You have {{ total }} messages</span>
+    <span class="dropdown-menu-title">{{ message }}</span>
   </li>
   {{#result}}
   <li>

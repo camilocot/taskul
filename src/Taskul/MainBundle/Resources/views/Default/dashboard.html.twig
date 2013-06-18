@@ -4,77 +4,111 @@
 <div class="row-fluid">
 
 	<div ondesktop="span8" ontablet="span12" class="box span8">
-		<div class="box-header">
-			<h2><i class="icon-signal"></i><span class="break"></span>{{ 'notification.latest'|trans( {}, 'TimelineBundle' ) }}</h2>
-			<div class="box-icon">
-				<a class="btn-minimize" href="#"><i class="icon-chevron-up"></i></a>
+		<div class="box">
+			<div class="box-header">
+				<h2><i class="icon-signal"></i><span class="break"></span>{{ 'notification.latest'|trans( {}, 'TimelineBundle' ) }}</h2>
+				<div class="box-icon">
+					<a class="btn-minimize" href="#"><i class="icon-chevron-up"></i></a>
+				</div>
+			</div>
+			<div class="box-content">
+				<ul class="dashboard-list">
+					{% for action in timeline %}
+							<li>
+					            <i class="icon-{{ action.modelDesc('complement') }}"></i>{{ i18n_timeline_render(action, app.request.locale) }}
+					        </li>
+		    		{% else %}
+					    <div class="alert alert-info" id="no-result">
+	                    <h4 class="alert-heading">Info</h4>
+	                    <p>{{ 'notification.no_result'|trans( {}, 'TimelineBundle' ) }}</p>
+	                    </div>
+					{% endfor %}
+				</ul>
 			</div>
 		</div>
-		<div class="box-content">
-			<ul class="dashboard-list">
-				{% for action in timeline %}
-						<li>
-				            <i class="icon-{{ action.modelDesc('complement') }}"></i>{{ i18n_timeline_render(action, app.request.locale) }}
-				        </li>
-	    		{% else %}
-				    <div class="alert alert-info" id="no-result">
-                    <h4 class="alert-heading">Info</h4>
-                    <p>{{ 'notification.no_result'|trans( {}, 'TimelineBundle' ) }}</p>
-                    </div>
-				{% endfor %}
-			</ul>
+		<div class="box">
+			<div class="box-header">
+				<h2><i class="icon-hand-up"></i><span class="break"></span>Small Quick Buttons</h2>
+			</div>
+			<div class="box-content">
+
+				<a class="quick-button-small span1">
+					<i class="fa-icon-group"></i>
+					<p>Users</p>
+					<span class="notification">7</span>
+				</a>
+				<a class="quick-button-small span1">
+					<i class="fa-icon-comments-alt"></i>
+					<p>Comments</p>
+					<span class="notification green">4</span>
+				</a>
+				<a class="quick-button-small span1">
+					<i class="fa-icon-shopping-cart"></i>
+					<p>Orders</p>
+				</a>
+				<a class="quick-button-small span1">
+					<i class="fa-icon-barcode"></i>
+					<p>Products</p>
+				</a>
+				<a class="quick-button-small span1">
+					<i class="fa-icon-envelope"></i>
+					<p>Messages</p>
+				</a>
+				<a class="quick-button-small span1">
+					<i class="fa-icon-calendar"></i>
+					<p>Calendar</p>
+					<span class="notification red">8</span>
+				</a>
+				<a class="quick-button-small span1">
+					<i class="fa-icon-beaker"></i>
+					<p>Projects</p>
+				</a>
+				<a class="quick-button-small span1">
+					<i class="fa-icon-thumbs-up"></i>
+					<p>Likes</p>
+					<span class="notification green">+ 11</span>
+				</a>
+				<a class="quick-button-small span1">
+					<i class="fa-icon-heart-empty"></i>
+					<p>Favorites</p>
+				</a>
+				<a class="quick-button-small span1">
+					<i class="fa-icon-bullhorn"></i>
+					<p>Notifications</p>
+					<span class="notification yellow">7</span>
+				</a>
+				<a class="quick-button-small span1">
+					<i class="fa-icon-cogs"></i>
+					<p>Settings</p>
+				</a>
+				<a class="quick-button-small span1">
+					<i class="fa-icon-dashboard"></i>
+					<p>Dashboard</p>
+				</a>
+
+				<div class="clearfix"></div>
+			</div>
 		</div>
 	</div>
 
 	<div ondesktop="span4" ontablet="span12" class="box span4 noMargin">
-		<div class="box-header">
-			<h2><i class="icon-list"></i><span class="break"></span>Weekly Stat</h2>
-			<div class="box-icon">
-				<a class="btn-minimize" href="#"><i class="icon-chevron-up"></i></a>
-				<a class="btn-close" href="#"><i class="icon-remove"></i></a>
+		<div class="box">
+			<div class="box-header">
+				<h2><i class="icon-list"></i><span class="break"></span>Weekly Stat</h2>
+				<div class="box-icon">
+					<a class="btn-minimize" href="#"><i class="icon-chevron-up"></i></a>
+					<a class="btn-close" href="#"><i class="icon-remove"></i></a>
+				</div>
 			</div>
-		</div>
-		<div class="box-content">
-			<div class="sparkLineStats">
+			<div class="box-content">
+				<div class="circleStatsItem red">
+                    <i class="fa-icon-thumbs-up"></i>
+                    <span class="plus">+</span>
+                    <span class="percent">%</span>
 
-				<ul class="unstyled">
-					<li>
-						<span class="sparkLineStats1 "><canvas style="display: inline-block; width: 100px; height: 30px; vertical-align: top;" width="100" height="30"></canvas></span>
-						Visits:
-						<span class="number">356</span>
-					</li>
-					<li>
-						<span class="sparkLineStats2"><canvas style="display: inline-block; width: 100px; height: 30px; vertical-align: top;" width="100" height="30"></canvas></span>
-						Unique Visitors:
-						<span class="number">252</span>
-					</li>
-					<li><span class="sparkLineStats3"><canvas style="display: inline-block; width: 100px; height: 30px; vertical-align: top;" width="100" height="30"></canvas></span>
-						Pageviews:
-						<span class="number">781</span>
-					</li>
-					<li><span class="sparkLineStats4"><canvas style="display: inline-block; width: 100px; height: 30px; vertical-align: top;" width="100" height="30"></canvas></span>
-						Pages / Visit:
-						<span class="number">2,19</span>
-					</li>
-					<li><span class="sparkLineStats5"><canvas style="display: inline-block; width: 100px; height: 30px; vertical-align: top;" width="100" height="30"></canvas></span>
-						Avg. Visit Duration:
-						<span class="number">00:02:58</span>
-					</li>
-					<li><span class="sparkLineStats6"><canvas style="display: inline-block; width: 100px; height: 30px; vertical-align: top;" width="100" height="30"></canvas></span>
-						Bounce Rate: <span class="number">59,83%</span>
-					</li>
-					<li><span class="sparkLineStats7"><canvas style="display: inline-block; width: 100px; height: 30px; vertical-align: top;" width="100" height="30"></canvas></span>
-						% New Visits:
-						<span class="number">70,79%</span>
-					</li>
-					<li><span class="sparkLineStats8"><canvas style="display: inline-block; width: 100px; height: 30px; vertical-align: top;" width="100" height="30"></canvas></span>
-						% Returning Visitor:
-						<span class="number">29,21%</span>
-					</li>
-
-				</ul>
-
-			</div><!-- End .sparkStats -->
+                    <input type="text" value="10" class="orangeCircle" id="dial-quota"/>
+                </div>
+			</div>
 		</div>
 	</div><!--/span-->
 

@@ -76,11 +76,14 @@ class TimelineController extends Controller
                 $response = $this->getCommentNotificationResponse($entityid);
                 break;
             break;
-                case 'TASK':
+            case 'TASK':
                 $response = $this->getTaskNotificationResponse($entityid);
                 break;
             case 'FILE':
                 $response = $this->getFileNotificationResponse($entityid);
+                break;
+            case 'FRIENDREQUEST':
+                $response = $this->getFriendRequestNotificationResponse($entityid);
                 break;
             default:
                 $response = $this->redirect('dashboard');
@@ -114,6 +117,20 @@ class TimelineController extends Controller
                     'id'  => $entityid,
                 )));
     }
+    /**
+     * Genera una respuesta para una notificacion de solicitud de amistad
+     *
+     * @param  [type] $entityid [description]
+     * @return [type]           [description]
+     */
+    private function getFriendRequestNotificationResponse($entityid)
+    {
+        return $this->redirect($this->generateUrl('frequest_show', array(
+                    'id'  => $entityid,
+                )));
+    }
+
+
 
     /**
      * Genera una respuesta para una notificacion de fichero
@@ -142,6 +159,7 @@ class TimelineController extends Controller
     	{
     		case 'TASK':
     		case 'MESSAGE':
+            case 'FRIENDREQUEST':
     		break;
 
             case 'FILE': /* Esto por ahora se ponen como notificaciones de tareas*/
@@ -279,6 +297,12 @@ class TimelineController extends Controller
             case 'Document':
                 $summary = $entity->getName();
                 break;
+            case 'FriendRequest':
+                $summary = $entity->getFrom()->getUserName();
+                break;
+            case 'Message':
+                $summary = $entity->getSender()->getUserName();
+                break;
         }
         return $summary;
     }
@@ -328,8 +352,8 @@ class TimelineController extends Controller
         $summary = $this->getSummary($entity);
         $verb = $action->getVerb();
         $t = $this->container->get('translator');
-        return
-        $t->trans('notification.'.strtoupper($class).'.'.$verb,array('%extra%'=>$summary),'TimelineBundle');
+
+        return $t->trans('notification.'.strtoupper($class).'.'.$verb,array('%extra%'=>$summary),'TimelineBundle');
 
     }
 
@@ -354,6 +378,12 @@ class TimelineController extends Controller
                 break;
             case 'Document':
                 $icon = 'icon-file';
+                break;
+            case 'FriendRequest':
+                $icon = 'icon-user';
+                break;
+            case 'Message':
+                $icon = 'icon-envelope';
                 break;
             default:
                 $icon = 'icon-th';        }

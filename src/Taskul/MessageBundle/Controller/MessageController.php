@@ -83,6 +83,8 @@ class MessageController extends BaseController
     public function newThreadAction()
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
+        $actionManager = $this->container->get('taskul_timeline.action_manager.orm');
+
         $friends = $user->getMyFriends();
 
         if(count($friends) == 0){
@@ -94,6 +96,16 @@ class MessageController extends BaseController
 
             $deleteForm = $this->createDeleteForm(-1);
             if ($message = $formHandler->process($form)) {
+                // Creamos las notificaciones
+                $metadata = $message->getAllMetadata();
+                $sender = $message->getSender();
+                foreach ($metadata as $meta) {
+                    $participant = $meta->getParticipant();
+                    if($participant->getId() !== $sender->getId())
+                        $actionManager->handle($sender,'SEND',$message,$participant());
+                }
+
+
                 return new CheckAjaxResponse(
                     $this->container->get('router')->generate('fos_message_thread_view', array(
                         'threadId' => $message->getThread()->getId()
@@ -128,18 +140,30 @@ class MessageController extends BaseController
 
     public function getUnreadMessagesAction()
     {
-        return new JsonResponse(array('success'=>TRUE, 'total' => $this->getProvider()->getNbUnreadMessages()));
+        return new JsonResponse(array('success'=>TRUE, 'total' => $this->getCountUnread()));
     }
 
     public function listUnreadMessagesAction()
     {
         $participant = $this->container->get('security.context')->getToken()->getUser();
         $em = $this->container->get("doctrine.orm.entity_manager");
+        $t = $this->container->get('translator');
 
         $result = $em->getRepository('MessageBundle:Message')->findUnreadMessages($participant);
         $msgs = $this->processMessages($result);
+        $total = $this->getCountUnread();
 
-        return new JsonResponse(array('success'=>TRUE, 'total' => count($result), 'result'=>$msgs));
+        return new JsonResponse(array(
+            'success'=>TRUE,
+            'total' => $total,
+            'result'=>$msgs,
+            'message' => $t->transChoice('notification.message.pending',$total,array('%count%'=>$total),'MessageBundle'),
+            ));
+    }
+
+    private function getCountUnread()
+    {
+        return $this->getProvider()->getNbUnreadMessages();
     }
 
     private function createDeleteForm($id) {

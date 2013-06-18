@@ -16,6 +16,7 @@ class Spread implements SpreadInterface
     CONST FILE_CLASS = 'Taskul\FileBundle\Entity\Document';
     CONST COMMENT_CLASS = 'Taskul\CommentBundle\Entity\Comment';
     CONST MESSAGE_CLASS = 'Taskul\MessageBundle\Entity\Message';
+    CONST FRIENDREQUEST_CLASS = 'Taskul\FriendBundle\Entity\FriendRequest';
 
     private $em;
     private $logger;
@@ -60,9 +61,14 @@ class Spread implements SpreadInterface
             && $indirectComplement->getModel() == self::USER_CLASS
             && $complement->getModel() == self::MESSAGE_CLASS) {
             $context = 'MESSAGE';
-            $members = $this->em->getRepository('UserBundle:User')->find($indirectComplement->getIdentifier());
+            $members[] = $this->em->getRepository('UserBundle:User')->find($indirectComplement->getIdentifier());
+        }else if(is_object($indirectComplement)
+            && is_object($complement)
+            && $indirectComplement->getModel() == self::USER_CLASS
+            && $complement->getModel() == self::FRIENDREQUEST_CLASS){
+            $context = 'FRIENDREQUEST';
+            $members[] = $this->em->getRepository('UserBundle:User')->find($indirectComplement->getIdentifier());
         }
-
         if(count($members)>0){
             foreach($members as $m){
                 $coll->add(new EntryUnaware(self::USER_CLASS,$m->getId()),$context);

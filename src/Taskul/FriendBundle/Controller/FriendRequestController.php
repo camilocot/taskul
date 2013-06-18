@@ -447,6 +447,7 @@ class FriendRequestController extends Controller {
   {
     $aclManager = $this->get('taskul.acl_manager');
     $em = $this->getDoctrine()->getEntityManager();
+    $actionManager = $this->get('taskul_timeline.action_manager.orm');
 
     $entity = new FriendRequest();
     $entity->setFrom($owner);
@@ -459,6 +460,9 @@ class FriendRequestController extends Controller {
 
     $em->persist($entity);
     $em->flush();
+
+    if(NULL !== $entity->getTo())
+      $actionManager->handle($owner,'POST',$entity,$entity->getTo());
 
     $this->grantAclsFriendRequest(array($entity));
 
