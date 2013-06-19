@@ -43,6 +43,7 @@ class AppKernel extends Kernel
             new Spy\TimelineBundle\SpyTimelineBundle(),
             new Taskul\TimelineBundle\TimelineBundle(),
             new Ornicar\GravatarBundle\OrnicarGravatarBundle(),
+            new Ornicar\AkismetBundle\OrnicarAkismetBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

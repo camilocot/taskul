@@ -1790,6 +1790,7 @@ $(document).ready(function(){
     $remove.css("background", "red");
     $remove.fadeOut(function() {
         $remove.remove();
+        $('.helpinfo').remove();
         toggleWarning(); // ajaxyfy.js
     });
     $('body').trigger('delete-submit');

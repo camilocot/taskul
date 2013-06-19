@@ -190,3 +190,6 @@ spy_timeline:
         i18n:
             fallback: es
 ornicar_gravatar: ~
+ornicar_akismet:
+    api_key:        8bc2c0d9bb02
+    url:            http://www.taskul.net

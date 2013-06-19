@@ -1,4 +1,4 @@
-{% extends "::private.html.twig" %}
+{% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "::private.html.twig" %}
 {% block stylesheets %}
 {% stylesheets
 '@MainBundle/Resources/public/css/prettyCheckable.css'
@@ -17,13 +17,7 @@
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}
-<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-<script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 {% javascripts
-	'@MainBundle/Resources/public/js/vendor/wysihtml5-0.3.0.js'
-	'@MainBundle/Resources/public/js/vendor/bootstrap-wysihtml5.js'
-	'@MainBundle/Resources/public/js/vendor/excanvas.js'
-	'@MainBundle/Resources/public/js/vendor/jquery.knob.js'
 	'@FriendBundle/Resources/public/js/friendRequestOps.js'
 %}
 <script src="{{ asset_url }}"></script>

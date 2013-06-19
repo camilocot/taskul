@@ -13,6 +13,7 @@ use Taskul\FriendBundle\Form\FriendRequestType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+use Taskul\MainBundle\Component\CheckAjaxResponse;
 
 /**
  * FriendRequest controller.
@@ -22,6 +23,9 @@ use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
  * @Breadcrumb("Friend Request", route="frequest")
  */
 class FriendRequestController extends Controller {
+
+  private $success; // Identifica si se ha enviado correctamente la invitacion
+  private $message; //Identifica el mensaje enviado
 
   /**
    * List all friend request send and recibed
@@ -223,8 +227,13 @@ class FriendRequestController extends Controller {
    * @Breadcrumb("Nueva")
    */
   public function createAction(Request $request) {
-    $entity = new FriendRequest();
+
     $owner = $this->get('security.context')->getToken()->getUser();
+    $em = $this->getDoctrine()->getManager();
+    $t = $this->get('translator');
+
+
+    $entity = new FriendRequest();
     $entity->setFrom($owner);
     $time = microtime(true) . '_' . uniqid();
     $entity->setHash(hash("sha256", $time . $owner->getId(), false));
@@ -234,16 +243,16 @@ class FriendRequestController extends Controller {
     $form->bind($request);
 
     if ($form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
 
-      $this->processFriendRequestsEmailForm($owner, $em, $form);
+      if(!$this->checkSpan($owner,$form->getData()))
+        $this->processFriendRequestsEmailForm($owner, $em, $form);
 
-      if ($request->isXmlHttpRequest()){
-        return new JsonResponse(array('success' => TRUE,'message'=>'OK'));
-      }
-      else {
-        return $this->redirect($this->generateUrl('frequest_sended'));
-      }
+      $url = $this->generateUrl('frequest_sended');
+
+      return new CheckAjaxResponse(
+          $url,
+          array('success'=>$this->success, 'message' => $this->message ,'url'=>$url, 'title'=>$t->trans('friendrequest.list.sended',array(),'FriendBundle'))
+      );
     }
 
     return array(
@@ -252,6 +261,36 @@ class FriendRequestController extends Controller {
       'delete_form' => $this->createDeleteForm(-1)->createView(),
       'activate_form' => $this->createActivateForm(-1)->createView(),
       );
+  }
+
+  private function checkSpan($owner,$formData)
+  {
+    $akismet = $this->get('ornicar_akismet');
+    $t = $this->get('translator');
+
+    $message = $formData->getMessage();
+    $emails = $this->processEmails($formData->getEmail());
+    $numEmails = count($emails);
+
+    $isSpam = $akismet->isSpam(array(
+      'comment_author'  => $owner->getFirstName(). ' '.$owner->getLastName(),
+      'comment_content' => $message
+    ));
+
+
+    if(!$isSpam) {
+      $this->success = TRUE;
+      $this->message = $t->transChoice('message.sent.successfully',$numEmails,array('%num%'=>$numEmails),'FriendBundle');
+    }else {
+      $this->success = FALSE;
+      $this->message = $t->trans('message.is.spam',array(),'FriendBundle');
+    }
+    return !$this->success;
+  }
+
+  private function processEmails($emails)
+  {
+    return explode(';',$emails);
   }
 
   /**
@@ -422,7 +461,8 @@ class FriendRequestController extends Controller {
   private function processFriendRequestsEmailForm($owner,$em,$form){
     // Buscamos los emails
     $data = $form->getData();
-    $emails = explode(';', $data->getEmail());
+    $emails = $this->processEmails($data->getEmail());
+
     foreach ($emails as $email) {
       if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
         // Comprobamos si estan en los contactos del usuario

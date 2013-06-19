@@ -33,7 +33,8 @@
         "jms/serializer-bundle": "0.12.*@dev",
 	"stephpy/TimelineBundle": "dev-master",
         "friendsofsymfony/rest-bundle": "0.12.*",
-	"ornicar/gravatar-bundle" : "dev-master"
+	"ornicar/gravatar-bundle" : "dev-master",
+        "ornicar/akismet-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

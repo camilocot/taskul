@@ -1,3 +1,28 @@
 friendrequest:
     view:
-        title: 'Ver tarea'
+        title: 'Ver solicitud de contacto'
+    list:
+        sended: 'Listado de solicitudes de contacto enviadas'
+    email:
+        new:
+            title: 'Envía invitaciones por email a tus contactos'
+            email_help: 'Introduzca los emails separados por punto y comas ";"'
+            message_help: 'Introduzca el mensaje a enviar a los contactos ...'
+            send: 'Enviar'
+            back: 'Volver'
+message:
+    sent:
+        successfully: 'Invitacion enviada correctamente|Invitaciones (%num%) enviadas correctamente'
+    isSpam: 'Lo sentimos el contenido del mensaje ha sido clasificado como SPAM, por favor revíselo y vuelva a intentarlo'
+friend:
+    myfriends: 'Mis contactos'
+    search: 'Buscar contactos'
+    search_note: 'Introduce el nombre o email'
+    search_clean: 'Pulsa para limpiar la búsqueda'
+    name: 'Nombre'
+    actions: 'Acciones'
+    title: 'Aquí puedes ver tus contactos'
+    content: 'En el listado de abajo aparecen todos los contactos que tiene asociada tu cuenta, desde aquí puedes gestionarlos.'
+    warning:
+        title: 'Aviso'
+        text: 'No tienes ningún contacto. Si quieres enviar invitaciones por email utiliza <a href="%email_form_contact%" class="ajaxy">este formulario</a> o si quieres invitar a tus amigos de facebook utiliza <a href="%fb_form_contact%" class="ajaxy">este otro formulario</a>'

@@ -1,3 +1,5 @@
+var historyBool = true; // Para los formularios qeu sino carga la pagina 2 veces, una por la redireccion del form y otra por el statechange del history
+
 // Ajaxify
 // https://github.com/browserstate/ajaxify
 (function(window,undefined){
@@ -52,7 +54,10 @@
                 State = History.getState(),
                 url = State.url;
                 relativeUrl = url.replace(rootUrl,'');
-                loadPage(url);
+                if(historyBool)
+                    loadPage(url);
+                else
+                    historyBool = true;
         });
         loadAjaxModalForms();
         loadAjaxForms();
@@ -88,7 +93,6 @@ function loadPage(url)
             template_functions(); //main.js
             widthFunctions(); //main.js
             launchNotifications(); // main.js
-
             // Update the menu
             $menuChildren = $menu.find(menuChildrenSelector);
             $menuChildren.filter(activeSelector).removeClass(activeClass);
@@ -111,6 +115,7 @@ function loadAjaxForms()
             submitHandler: function(form) {
                 $(form).ajaxSubmit({
                     success: function (data){
+
                         if(data.success === true && data.url && data.forceredirect) {
                             if(data.message){
                                 notificacion(data.message,'success');
@@ -119,6 +124,9 @@ function loadAjaxForms()
                                 redirect(data.url);
                         }else if(data.success === true && data.url) {
                             loadPage(data.url);
+                            historyBool = false;
+                            if(data.message)
+                                notificacion(data.message,'success');
                             History.pushState(null,data.title,data.url);
                         }else if (data.success === true && data.content){
                             $('#content').html(data.content);

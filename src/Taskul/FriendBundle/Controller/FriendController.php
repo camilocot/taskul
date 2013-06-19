@@ -17,8 +17,6 @@ use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
  *
  * @Route("/friend")
  *
- * @Breadcrumb("Dashboard", route="dashboard")
- * @Breadcrumb("Friends", route="myfriends")
  */
 class FriendController extends Controller {
     /**
@@ -28,16 +26,22 @@ class FriendController extends Controller {
      * @Template()
      */
     public function indexAction() {
-        $user = $this->get('security.context')->getToken()->getUser();
+      $t = $this->get('translator');
 
-        $deleteForm = $this->createDeleteForm(-1);
-        $entities = $user->getMyFriends();
+      $this->container->get("apy_breadcrumb_trail")
+          ->add('Dashboard', 'dashboard')
+          ->add($t->trans('friend.myfriends',array(),'FriendBundle'), 'myfriends');
 
-        return array(
-            'entities' => $entities,
-            'entity' => array('id' => -1),
-            'delete_form' => $deleteForm->createView(),
-            );
+      $user = $this->get('security.context')->getToken()->getUser();
+
+      $deleteForm = $this->createDeleteForm(-1);
+      $entities = $user->getMyFriends();
+
+      return array(
+          'entities' => $entities,
+          'entity' => array('id' => -1),
+          'delete_form' => $deleteForm->createView(),
+          );
     }
 
     /**
