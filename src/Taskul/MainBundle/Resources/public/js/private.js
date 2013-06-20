@@ -116,6 +116,26 @@ $(document).ready(function(){
         $form = $this.closest('div.modal').next('form');
         $form.submit();
     });
+    /* Para comprobar si el nicedit tiene contenido */
+    $(document).on('click','.submit-niceditor', function(event){
+      $form = $(this).parents('form:first');
+        textareaid = $form.data('textarea-id');
+        ne = nicEditors.findEditor(textareaid);
+        content = ne.getContent().replace(/^(<p\>(\&nbsp\;|(\s)*)<\/p\>|<br(\s\/)?\>)$/g,'');
+        if(content === '')
+        {
+          notificacion($.t('msg.comment.empty') ,'error');
+          event.preventDefault();
+          return false;
+        }
+        else
+        {
+          if(!$form.hasClass('ajaxform')) {
+            notificacion($.t('msg.comment.success_send'),'success'); // Esto es para los comentarios de la tareas
+          }
+          $('#'+textareaid).val(content);
+        }
+    });
 
 });
 

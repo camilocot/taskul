@@ -15,11 +15,3 @@
 {% include 'FriendBundle:partials:delete-modal.html.twig' with {'type': 'frequest_delete'} %}
 {% include 'FriendBundle:partials:activate-modal.html.twig' with {'type': 'frequest_activate'}%}
 {% endblock %}
-{% block javascripts %}
-{{ parent() }}
-{% javascripts
-	'@FriendBundle/Resources/public/js/friendRequestOps.js'
-%}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-{% endblock %}

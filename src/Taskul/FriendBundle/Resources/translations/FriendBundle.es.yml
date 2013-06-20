@@ -10,6 +10,12 @@ friendrequest:
             message_help: 'Introduzca el mensaje a enviar a los contactos ...'
             send: 'Enviar'
             back: 'Volver'
+    new:
+        email: 'Email(s) de destino'
+        message: 'Mensaje de invitación'
+        title: 'Invita a tus contactos'
+        content: 'Énvía invitaciones a tus contactos, cuando la acepten podrás agregarlos a tus tareas y ellos también a tí. Puedes separar una lista de emails con el caracter ";"'
+        email_help: 'example@example.com;example2@taskul.net'
 message:
     sent:
         successfully: 'Invitacion enviada correctamente|Invitaciones (%num%) enviadas correctamente'

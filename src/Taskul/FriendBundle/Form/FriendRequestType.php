@@ -11,8 +11,8 @@ class FriendRequestType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('email')
-            ->add('message','textarea')
+        ->add('email','text',array('translation_domain'=>'FriendBundle','label'=>'friendrequest.new.email'))
+        ->add('message','purified_textarea',array('translation_domain'=>'FriendBundle','label'=>'friendrequest.new.message'))
 
         ;
     }

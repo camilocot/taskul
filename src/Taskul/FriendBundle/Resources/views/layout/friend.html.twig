@@ -3,11 +3,3 @@
 {{ parent()}}
 {% include 'FriendBundle:partials:delete-modal.html.twig' with {'type': 'myfriends_delete'} %}
 {% endblock %}
-{% block javascripts %}
-{{ parent() }}
-{% javascripts
-	'@FriendBundle/Resources/public/js/friendOps.js'
-%}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-{% endblock %}

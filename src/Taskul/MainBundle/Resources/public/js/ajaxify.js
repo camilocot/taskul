@@ -33,6 +33,12 @@ var historyBool = true; // Para los formularios qeu sino carga la pagina 2 veces
                 url = $this.attr('href'),
                 title = $this.attr('title')||null;
 
+                $ul = $this.parents('ul');
+                ulId = $ul.attr('id');
+
+                if(typeof ulId !== undefined)
+                    clearMenuActive($ul.attr('id'));
+
                 // Continue as normal for cmd clicks etc
                 //if ( event.which == 2 || event.metaKey ) { return true; }
 

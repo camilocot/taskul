@@ -12,14 +12,24 @@
             </div>
         </div>
         <div class="box-content">
-            <form action="{{ path('frequest_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal ajaxform" id="form_request">
+            <div class="span12 helpinfo well">
+                <h2>{{ 'friendrequest.new.title'|trans( {}, 'FriendBundle') }}</h2>
+                  <p style="margin-bottom: 0;" class="muted">
+                    {{ 'friendrequest.new.content'|trans( {}, 'FriendBundle') }}
+                  </p>
+            </div>
+            <form action="{{ path('frequest_create') }}" method="post" {{ form_enctype(form) }} class="form-horizontal ajaxform" id="form_request" data-textarea-id="taskul_friendbundle_friendrequesttype_message" novalidate="novalidate">
                <fieldset>
                   {{ form_errors(form) }}
-                  {{ form_row(form.email,{'help': 'friendrequest.email.new.email_help'|trans({},'FriendBundle') }) }}
-                  {{ form_row(form.message, {'attr': {'placeholder':'friendrequest.email.new.message_help'|trans({},'FriendBundle'), 'class':'wysihtml5 span11','rows':'10'} } ) }}
+                  {{ form_row(form.email,{
+                    'help': 'friendrequest.email.new.email_help'|trans({},'FriendBundle'),
+                    'attr': {'placeholder':'friendrequest.new.email_help'|trans({},'FriendBundle'),'class':'span11 required','maxlength':'255' }
+                    })
+                  }}
+                  {{ form_row(form.message, {'attr': {'placeholder':'friendrequest.email.new.message_help'|trans({},'FriendBundle'), 'class':'nicEdit span11','rows':'10'} } ) }}
                   {{ form_rest(form) }}
                   <div class="form-actions">
-                    <button type="submit" class="btn btn-success"><i class="fa-icon-envelope"></i>&nbsp;{{'friendrequest.email.new.send'|trans({},'FriendBundle')}}</button>
+                    <button type="submit" class="btn btn-success submit-niceditor"><i class="fa-icon-envelope"></i>&nbsp;{{'friendrequest.email.new.send'|trans({},'FriendBundle')}}</button>
                     <a href="{{ path('frequest') }}" class="btn ajaxy">
                         <i class="fa-icon-undo"></i>&nbsp;{{'friendrequest.email.new.back'|trans({},'FriendBundle')}}
                     </a>
