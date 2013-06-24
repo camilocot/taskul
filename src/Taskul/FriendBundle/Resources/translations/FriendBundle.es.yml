@@ -3,6 +3,13 @@ friendrequest:
         title: 'Ver solicitud de contacto'
     list:
         sended: 'Listado de solicitudes de contacto enviadas'
+        recibed: 'Listado de solicitudes de contacto recibidas'
+        from: 'Remitente'
+        message: Mensaje
+        buttons:
+            delete: 'Pulsa para eliminar las solicitud'
+            activate: 'Pulsa para activar la solicitud'
+            show: 'Ver detalles de la solicitud'
     email:
         new:
             title: 'Envía invitaciones por email a tus contactos'
@@ -16,6 +23,14 @@ friendrequest:
         title: 'Invita a tus contactos'
         content: 'Énvía invitaciones a tus contactos, cuando la acepten podrás agregarlos a tus tareas y ellos también a tí. Puedes separar una lista de emails con el caracter ";"'
         email_help: 'example@example.com;example2@taskul.net'
+    breadcrumb:
+        index: 'Solicitudes de contacto'
+        recibed: 'Solicitudes de contacto recibidas'
+        sended: 'Solicitudes de contacto enviadas'
+    recibed:
+        title: 'Solicitudes de contacto recibidas'
+    warning:
+        text: 'No tienes ninguna solicitud de contacto. Si quieres enviar invitaciones por email utiliza <a href="%email_form_contact%" class="ajaxy">este formulario</a> o si quieres invitar a tus amigos de Facebook utiliza <a href="%fb_form_contact%" class="ajaxy">este otro formulario</a>'
 message:
     sent:
         successfully: 'Invitacion enviada correctamente|Invitaciones (%num%) enviadas correctamente'
@@ -29,6 +44,9 @@ friend:
     actions: 'Acciones'
     title: 'Aquí puedes ver tus contactos'
     content: 'En el listado de abajo aparecen todos los contactos que tiene asociada tu cuenta, desde aquí puedes gestionarlos.'
+    delete:
+        sucess: 'Se ha eliminado satisfactoriamente el contacto.'
     warning:
-        title: 'Aviso'
-        text: 'No tienes ningún contacto. Si quieres enviar invitaciones por email utiliza <a href="%email_form_contact%" class="ajaxy">este formulario</a> o si quieres invitar a tus amigos de facebook utiliza <a href="%fb_form_contact%" class="ajaxy">este otro formulario</a>'
+        text: 'No tienes ningún contacto. Si quieres enviar invitaciones por email utiliza <a href="%email_form_contact%" class="ajaxy">este formulario</a> o si quieres invitar a tus amigos de Facebook utiliza <a href="%fb_form_contact%" class="ajaxy">este otro formulario</a>'
+warning:
+    title: 'Advertencia'

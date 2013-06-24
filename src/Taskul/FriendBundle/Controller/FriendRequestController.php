@@ -4,7 +4,6 @@ namespace Taskul\FriendBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -14,15 +13,14 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
 use Taskul\MainBundle\Component\CheckAjaxResponse;
+use Taskul\MainBundle\Controller\BaseController;
 
 /**
  * FriendRequest controller.
  *
  * @Route("/frequest")
- * @Breadcrumb("Dashboard", route="dashboard")
- * @Breadcrumb("Friend Request", route="frequest")
  */
-class FriendRequestController extends Controller {
+class FriendRequestController extends BaseController {
 
   private $success; // Identifica si se ha enviado correctamente la invitacion
   private $message; //Identifica el mensaje enviado
@@ -35,17 +33,14 @@ class FriendRequestController extends Controller {
    */
   public function indexAction() {
 
-    $recibed = $this->getRecibed();
-    $sended = $this->getSended();
-    $deleteForm = $this->createDeleteForm(-1);
-    $activateForm = $this->createActivateForm(-1);
+    $this->putDashBoardBreadCrumb()->putBreadCrumb('friendrequest.breadcrumb.index', 'frequest', 'FriendBundle');
 
     return array(
-      'sended' => count($sended),
-      'recibed' => count($recibed),
+      'sended' => count($this->getRecibed()),
+      'recibed' => count($this->getSended()),
       'entity' => array('id' => -1),
-      'delete_form' => $deleteForm->createView(),
-      'activate_form' => $activateForm->createView(),
+      'delete_form' => $this->createDeleteFormView(-1),
+      'activate_form' => $this->createActivateForm(-1)->createView(),
       );
   }
 
@@ -56,20 +51,18 @@ class FriendRequestController extends Controller {
    * @Route("/recibed", name="frequest_recibed")
    * @Template()
    *
-   * @Breadcrumb("Recibidas")
    */
   public function indexRecibedAction() {
 
-    $deleteForm = $this->createDeleteForm(-1);
-    $activateForm = $this->createActivateForm(-1);
-
-    $entities = $this->getRecibed();
+    $this->putDashBoardBreadCrumb()
+    ->putBreadCrumb('friendrequest.breadcrumb.index', 'frequest', 'FriendBundle')
+    ->putBreadCrumb('friendrequest.breadcrumb.recibed', 'frequest', 'FriendBundle');
 
     return array(
-      'entities' => $entities,
+      'entities' => $this->getRecibed(),
       'entity' => array('id' => -1),
-      'delete_form' => $deleteForm->createView(),
-      'activate_form' => $activateForm->createView(),
+      'delete_form' => $this->createDeleteFormView(-1),
+      'activate_form' => $this->createActivateForm(-1)->createView(),
       );
   }
 
@@ -79,16 +72,17 @@ class FriendRequestController extends Controller {
    * @Route("/sended", name="frequest_sended", options={ "expose": true })
    * @Template()
    *
-   * @Breadcrumb("Enviadas")
    */
   public function indexSendedAction() {
-    $deleteForm = $this->createDeleteForm(-1);
-    $entities = $this->getSended();
+
+  $this->putDashBoardBreadCrumb()
+    ->putBreadCrumb('friendrequest.breadcrumb.index', 'frequest', 'FriendBundle')
+    ->putBreadCrumb('friendrequest.breadcrumb.sended', 'frequest', 'FriendBundle');
 
     return array(
-      'entities' => $entities,
+      'entities' => $this->getSended(),
       'entity' => array('id' => -1),
-      'delete_form' => $deleteForm->createView(),
+      'delete_form' => $this->createDeleteFormView(-1),
       'activate_form' => $this->createActivateForm(-1)->createView(),
       );
   }
@@ -401,6 +395,12 @@ class FriendRequestController extends Controller {
     return $this;
   }
 
+  /**
+   * Comprueba si un usuario está dentro de los contactos de otro
+   * @param  [type] $user   [description]
+   * @param  [type] $friend [description]
+   * @return [type]         [description]
+   */
   private function checkFriends($user,$friend)
   {
     $friends = $user->getMyFriends();
@@ -435,13 +435,6 @@ class FriendRequestController extends Controller {
   private  function getHash($id){
     $time = microtime(true) . '_' . uniqid();
     return hash("sha256", $time . $id, false);
-  }
-
-  private function createDeleteForm($id) {
-    return $this->createFormBuilder(array('delete_id' => $id))
-    ->add('delete_id', 'hidden')
-    ->getForm()
-    ;
   }
 
   private function createActivateForm($id) {

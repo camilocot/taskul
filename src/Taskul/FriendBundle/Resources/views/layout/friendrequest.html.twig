@@ -1,15 +1,4 @@
 {% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "::private.html.twig" %}
-{% block stylesheets %}
-{% stylesheets
-'@MainBundle/Resources/public/css/prettyCheckable.css'
-'@MainBundle/Resources/public/css/bootstrapSwitch.css'
-'@MainBundle/Resources/public/css/bootstrap-wysihtml5.css'
-'@MainBundle/Resources/public/css/wysiwyg-color.css'
-%}
-<link rel="stylesheet" href="{{ asset_url }}">
-{{ parent() }}
-{% endstylesheets %}
-{% endblock %}
 {% block body %}
 {{ parent()}}
 {% include 'FriendBundle:partials:delete-modal.html.twig' with {'type': 'frequest_delete'} %}

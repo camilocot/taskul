@@ -49,12 +49,7 @@
             </table>
 
             {% endif %}
-            <div class="alert alert-block warning" id="no-friends" >
-                <h4 class="alert-heading">{{'friend.warning.title'|trans({},'FriendBundle')}}</h4>
-                <p>
-                    {{'friend.warning.text'|trans({ '%email_form_contact%': path('frequest_new'), '%fb_form_contact%': path('import_fb') },'FriendBundle')|raw}}
-                </p>
-            </div>
+           {% include 'FriendBundle:partials:warning-message.html.twig' with {'type':'friend'} %}
         </div>
     </div>
 </div>

@@ -177,6 +177,6 @@ a.dropdown-toggle::after {
 /* Boton de limpiar busqueda */
 .clear-filter {
   margin-bottom: 10px;
-  margin-right:100px;
-  margin-left:10px;
+/*  margin-right:100px;
+*/  margin-left:10px;
 }
