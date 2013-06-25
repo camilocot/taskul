@@ -33,12 +33,12 @@ class BaseController extends Controller {
 		return $this->get("apy_breadcrumb_trail");
 	}
 
-	public function putBreadCrumb($name, $route, $translationDomain=null,$params=array())
+	public function putBreadCrumb($name, $route, $translationDomain=null,$paramsTranslation=array(),$routeParams=array())
 	{
 		if(null !== $translationDomain)
 		{
 			$t = $this->getTranslator();
-			$this->getBreadCrumb()->add($t->trans($name,$params,$translationDomain), $route);
+			$this->getBreadCrumb()->add($t->trans($name,$paramsTranslation,$translationDomain), $route, $routeParams);
 
 		}
 		else
@@ -60,6 +60,16 @@ class BaseController extends Controller {
 	public function getSecurityContext()
 	{
 		return $this->get('security.context');
+	}
+
+	public function getAntiSpam()
+	{
+		return $this->get('ornicar_akismet');
+	}
+
+	public function getActionManager()
+	{
+		return $this->get('taskul_timeline.action_manager.orm');
 	}
 
 	protected function createDeleteForm($id)

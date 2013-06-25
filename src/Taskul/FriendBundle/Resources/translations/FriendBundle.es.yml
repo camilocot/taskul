@@ -1,6 +1,14 @@
 friendrequest:
     view:
         title: 'Ver solicitud de contacto'
+        message: 'Mensaje'
+        to: 'Destinatario'
+        from: 'Remitente'
+        back: 'Volver a las solicitudes'
+        activate: 'Confirmar'
+        delete: 'Borrar'
+        note: 'El siguiente usuario te ha enviado una solicitud para invitarte a conectar. Si la activas podréis asociaros como miembros, subir ficheros y comentar en vuestras tareas. También podréis enviaros mensajes privados entre vosotros.'
+        title_note: 'Importante, lee lo siguiente antes de continuar'
     list:
         sended: 'Listado de solicitudes de contacto enviadas'
         recibed: 'Listado de solicitudes de contacto recibidas'
@@ -17,6 +25,8 @@ friendrequest:
             message_help: 'Introduzca el mensaje a enviar a los contactos ...'
             send: 'Enviar'
             back: 'Volver'
+    delete:
+        success: 'Se ha eliminado satisfactoriamente la solicitud.'
     new:
         email: 'Email(s) de destino'
         message: 'Mensaje de invitación'
@@ -27,6 +37,8 @@ friendrequest:
         index: 'Solicitudes de contacto'
         recibed: 'Solicitudes de contacto recibidas'
         sended: 'Solicitudes de contacto enviadas'
+        view: 'Detalle de solicitud de contacto'
+        new: 'Nueva solicitud de contacto'
     recibed:
         title: 'Solicitudes de contacto recibidas'
     warning:
@@ -45,7 +57,7 @@ friend:
     title: 'Aquí puedes ver tus contactos'
     content: 'En el listado de abajo aparecen todos los contactos que tiene asociada tu cuenta, desde aquí puedes gestionarlos.'
     delete:
-        sucess: 'Se ha eliminado satisfactoriamente el contacto.'
+        success: 'Se ha eliminado satisfactoriamente el contacto.'
     warning:
         text: 'No tienes ningún contacto. Si quieres enviar invitaciones por email utiliza <a href="%email_form_contact%" class="ajaxy">este formulario</a> o si quieres invitar a tus amigos de Facebook utiliza <a href="%fb_form_contact%" class="ajaxy">este otro formulario</a>'
 warning:

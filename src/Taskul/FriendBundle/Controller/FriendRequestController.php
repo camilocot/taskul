@@ -36,8 +36,8 @@ class FriendRequestController extends BaseController {
     $this->putDashBoardBreadCrumb()->putBreadCrumb('friendrequest.breadcrumb.index', 'frequest', 'FriendBundle');
 
     return array(
-      'sended' => count($this->getRecibed()),
-      'recibed' => count($this->getSended()),
+      'sended' => count($this->getSended()),
+      'recibed' => count($this->getRecibed()),
       'entity' => array('id' => -1),
       'delete_form' => $this->createDeleteFormView(-1),
       'activate_form' => $this->createActivateForm(-1)->createView(),
@@ -92,9 +92,12 @@ class FriendRequestController extends BaseController {
    * @Route("/{id}/show", name="frequest_show")
    * @Template()
    *
-   * @Breadcrumb("Ver")
    */
   public function showAction($id) {
+
+    $this->putDashBoardBreadCrumb()
+    ->putBreadCrumb('friendrequest.breadcrumb.index', 'frequest', 'FriendBundle')
+    ->putBreadCrumb('friendrequest.breadcrumb.view', 'frequest_show', 'FriendBundle', array(),  array('id'=>$id));
 
     $em = $this->getDoctrine()->getManager();
     $securityContext = $this->get('security.context');
@@ -106,19 +109,16 @@ class FriendRequestController extends BaseController {
       throw $this->createNotFoundException('Unable to find FriendRequest entity.');
     }
 
-          // check for view access
+    // check for view access
     if (false === $securityContext->isGranted('VIEW', $entity))
     {
       throw new AccessDeniedException();
     }
 
-    $deleteForm = $this->createDeleteForm($id);
-    $activateForm = $this->createActivateForm(-1);
-
     return array(
       'entity' => $entity,
-      'delete_form' => $deleteForm->createView(),
-      'activate_form' => $activateForm->createView(),
+      'delete_form' => $this->createDeleteFormView(-1),
+      'activate_form' => $this->createActivateForm(-1)->createView(),
       );
   }
 
@@ -128,9 +128,12 @@ class FriendRequestController extends BaseController {
    * @Route("/new", name="frequest_new")
    * @Template()
    *
-   * @Breadcrumb("Nueva")
    */
   public function newAction() {
+    $this->putDashBoardBreadCrumb()
+    ->putBreadCrumb('friendrequest.breadcrumb.index', 'frequest', 'FriendBundle')
+    ->putBreadCrumb('friendrequest.breadcrumb.new', 'frequest_new', 'FriendBundle');
+
     $entity = new FriendRequest();
     $form = $this->createForm(new FriendRequestType(), $entity);
 
@@ -257,36 +260,6 @@ class FriendRequestController extends BaseController {
       );
   }
 
-  private function checkSpan($owner,$formData)
-  {
-    $akismet = $this->get('ornicar_akismet');
-    $t = $this->get('translator');
-
-    $message = $formData->getMessage();
-    $emails = $this->processEmails($formData->getEmail());
-    $numEmails = count($emails);
-
-    $isSpam = $akismet->isSpam(array(
-      'comment_author'  => $owner->getFirstName(). ' '.$owner->getLastName(),
-      'comment_content' => $message
-    ));
-
-
-    if(!$isSpam) {
-      $this->success = TRUE;
-      $this->message = $t->transChoice('message.sent.successfully',$numEmails,array('%num%'=>$numEmails),'FriendBundle');
-    }else {
-      $this->success = FALSE;
-      $this->message = $t->trans('message.is.spam',array(),'FriendBundle');
-    }
-    return !$this->success;
-  }
-
-  private function processEmails($emails)
-  {
-    return explode(';',$emails);
-  }
-
   /**
    * Deletes a FriendRequest entity.
    *
@@ -295,33 +268,35 @@ class FriendRequestController extends BaseController {
    *
    */
   public function deleteAction(Request $request, $id) {
-    $em = $this->getDoctrine()->getManager();
+
+    $em = $this->getEntityManager();
+    $securityContext = $this->getSecurityContext();
+    $aclManager = $this->getAclManager();
+    $t = $this->getTranslator();
+
     $entity = $em->getRepository('FriendBundle:FriendRequest')->findOneBy(array('id' => $id, 'active' => FALSE));
 
     if (!$entity) {
       throw $this->createNotFoundException('Unable to find FriendRequest entity.');
     }
 
-    $securityContext = $this->get('security.context');
-
-      // check for edit access
+    // check for delete access
     if (false === $securityContext->isGranted('DELETE', $entity))
     {
       throw new AccessDeniedException();
     }
 
-    $aclManager = $this->get('taskul.acl_manager');
     $aclManager->revokeAll($entity);
 
     $em->remove($entity);
     $em->flush();
-    if ($request->isXmlHttpRequest()){
-        return new JsonResponse(array('success' => TRUE,'message'=>'OK'));
-    }
-    else {
-        return $this->redirect($this->generateUrl('frequest_sended'));
-    }
-    return $this->redirect($this->generateUrl('frequest_recibed'));
+
+    $url = $this->generateUrl('frequest');
+
+    return new CheckAjaxResponse(
+            $url,
+            array('success'=>TRUE,'url'=>$url, 'message'=>$t->trans('friendrequest.delete.success',array(),'FriendBundle'))
+    );
   }
 
   /**
@@ -478,9 +453,9 @@ class FriendRequestController extends BaseController {
    */
   private function processFriendRequestEmail($owner,$email,$data)
   {
-    $aclManager = $this->get('taskul.acl_manager');
-    $em = $this->getDoctrine()->getEntityManager();
-    $actionManager = $this->get('taskul_timeline.action_manager.orm');
+    $aclManager = $this->getAclManager();
+    $em = $this->getEntityManager();
+    $actionManager = $this->getActionManager();
 
     $entity = new FriendRequest();
     $entity->setFrom($owner);
@@ -585,14 +560,14 @@ class FriendRequestController extends BaseController {
   }
 
   /**
-   * Se le otorga permisos al propietario de la solicitud
+   * Se le otorga permisos al destinatario de la solicitud
    *
    * @param  [type] $fRequest [description]
    * @return [type]           [description]
    */
   private function grantAclsFriendRequest($fRequest)
   {
-    $aclManager = $this->get('taskul.acl_manager');
+    $aclManager = $this->getAclManager();
     foreach ($fRequest as $f){
         $aclManager->grant($f);
         $to = $f->getTo();
@@ -627,5 +602,35 @@ class FriendRequestController extends BaseController {
         $i++;
       }
       return array($choices,$imgUrls,$searchContact,$fbContact);
+  }
+
+  private function checkSpan($owner,$formData)
+  {
+    $akismet = $this->getAntiSpam();
+    $t = $this->getTranslator();
+
+    $message = $formData->getMessage();
+    $emails = $this->processEmails($formData->getEmail());
+    $numEmails = count($emails);
+
+    $isSpam = $akismet->isSpam(array(
+      'comment_author'  => $owner->getFirstName(). ' '.$owner->getLastName(),
+      'comment_content' => $message
+    ));
+
+
+    if(!$isSpam) {
+      $this->success = TRUE;
+      $this->message = $t->transChoice('message.sent.successfully',$numEmails,array('%num%'=>$numEmails),'FriendBundle');
+    }else {
+      $this->success = FALSE;
+      $this->message = $t->trans('message.is.spam',array(),'FriendBundle');
+    }
+    return !$this->success;
+  }
+
+  private function processEmails($emails)
+  {
+    return explode(';',$emails);
   }
 }
