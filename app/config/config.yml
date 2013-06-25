@@ -26,7 +26,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ "FOSCommentBundle", "TaskBundle", "FileBundle", "MainBundle", "FriendBundle", "MessageBundle", "UserBundle" ]
+    bundles:        [ "FOSCommentBundle", "TaskBundle", "FileBundle", "MainBundle", "FriendBundle", "MessageBundle", "UserBundle", "LexikMailerBundle" ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -193,3 +193,8 @@ ornicar_gravatar: ~
 ornicar_akismet:
     api_key:        8bc2c0d9bb02
     url:            http://www.taskul.net
+
+lexik_mailer:
+    admin_email: %admin_email%
+    templating_extensions:
+        - 'twig.extension.trans'
