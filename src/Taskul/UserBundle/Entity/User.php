@@ -418,7 +418,13 @@ class User extends BaseUser implements ParticipantInterface {
     }
 
     public function __toString() {
-        return $this->getFirstname().' '.$this->getLastname();
+        $firstName = $this->getFirstname();
+        $lastName = $this->getLastname();
+
+        $fullName = $this->getFirstname().' '.$this->getLastname();
+        if(empty($firstName) && empty($lastName))
+            $fullName = $this->getEmail();
+        return $fullName;
     }
 
     /**
@@ -479,8 +485,9 @@ class User extends BaseUser implements ParticipantInterface {
 
     public function setEmail($email)
     {
-       parent::setEmail($email);
        $this->setUsername($email);
+       parent::setEmail($email);
+
     }
 
     /**
@@ -490,7 +497,7 @@ class User extends BaseUser implements ParticipantInterface {
      */
     public function getEmail()
     {
-        parent::getEmail();
+        return $this->email;
     }
 
     /**

@@ -40,7 +40,7 @@ var historyBool = true; // Para los formularios qeu sino carga la pagina 2 veces
                     clearMenuActive($ul.attr('id'));
 
                 // Continue as normal for cmd clicks etc
-                //if ( event.which == 2 || event.metaKey ) { return true; }
+                if ( event.which == 2 || event.metaKey ) { return true; }
 
                 // Ajaxify this link
                 History.pushState(null,title,url);
@@ -80,15 +80,15 @@ var $menu,
 
 function loadPage(url)
 {
-    //@TODO los redirect hay que controlarlos, pej si no se esta autenticado pero
-    //  si se detecta un 30X redirigir la pagina
     $("#overlay").show();
     $.ajax({
         url: url,
         success: function(data, textStatus, jqXHR){
             var $menuChildren;
-
-            if(data.success === true && data.content)
+            // Aqui vamos a comprobar si es un página pública y si estamos en la parte pública
+            if(data.private_page === false && $('#overlay').length == 1) { // Estamos con el frontend equivacado recargamos
+                window.location.href = url;
+            } else if(data.success === true && data.content)
                 $("#content").filter(':first').html(data.content).ajaxify().fadeIn();
             else
                 $("#content").filter(':first').html(data).ajaxify().fadeIn();

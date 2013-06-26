@@ -300,22 +300,6 @@ class FriendRequestController extends BaseController {
   }
 
   /**
-   * @Route("/register/{hash}", name="frequest_register")
-   *
-   */
-  public function registerAction($hash) {
-    if (null !== $this->getDoctrine()->getRepository('FriendBundle:FriendRequest')
-      ->findOneBy(array('hash' => $hash, 'active' => FALSE))) {
-
-      $this->get('session')->set('request_hash', $hash);
-    }
-
-    return $this->redirect(
-      $this->generateUrl("fos_user_registration_register")
-    );
-  }
-
-  /**
    * @Route("/activate/{id}", name="frequest_activate", options={ "expose": true })
    * @Method("POST")
    *
@@ -396,7 +380,7 @@ class FriendRequestController extends BaseController {
    * @return [type]         [description]
    */
   private function checkTo($entity, $email) {
-    $em = $this->getDoctrine()->getEntityManager();
+    $em = $this->getEntityManager();
     if (null === $entity->getTo()) {
       $to = $em->getRepository('UserBundle:User')->findOneByEmail($email);
 
@@ -437,7 +421,9 @@ class FriendRequestController extends BaseController {
         $friends = $owner->getMyFriends();
         if (FALSE === $this->checkFriendsEmail($friends, $email)) {
           $entity = $this->processFriendRequestEmail($owner,$email,$data);
-          /* @TODO: Aqui hay que enviar emails / mirar FOSmessagebundle */
+
+          // Enviamos email de aviso
+          $this->sendEmailFriendRequestHash($entity);
         }
       }
     }
@@ -445,6 +431,25 @@ class FriendRequestController extends BaseController {
 
   }
 
+  /**
+   * Enví un email con el enlace de activacion para conectar
+   * @param  [type] $entity [description]
+   * @return [type]         [description]
+   */
+  private function sendEmailFriendRequestHash($entity)
+  {
+    $to = (null !== $entity->getTo())?$entity->getTo():$entity->getEmail();
+    $params = array('hash' => $entity->getHash()); // template's parameters
+    $locale = 'es';                    // the language to use to generate the message.
+
+    // create a swift message from the 'super-template' reference
+    $message = $this->get('lexik_mailer.message_factory')->get('contact-hash', $to, $params, $locale);
+
+    // then send the email
+    $this->get('mailer')->send($message);
+    return $this;
+
+  }
   /**
    * Procesa una solicitud de amistad por email
    * @param  [type] $owner [description]
@@ -470,7 +475,7 @@ class FriendRequestController extends BaseController {
     $em->flush();
 
     if(NULL !== $entity->getTo())
-      $actionManager->handle($owner,'POST',$entity,$entity->getTo());
+      $actionManager->handle($owner,'POST',$entity, $entity->getTo());
 
     $this->grantAclsFriendRequest(array($entity));
 

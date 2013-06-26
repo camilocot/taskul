@@ -22,6 +22,11 @@ class BaseController extends Controller {
 		return $this->get('taskul.acl_manager');
 	}
 
+	public function getSession()
+	{
+		return $this->get('session');
+	}
+
 	public function putDashBoardBreadCrumb()
 	{
 		$this->putBreadCrumb('DashBoard','dashboard');

@@ -12,13 +12,13 @@
                 <div class="control-group {% if form_errors(form.email) %} error {% endif %}">
                 <div class="input-prepend" title="Email">
                     <span class="add-on"><i class="icon-user"></i></span>
-                    <input type="email" id="fos_user_registration_form_email" name="fos_user_registration_form[email]" required="required" class="input-large span10 email required" placeholder="{% trans %}Type email{% endtrans %}" {% if user.email %} value="{{ user.email }}" {% endif %}>
+                    <input type="email" id="fos_user_registration_form_email" name="fos_user_registration_form[email]" required="required" class="input-large span10 email required" placeholder="{% trans %}Type email{% endtrans %}" {% if user.email %} value="{{ user.email }}" {% else %} value="{{ form.email.vars.value }}" {% endif %}>
+                    {{ form_errors(form.email)}}
+                    {{ form_errors(form)}}
                 </div>
-                {{ form_errors(form.email)}}
                 </div>
                 <div class="clearfix"></div>
                 {% include "UserBundle:partials:password.html.twig" with {'form_name' : 'fos_user_registration_form'} %}
-                {{ form_errors(form.plainPassword.password)}}
                 <div class="clearfix"></div>
                 <div class="button-login">
                         <button type="submit" class="btn btn-primary" name="_submit" ><i class="icon-off icon-white"></i> {{ 'registration.submit'|trans({}, 'FOSUserBundle') }}</button>

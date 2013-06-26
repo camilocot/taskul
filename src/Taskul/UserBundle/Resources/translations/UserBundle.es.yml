@@ -23,6 +23,8 @@ form:
     login:
         type_email: 'Introducce tu email'
         type_password: 'Introduce tu contraseña'
-        success: 'Ha accedido correctamente, redirigiendo a su panel de control.'
+        success: 'Ha accedido correctamente, estamos redirigiendo a su panel de control, un momento por favor ...'
+    registration:
+        success: 'Su cuenta ha sido creada correctamente. Estamos redirigiendo a su panel de control, un momento por favor ... '
 login:
     account: Acceder

@@ -59,7 +59,7 @@ class FriendRequestService
 
         // Generamos las notificaciones al usuario
         foreach ($requests as $f) {
-        	$this->$notificationManager->handle($f->getTo(),'RECIBED',$f,$f->getFrom());
+        	$this->notificationManager->handle($f->getFrom(),'POST',$f,$f->getTo());
     	}
 
         return $this;
