@@ -1,26 +1,33 @@
 {% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "FriendBundle::layout/friendrequest.html.twig" %}
 {% block content %}
 {{ apy_breadcrumb_trail_render() }}
-{% include "UserBundle:Helper:facebook_button.html.twig" %}
+{% include "UserBundle:Helper:facebook_button.html.twig" with {'notshowlogin':true} only %}
 
 <div class="row-fluid sortable">
   <div class="box span12">
     <div class="box-header" data-original-title>
-      <h2><i class="icon-user"></i><span class="break"></span>Invita a tus amigos</h2>
+      <h2><i class="icon-user"></i><span class="break"></span>{{'friendrequest.facebook.title'|trans({},'FriendBundle')}}</h2>
       <div class="box-icon">
         <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
       </div>
     </div>
     <div class="box-content">
+      <div class="well">
+        <h2>{{ 'friendrequest.new.title'|trans( {}, 'FriendBundle') }}</h2>
+        <p style="margin-bottom: 0;" class="muted">
+          {{ 'friendrequest.new.content'|trans( {}, 'FriendBundle') }}
+        </p>
+      </div>
       {% if frequest|length > 0%}
-      Se han enviado {{ frequest|length }} invitaciones.
+       {{'friendrequest.facebook.summary'|trans({ '%count%': frequest|length },'FriendBundle') }}
       {% else %}
-      <form action="" method="post" {{ form_enctype(form) }} id="form" class="form-horizontal">
-        <legend>Selecciona los amigos</legend>
+      <form action="" method="post" {{ form_enctype(form) }} id="form" class="form-horizontal ajaxform">
+        <div class="row-fluid">
+        <div class="span8">
         <div class="row-fluid">
           <div class="span6">
             <div class="control-group">
-              <label class="control-label" for="ckall">Seleccionar todos</label>
+              <label class="control-label" for="ckall">{{'friendrequest.facebook.select.all'|trans({},'FriendBundle')}}</label>
               <div class="controls">
                 <div class="switch" id="checkAll" data-on-label="<i class='icon-ok icon-white'></i>" data-off-label="<i class='icon-remove'></i>" tabindex="0"><input type="checkbox" data-no-uniform="true" id="ckall"></div>
               </div>
@@ -28,18 +35,18 @@
           </div>
           <div class="span6">
             <div class="control-group">
-              <label class="control-label" for="ckinvert">Invertir selección</label>
+              <label class="control-label" for="ckinvert">{{'friendrequest.facebook.select.invert'|trans({},'FriendBundle')}}</label>
               <div class="controls">
                 <div class="switch" id="checkInvert" data-on-label="<i class='icon-ok icon-white'></i>" data-off-label="<i class='icon-remove'></i>" tabindex="0"><input type="checkbox" data-no-uniform="true" id="ckinvert"></div>
               </div>
             </div>
           </div>
         </div>
-
+        <div class="hero-unit">
         <fieldset id="slaves">
           {% for t in form.contacts %}
-          {% if loop.index0 % 4 == 0 %}
-          <div class="row-fluid">
+            {% if loop.index0 % 4 == 0 %}
+              <div class="row-fluid">
             {% endif %}
             <span class="span3">
               {{ form_widget(t, {'attr': {'class':'pretty friends', 'data-no-uniform':'true'} } )}}
@@ -47,23 +54,27 @@
               <img src="{{ imgUrls[loop.index0] }}" />
               {% endif %}
               {{ form_label(t)}}
-
-
             </span>
             {% if loop.index % 4 == 0 or loop.last %}
-          </div>
-          {% endif %}
+              </div>
+            {% endif %}
           {% endfor %}
         </fieldset>
-        <legend>Introduce el mensaje a enviar</legend>
+        </div>
+        </div>
+        <div class="span4">
+        <legend>{{'friendrequest.facebook.message'|trans({},'FriendBundle')}}</legend>
         <fieldset>
+          {{ form_errors(form) }}
+          {{ form_row(form.message, {'attr': {'placeholder':'friendrequest.email.new.message_help'|trans({},'FriendBundle'), 'class':'span11','rows':'10'} } ) }}
           {{ form_rest(form) }}
           <input type="hidden" value="no" name="form[sended]" id="form_sended" />
-
-          <div class="form-actions">
-            <button type="button" id="sendinvfb" class="btn btn-primary">Send Request to Users Directly</button>
-          </div>
         </fieldset>
+        </div>
+      </div>
+          <div class="well">
+            <button type="button" id="sendinvfb" class="btn btn-primary"><i class="fa-icon-envelope"></i>&nbsp;{{'friendrequest.facebook.send'|trans({},'FriendBundle')}}</button>
+          </div>
       </form>
       {% endif %}
     </div>

@@ -153,9 +153,15 @@ class FriendRequestController extends BaseController {
    * @Route("/importfb", name="import_fb")
    * @Template()
    *
-   * @Breadcrumb("Facebook")
    */
   public function importFacebookAction(Request $request) {
+
+    $this->putDashBoardBreadCrumb()
+    ->putBreadCrumb('friendrequest.breadcrumb.index', 'frequest', 'FriendBundle')
+    ->putBreadCrumb('friendrequest.breadcrumb.new', 'import_fb', 'Facebook');
+
+    $t = $this->getTranslator();
+
     $fb = $this->get('my.facebook.user');
     $fbdata = $fb->get('/me');
     $fRequest = array();
@@ -164,10 +170,10 @@ class FriendRequestController extends BaseController {
       /* Obtenemos el listado de amigos */
       list($choices,$imgUrls,$searchContact,$fbContact) = $this->getFriendsChoices();
 
-      $defaultData = array('message' => 'Type your message here');
+      $defaultData = array('message' => $t->trans('',array(),'FriendBundle'));
 
       $formBuilder = $this->createFormBuilder($defaultData)
-      ->add('message', 'purified_textarea')
+      ->add('message', 'purified_textarea', array('translation_domain'=>'FriendBundle','label'=>'friendrequest.new.message'))
       ->add('contacts', 'choice', array(
         'choices'   => $choices,
         'multiple'  => true,
@@ -179,6 +185,16 @@ class FriendRequestController extends BaseController {
         $form->bind($request);
         $formData = $request->request->get($form->getName());
         $fRequest = $this->processFriendRequestsFBForm($formData,$choices,$searchContact,$imgUrls);
+
+        return new CheckAjaxResponse(
+                $url,
+                array('success'=>TRUE, 'message'=>$t->trans(
+                  'friendrequest.facebook.summary',
+                  array( '%count%' => count($fRequest)),
+                  'FriendBundle'
+                  ))
+        );
+
       }
 
       return array(

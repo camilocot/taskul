@@ -16,6 +16,7 @@
                 <thead>
                     <tr>
                       <th data-class="expand" data-sort-initial="true">{{'friendrequest.list.from'|trans({},'FriendBundle')}}</th>
+                      <th data-hide="phone">{{'friendrequest.list.date_recibed'|trans({},'FriendBundle')}}</th>
                       <th data-hide="phone,tablet">{{'friendrequest.list.message'|trans({},'FriendBundle')}}</th>
                       <th data-sort-ignore="true" data-hide="phone,tablet">{{'lists.actions'|trans({},'MainBundle')}}</th>
                     </tr>
@@ -29,6 +30,7 @@
                       <td>
                         {% include 'MainBundle:partials:cutstring.html.twig' with {'string': entity.message, 'limit': 50, 'link': path('frequest_show', { 'id': entity.id }), 'title': 'friendrequest.list.buttons.show'|trans({},'FriendBundle') } only %}
                       </td>
+                      <td>{{ entity.created|date("d/m/Y") }}</td>
                       <td>
                          {% if is_granted('VIEW',entity) %}
                          <a href="{{ path('frequest_show', { 'id': entity.id }) }}" class="btn btn-info ajaxy" title="{{'friendrequest.list.buttons.show'|trans({},'FriendBundle')}}"><i class="fa-icon-eye-open icon-white"></i></a>
@@ -53,6 +55,11 @@
            </table>
            {% endif %}
            {% include 'FriendBundle:partials:warning-message.html.twig' with {'type':'friendrequest'} %}
+            <div class="well">
+                <a class="btn btn-primary ajaxy" href="{{ path('frequest_new') }}">
+                    <i class="fa-icon-envelope"></i>&nbsp;{{'friendrequest.list.buttons.new'|trans({},'FriendBundle')}}
+                </a>
+            </div>
     </div>
 </div>
 </div>

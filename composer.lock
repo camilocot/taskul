@@ -881,12 +881,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fre5h/DoctrineEnumBundle.git",
-                "reference": "v1.1"
+                "reference": "af5a70ffecc2aaf84658148bf978bf48bd8dbeab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fre5h/DoctrineEnumBundle/zipball/v1.1",
-                "reference": "v1.1",
+                "url": "https://api.github.com/repos/fre5h/DoctrineEnumBundle/zipball/af5a70ffecc2aaf84658148bf978bf48bd8dbeab",
+                "reference": "af5a70ffecc2aaf84658148bf978bf48bd8dbeab",
                 "shasum": ""
             },
             "require": {
@@ -921,7 +921,7 @@
                 "symfony",
                 "type"
             ],
-            "time": "2013-06-23 12:22:02"
+            "time": "2013-06-28 17:18:11"
         },
         {
             "name": "friendsofsymfony/comment-bundle",
@@ -1291,12 +1291,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "a3c5cc22aa08ca449ffcfc0cf130ee61ae3026b3"
+                "reference": "025e8514c179573ff3c1cb6284ea7196425be1ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/a3c5cc22aa08ca449ffcfc0cf130ee61ae3026b3",
-                "reference": "a3c5cc22aa08ca449ffcfc0cf130ee61ae3026b3",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/025e8514c179573ff3c1cb6284ea7196425be1ef",
+                "reference": "025e8514c179573ff3c1cb6284ea7196425be1ef",
                 "shasum": ""
             },
             "require": {
@@ -1351,7 +1351,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2013-06-24 13:30:51"
+            "time": "2013-06-28 18:43:05"
         },
         {
             "name": "jms/aop-bundle",
@@ -1679,12 +1679,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/serializer.git",
-                "reference": "5b8b4b474bcc13310161bd1a10c49bc3f9c8de1c"
+                "reference": "671817081fa768db7c756b858785c8058af18102"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/5b8b4b474bcc13310161bd1a10c49bc3f9c8de1c",
-                "reference": "5b8b4b474bcc13310161bd1a10c49bc3f9c8de1c",
+                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/671817081fa768db7c756b858785c8058af18102",
+                "reference": "671817081fa768db7c756b858785c8058af18102",
                 "shasum": ""
             },
             "require": {
@@ -1723,9 +1723,9 @@
             ],
             "authors": [
                 {
-                    "name": "Johannes M. Schmitt",
+                    "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -1738,7 +1738,7 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2013-06-01 18:09:40"
+            "time": "2013-06-26 13:11:01"
         },
         {
             "name": "jms/serializer-bundle",
@@ -2047,12 +2047,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lexik/LexikMailerBundle.git",
-                "reference": "b5c4aa67f2b2d8b774a7a23cf82f2f1bbffc3310"
+                "reference": "d63b6fae6d0ec6b6fdc27de5f41549430ac418f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lexik/LexikMailerBundle/zipball/b5c4aa67f2b2d8b774a7a23cf82f2f1bbffc3310",
-                "reference": "b5c4aa67f2b2d8b774a7a23cf82f2f1bbffc3310",
+                "url": "https://api.github.com/repos/lexik/LexikMailerBundle/zipball/d63b6fae6d0ec6b6fdc27de5f41549430ac418f6",
+                "reference": "d63b6fae6d0ec6b6fdc27de5f41549430ac418f6",
                 "shasum": ""
             },
             "require": {
@@ -2094,7 +2094,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2013-06-13 15:46:57"
+            "time": "2013-06-26 07:47:41"
         },
         {
             "name": "monolog/monolog",
@@ -3047,12 +3047,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "49d31bbfee5872f6d612be5265e53fe2813f59a1"
+                "reference": "6f0753f0ff4047a870f57e7567446242b38b37ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/49d31bbfee5872f6d612be5265e53fe2813f59a1",
-                "reference": "49d31bbfee5872f6d612be5265e53fe2813f59a1",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/6f0753f0ff4047a870f57e7567446242b38b37ac",
+                "reference": "6f0753f0ff4047a870f57e7567446242b38b37ac",
                 "shasum": ""
             },
             "require": {
@@ -3088,7 +3088,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-06-25 16:45:01"
+            "time": "2013-06-27 06:24:36"
         }
     ],
     "packages-dev": [

@@ -22,6 +22,10 @@
             <table class="table table-bordered table-striped">
                 <tbody>
                     <tr>
+                        <th>{{'friendrequest.view.date'|trans({},'FriendBundle')}}</th>
+                        <td>{{ entity.created|date('d/m/Y') }}</td>
+                    </tr>
+                    <tr>
                         <th>{{'friendrequest.view.message'|trans({},'FriendBundle')}}</th>
                         <td>{{ entity.message|raw }}</td>
                     </tr>
