@@ -22,11 +22,12 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ "FOSCommentBundle", "TaskBundle", "FileBundle", "MainBundle", "FriendBundle", "MessageBundle", "UserBundle" ]
+    bundles:        [ "FOSCommentBundle", "TaskBundle", "FileBundle", "MainBundle", "FriendBundle", "MessageBundle", "UserBundle", "LexikMailerBundle" ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -190,3 +191,11 @@ spy_timeline:
         i18n:
             fallback: es
 ornicar_gravatar: ~
+ornicar_akismet:
+    api_key:        8bc2c0d9bb02
+    url:            http://www.taskul.net
+
+lexik_mailer:
+    admin_email: %admin_email%
+    templating_extensions:
+        - 'twig.extension.trans'

@@ -16,6 +16,8 @@
         <service id="taskul_timeline.spread" class="%taskul_timeline.spread.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="logger" />
+            <argument type="service" id="lexik_mailer.message_factory" />
+            <argument type="service" id="mailer" />
             <tag name="spy_timeline.spread"/>
         </service>
         <service id="taskul_timeline.unread_notifications" class="%taskul_timeline.unread_notifications.class%">

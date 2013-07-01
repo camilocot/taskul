@@ -53,15 +53,23 @@ class RegistrationController extends BaseController
 
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
-                return new CheckAjaxResponse($url,
-                            array(
-                                'success'=>TRUE,
-                                'message' => $t->trans('Password updated successfully'),
-                                'url'=>$url,
-                                'forceredirect' => TRUE,
-                                ));
+                $url = $url = $this->container->get('router')->generate('dashboard');
+                return new CheckAjaxResponse($url,array(
+                    'success' => TRUE,
+                    'message' => $this->container->get('translator')->trans('form.registration.success',array(),'UserBundle'),
+                    'forceredirect'=>TRUE,
+                    'url'=>$url,
+                ));
+
             }
         }
+
+        if(NULL === $user->getEmail()){
+            // Comprobamos si el tiene guardado el email de session de una solicitu de amistad para rellenarlo
+            $email = $this->container->get('session')->get('request_email');
+            $user->setEmail($email);
+        }
+
         $content = $this->container->get('templating')->render('UserBundle:Registration:register.html.'.$this->getEngine(), array(
             'form' => $form->createView(),
             'user' => $user

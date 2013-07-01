@@ -31,13 +31,13 @@ class MenuBuilder
             'label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Crear Nueva</span>',
             'class'=>'submenu',
             'attributes' => array('id' => 'task_ops_new')
-            ))->setExtra('safe_label', FALSE);
+            ))->setExtra('safe_label', FALSE)->setLinkAttribute('class','ajaxy');
         $menu['Task']->addChild('list_task',array(
             'route'=>'api_get_tasks',
             'label'=>'<i class="fa-icon-list"></i><span class="hidden-tablet"> Ver todas</span>',
             'class'=>'submenu',
             'attributes' => array('id' =>'task_ops_list')
-            ))->setExtra('safe_label', FALSE);
+            ))->setExtra('safe_label', FALSE)->setLinkAttribute('class','ajaxy');
 
         // Menu de solicitudes de amistad
         $menu->addChild('FriendRequest',array('uri'=>'#','label'=>'<i class="icon-chevron-down icon-white"></i><span class="hidden-tablet">Solicitudes amistad</span>'))->setExtra('safe_label', FALSE);
@@ -47,26 +47,26 @@ class MenuBuilder
             'route'=>'frequest_new',
             'label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Crear</span>',
             'class'=>'submenu',
-            'attributes' => array('id' => 'freq_ops_new')
-            ))->setExtra('safe_label', FALSE);
+            'attributes' => array('id' => 'freq_ops_new'),
+            ))->setExtra('safe_label', FALSE)->setLinkAttribute('class','ajaxy');
         $menu['FriendRequest']->addChild('list_freq_recibed',array(
             'route'=>'frequest_recibed',
             'label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Recibidas</span>',
             'class'=>'submenu',
             'attributes' => array('id' => 'freq_ops_recibed')
-            ))->setExtra('safe_label', FALSE);
+            ))->setExtra('safe_label', FALSE)->setLinkAttribute('class','ajaxy');
         $menu['FriendRequest']->addChild('list_freq_sended',array(
             'route'=>'frequest_sended',
             'label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Enviadas</span>',
             'class'=>'submenu',
             'attributes' => array('id' => 'freq_ops_sended')
-            ))->setExtra('safe_label', FALSE);
+            ))->setExtra('safe_label', FALSE)->setLinkAttribute('class','ajaxy');
         $menu['FriendRequest']->addChild('import',array(
             'route'=>'import_fb',
             'label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Invitar amigos de Facebook</span>',
             'class'=>'submenu',
             'attributes' => array('id' => 'freq_ops_import')
-            ))->setExtra('safe_label', FALSE);
+            ))->setExtra('safe_label', FALSE)->setLinkAttribute('class','ajaxy');
 
         $menu->addChild('Friends',array(
             'uri'=>'#',
@@ -79,7 +79,7 @@ class MenuBuilder
             'label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Listado</span>',
             'class'=>'submenu',
             'attributes' => array('id' => 'friends_index')
-            ))->setExtra('safe_label', FALSE);
+            ))->setExtra('safe_label', FALSE)->setLinkAttribute('class','ajaxy');
 
         $menu->addChild('Messages',array(
             'uri'=>'#',
@@ -91,12 +91,12 @@ class MenuBuilder
             'route'=>'fos_message_sent',
             'label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Enviados</span>',
             'class'=>'submenu'
-            ))->setExtra('safe_label', FALSE);
+            ))->setExtra('safe_label', FALSE)->setLinkAttribute('class','ajaxy');
         $menu['Messages']->addChild('recibed_msg',array(
             'route'=>'fos_message_inbox',
             'label'=>'<i class="fa-icon-file-alt"></i><span class="hidden-tablet">Recibidos</span>',
             'class'=>'submenu'
-            ))->setExtra('safe_label', FALSE);
+            ))->setExtra('safe_label', FALSE)->setLinkAttribute('class','ajaxy');
 
         return $menu;
     }

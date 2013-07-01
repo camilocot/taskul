@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class DefaultController extends Controller
 {
     /**
+     * Home page, comprueba si tiene algun tipo de invitacion desde FB
      * @Route("/", name="homepage")
      * @Template()
      */
@@ -54,4 +55,26 @@ class DefaultController extends Controller
             'current_quota' => $fileManager->getPercentQuota($user)
         );
     }
+
+    /**
+   * Guarda las variables de session de una solicitud de contacto para usarlas en el registro
+   *
+   * @Route("/register/{hash}", name="frequest_register")
+   *
+   */
+  public function registerAction($hash) {
+
+    $friendrequest = $this->getDoctrine()->getRepository('FriendBundle:FriendRequest')
+      ->findOneBy(array('hash' => $hash, 'active' => FALSE));
+
+    if (null !== $friendrequest) {
+      $this->get('session')->set('request_hash',$hash);
+      $this->get('session')->set('request_email',$friendrequest->getEmail());
+    }
+
+    return $this->redirect(
+      $this->generateUrl("fos_user_registration_register")
+    );
+  }
+
 }

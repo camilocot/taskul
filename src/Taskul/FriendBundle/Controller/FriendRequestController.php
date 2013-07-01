@@ -4,7 +4,6 @@ namespace Taskul\FriendBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -13,15 +12,18 @@ use Taskul\FriendBundle\Form\FriendRequestType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+use Taskul\MainBundle\Component\CheckAjaxResponse;
+use Taskul\MainBundle\Controller\BaseController;
 
 /**
  * FriendRequest controller.
  *
  * @Route("/frequest")
- * @Breadcrumb("Dashboard", route="dashboard")
- * @Breadcrumb("Friend Request", route="frequest")
  */
-class FriendRequestController extends Controller {
+class FriendRequestController extends BaseController {
+
+  private $success; // Identifica si se ha enviado correctamente la invitacion
+  private $message; //Identifica el mensaje enviado
 
   /**
    * List all friend request send and recibed
@@ -31,17 +33,14 @@ class FriendRequestController extends Controller {
    */
   public function indexAction() {
 
-    $recibed = $this->getRecibed();
-    $sended = $this->getSended();
-    $deleteForm = $this->createDeleteForm(-1);
-    $activateForm = $this->createActivateForm(-1);
+    $this->putDashBoardBreadCrumb()->putBreadCrumb('friendrequest.breadcrumb.index', 'frequest', 'FriendBundle');
 
     return array(
-      'sended' => count($sended),
-      'recibed' => count($recibed),
+      'sended' => count($this->getSended()),
+      'recibed' => count($this->getRecibed()),
       'entity' => array('id' => -1),
-      'delete_form' => $deleteForm->createView(),
-      'activate_form' => $activateForm->createView(),
+      'delete_form' => $this->createDeleteFormView(-1),
+      'activate_form' => $this->createActivateForm(-1)->createView(),
       );
   }
 
@@ -52,20 +51,18 @@ class FriendRequestController extends Controller {
    * @Route("/recibed", name="frequest_recibed")
    * @Template()
    *
-   * @Breadcrumb("Recibidas")
    */
   public function indexRecibedAction() {
 
-    $deleteForm = $this->createDeleteForm(-1);
-    $activateForm = $this->createActivateForm(-1);
-
-    $entities = $this->getRecibed();
+    $this->putDashBoardBreadCrumb()
+    ->putBreadCrumb('friendrequest.breadcrumb.index', 'frequest', 'FriendBundle')
+    ->putBreadCrumb('friendrequest.breadcrumb.recibed', 'frequest', 'FriendBundle');
 
     return array(
-      'entities' => $entities,
+      'entities' => $this->getRecibed(),
       'entity' => array('id' => -1),
-      'delete_form' => $deleteForm->createView(),
-      'activate_form' => $activateForm->createView(),
+      'delete_form' => $this->createDeleteFormView(-1),
+      'activate_form' => $this->createActivateForm(-1)->createView(),
       );
   }
 
@@ -75,16 +72,17 @@ class FriendRequestController extends Controller {
    * @Route("/sended", name="frequest_sended", options={ "expose": true })
    * @Template()
    *
-   * @Breadcrumb("Enviadas")
    */
   public function indexSendedAction() {
-    $deleteForm = $this->createDeleteForm(-1);
-    $entities = $this->getSended();
+
+  $this->putDashBoardBreadCrumb()
+    ->putBreadCrumb('friendrequest.breadcrumb.index', 'frequest', 'FriendBundle')
+    ->putBreadCrumb('friendrequest.breadcrumb.sended', 'frequest', 'FriendBundle');
 
     return array(
-      'entities' => $entities,
+      'entities' => $this->getSended(),
       'entity' => array('id' => -1),
-      'delete_form' => $deleteForm->createView(),
+      'delete_form' => $this->createDeleteFormView(-1),
       'activate_form' => $this->createActivateForm(-1)->createView(),
       );
   }
@@ -94,9 +92,12 @@ class FriendRequestController extends Controller {
    * @Route("/{id}/show", name="frequest_show")
    * @Template()
    *
-   * @Breadcrumb("Ver")
    */
   public function showAction($id) {
+
+    $this->putDashBoardBreadCrumb()
+    ->putBreadCrumb('friendrequest.breadcrumb.index', 'frequest', 'FriendBundle')
+    ->putBreadCrumb('friendrequest.breadcrumb.view', 'frequest_show', 'FriendBundle', array(),  array('id'=>$id));
 
     $em = $this->getDoctrine()->getManager();
     $securityContext = $this->get('security.context');
@@ -108,19 +109,16 @@ class FriendRequestController extends Controller {
       throw $this->createNotFoundException('Unable to find FriendRequest entity.');
     }
 
-          // check for view access
+    // check for view access
     if (false === $securityContext->isGranted('VIEW', $entity))
     {
       throw new AccessDeniedException();
     }
 
-    $deleteForm = $this->createDeleteForm($id);
-    $activateForm = $this->createActivateForm(-1);
-
     return array(
       'entity' => $entity,
-      'delete_form' => $deleteForm->createView(),
-      'activate_form' => $activateForm->createView(),
+      'delete_form' => $this->createDeleteFormView(-1),
+      'activate_form' => $this->createActivateForm(-1)->createView(),
       );
   }
 
@@ -130,9 +128,12 @@ class FriendRequestController extends Controller {
    * @Route("/new", name="frequest_new")
    * @Template()
    *
-   * @Breadcrumb("Nueva")
    */
   public function newAction() {
+    $this->putDashBoardBreadCrumb()
+    ->putBreadCrumb('friendrequest.breadcrumb.index', 'frequest', 'FriendBundle')
+    ->putBreadCrumb('friendrequest.breadcrumb.new', 'frequest_new', 'FriendBundle');
+
     $entity = new FriendRequest();
     $form = $this->createForm(new FriendRequestType(), $entity);
 
@@ -152,9 +153,15 @@ class FriendRequestController extends Controller {
    * @Route("/importfb", name="import_fb")
    * @Template()
    *
-   * @Breadcrumb("Facebook")
    */
   public function importFacebookAction(Request $request) {
+
+    $this->putDashBoardBreadCrumb()
+    ->putBreadCrumb('friendrequest.breadcrumb.index', 'frequest', 'FriendBundle')
+    ->putBreadCrumb('friendrequest.breadcrumb.new', 'import_fb', 'Facebook');
+
+    $t = $this->getTranslator();
+
     $fb = $this->get('my.facebook.user');
     $fbdata = $fb->get('/me');
     $fRequest = array();
@@ -163,10 +170,10 @@ class FriendRequestController extends Controller {
       /* Obtenemos el listado de amigos */
       list($choices,$imgUrls,$searchContact,$fbContact) = $this->getFriendsChoices();
 
-      $defaultData = array('message' => 'Type your message here');
+      $defaultData = array('message' => $t->trans('',array(),'FriendBundle'));
 
       $formBuilder = $this->createFormBuilder($defaultData)
-      ->add('message', 'purified_textarea')
+      ->add('message', 'purified_textarea', array('translation_domain'=>'FriendBundle','label'=>'friendrequest.new.message'))
       ->add('contacts', 'choice', array(
         'choices'   => $choices,
         'multiple'  => true,
@@ -178,6 +185,21 @@ class FriendRequestController extends Controller {
         $form->bind($request);
         $formData = $request->request->get($form->getName());
         $fRequest = $this->processFriendRequestsFBForm($formData,$choices,$searchContact,$imgUrls);
+
+
+        $url = $this->generateUrl('frequest_sended');
+
+        $nFrequest = count($fRequest);
+        return new CheckAjaxResponse(
+                $url,
+                array('success'=>TRUE, 'message'=>$t->transChoice(
+                  'friendrequest.facebook.summary',
+                  $nFrequest,
+                  array( '%count%' => $nFrequest),
+                  'FriendBundle'
+                  ))
+        );
+
       }
 
       return array(
@@ -223,8 +245,13 @@ class FriendRequestController extends Controller {
    * @Breadcrumb("Nueva")
    */
   public function createAction(Request $request) {
-    $entity = new FriendRequest();
+
     $owner = $this->get('security.context')->getToken()->getUser();
+    $em = $this->getDoctrine()->getManager();
+    $t = $this->get('translator');
+
+
+    $entity = new FriendRequest();
     $entity->setFrom($owner);
     $time = microtime(true) . '_' . uniqid();
     $entity->setHash(hash("sha256", $time . $owner->getId(), false));
@@ -234,16 +261,16 @@ class FriendRequestController extends Controller {
     $form->bind($request);
 
     if ($form->isValid()) {
-      $em = $this->getDoctrine()->getManager();
 
-      $this->processFriendRequestsEmailForm($owner, $em, $form);
+      if(!$this->checkSpan($owner,$form->getData()))
+        $this->processFriendRequestsEmailForm($owner, $em, $form);
 
-      if ($request->isXmlHttpRequest()){
-        return new JsonResponse(array('success' => TRUE,'message'=>'OK'));
-      }
-      else {
-        return $this->redirect($this->generateUrl('frequest_sended'));
-      }
+      $url = $this->generateUrl('frequest_sended');
+
+      return new CheckAjaxResponse(
+          $url,
+          array('success'=>$this->success, 'message' => $this->message ,'url'=>$url, 'title'=>$t->trans('friendrequest.list.sended',array(),'FriendBundle'))
+      );
     }
 
     return array(
@@ -262,48 +289,34 @@ class FriendRequestController extends Controller {
    *
    */
   public function deleteAction(Request $request, $id) {
-    $em = $this->getDoctrine()->getManager();
+
+    $em = $this->getEntityManager();
+    $securityContext = $this->getSecurityContext();
+    $aclManager = $this->getAclManager();
+    $t = $this->getTranslator();
+
     $entity = $em->getRepository('FriendBundle:FriendRequest')->findOneBy(array('id' => $id, 'active' => FALSE));
 
     if (!$entity) {
       throw $this->createNotFoundException('Unable to find FriendRequest entity.');
     }
 
-    $securityContext = $this->get('security.context');
-
-      // check for edit access
+    // check for delete access
     if (false === $securityContext->isGranted('DELETE', $entity))
     {
       throw new AccessDeniedException();
     }
 
-    $aclManager = $this->get('taskul.acl_manager');
     $aclManager->revokeAll($entity);
 
     $em->remove($entity);
     $em->flush();
-    if ($request->isXmlHttpRequest()){
-        return new JsonResponse(array('success' => TRUE,'message'=>'OK'));
-    }
-    else {
-        return $this->redirect($this->generateUrl('frequest_sended'));
-    }
-    return $this->redirect($this->generateUrl('frequest_recibed'));
-  }
 
-  /**
-   * @Route("/register/{hash}", name="frequest_register")
-   *
-   */
-  public function registerAction($hash) {
-    if (null !== $this->getDoctrine()->getRepository('FriendBundle:FriendRequest')
-      ->findOneBy(array('hash' => $hash, 'active' => FALSE))) {
+    $url = $this->generateUrl('frequest');
 
-      $this->get('session')->set('request_hash', $hash);
-    }
-
-    return $this->redirect(
-      $this->generateUrl("fos_user_registration_register")
+    return new CheckAjaxResponse(
+            $url,
+            array('success'=>TRUE,'url'=>$url, 'message'=>$t->trans('friendrequest.delete.success',array(),'FriendBundle'))
     );
   }
 
@@ -362,6 +375,12 @@ class FriendRequestController extends Controller {
     return $this;
   }
 
+  /**
+   * Comprueba si un usuario está dentro de los contactos de otro
+   * @param  [type] $user   [description]
+   * @param  [type] $friend [description]
+   * @return [type]         [description]
+   */
   private function checkFriends($user,$friend)
   {
     $friends = $user->getMyFriends();
@@ -382,7 +401,7 @@ class FriendRequestController extends Controller {
    * @return [type]         [description]
    */
   private function checkTo($entity, $email) {
-    $em = $this->getDoctrine()->getEntityManager();
+    $em = $this->getEntityManager();
     if (null === $entity->getTo()) {
       $to = $em->getRepository('UserBundle:User')->findOneByEmail($email);
 
@@ -396,13 +415,6 @@ class FriendRequestController extends Controller {
   private  function getHash($id){
     $time = microtime(true) . '_' . uniqid();
     return hash("sha256", $time . $id, false);
-  }
-
-  private function createDeleteForm($id) {
-    return $this->createFormBuilder(array('delete_id' => $id))
-    ->add('delete_id', 'hidden')
-    ->getForm()
-    ;
   }
 
   private function createActivateForm($id) {
@@ -422,14 +434,17 @@ class FriendRequestController extends Controller {
   private function processFriendRequestsEmailForm($owner,$em,$form){
     // Buscamos los emails
     $data = $form->getData();
-    $emails = explode(';', $data->getEmail());
+    $emails = $this->processEmails($data->getEmail());
+
     foreach ($emails as $email) {
       if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
         // Comprobamos si estan en los contactos del usuario
         $friends = $owner->getMyFriends();
         if (FALSE === $this->checkFriendsEmail($friends, $email)) {
           $entity = $this->processFriendRequestEmail($owner,$email,$data);
-          /* @TODO: Aqui hay que enviar emails / mirar FOSmessagebundle */
+
+          // Enviamos email de aviso
+          $this->sendEmailFriendRequestHash($entity);
         }
       }
     }
@@ -438,6 +453,29 @@ class FriendRequestController extends Controller {
   }
 
   /**
+   * Enví un email con el enlace de activacion para conectar
+   * @param  [type] $entity [description]
+   * @return [type]         [description]
+   */
+  private function sendEmailFriendRequestHash($entity)
+  {
+    $to = (null !== $entity->getTo())?$entity->getTo():$entity->getEmail();
+    $params = array(
+    'hash' => $entity->getHash(),
+    'message' => $entity->getMessage(),
+    'from' => $entity->getFrom(),
+    ); // template's parameters
+    $locale = 'es';                    // the language to use to generate the message.
+
+    // create a swift message from the 'super-template' reference
+    $message = $this->get('lexik_mailer.message_factory')->get('contact-hash', $to, $params, $locale);
+
+    // then send the email
+    $this->get('mailer')->send($message);
+    return $this;
+
+  }
+  /**
    * Procesa una solicitud de amistad por email
    * @param  [type] $owner [description]
    * @param  [type] $email [description]
@@ -445,9 +483,9 @@ class FriendRequestController extends Controller {
    */
   private function processFriendRequestEmail($owner,$email,$data)
   {
-    $aclManager = $this->get('taskul.acl_manager');
-    $em = $this->getDoctrine()->getEntityManager();
-    $actionManager = $this->get('taskul_timeline.action_manager.orm');
+    $aclManager = $this->getAclManager();
+    $em = $this->getEntityManager();
+    $actionManager = $this->getActionManager();
 
     $entity = new FriendRequest();
     $entity->setFrom($owner);
@@ -462,7 +500,7 @@ class FriendRequestController extends Controller {
     $em->flush();
 
     if(NULL !== $entity->getTo())
-      $actionManager->handle($owner,'POST',$entity,$entity->getTo());
+      $actionManager->handle($owner,'POST',$entity, $entity->getTo());
 
     $this->grantAclsFriendRequest(array($entity));
 
@@ -476,7 +514,7 @@ class FriendRequestController extends Controller {
   private function getRecibed(){
     $em = $this->getDoctrine()->getManager();
     $user = $this->get('security.context')->getToken()->getUser();
-    $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('to'=>$user, 'active' => FALSE));
+    $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('to'=>$user, 'active' => FALSE),array('created' => 'DESC'));
     return $entities;
   }
 
@@ -487,7 +525,7 @@ class FriendRequestController extends Controller {
   private function getSended(){
     $em = $this->getDoctrine()->getManager();
     $user = $this->get('security.context')->getToken()->getUser();
-    $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('from'=>$user, 'active' => FALSE));
+    $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('from'=>$user, 'active' => FALSE),array('created' => 'DESC'));
 
     return $entities;
   }
@@ -552,14 +590,14 @@ class FriendRequestController extends Controller {
   }
 
   /**
-   * Se le otorga permisos al propietario de la solicitud
+   * Se le otorga permisos al destinatario de la solicitud
    *
    * @param  [type] $fRequest [description]
    * @return [type]           [description]
    */
   private function grantAclsFriendRequest($fRequest)
   {
-    $aclManager = $this->get('taskul.acl_manager');
+    $aclManager = $this->getAclManager();
     foreach ($fRequest as $f){
         $aclManager->grant($f);
         $to = $f->getTo();
@@ -594,5 +632,35 @@ class FriendRequestController extends Controller {
         $i++;
       }
       return array($choices,$imgUrls,$searchContact,$fbContact);
+  }
+
+  private function checkSpan($owner,$formData)
+  {
+    $akismet = $this->getAntiSpam();
+    $t = $this->getTranslator();
+
+    $message = $formData->getMessage();
+    $emails = $this->processEmails($formData->getEmail());
+    $numEmails = count($emails);
+
+    $isSpam = $akismet->isSpam(array(
+      'comment_author'  => $owner->getFirstName(). ' '.$owner->getLastName(),
+      'comment_content' => $message
+    ));
+
+
+    if(!$isSpam) {
+      $this->success = TRUE;
+      $this->message = $t->transChoice('message.sent.successfully',$numEmails,array('%num%'=>$numEmails),'FriendBundle');
+    }else {
+      $this->success = FALSE;
+      $this->message = $t->trans('message.is.spam',array(),'FriendBundle');
+    }
+    return !$this->success;
+  }
+
+  private function processEmails($emails)
+  {
+    return explode(';',$emails);
   }
 }

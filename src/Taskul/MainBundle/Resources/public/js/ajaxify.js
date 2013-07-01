@@ -1,3 +1,5 @@
+var historyBool = true; // Para los formularios qeu sino carga la pagina 2 veces, una por la redireccion del form y otra por el statechange del history
+
 // Ajaxify
 // https://github.com/browserstate/ajaxify
 (function(window,undefined){
@@ -31,8 +33,14 @@
                 url = $this.attr('href'),
                 title = $this.attr('title')||null;
 
+                $ul = $this.parents('ul');
+                ulId = $ul.attr('id');
+
+                if(typeof ulId !== undefined)
+                    clearMenuActive($ul.attr('id'));
+
                 // Continue as normal for cmd clicks etc
-                //if ( event.which == 2 || event.metaKey ) { return true; }
+                if ( event.which == 2 || event.metaKey ) { return true; }
 
                 // Ajaxify this link
                 History.pushState(null,title,url);
@@ -52,7 +60,10 @@
                 State = History.getState(),
                 url = State.url;
                 relativeUrl = url.replace(rootUrl,'');
-                loadPage(url);
+                if(historyBool)
+                    loadPage(url);
+                else
+                    historyBool = true;
         });
         loadAjaxModalForms();
         loadAjaxForms();
@@ -69,31 +80,30 @@ var $menu,
 
 function loadPage(url)
 {
-    //@TODO los redirect hay que controlarlos, pej si no se esta autenticado pero
-    //  si se detecta un 30X redirigir la pagina
-    $("#overlay").show();
+    $(".progress-indicator").fadeIn(500);
     $.ajax({
         url: url,
         success: function(data, textStatus, jqXHR){
             var $menuChildren;
-
-            if(data.success === true && data.content)
-                $("#content").filter(':first').html(data.content).ajaxify().fadeIn();
+            // Aqui vamos a comprobar si es un página pública y si estamos en la parte pública
+            if(data.private_page === false && $('#overlay').length == 1) { // Estamos con el frontend equivacado recargamos
+                window.location.href = url;
+            } else if(data.success === true && data.content)
+                $("#content").filter(':first').html(data.content).ajaxify();
             else
-                $("#content").filter(':first').html(data).ajaxify().fadeIn();
-            $("#overlay").fadeOut(500);
+                $("#content").filter(':first').html(data).ajaxify();
             loadAjaxModalForms();
             loadAjaxForms();
             showWarningNoRecords();
             template_functions(); //main.js
             widthFunctions(); //main.js
             launchNotifications(); // main.js
-
             // Update the menu
             $menuChildren = $menu.find(menuChildrenSelector);
             $menuChildren.filter(activeSelector).removeClass(activeClass);
             $menuChildren = $menuChildren.has('a[href^="'+relativeUrl+'"],a[href^="/'+relativeUrl+'"],a[href^="'+url+'"]');
             if ( $menuChildren.length === 1 ) { $menuChildren.addClass(activeClass); }
+            $(".progress-indicator").fadeOut(500);
 
         },
         error: function(jqXHR, textStatus, errorThrown){
@@ -111,6 +121,7 @@ function loadAjaxForms()
             submitHandler: function(form) {
                 $(form).ajaxSubmit({
                     success: function (data){
+
                         if(data.success === true && data.url && data.forceredirect) {
                             if(data.message){
                                 notificacion(data.message,'success');
@@ -119,10 +130,15 @@ function loadAjaxForms()
                                 redirect(data.url);
                         }else if(data.success === true && data.url) {
                             loadPage(data.url);
+                            historyBool = false;
+                            if(data.message)
+                                notificacion(data.message,'success');
                             History.pushState(null,data.title,data.url);
                         }else if (data.success === true && data.content){
                             $('#content').html(data.content);
                             loadAjaxForms();
+                        } else if (data.success === true && data.message) {
+                            notificacion(data.message,'success');
                         }else if(data.success === false && data.message)
                             notificacion(data.message,'error');
                     },

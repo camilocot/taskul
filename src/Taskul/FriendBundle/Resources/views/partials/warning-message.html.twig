@@ -1,0 +1,6 @@
+<div class="alert alert-block warning" id="no-friends" >
+    <h4 class="alert-heading">{{'warning.title'|trans({},'FriendBundle')}}</h4>
+    <p>
+        {{(type~'.warning.text')|trans({ '%email_form_contact%': path('frequest_new'), '%fb_form_contact%': path('import_fb') },'FriendBundle')|raw}}
+    </p>
+</div>

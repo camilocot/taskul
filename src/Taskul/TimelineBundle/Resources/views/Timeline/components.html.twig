@@ -1,11 +1,11 @@
 {% timeline_action_theme timeline _self %}
 {# Override for this model in any component #}
 {% block _taskul_taskbundle_entity_task_default_component %}
-{{ 'timeline.one_task'|trans({}, 'TimelineBundle') }} <a href="{{ path('api_get_task', { 'id': value.id }) }}" class="btn btn-mini btn-inverse" title="{{ 'task.view.title'|trans({}, 'TaskBundle') }}">{{ value }}&nbsp;<i class="fa-icon-arrow-right icon-white"></i></a> {{ 'timeline.the'|trans({}, 'TimelineBundle') }} {{ value.updated|date('d-m-Y') }}
+{{ 'timeline.one_task'|trans({}, 'TimelineBundle') }} <a href="{{ path('api_get_task', { 'id': value.id }) }}" class="btn btn-mini btn-inverse ajaxy" title="{{ 'task.view.title'|trans({}, 'TaskBundle') }}">{{ value }}&nbsp;<i class="fa-icon-arrow-right icon-white"></i></a> {{ 'timeline.the'|trans({}, 'TimelineBundle') }} {{ value.updated|date('d-m-Y') }}
 {% endblock _taskul_taskbundle_entity_task_default_component %}
 
 {% block _taskul_taskbundle_entity_task_indirectComplement_component %}
-{{ 'timeline.assoc_task'|trans({}, 'TimelineBundle') }} <a href="{{ path('api_get_task', { 'id': value.id }) }}" class="btn btn-mini btn-inverse" title="{{ 'task.view.title'|trans({}, 'TaskBundle') }}">{{ value }}&nbsp;<i class="fa-icon-arrow-right icon-white"></i></a>
+{{ 'timeline.assoc_task'|trans({}, 'TimelineBundle') }} <a href="{{ path('api_get_task', { 'id': value.id }) }}" class="btn btn-mini btn-inverse ajaxy" title="{{ 'task.view.title'|trans({}, 'TaskBundle') }}">{{ value }}&nbsp;<i class="fa-icon-arrow-right icon-white"></i></a>
 {% endblock _taskul_taskbundle_entity_task_indirectComplement_component %}
 
 {% block _taskul_filebundle_entity_document_default_component %}
@@ -17,13 +17,13 @@
 {% endblock _taskul_commentbundle_entity_comment_default_component %}
 
 {% block _taskul_friendbundle_entity_friendrequest_default_component %}
-<a href="{{ path('frequest_show', { 'id': value.id }) }}" title="{{ 'friendrequest.view.title'|trans({}, 'FriendBundle') }}" class="btn btn-mini btn-danger">
+<a href="{{ path('frequest_show', { 'id': value.id }) }}" title="{{ 'friendrequest.view.title'|trans({}, 'FriendBundle') }}" class="btn btn-mini btn-danger ajaxy">
 {{ 'timeline.one_friend_request'|trans({}, 'TimelineBundle') }}&nbsp;<i class="fa-icon-arrow-right icon-white"></i>
 </a> {{ 'timeline.the'|trans({}, 'TimelineBundle') }} {{ value.created|date('d-m-Y') }}
 {% endblock _taskul_friendbundle_entity_friendrequest_default_component %}
 
 {% block _taskul_messagebundle_entity_message_default_component %}
-<a href="{{ path('fos_message_thread_view', {'threadId': value.thread.id}) }}" title="{{ 'message.view.title'|trans({}, 'MessageBundle') }}" class="btn btn-mini btn-success">
+<a href="{{ path('fos_message_thread_view', {'threadId': value.thread.id}) }}" title="{{ 'message.view.title'|trans({}, 'MessageBundle') }}" class="btn btn-mini btn-success ajaxy">
 {{ 'timeline.one_message'|trans({}, 'TimelineBundle') }}&nbsp;<i class="fa-icon-arrow-right icon-white"></i>
 </a> {{ 'timeline.the'|trans({}, 'TimelineBundle') }} {{ value.createdat|date('d-m-Y') }}
 {% endblock _taskul_messagebundle_entity_message_default_component %}

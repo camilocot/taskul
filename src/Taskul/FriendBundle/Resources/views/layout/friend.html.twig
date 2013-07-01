@@ -1,28 +1,5 @@
-{% extends "::private.html.twig" %}
-{% block stylesheets %}
-{% stylesheets
-'@MainBundle/Resources/public/css/prettyCheckable.css'
-'@MainBundle/Resources/public/css/bootstrapSwitch.css'
-'@MainBundle/Resources/public/css/bootstrap-wysihtml5.css'
-'@MainBundle/Resources/public/css/wysiwyg-color.css'
-%}
-<link rel="stylesheet" href="{{ asset_url }}">
-{{ parent() }}
-{% endstylesheets %}
-{% endblock %}
+{% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "::private.html.twig" %}
 {% block body %}
 {{ parent()}}
 {% include 'FriendBundle:partials:delete-modal.html.twig' with {'type': 'myfriends_delete'} %}
-{% endblock %}
-{% block javascripts %}
-{{ parent() }}
-{% javascripts
-	'@MainBundle/Resources/public/js/vendor/wysihtml5-0.3.0.js'
-	'@MainBundle/Resources/public/js/vendor/bootstrap-wysihtml5.js'
-	'@MainBundle/Resources/public/js/vendor/excanvas.js'
-	'@MainBundle/Resources/public/js/vendor/jquery.knob.js'
-	'@FriendBundle/Resources/public/js/friendOps.js'
-%}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
 {% endblock %}

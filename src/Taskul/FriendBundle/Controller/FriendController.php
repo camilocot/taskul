@@ -5,72 +5,89 @@ namespace Taskul\FriendBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
-use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
-
+use Taskul\MainBundle\Controller\BaseController;
+use Taskul\MainBundle\Component\CheckAjaxResponse;
 
 /**
  * FriendRequest controller.
  *
  * @Route("/friend")
  *
- * @Breadcrumb("Dashboard", route="dashboard")
- * @Breadcrumb("Friends", route="myfriends")
  */
-class FriendController extends Controller {
+class FriendController extends BaseController {
     /**
-     * Lists all FriendRequest entities.
+     * Lista los cotnactos de un usuario
      *
      * @Route("/", name="myfriends")
      * @Template()
      */
     public function indexAction() {
-        $user = $this->get('security.context')->getToken()->getUser();
 
-        $deleteForm = $this->createDeleteForm(-1);
-        $entities = $user->getMyFriends();
+      $this->putDashBoardBreadCrumb()->putBreadCrumb('friend.myfriends', 'myfriends', 'FriendBundle');
 
-        return array(
-            'entities' => $entities,
-            'entity' => array('id' => -1),
-            'delete_form' => $deleteForm->createView(),
-            );
+      return array(
+          'entities' => $this->getLoggedUser()->getMyFriends(),
+          'entity' => array('id' => -1),
+          'delete_form' => $this->createDeleteFormView(-1)
+          );
     }
 
     /**
-     * Deletes a FriendRequest entity.
+     * Elimina la relacion entre contactos
      *
      * @Route("/{id}/delete", name="myfriends_delete", options={ "expose": true })
      *
      */
-    public function deleteAction(Request $request, $id) {
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->get('security.context')->getToken()->getUser();
-        $friend = $em->getRepository('UserBundle:User')->find($id);
+    public function deleteAction($id) {
 
-        $this->deleteFriend($user,$friend)->deleteFriend($friend,$user);
+        $user = $this->getLoggedUser();
+        $friend = $this->getUserFromId($id);
 
-        if($request->isXmlHttpRequest())
-          return new JsonResponse(array(
-            'success' => TRUE,
-            'message' => 'Borrado satisfactoriamente',
-            ));
-        else
-          return $this->redirect($this->generateUrl('myfriends'));
+        $this->deleteFriend($user,$friend)->deleteMemberTasks($user,$friend)->deleteMemberTasks($friend,$user);
+
+        $url = $this->generateUrl('myfriends');
+
+        return new CheckAjaxResponse(
+            $url,
+            array('success'=>TRUE, 'message' => $this->message ,'url'=>$url, 'title'=>$t->trans('friend.delete.success',array(),'FriendBundle'))
+        );
+
     }
 
-    private function deleteFriend($user, $friend)
+    /**
+     * Elimina la relacion de contacto entre dos usuarios
+     * de las que es propietario el
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
+    private function deleteFriendRelation($user, $friend)
     {
-        $em = $this->getDoctrine()->getManager();
-        $aclManager = $this->get('taskul.acl_manager');
+        $em = $this->getEntityManager();
 
         $user->removeFriendsWithMe($friend);
         $user->removeMyFriend($friend);
 
         $em->persist($user);
+
+
+        $em->flush();
+
+        return $this;
+    }
+
+    /**
+     * Elimina a un miembro de las tareas de un usuario
+     *
+     * @param  [type] $user   [description]
+     * @param  [type] $friend [description]
+     * @return [type]         [description]
+     */
+    private function deleteMemberTasks($user, $friend)
+    {
+        $em = $this->getEntityManager();
+        $aclManager = $this->getAclManager();
+
         // Buscamos tareas del usuario para eliminarlo de miembro
         $tasks = $user->getOwnTasks();
 
@@ -79,10 +96,7 @@ class FriendController extends Controller {
             $em->persist($task);
         }
 
-        /* Ahora a la inversa */
-
         $em->flush();
-
 
         foreach ($tasks as $task){
             $aclManager->revoke($task, $friend->getUsername(), 'Taskul\UserBundle\Entity\User', MaskBuilder::MASK_VIEW);
@@ -91,12 +105,6 @@ class FriendController extends Controller {
         return $this;
     }
 
-    private function createDeleteForm($id) {
-          return $this->createFormBuilder(array('delete_id' => $id))
-          ->add('delete_id', 'hidden')
-          ->getForm()
-          ;
-        }
 }
 
 ?>

@@ -1,0 +1,6 @@
+{% set content = string|striptags %}
+{% if content|length > limit %}
+{{ content|slice(0,limit) }} ... <a class="ajaxy"  title="{{ title }}" href="{{ link }}"><i class="icon-download"></i></a>
+{% else %}
+{{ content }}
+{% endif %}

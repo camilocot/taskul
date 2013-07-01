@@ -1,6 +1,8 @@
 {% extends "::base.html.twig" %}
 {% block stylesheets %}
 {% stylesheets
+  '@MainBundle/Resources/public/css/prettyCheckable.css'
+  '@MainBundle/Resources/public/css/bootstrapSwitch.css'
   '@MainBundle/Resources/public/css/private.css'
   %}
   <link rel="stylesheet" href="{{ asset_url }}">
@@ -8,7 +10,7 @@
   {% endblock %}
   {% block body %}
   <div id="overlay" style="display:none">
-    <ul>
+     <ul>
       <li class="li1"></li>
       <li class="li2"></li>
       <li class="li3"></li>
@@ -17,6 +19,9 @@
       <li class="li6"></li>
     </ul>
   </div>
+  <div class="progress-indicator">
+   <img src="/img/icon_loading_75x75.gif" alt="loading" />
+</div>
   <div class="navbar">
     <div class="navbar-inner">
       <div class="container-fluid">
@@ -190,6 +195,10 @@
     '@MainBundle/Resources/public/js/vendor/mustache.js'
     '@MainBundle/Resources/public/js/vendor/jquery.mustache.js'
     '@MainBundle/Resources/public/js/vendor/jquery-ui-1.10.2.custom.js'
+    '@MainBundle/Resources/public/js/vendor/excanvas.js'
+    '@MainBundle/Resources/public/js/vendor/jquery.knob.js'
+    '@MainBundle/Resources/public/js/vendor/select2.js'
+    '@MainBundle/Resources/public/js/vendor/nicEdit-latest.js'
     '@MainBundle/Resources/public/js/private.js'
   %}
   <script src="{{ asset_url }}"></script>

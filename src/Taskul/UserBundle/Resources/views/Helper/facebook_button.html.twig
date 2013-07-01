@@ -1,7 +1,9 @@
 <!-- inside a twig template -->
 {{ facebook_initialize({'xfbml': true}) }}
+{% if notshowlogin is not defined %}
 <div class="fb-div"><a class="fb-button" onClick="fblogin();">{{ 'user.facebook.login'|trans({},'UserBundle') }}</a></div>
 <div class="clearfix"></div>
+{% endif %}
 <script>
     function goLogIn(){
           window.location.href = "{{ path('fos_facebook_security_check') }}";
@@ -16,6 +18,6 @@
             } else {
                 window.location.href = "{{ path('_security_logout') }}";
             }
-        }},{scope:'email,publish_stream'}); //whatever perms your app needs
+        }},{scope:'email'}); //whatever perms your app needs
     };
 </script>

@@ -16,3 +16,18 @@ dashboard:
             new_message: 'Envía un mensaje a alguno de tus contactos'
             new_friend_request: 'Invita a darse de alta a tus contactos por email, luego podrás agregarlos a tus tareas'
             new_fb: 'Invita a darse de alta a tus contactos de facebook, luego podrás agregarlos a tus tareas'
+modal:
+    delete:
+        confirm: 'Eliminar'
+        cancel: 'Cancelar'
+        title: 'Advertencia'
+        content:
+            myfriends_delete: '¿ Está seguro de borrar al contacto ? <b>Se eliminará como miembro de sus tareas y también usted de las suyas</b>.'
+            frequest_delete: '¿ Está seguro de eliminar la solicitud de contacto ?'
+search:
+    title: 'Búsqueda'
+    clear_filter: 'Pulsa para limpiar la búsqueda'
+    info: 'Introduce algún término para buscar'
+lists:
+    actions: 'Acciones'
+    view_more: 'Ver más'

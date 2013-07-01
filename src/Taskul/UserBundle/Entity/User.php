@@ -12,6 +12,7 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Exclude;
 use Symfony\Component\Validator\Constraints as Assert;
+use Lexik\Bundle\MailerBundle\Mapping\Annotation as Mailer;
 
 /**
  * @ORM\Entity
@@ -178,6 +179,9 @@ class User extends BaseUser implements ParticipantInterface {
 
     /**
      * Get the full name of the user (first + last name)
+     *
+     * @Mailer\Name()
+     *
      * @return string
      */
     public function getFullName() {
@@ -414,7 +418,13 @@ class User extends BaseUser implements ParticipantInterface {
     }
 
     public function __toString() {
-        return $this->getFirstname().' '.$this->getLastname();
+        $firstName = $this->getFirstname();
+        $lastName = $this->getLastname();
+
+        $fullName = $this->getFirstname().' '.$this->getLastname();
+        if(empty($firstName) && empty($lastName))
+            $fullName = $this->getEmail();
+        return $fullName;
     }
 
     /**
@@ -475,11 +485,22 @@ class User extends BaseUser implements ParticipantInterface {
 
     public function setEmail($email)
     {
-       parent::setEmail($email);
        $this->setUsername($email);
-   }
+       parent::setEmail($email);
 
-       /**
+    }
+
+    /**
+     * @Mailer\Address()
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
      * @ORM\PrePersist
      */
     public function setCreatedValue()

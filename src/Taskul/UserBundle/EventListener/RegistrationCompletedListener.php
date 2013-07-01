@@ -31,7 +31,6 @@ class RegistrationCompletedListener implements EventSubscriberInterface {
     public function onRegistrationCompleted(\FOS\UserBundle\Event\FilterUserResponseEvent $event) {
         $user = $event->getUser();
         $this->frs->processRequests($user);
-
     }
 
 }
