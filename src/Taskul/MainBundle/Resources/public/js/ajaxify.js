@@ -80,7 +80,7 @@ var $menu,
 
 function loadPage(url)
 {
-    $("#overlay").show();
+    $(".progress-indicator").fadeIn(500);
     $.ajax({
         url: url,
         success: function(data, textStatus, jqXHR){
@@ -89,10 +89,9 @@ function loadPage(url)
             if(data.private_page === false && $('#overlay').length == 1) { // Estamos con el frontend equivacado recargamos
                 window.location.href = url;
             } else if(data.success === true && data.content)
-                $("#content").filter(':first').html(data.content).ajaxify().fadeIn();
+                $("#content").filter(':first').html(data.content).ajaxify();
             else
-                $("#content").filter(':first').html(data).ajaxify().fadeIn();
-            $("#overlay").fadeOut(500);
+                $("#content").filter(':first').html(data).ajaxify();
             loadAjaxModalForms();
             loadAjaxForms();
             showWarningNoRecords();
@@ -104,6 +103,7 @@ function loadPage(url)
             $menuChildren.filter(activeSelector).removeClass(activeClass);
             $menuChildren = $menuChildren.has('a[href^="'+relativeUrl+'"],a[href^="/'+relativeUrl+'"],a[href^="'+url+'"]');
             if ( $menuChildren.length === 1 ) { $menuChildren.addClass(activeClass); }
+            $(".progress-indicator").fadeOut(500);
 
         },
         error: function(jqXHR, textStatus, errorThrown){

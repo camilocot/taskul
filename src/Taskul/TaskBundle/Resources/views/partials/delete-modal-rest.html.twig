@@ -12,7 +12,7 @@
 		<button class="btn btn-danger btn-confirm-modal">Delete</button>
 	</div>
 </div>
-<form action="" method="post" {{ form_enctype(delete_form) }} id="delete-frequest" data-input-id="#form_delete_id" data-modal-id="#deleteModal" data-action="{{ type }}" class="ajaxmodalform">
+<form action="" method="post" {{ form_enctype(delete_form) }} id="delete-task" data-input-id="#form_delete_id" data-modal-id="#deleteModal" data-action="{{ type }}" class="ajaxmodalform">
 	<input name="_method" type="hidden" value="DELETE" />
 	{{ form_widget(delete_form) }}
 </form>

@@ -42,7 +42,7 @@ $(document).ready(function(){
     $.ajax({
       method:'get',
       url: route,
-      async: false,
+      async: true,
       success:function(data){
         if(data.success) {
           total = $this.text();
