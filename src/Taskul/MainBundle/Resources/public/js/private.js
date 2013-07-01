@@ -134,6 +134,9 @@ $(document).ready(function(){
             notificacion($.t('msg.comment.success_send'),'success'); // Esto es para los comentarios de la tareas
           }
           $('#'+textareaid).val(content);
+          $form.submit();
+          ne.setContent('');
+          return false;
         }
     });
 
