@@ -1,6 +1,1 @@
-{% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "::private.html.twig" %}
-{% block body %}
-{{ parent()}}
-{% include 'FriendBundle:partials:delete-modal.html.twig' with {'type': 'frequest_delete'} %}
-{% include 'FriendBundle:partials:activate-modal.html.twig' with {'type': 'frequest_activate'}%}
-{% endblock %}
+{% extends "::private.html.twig" %}
