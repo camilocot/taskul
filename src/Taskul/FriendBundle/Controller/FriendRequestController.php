@@ -186,11 +186,16 @@ class FriendRequestController extends BaseController {
         $formData = $request->request->get($form->getName());
         $fRequest = $this->processFriendRequestsFBForm($formData,$choices,$searchContact,$imgUrls);
 
+
+        $url = $this->generateUrl('frequest_sended');
+
+        $nFrequest = count($fRequest);
         return new CheckAjaxResponse(
                 $url,
-                array('success'=>TRUE, 'message'=>$t->trans(
+                array('success'=>TRUE, 'message'=>$t->transChoice(
                   'friendrequest.facebook.summary',
-                  array( '%count%' => count($fRequest)),
+                  $nFrequest,
+                  array( '%count%' => $nFrequest),
                   'FriendBundle'
                   ))
         );
@@ -455,7 +460,11 @@ class FriendRequestController extends BaseController {
   private function sendEmailFriendRequestHash($entity)
   {
     $to = (null !== $entity->getTo())?$entity->getTo():$entity->getEmail();
-    $params = array('hash' => $entity->getHash()); // template's parameters
+    $params = array(
+    'hash' => $entity->getHash(),
+    'message' => $entity->getMessage(),
+    'from' => $entity->getFrom(),
+    ); // template's parameters
     $locale = 'es';                    // the language to use to generate the message.
 
     // create a swift message from the 'super-template' reference
@@ -505,7 +514,7 @@ class FriendRequestController extends BaseController {
   private function getRecibed(){
     $em = $this->getDoctrine()->getManager();
     $user = $this->get('security.context')->getToken()->getUser();
-    $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('to'=>$user, 'active' => FALSE));
+    $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('to'=>$user, 'active' => FALSE),array('created' => 'DESC'));
     return $entities;
   }
 
@@ -516,7 +525,7 @@ class FriendRequestController extends BaseController {
   private function getSended(){
     $em = $this->getDoctrine()->getManager();
     $user = $this->get('security.context')->getToken()->getUser();
-    $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('from'=>$user, 'active' => FALSE));
+    $entities = $em->getRepository('FriendBundle:FriendRequest')->findBy(array('from'=>$user, 'active' => FALSE),array('created' => 'DESC'));
 
     return $entities;
   }

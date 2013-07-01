@@ -8,6 +8,7 @@ use Spy\Timeline\Spread\Entry\EntryCollection;
 use Spy\Timeline\Spread\Entry\Entry;
 use Spy\Timeline\Spread\Entry\EntryUnaware;
 use Doctrine\ORM\EntityManager;
+use Lexik\Bundle\MailerBundle\Message\MessageFactory;
 
 class Spread implements SpreadInterface
 {
@@ -20,11 +21,15 @@ class Spread implements SpreadInterface
 
     private $em;
     private $logger;
+    private $mailer;
+    private $messageFactory;
 
-    public function __construct(EntityManager $em, $logger)
+    public function __construct(EntityManager $em, $logger, MessageFactory $messageFactory, $mailer)
     {
         $this->em = $em;
         $this->logger = $logger;
+        $this->mailer = $mailer;
+        $this->messageFactory = $messageFactory;
     }
 
     public function supports(ActionInterface $action)
@@ -72,6 +77,11 @@ class Spread implements SpreadInterface
         if(count($members)>0){
             foreach($members as $m){
                 $coll->add(new EntryUnaware(self::USER_CLASS,$m->getId()),$context);
+
+                $locale = 'es';
+                $params = array();
+                $message = $this->messageFactory->get('notification-hash', $m, $params, $locale);
+                $this->mailer->send($message);
             }
         }
         // No se le envia notificacion al creador

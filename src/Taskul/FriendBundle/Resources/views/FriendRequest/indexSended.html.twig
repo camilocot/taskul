@@ -12,13 +12,12 @@
         </div>
         <div class="box-content">
             {% if entities|length > 0 %}
-            <div class="pull-right" id="filter-list">{{'search.title'|trans({},'MainBundle')}}: <input id="filter" type="text" autocomplete="off" /><a href="#clear" class="clear-filter" rel="tooltip" title="{{'search.clear_filter'|trans({},'MainBundle')}}">×</a></div>
+            <div class="pull-right" id="filter-list">{{'search.title'|trans({},'MainBundle')}}: <input id="filter" type="text" autocomplete="off" /><a href="#clear" class="clear-filter btn" title="{{'friend.search_clean'|trans({},'FriendBundle')}}" rel="tooltip"><i class="fa-icon-trash"></i></a></div>
             <table class="table table-striped table-bordered bootstrap-datatable footable" id="list" data-filter="#filter">
                 <thead>
                     <tr>
-                        <th data-class="expand" data-sort-initial="true">{{'friendrequest.list.to'|trans({},'FriendBundle')}}</th>
-                        <th data-hide="phone">{{'friendrequest.list.date_sended'|trans({},'FriendBundle')}}</th>
-                        <th data-hide="phone,tablet">{{'friendrequest.list.message'|trans({},'FriendBundle')}}</th>
+                        <th data-class="expand">{{'friendrequest.list.to'|trans({},'FriendBundle')}}</th>
+                        <th data-hide="phone" data-sort-initial="true">{{'friendrequest.list.date_sended'|trans({},'FriendBundle')}}</th>
                         <th data-sort-ignore="true" data-hide="phone,tablet">{{'lists.actions'|trans({},'MainBundle')}}</th>
                     </tr>
                 </thead>
@@ -27,15 +26,14 @@
                     <tr>
                         <td>
                             {% if entity.email is not none %}
-                            {{ entity.email }}
+                            <strong>{{ entity.email }}</strong>
                             {% else %}
                             {% if entity.addtionalData.fbdata.imgurl is defined %}
-                            <img src="{{ entity.addtionalData.fbdata.imgurl }}" />{{ entity.addtionalData.fbdata.name }}
+                            <img src="{{ entity.addtionalData.fbdata.imgurl }}" />&nbsp;<strong>{{ entity.addtionalData.fbdata.name }}</strong>
                             {% endif %}
                             {% endif %}
                         </td>
                         <td>{{entity.created|date("d/m/Y")}}</tD>
-                        <td>{{ entity.message }}</td>
                         <td>
                             {% if is_granted('VIEW',entity) %}
                             <a href="{{ path('frequest_show', { 'id': entity.id }) }}" class="btn btn-info ajaxy" title="{{'friendrequest.list.buttons.show'|trans({},'FriendBundle')}}"><i class="fa-icon-eye-open icon-white"></i></a>

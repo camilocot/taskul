@@ -57,7 +57,7 @@ friendrequest:
         select:
             all: 'Seleccionar todos'
             invert: 'Invertir selección'
-        summary: 'Se han enviado %count% invitaciones.'
+        summary: 'Se ha enviado una invitación.|Se han enviado %count% invitaciones.'
 message:
     sent:
         successfully: 'Invitacion enviada correctamente|Invitaciones (%num%) enviadas correctamente'
