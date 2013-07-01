@@ -1,4 +1,4 @@
-{% extends "FriendBundle::layout/friend.html.twig" %}
+{% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "FriendBundle::layout/friendrequest.html.twig" %}
 {% block content %}
 {{ apy_breadcrumb_trail_render() }}
 <div class="row-fluid sortable">
@@ -11,7 +11,7 @@
         </div>
         <div class="box-content">
             {% if entities|length > 0 %}
-            <div class="span12 helpinfo alert alert-info">
+            <div class="span12 well">
                 <h2>{{ 'friend.title'|trans( {}, 'FriendBundle') }}</h2>
                   <p style="margin-bottom: 0;" class="muted">
                     {{ 'friend.content'|trans( {}, 'FriendBundle') }}
@@ -53,6 +53,7 @@
         </div>
     </div>
 </div>
+{% include 'FriendBundle:partials:delete-modal.html.twig' with {'type': 'myfriends_delete'} %}
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}
