@@ -23,8 +23,8 @@ class TaskStatusType extends AbstractEnumType
      * @static
      */
     protected static $choices = array(
-        self::INPROGRESS    => 'In progress',
-        self::TODO => 'To Do',
-        self::DONE  => 'Done',
+        self::INPROGRESS    => 'task.status.inprogress',
+        self::TODO => 'task.status.todo',
+        self::DONE  => 'task.status.done',
     );
 }

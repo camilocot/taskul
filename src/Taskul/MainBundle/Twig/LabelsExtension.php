@@ -41,7 +41,7 @@ class LabelsExtension extends \Twig_Extension
 		$res = '';
 		$array = $array->toArray();
 		foreach($array as $a){
-			$res .= '<span class="label">'.$a.'</span>&nbsp;';
+			$res .= '<a href="#" class="label tags">'.$a.'</a>&nbsp;';
 		}
 
 		return $res;

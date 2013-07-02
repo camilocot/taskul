@@ -1,4 +1,8 @@
 $(document).ready(function(){
+    clearMenuActive('task_ops');
+    menuColor('li#task_ops_new');
+    $('#deleteModalWrap').appendTo(document.body);
+    if ($(document.body).children('#deleteModalWrap').length>1) $(document.body).children('#deleteModalWrap:gt(0)').remove();
 
     if ($.fn.datepicker) {
         $('#btn-trash').click(function(e){
@@ -17,7 +21,7 @@ $(document).ready(function(){
         $("select#task_members").select2();
         route = Routing.generate('api_get_tags');
         $.getJSON(route, function(data) {
-            if(data.length == 0)
+            if(data.length === 0)
                 data = null;
 
             $("input#task_tags").select2({
@@ -32,8 +36,8 @@ $(document).ready(function(){
     $('div.btn-group').each(function(){
         group   = $(this);
         form    = group.parents('form').eq(0);
-        name    = group.data('toggle-name');
-        var hidden  = $('input[name="' + name + '"]', form);
+        nameGroup    = group.data('toggle-name');
+        var hidden  = $('input[name="' + nameGroup + '"]', form);
         $('button', group).each(function(){
             var button = $(this);
             button.on('click', function(){
@@ -46,6 +50,7 @@ $(document).ready(function(){
             }
         });
     });
+
 
     // Crear nueva tarea, redirecciona a ver o a aañadir ficheros
     $('#form_task').submit(function(event){
@@ -84,7 +89,6 @@ $(document).ready(function(){
         return false;
     });
 
-    menuColor('li#task_ops_new');
     new nicEditor({fullPanel : true}).panelInstance('task_description');
 
     /* Percent Slider */
@@ -126,9 +130,9 @@ function activateStatusButton(percent)
 {
             /* Activamos el boton del estado cuando sea necesario */
             group   = $('div.btn-group:first');
-            name    = group.data('toggle-name');
+            nameGroup    = group.data('toggle-name');
             form    = group.parents('form').eq(0);
-            hidden  = $('input[name="' + name + '"]', form);
+            hidden  = $('input[name="' + nameGroup + '"]', form);
             val = hidden.val();
             $('button',group).removeClass('active');
             if(percent == 1 && val != 'todo'){

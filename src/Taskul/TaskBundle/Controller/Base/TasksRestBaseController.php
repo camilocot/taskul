@@ -17,6 +17,11 @@ class TasksRestBaseController extends FOSRestController {
 		return $user;
 	}
 
+	protected function getTranslator()
+	{
+		return $this->get('translator');
+	}
+
 	protected function getRequestFormat()
 	{
 		return $this->get('request')->getRequestFormat();
@@ -136,5 +141,29 @@ class TasksRestBaseController extends FOSRestController {
         ;
         return $this->handleView($view);
     }
+
+    public function putDashBoardBreadCrumb()
+	{
+		$this->putBreadCrumb('DashBoard','dashboard');
+		return $this;
+	}
+
+	public function getBreadCrumb()
+	{
+		return $this->get("apy_breadcrumb_trail");
+	}
+
+	public function putBreadCrumb($name, $route, $translationDomain=null,$paramsTranslation=array(),$routeParams=array())
+	{
+		if(null !== $translationDomain)
+		{
+			$t = $this->getTranslator();
+			$this->getBreadCrumb()->add($t->trans($name,$paramsTranslation,$translationDomain), $route, $routeParams);
+
+		}
+		else
+			$this->getBreadCrumb()->add($name, $route);
+		return $this;
+	}
 
 }

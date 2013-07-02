@@ -15,6 +15,43 @@ task:
         delete: 'Borrar'
         edit: 'Modificar'
         back: 'Volver al listado'
+    breadcrumb:
+        list: 'Listado de tareas'
+        new: 'Nueva'
+        update: 'Modificar'
+        show: Ver
+    search_clean: 'Pulsa para limpiar la búsqueda'
+    list:
+        title: 'Listado de todas tus tareas'
+        status: 'Estado'
+        name: 'Descripción'
+        buttons:
+            view: 'Ver los detalles de la tarea'
+            edit_files: 'Administrar ficheros asociados a la tarea'
+            edit: 'Modificar tarea'
+            delete: 'Borrar tarea'
+            new: 'Crear nueva tarea'
+        notags: 'No existen tags definidas agrégalas modificando la tarea.'
+    new:
+        title: 'Nueva tarea'
+        name: 'Nombre'
+        status: 'Estado'
+        percent: 'Porcentaje'
+        description: 'Descripción completa'
+        date_end: 'Finalización'
+        tags: 'Etiquetas'
+        members: 'Miembros'
+        more_data: 'Datos adicionales'
+        finish: 'Terminar'
+        add_files: 'Terminar y añadir ficheros'
+        back: 'Volver al listado'
+        help:
+            name: 'Introduce una pequeña descripcion para la tarea'
+            percent: 'Define el porcentaje completado de la tarea'
+            description: 'Introduce una descripción completa de la tarea'
+            date_end: 'Fecha aproximada de finalización'
+            tags: 'Introduce etiquetas cons las que podrás organizar y filtrar todas tus tareas. Ej. asignaturas, clientes, etc ...'
+            members: 'Selecciona de tus contactos quien tendrá acceso a visualizar, cargar ficheros y comentar en esta tarea. Sino tienes contactos puedes enviarles invitaciones por <a href="%emaillink%" title="Enviar invitaciones a contactos por email" target="_blank"><strong>email</strong></a> o por <a href="%fblink%" title="Enviar invitaciones a contactos de Facebook" target="_blank"><strong>Facebook</strong></a>.'
 notification:
     task:
         pending: '{0} No tiene tareas pendientes|{1} Tienes una tarea pendiente|]1,Inf] Tienes %count% tareas pendientes'

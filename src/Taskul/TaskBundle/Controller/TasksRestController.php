@@ -4,7 +4,6 @@ namespace Taskul\TaskBundle\Controller;
 
 use Taskul\TaskBundle\Entity\Task;
 use Taskul\TaskBundle\Form\TaskType;
-use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 
@@ -13,9 +12,6 @@ use Taskul\TaskBundle\Controller\Base\TasksRestBaseController as BaseController;
 /**
  * Task Rest controller.
  * @RouteResource("Task")
- *
- * @Breadcrumb("Dashboard", route="dashboard")
- * @Breadcrumb("Tasks", route="api_get_tasks", attributes={"class": "ajaxy"} )
  *
  */
 class TasksRestController extends BaseController {
@@ -27,6 +23,10 @@ class TasksRestController extends BaseController {
 
     public function cgetAction()
     {
+      $this->putDashBoardBreadCrumb()
+      ->putBreadCrumb('task.breadcrumb.list', 'api_get_tasks', 'TaskBundle')
+      ;
+
     	$user = $this->getLoggedUser();
     	$format = $this->getRequestFormat();
     	$em = $this->getEntityManager();
@@ -51,27 +51,34 @@ class TasksRestController extends BaseController {
     /**
      * Displays a form to create a new Task entity.
      *
-     * @Breadcrumb("Create")
      */
     public function newAction() {
+
+      $this->putDashBoardBreadCrumb()
+      ->putBreadCrumb('task.breadcrumb.list', 'api_get_tasks', 'TaskBundle')
+      ->putBreadCrumb('task.breadcrumb.new', 'api_new_task', 'TaskBundle');
+
     	return $this->processForm(new Task(),'POST');
     }
 
     /**
      * Creates a new Task entity.
      *
-     * @Breadcrumb("Create")
      */
     public function postAction() {
-    	return $this->processForm(new Task(),'POST');
+
+    	return $this->newAction();
     }
 
     /**
      * Displays a form to edit an existing Task entity.
      *
-     * @Breadcrumb("Update")
      */
     public function editAction($id) {
+
+      $this->putDashBoardBreadCrumb()
+      ->putBreadCrumb('task.breadcrumb.list', 'api_get_tasks', 'TaskBundle')
+      ->putBreadCrumb('task.breadcrumb.update', 'api_edit_task', 'TaskBundle');
 
         $task = $this->checkGrant($id, 'EDIT');
         return $this->processForm($task,'PUT');
@@ -80,20 +87,20 @@ class TasksRestController extends BaseController {
 
     /**
      * Edits an existing Task entity.
-     *
-     * @Breadcrumb("Update")
      */
     public function putAction($id) {
-        $task = $this->checkGrant($id, 'EDIT');
-        return $this->processForm($task,'PUT');
+        return $this->editAction($id);
     }
     /**
      * Finds and displays a Task entity.
      *
-     * @Breadcrumb("Show")
      */
     public function getAction($id)
     {
+
+      $this->putDashBoardBreadCrumb()
+      ->putBreadCrumb('task.breadcrumb.list', 'api_get_tasks', 'TaskBundle')
+      ->putBreadCrumb('task.breadcrumb.show', 'api_get_task', 'TaskBundle');
 
     	$em = $this->getEntityManager();
       $session = $this->getRequest()->getSession();
@@ -101,10 +108,10 @@ class TasksRestController extends BaseController {
 
     	$task = $this->checkGrant($id, 'VIEW');
 
-        // Alamacenamos el id de la tarea para almacenarlos en los comentarios
-        // para bloquear el acceso no autorizado a ellos
-        $session->set('entity_id', $task->getId());
-        $session->set('entity_type', Task::getEntityName()); //@TODO revisar esto por si coge el proxy en produccion
+      // Alamacenamos el id de la tarea para almacenarlos en los comentarios
+      // para bloquear el acceso no autorizado a ellos
+      $session->set('entity_id', $task->getId());
+      $session->set('entity_type', Task::getEntityName()); //@TODO revisar esto por si coge el proxy en produccion
 
     	$data = array('entity' => $task);
 

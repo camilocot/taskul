@@ -45,14 +45,14 @@
                </tbody>
                <tfoot class="footable-pagination">
                     <tr>
-                      <td colspan="5"><ul id="pagination" class="footable-nav" /></td>
+                      <td colspan="3"><ul id="pagination" class="footable-nav" /></td>
                     </tr>
                   </tfoot>
            </table>
            {% endif %}
            {% include 'FriendBundle:partials:warning-message.html.twig' with {'type':'friendrequest'} %}
             <div class="well">
-                <a class="btn btn-primary ajaxy" href="{{ path('frequest_new') }}">
+                <a class="btn btn-primary ajaxy" href="{{ path('frequest_new') }}" title="{{'friendrequest.list.buttons.new'|trans({},'FriendBundle')}}">
                     <i class="fa-icon-envelope"></i>&nbsp;{{'friendrequest.list.buttons.new'|trans({},'FriendBundle')}}
                 </a>
             </div>

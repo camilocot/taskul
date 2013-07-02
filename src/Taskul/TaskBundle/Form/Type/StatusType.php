@@ -36,7 +36,6 @@ class StatusType extends AbstractType
     {
         $resolver->setDefaults(array(
             'preferred_choices' => array($this->preferredChoice),
-
             ));
 
 

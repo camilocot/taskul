@@ -1,45 +1,57 @@
 {% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "TaskBundle::layout.html.twig" %}
 {% form_theme form 'MainBundle:Form:fields.html.twig' %}
-    {% block content %}
+{% trans_default_domain "TaskBundle" %}
+{% block content %}
     {{ apy_breadcrumb_trail_render() }}
     <div class="row-fluid sortable">
         <div class="box span12">
             <div class="box-header" data-original-title>
-                <h2><i class="icon-user"></i><span class="break"></span>Task creation</h2>
+                <h2><i class="icon-user"></i><span class="break"></span>{{'task.new.title'|trans({},'TaskBundle')}}</h2>
                 <div class="box-icon">
                     <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
                 </div>
             </div>
             <div class="box-content">
-
                 {% set route = 'api_' ~ method|lower ~ '_task' %}
                 {% if method == 'post' %}
-                <form class="form-horizontal validate" action="{{ path( route ) }}" method="post" {{ form_enctype(form) }} id="form_task">
-                    {% else %}
+                    <form class="form-horizontal validate" action="{{ path( route ) }}" method="post" {{ form_enctype(form) }} id="form_task">
+                {% else %}
                     <form class="form-horizontal validate" action="{{ path( route, { id: id } ) }}" method="post" {{ form_enctype(form) }} id="form_task">
-                        {% endif %}
+                {% endif %}
                         <input type="hidden" name="_method" value="{{ method }}" >
                         <input type="hidden" name="goto_upload" value="0" >
                         {{ form_errors(form) }}
 
                         <fieldset>
-                            {{ form_row(form.name,{'help':'sdasdasasda', 'attr': { 'class':'required', 'minlength':'10' } }) }}
-                            {{ form_row(form.status) }}
-                            {{ form_row(form.percent, {'attr': {'data-slider':'true', 'data-slider-range':'1,100', 'data-slider-step':'1'}} ) }}
-                            {{ form_row(form.description, {'attr':
-                            {'placeholder':'Introduzca una descripción ...', 'class':'nicEdit span11','rows':'10','minlength':'8' } } ) }}
-                            {{ form_row(form.dateEnd, { 'attr': {'data-date-format': 'dd/mm/yyyy'} }) }}
+                            {{ form_row(form.name, {'help':'task.new.help.name'|trans, 'attr': { 'class':'required', 'minlength':'10' }, 'label': 'task.new.name'|trans } ) }}
+                            {{ form_row(form.status, { 'label': 'task.new.status'|trans }) }}
 
-                            {{ form_row(form.tags,{ 'attr': {'style':'min-width:298px'} } ) }}
-                            {{ form_row(form.members,{ 'attr': {'style':'width:298px'} } ) }}
+                            {{ form_row(form.tags,{ 'attr': {'style':'min-width:298px'}, 'label':'task.new.tags'|trans, 'help':'task.new.help.tags'|trans } ) }}
+                            {{ form_row(form.members,{ 'attr': {'style':'width:298px'}, 'label':'task.new.members'|trans, 'help':'task.new.help.members'|trans({ '%emaillink%': path('frequest_new'), '%fblink%': path('import_fb')}, 'TaskBundle')|raw } ) }}
 
-                            {{ form_rest(form) }}
                         </fieldset>
+                        <div class="accordion" id="accordion">
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                    <h3>{{ 'task.new.more_data'|trans }}</h3>
+                                    </a>
+                                    </div>
+                                    <div id="collapseOne" class="accordion-body collapse">
+                                    <div class="accordion-inner">
+                                        {{ form_row(form.percent, {'attr': {'data-slider':'true', 'data-slider-range':'1,100', 'data-slider-step':'1'}, 'label': 'task.new.percent'|trans, 'help': 'task.new.help.percent'|trans } ) }}
+                                        {{ form_row(form.description, {'attr':                            { 'class':'nicEdit span11','rows':'10','minlength':'8' }, 'help':'task.new.help.description'|trans, 'label': 'task.new.description'|trans } ) }}
+                                        {{ form_row(form.dateEnd, { 'attr': {'data-date-format': 'dd/mm/yyyy'} , 'label':'task.new.date_end'|trans, 'help':'task.new.help.date_end'|trans }) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_rest(form) }}
                         <div class="form-actions">
-                            <button class="btn btn-primary" type="submit" value="0">Terminar</button>
-                            <button class="btn btn-primary" type="submit" value="1">Añadir ficheros</button>
+                            <button class="btn btn-primary" type="submit" value="0"><i class=" icon-file fa-icon-save"></i>&nbsp;{{ 'task.new.finish'|trans }}</button>
+                            <button class="btn btn-warning" type="submit" value="1"><i class=" icon-file icon-white"></i>&nbsp;{{ 'task.new.add_files'|trans }}</button>
                             <a class="btn btn-cancel ajaxy" href="{{ path('api_get_tasks') }}">
-                                <i class="fa-icon-undo"></i>&nbsp;Back to the list
+                                <i class="fa-icon-undo"></i>&nbsp;{{ 'task.new.back'|trans }}
                             </a>
                         </div>
                     </form>
@@ -48,12 +60,11 @@
             </div><!--/box-->
 
         </div><!--/row-->
+{% include 'TaskBundle:partials:delete-modal-rest.html.twig' with {'type': 'api_delete_task'}%}
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}
 {% javascripts
-    '@MainBundle/Resources/public/js/vendor/nicEdit-latest.js'
-    '@MainBundle/Resources/public/js/vendor/simple-slider.js'
     '@TaskBundle/Resources/public/js/form.js'
     %}
     <script src="{{ asset_url }}"></script>
