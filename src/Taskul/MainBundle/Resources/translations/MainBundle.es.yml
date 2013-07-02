@@ -24,6 +24,12 @@ modal:
         content:
             myfriends_delete: '¿ Está seguro de borrar al contacto ? <b>Se eliminará como miembro de sus tareas y también usted de las suyas</b>.'
             frequest_delete: '¿ Está seguro de eliminar la solicitud de contacto ?'
+    confirm:
+        confirm: Confirmar
+        cancel: Cancelar
+        title: Advertencia
+        content:
+            frequest_activate: '{ Está seguro de confirmar la solicitud de contacto ?'
 search:
     title: 'Búsqueda'
     clear_filter: 'Pulsa para limpiar la búsqueda'

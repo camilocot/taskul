@@ -4,20 +4,20 @@
 <div class="row-fluid sortable">
     <div class="box span12">
         <div class="box-header" data-original-title>
-            <h2><i class="icon-user"></i><span class="break"></span>Listado de solicudes</h2>
+            <h2><i class="icon-user"></i><span class="break"></span>{{'friendrequest.index.title'|trans({},'FriendBundle')}}</h2>
             <div class="box-icon">
                 <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
             </div>
         </div>
         <div class="box-content">
-            <a class="quick-button span2 ajaxy" href="{{ path('frequest_sended') }}">
+            <a class="quick-button span2 ajaxy" href="{{ path('frequest_sended') }}" title="{{'friendrequest.sended.title'|trans({},'FriendBundle')}}">
                 <i class="fa-icon-group"></i>
-                <p>Enviadas</p>
+                <p>{{'friendrequest.index.sended'|trans({},'FriendBundle')}}</p>
                 <span class="notification {% if sended == 0 %}green{% else %}red{% endif %}">{{ sended }}</span>
             </a>
-            <a class="quick-button span2 ajaxy" href="{{ path('frequest_recibed') }}">
+            <a class="quick-button span2 ajaxy" href="{{ path('frequest_recibed') }}" title="{{'friendrequest.recibed.title'|trans({},'FriendBundle')}}">
                 <i class="fa-icon-group"></i>
-                <p>Recibidas</p>
+                <p>{{'friendrequest.index.recibed'|trans({},'FriendBundle')}}</p>
                 <span class="notification {% if recibed == 0 %}green{% else %}red{% endif %}">{{ recibed }}</span>
             </a>
             <div class="clearfix"></div>

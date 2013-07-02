@@ -3,14 +3,14 @@
 <div id="activateModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="activateModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h3 id="activateModalLabel">Confirmación</h3>
+		<h3 id="activateModalLabel">{{ 'modal.delete.title'|trans({},'MainBundle') }}</h3>
 	</div>
 	<div class="modal-body">
-		<p>¿ Está seguro de activar la solicutud de amistad ?</p>
+		<p>{{ ('modal.activate.content.'~type)|trans({},'MainBundle') }}</p>
 	</div>
 	<div class="modal-footer">
-		<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-		<button class="btn btn-success btn-confirm-modal">Activate</button>
+		<button class="btn" data-dismiss="modal" aria-hidden="true">{{ 'modal.activate.cancel'|trans({},'MainBundle') }}</button>
+		<button class="btn btn-success btn-confirm-modal">{{ 'modal.activate.confirm'|trans({},'MainBundle') }}</button>
 	</div>
 </div>
 <form action="" method="post" {{ form_enctype(activate_form) }} id="activate-frequest" data-input-id="#form_activate_id" data-modal-id="#activateModal" data-action="{{ type }}" class="ajaxmodalform">

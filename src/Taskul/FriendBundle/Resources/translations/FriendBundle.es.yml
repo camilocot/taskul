@@ -58,6 +58,13 @@ friendrequest:
             all: 'Seleccionar todos'
             invert: 'Invertir selección'
         summary: 'Se ha enviado una invitación.|Se han enviado %count% invitaciones.'
+    index:
+        title: 'Listado de solicitudes de contacto'
+        recibed: Recibidas
+        sended: Enviadas
+    activate:
+        successfully: 'Solicitud aceptada correctamente ...'
+
 message:
     sent:
         successfully: 'Invitacion enviada correctamente|Invitaciones (%num%) enviadas correctamente'

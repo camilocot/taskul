@@ -38,9 +38,6 @@ class FriendRequestController extends BaseController {
     return array(
       'sended' => count($this->getSended()),
       'recibed' => count($this->getRecibed()),
-      'entity' => array('id' => -1),
-      'delete_form' => $this->createDeleteFormView(-1),
-      'activate_form' => $this->createActivateForm(-1)->createView(),
       );
   }
 
@@ -83,7 +80,6 @@ class FriendRequestController extends BaseController {
       'entities' => $this->getSended(),
       'entity' => array('id' => -1),
       'delete_form' => $this->createDeleteFormView(-1),
-      'activate_form' => $this->createActivateForm(-1)->createView(),
       );
   }
   /**
@@ -118,7 +114,6 @@ class FriendRequestController extends BaseController {
     return array(
       'entity' => $entity,
       'delete_form' => $this->createDeleteFormView(-1),
-      'activate_form' => $this->createActivateForm(-1)->createView(),
       );
   }
 
@@ -140,8 +135,6 @@ class FriendRequestController extends BaseController {
       return array(
         'entity' => $entity,
         'form' => $form->createView(),
-        'delete_form' => $this->createDeleteForm(-1)->createView(),
-        'activate_form' => $this->createActivateForm(-1)->createView(),
         );
   }
 
@@ -207,9 +200,6 @@ class FriendRequestController extends BaseController {
         'contacts' => $fbContact,
         'form' => $form->createView(),
         'imgUrls' => $imgUrls,
-        'delete_form' => $this->createDeleteForm(-1)->createView(),
-        'activate_form' => $this->createActivateForm(-1)->createView(),
-        'entity' => array('id' => -1),
         );
 
     }
@@ -242,7 +232,6 @@ class FriendRequestController extends BaseController {
    * @Method("POST")
    * @Template("FriendBundle:FriendRequest:new.html.twig")
    *
-   * @Breadcrumb("Nueva")
    */
   public function createAction(Request $request) {
 
@@ -250,6 +239,9 @@ class FriendRequestController extends BaseController {
     $em = $this->getDoctrine()->getManager();
     $t = $this->get('translator');
 
+    $this->putDashBoardBreadCrumb()
+    ->putBreadCrumb('friendrequest.breadcrumb.index', 'frequest', 'FriendBundle')
+    ->putBreadCrumb('friendrequest.breadcrumb.new', 'frequest_new', 'FriendBundle');
 
     $entity = new FriendRequest();
     $entity->setFrom($owner);
@@ -276,8 +268,6 @@ class FriendRequestController extends BaseController {
     return array(
       'entity' => $entity,
       'form' => $form->createView(),
-      'delete_form' => $this->createDeleteForm(-1)->createView(),
-      'activate_form' => $this->createActivateForm(-1)->createView(),
       );
   }
 
@@ -328,6 +318,7 @@ class FriendRequestController extends BaseController {
   public function activateAction(Request $request,$id) {
     $to = $this->get('security.context')->getToken()->getUser();
     $em = $this->getDoctrine()->getEntityManager();
+    $t = $this->getTranslator();
 
     $frequest = $em->getRepository('FriendBundle:FriendRequest')
     ->findOneBy(array('id' => $id, 'to' => $to, 'active' => FALSE));
@@ -341,16 +332,17 @@ class FriendRequestController extends BaseController {
 
     $em->persist($frequest);
     $em->flush();
-    if ($request->isXmlHttpRequest()){
-        return new JsonResponse(array('success' => TRUE,'message'=>'Solicitud aceptadsa correctamente'));
-    }
-    else {
-        return $this->redirect($this->generateUrl('myfriends'));
-    }
+
+    $url = $this->generateUrl('myfriends');
+
+    return new CheckAjaxResponse(
+          $url,
+          array('success'=>TRUE, 'message' => $t->trans('friendrequest.activate.successfully',array(),'FriendBundle') ,'url'=>$url, 'title'=> $t->trans('friend.myfriends',array(),'FriendBundle'))
+    );
   }
 
   /**
-   * Crea la relacion de amistad entre los usuarios perteneceentes a la slocitud
+   * Crea la relacion de amistad entre los usuarios perteneceentes a la solicitud
    * @param  [type] $request [description]
    * @return [type]          [description]
    */
