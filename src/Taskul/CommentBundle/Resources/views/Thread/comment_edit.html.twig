@@ -15,7 +15,7 @@
         {% block fos_comment_form_fields %}
             {{ form_errors(form) }}
             {{ form_errors(form.body) }}
-            <textarea minlength="8" rows="10" class="nicEdit" placeholder="Introduzca una descripción ..." required="required" name="fos_comment_comment[body]" id="fos_comment_comment_body_{{ comment.thread.id}}_{{comment.id}}" style="width:100%"></textarea>
+            <textarea minlength="8" rows="10" class="" placeholder="Introduzca una descripción ..." required="required" name="fos_comment_comment[body]" id="fos_comment_comment_body_{{ comment.thread.id}}_{{comment.id}}" style="width:99%"></textarea>
             {{ form_widget(form._token) }}
         {% endblock %}
 
@@ -30,5 +30,3 @@
 
     </form>
 </div>
-<script type="text/javascript">new nicEditor({fullPanel : true}).panelInstance('fos_comment_comment_body_{{ comment.thread.id}}_{{comment.id}}');</script>
-

@@ -35,6 +35,7 @@ class TaskType extends AbstractType
         ->add('status', 'status', array('expanded' => true,'choices' => TaskStatusType::getChoices()))
         ->add('percent', 'integer')
         ->add('tags','text', array('mapped'=>false,'data'=>$options['tags'],'required'=>FALSE))
+        ->add('goto_upload','hidden',array('property_path'=>FALSE,'data'=>0)) // Nos identifica si redireccionar hacia la subida de ficheros o a mostrar la tarea al editarla o crearla
         ->add('members', 'entity', array(
 
             'class'         => 'Taskul\UserBundle\Entity\User',

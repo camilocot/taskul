@@ -51,44 +51,20 @@ $(document).ready(function(){
         });
     });
 
+    $("#task_percent").simpleSlider({'range': [1,100], 'step': 1});
 
-    // Crear nueva tarea, redirecciona a ver o a aañadir ficheros
-    $('#form_task').submit(function(event){
-        /* Para saber donde redirigir */
-        valSubmit = $("button[type=submit][clicked=true]").val();
-        $('button[name=goto_upload]').val(valSubmit);
 
+    // Para identificar si vamos a un ver los detalles de la tarea o a gestionar los ficheros
+    $("button[type=submit]").click(function(e) {
+        e.preventDefault(e);
+        valSubmit = $(this).val();
+        $('input#task_goto_upload').val(valSubmit);
         ne = nicEditors.findEditor('task_description');
         $('#task_description').val(ne.getContent());
-        $(this).ajaxSubmit({
-            success: function (data){
-                if(data.success === true){
-                    taskId = data.id;
-                    title = null;
-                    if(valSubmit == 1)
-                    {
-                        route = Routing.generate('api_get_task_files', { "id": taskId });
-                        title = 'Asignar ficheros';
-                    }
-                    else
-                    {
-                        route = Routing.generate('api_get_task', { "id": taskId });
-                        title = 'Mostrar tarea';
-                    }
-                    loadPage(route);
-                    History.pushState(null,title,route);
-                }else{
-                    console.log(data);
-                }
-            },
-            error: function(jqXHR,textStatus,errorThrown){
-                alert(jqXHR.responseText.message);
-            }
-        });
-        // return false to prevent normal browser submit and page navigation
-        return false;
+        $(this).closest("form").submit();
     });
 
+    $('#minimize-comments').trigger('click');
     new nicEditor({fullPanel : true}).panelInstance('task_description');
 
     /* Percent Slider */

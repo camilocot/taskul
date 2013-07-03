@@ -146,3 +146,8 @@ a.brand span {
 .footable {
   font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
+
+ .btn-group>.btn.active {
+  color: #000;
+  font-weight: bold;
+ }

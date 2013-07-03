@@ -52,6 +52,14 @@ task:
             date_end: 'Fecha aproximada de finalización'
             tags: 'Introduce etiquetas cons las que podrás organizar y filtrar todas tus tareas. Ej. asignaturas, clientes, etc ...'
             members: 'Selecciona de tus contactos quien tendrá acceso a visualizar, cargar ficheros y comentar en esta tarea. Sino tienes contactos puedes enviarles invitaciones por <a href="%emaillink%" title="Enviar invitaciones a contactos por email" target="_blank"><strong>email</strong></a> o por <a href="%fblink%" title="Enviar invitaciones a contactos de Facebook" target="_blank"><strong>Facebook</strong></a>.'
+        create_success: 'La tarea se ha creado correctamente'
+        edit_success: 'La tarea ha sido modificada correctamente'
+    files:
+        title: 'Adminsitrar ficheros'
+        view:
+            title: 'Ficheros asociados a la tarea'
+    comments:
+        title: Comentarios
 notification:
     task:
         pending: '{0} No tiene tareas pendientes|{1} Tienes una tarea pendiente|]1,Inf] Tienes %count% tareas pendientes'

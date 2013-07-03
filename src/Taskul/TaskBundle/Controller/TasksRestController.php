@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 
 use Taskul\TaskBundle\Controller\Base\TasksRestBaseController as BaseController;
-
+use Taskul\MainBundle\Component\CheckAjaxResponse;
 /**
  * Task Rest controller.
  * @RouteResource("Task")
@@ -78,7 +78,7 @@ class TasksRestController extends BaseController {
 
       $this->putDashBoardBreadCrumb()
       ->putBreadCrumb('task.breadcrumb.list', 'api_get_tasks', 'TaskBundle')
-      ->putBreadCrumb('task.breadcrumb.update', 'api_edit_task', 'TaskBundle');
+      ->putBreadCrumb('task.breadcrumb.update', 'api_edit_task', 'TaskBundle',array(),array('id'=>$id));
 
         $task = $this->checkGrant($id, 'EDIT');
         return $this->processForm($task,'PUT');
@@ -100,14 +100,15 @@ class TasksRestController extends BaseController {
 
       $this->putDashBoardBreadCrumb()
       ->putBreadCrumb('task.breadcrumb.list', 'api_get_tasks', 'TaskBundle')
-      ->putBreadCrumb('task.breadcrumb.show', 'api_get_task', 'TaskBundle');
+      ->putBreadCrumb('task.breadcrumb.show', 'api_get_task', 'TaskBundle',array(),array('id'=>$id));
 
+      $fileManager = $this->getFileManager();
     	$em = $this->getEntityManager();
       $session = $this->getRequest()->getSession();
     	$format = $this->getRequestFormat();
 
     	$task = $this->checkGrant($id, 'VIEW');
-
+      $user = $this->getLoggedUser();
       // Alamacenamos el id de la tarea para almacenarlos en los comentarios
       // para bloquear el acceso no autorizado a ellos
       $session->set('entity_id', $task->getId());
@@ -120,6 +121,7 @@ class TasksRestController extends BaseController {
     		$data['delete_form'] = $this->createDeleteForm($id)->createView();
         $data['delete_id'] = $id;
         $tags = $this->loadTags($task);
+        $data['current_quota'] = $fileManager->getPercentQuota($user);
       }
 
         $view = $this->view($data, 200)
@@ -258,8 +260,6 @@ class TasksRestController extends BaseController {
 
     private function processForm(Task $task,$formMethod)
     {
-    	$statusCode = 201;
-
     	$securityContext = $this->getSecurityContext();
     	$formFactory = $this->get('form.factory');
     	$user = $this->getLoggedUser();
@@ -277,16 +277,17 @@ class TasksRestController extends BaseController {
     	if ('POST' === $method || 'PUT' === $method){
 
     	    if($formHandler->handle($form,$request,$task,$user)){
+                // Generamos las notificaciones
                 $actionManager = $this->get('taskul_timeline.action_manager.orm');
                 $actionManager->handle($user,$method,$task);
 
-                return $this->returnResponse($task,$statusCode);
-            }else{
-                return $this->returnResponse($task,400,FALSE,$form->getErrorsAsString());
-            }
-        }else
-            $statusCode = 200;
+                $data = $this->getRequest()->request->all();
 
+                return $this->returnResponse(TRUE,$this->getResponseMessage($method),$this->getResponseUrl($data,$task->getId()), $this->getResponseTitle($data));
+            }else{
+                return $this->returnResponse(FALSE,$form->getErrorsAsString());
+            }
+        }
 
         $data = array(
           'entity' => $task,
@@ -297,22 +298,52 @@ class TasksRestController extends BaseController {
           'delete_id' => $task->getId(),
           );
 
-        $view = $this->view($data, $statusCode)
+        $view = $this->view($data)
         ->setTemplate("TaskBundle:Task:api/form.html.twig")
         ;
         return $this->handleView($view);
     }
 
-    private function returnResponse($task,$statusCode,$success=TRUE,$message='')
+    private function returnResponse($success=TRUE,$message='',$url='',$title='')
     {
-        if($this->checkAjax())
-        {
-            $data = array('success'=>$success,'message'=>$message, 'id'=>$task->getId());
-            return $this->processView($data, $statusCode);
+      $t = $this->getTranslator();
+
+        return new CheckAjaxResponse(
+            $url,
+            array('success'=>$success, 'message' => $message ,'url'=>$url, 'title'=>$t->trans('friend.delete.success',array(),'FriendBundle'))
+        );
+    }
+
+    private function getResponseMessage($method)
+    {
+      $t = $this->getTranslator();
+
+      if('POST' === $method){ // Creando
+          $message = $t->trans('task.new.create_success',array(),'TaskBundle');
+        }else { // Modificando
+          $message = $t->trans('task.new.edit_success',array(),'TaskBundle');
         }
-        else
-            $response = $this->redirectAbsolute('api_get_task',$statusCode, array('id' => $task->getId()));
-        return $response;
+      return $message;
+    }
+
+    private function getResponseUrl($formData,$id)
+    {
+      $url = $this->generateUrl('api_get_task',array('id'=>$id));
+      if("1" === $formData['task']['goto_upload'])
+        $url = $this->generateUrl('api_get_task_files',array('id'=>$id));
+      return $url;
+    }
+
+    private function getResponseTitle($formData)
+    {
+      $t = $this->getTranslator();
+      $message = $t->trans('task.view.title',array(),'TaskBundle');
+
+      if(1 === $formData['task']['goto_upload'])
+        $message = $t->trans('task.files.title',array(),'TaskBundle');
+
+      return $message;
+
     }
 
 }

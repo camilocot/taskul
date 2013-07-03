@@ -80,7 +80,8 @@ var $menu,
 
 function loadPage(url)
 {
-    $(".progress-indicator").fadeIn(500);
+    if(!$(".progress-indicator").is(':visible'))
+        $(".progress-indicator").fadeIn(500);
     $.ajax({
         url: url,
         success: function(data, textStatus, jqXHR){
@@ -119,6 +120,7 @@ function loadAjaxForms()
         var $form = $(this);
         $form.validate({
             submitHandler: function(form) {
+                $(".progress-indicator").fadeIn(500);
                 $(form).ajaxSubmit({
                     success: function (data){
 

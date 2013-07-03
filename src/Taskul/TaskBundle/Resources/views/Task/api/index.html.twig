@@ -18,7 +18,7 @@
                         <th data-class="expand" data-sort-initial="true">{{'task.list.name'|trans({},'TaskBundle')}}</th>
                         <th data-hide="phone,tablet">{{'task.list.status'|trans({},'TaskBundle')}}</th>
                         <th data-sort-ignore="true" data-hide="default,phone,tablet">Tags</th>
-                        <th data-sort-ignore="true">{{'lists.actions'|trans({},'MainBundle')}}</th>
+                        <th data-sort-ignore="true" width="200px">{{'lists.actions'|trans({},'MainBundle')}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,6 +69,7 @@
     </div><!--/box-->
 
 </div><!--/row-->
+{% include 'TaskBundle:partials:delete-modal-rest.html.twig' with {'type': 'api_delete_task'} %}
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}

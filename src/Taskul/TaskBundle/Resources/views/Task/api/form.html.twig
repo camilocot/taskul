@@ -14,12 +14,11 @@
             <div class="box-content">
                 {% set route = 'api_' ~ method|lower ~ '_task' %}
                 {% if method == 'post' %}
-                    <form class="form-horizontal validate" action="{{ path( route ) }}" method="post" {{ form_enctype(form) }} id="form_task">
+                    <form class="form-horizontal validate ajaxform" action="{{ path( route ) }}" method="post" {{ form_enctype(form) }} id="form_task">
                 {% else %}
-                    <form class="form-horizontal validate" action="{{ path( route, { id: id } ) }}" method="post" {{ form_enctype(form) }} id="form_task">
+                    <form class="form-horizontal validate ajaxform" action="{{ path( route, { id: id } ) }}" method="post" {{ form_enctype(form) }} id="form_task">
                 {% endif %}
                         <input type="hidden" name="_method" value="{{ method }}" >
-                        <input type="hidden" name="goto_upload" value="0" >
                         {{ form_errors(form) }}
 
                         <fieldset>
@@ -39,7 +38,7 @@
                                     </div>
                                     <div id="collapseOne" class="accordion-body collapse">
                                     <div class="accordion-inner">
-                                        {{ form_row(form.percent, {'attr': {'data-slider':'true', 'data-slider-range':'1,100', 'data-slider-step':'1'}, 'label': 'task.new.percent'|trans, 'help': 'task.new.help.percent'|trans } ) }}
+                                        {{ form_row(form.percent, {'label': 'task.new.percent'|trans, 'help': 'task.new.help.percent'|trans } ) }}
                                         {{ form_row(form.description, {'attr':                            { 'class':'nicEdit span11','rows':'10','minlength':'8' }, 'help':'task.new.help.description'|trans, 'label': 'task.new.description'|trans } ) }}
                                         {{ form_row(form.dateEnd, { 'attr': {'data-date-format': 'dd/mm/yyyy'} , 'label':'task.new.date_end'|trans, 'help':'task.new.help.date_end'|trans }) }}
                                     </div>
@@ -60,6 +59,21 @@
             </div><!--/box-->
 
         </div><!--/row-->
+       {% if entity.id > 0 %}
+        <div class="row-fluid sortable">
+            <div class="box span12">
+                <div class="box-header">
+                    <h2><i class="icon-user"></i><span class="break"></span>{{ 'task.comments.title'|trans }}</h2>
+                    <div class="box-icon">
+                        <a href="#" class="btn-minimize" id="minimize-comments"><i class="icon-chevron-up"></i></a>
+                    </div>
+                </div>
+                <div class="box-content">
+                   <div id="fos_comment_thread"></div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
 {% include 'TaskBundle:partials:delete-modal-rest.html.twig' with {'type': 'api_delete_task'}%}
 {% endblock %}
 {% block javascripts %}
@@ -69,4 +83,7 @@
     %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
+{% if entity.id > 0 %}
+{% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': entity.id} %}
+{% endif %}
 {% endblock %}
