@@ -37,7 +37,7 @@ class Document
     /**
      * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="\Taskul\UserBundle\Entity\User", inversedBy="documents", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="\Taskul\UserBundle\Entity\User", inversedBy="documents")
      */
     private $owner;
     /**

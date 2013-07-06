@@ -15,7 +15,7 @@
         {% block fos_comment_form_fields %}
             {{ form_errors(form) }}
             {{ form_errors(form.body) }}
-            <textarea minlength="8" rows="10" class="" placeholder="Introduzca una descripción ..." required="required" name="fos_comment_comment[body]" id="fos_comment_comment_body_{{ comment.thread.id}}_{{comment.id}}" style="width:99%"></textarea>
+            <textarea minlength="8" rows="10" class="boxsizingBorder" placeholder="{% trans from 'FOSCommentBundle' %}fos_comment_placeholder_textarea{% endtrans %}" required="required" name="fos_comment_comment[body]" id="fos_comment_comment_body_{{ comment.thread.id}}_{{comment.id}}"></textarea>
             {{ form_widget(form._token) }}
         {% endblock %}
 

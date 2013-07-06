@@ -1,12 +1,13 @@
 {% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "FriendBundle::layout/friendrequest.html.twig" %}
 {% form_theme form 'MainBundle:Form:fields.html.twig' %}
+{% trans_default_domain "FriendBundle" %}
 {% block content %}
 {{ apy_breadcrumb_trail_render() }}
 
 <div class="row-fluid sortable">
     <div class="box span12">
         <div class="box-header">
-            <h2><i class="icon-user"></i><span class="break"></span>{{'friendrequest.email.new.title'|trans({},'FriendBundle')}}</h2>
+            <h2><i class="icon-user"></i><span class="break"></span>{{'friendrequest.email.new.title'|trans}}</h2>
             <div class="box-icon">
                 <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
             </div>
@@ -22,16 +23,16 @@
                    <fieldset>
                       {{ form_errors(form) }}
                       {{ form_row(form.email,{
-                        'help': 'friendrequest.email.new.email_help'|trans({},'FriendBundle'),
-                        'attr': {'placeholder':'friendrequest.new.email_help'|trans({},'FriendBundle'),'class':'span11 required','maxlength':'255' }
+                        'help': 'friendrequest.email.new.email_help'|trans,
+                        'attr': {'placeholder':'friendrequest.new.email_help'|trans,'class':'span11 required','maxlength':'255' }
                         })
                       }}
-                      {{ form_row(form.message, {'attr': {'placeholder':'friendrequest.email.new.message_help'|trans({},'FriendBundle'), 'class':'nicEdit span11','rows':'10'} } ) }}
+                      {{ form_row(form.message, {'attr': {'placeholder':'friendrequest.email.new.message_help'|trans, 'class':'nicEdit span11','rows':'10'} } ) }}
                       {{ form_rest(form) }}
                       <div class="form-actions">
-                        <button type="submit" class="btn btn-success submit-niceditor"><i class="fa-icon-envelope"></i>&nbsp;{{'friendrequest.email.new.send'|trans({},'FriendBundle')}}</button>
+                        <button type="submit" class="btn btn-success submit-niceditor"><i class="fa-icon-envelope"></i>&nbsp;{{'friendrequest.email.new.send'|trans}}</button>
                         <a href="{{ path('frequest') }}" class="btn ajaxy">
-                            <i class="fa-icon-undo"></i>&nbsp;{{'friendrequest.email.new.back'|trans({},'FriendBundle')}}
+                            <i class="fa-icon-undo"></i>&nbsp;{{'friendrequest.email.new.back'|trans}}
                         </a>
                     </div>
                   </fieldset>

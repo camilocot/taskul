@@ -29,3 +29,5 @@ fos_comment_comment_undelete:                 Deshacer borrado del comentario
 fos_comment_comment_deleted:                  "[Borrado]"
 
 fos_comment_rss_feed:                         Feed RSS
+
+fos_comment_placeholder_textarea:             "Dime, dime ..."

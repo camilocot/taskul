@@ -1,0 +1,21 @@
+<!-- Modal -->
+<div id="deleteModalWrap">
+<div id="deleteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="deleteModalLabel">{{ 'modal.delete.title'|trans({},'MainBundle') }}</h3>
+    </div>
+    <div class="modal-body">
+        <p>{{ ('modal.delete.content.'~type)|trans({},'MainBundle') }}</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">{{ 'modal.delete.cancel'|trans({},'MainBundle') }}</button>
+        <button class="btn btn-danger btn-confirm-modal">{{ 'modal.delete.confirm'|trans({},'MainBundle') }}</button>
+    </div>
+</div>
+<form action="" method="post" {{ form_enctype(delete_form) }} data-input-id="#form_delete_id" data-modal-id="#deleteModal" class="ajaxmodalform">
+    <input name="_method" type="hidden" value="DELETE" />
+    <input type="hidden" name="redirect" value="" />
+    {{ form_widget(delete_form) }}
+</form>
+</div>

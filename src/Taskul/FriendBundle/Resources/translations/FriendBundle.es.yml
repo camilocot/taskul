@@ -23,6 +23,8 @@ friendrequest:
             activate: 'Pulsa para activar la solicitud'
             show: 'Ver detalles de la solicitud'
             new: 'Nueva invitación'
+        error:
+            spam: 'El mensaje que intentas enviar es considerado como SPAM, por favor revísalo y vuelve a intentarlo.'
     email:
         new:
             title: 'Envía invitaciones por email a tus contactos'

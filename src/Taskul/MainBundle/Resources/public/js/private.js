@@ -34,24 +34,26 @@ $(document).ready(function(){
   $.Mustache.add('taskul_message_list_unread_messages-html', $('#taskul_message_list_unread_messages-html').html());
 
   /* Numero de notificaciones */
-  $('.notifnumber').bind('notificationUpdate',function() {
-    $this = $(this);
-    var context = $this.parent().data('context');
-    dynroute = $this.parent().data('route');
-    route = Routing.generate(dynroute, { "context": context });
-    $.ajax({
-      method:'get',
-      url: route,
-      async: true,
-      success:function(data){
-        if(data.success) {
-          total = $this.text();
-          if(total != data.total) {
-            $this.text(data.total);
-            generateNotification[context] = true;
+  $('.notifnumber').each(function(){
+    $(this).bind('notificationUpdate',function() {
+      $this = $(this);
+      var context = $this.parent().data('context');
+      dynroute = $this.parent().data('route');
+      route = Routing.generate(dynroute, { "context": context });
+      $.ajax({
+        method:'get',
+        url: route,
+        async: false,
+        success:function(data){
+          if(data.success) {
+            total = $this.text();
+            if(total != data.total) {
+              $this.text(data.total);
+              generateNotification[context] = true;
+            }
           }
         }
-      }
+      });
     });
   });
 
@@ -85,7 +87,6 @@ $(document).ready(function(){
         $('.helpinfo').remove();
         toggleWarning(); // ajaxyfy.js
     });
-    $('body').trigger('delete-submit');
   };
 
   /* Quitamos la clase ajaxy del dashboard */
@@ -95,18 +96,13 @@ $(document).ready(function(){
 
   /* Botones que activan los modales para la confirmacion de envio de formularios */
   $(document).on( 'click', '.modal-button', function (e) {
+        e.preventDefault();
         $remove = $(this);
-        id = $remove.data('id');
-        target = $remove.data('target');
-        $form = $(target).next('form');
-        inputId = $form.data('input-id');
-        formAction = $form.data('action');
-        redirect = $remove.data('redirect');
-        formAction = Routing.generate(formAction, { "id": id });
-        $form.removeData('redirect');
-        $(inputId).val(id);
-        $form.attr('action', formAction);
-        $form.data('redirect',redirect);
+        $form = $($remove.data('target')).next('form');
+        $form.attr('action', $remove.data('href'));
+
+        // Se le asocia la routa de redirección si tiene
+        $form.children('input[name=redirect]').val($remove.data('redirect'));
     });
 
     /* Boton de confirmacion del propio modal que envia el formulario*/
@@ -155,7 +151,7 @@ function activateNotifications()
 function activateProgessBar(){
   if($(".taskProgress")) {
     $(".taskProgress").each(function(){
-      var endValue = parseInt($(this).html());
+      var endValue = parseInt($(this).html(),10);
       $(this).progressbar({
               value: endValue
       });

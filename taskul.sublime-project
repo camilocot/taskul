@@ -1,0 +1,11 @@
+{
+	"folders":
+	[
+		{
+			"path": "/var/www/taskul.local/taskul.local"
+		}
+	],
+    "settings": {
+        "xdebug": { "url": "http://taskul.local/app_dev.php/" }
+    }
+}

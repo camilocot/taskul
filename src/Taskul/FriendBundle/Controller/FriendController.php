@@ -37,6 +37,7 @@ class FriendController extends BaseController {
      * Elimina la relacion entre contactos
      *
      * @Route("/{id}/delete", name="myfriends_delete", options={ "expose": true })
+     * @Method("POST|DELETE")
      *
      */
     public function deleteAction($id) {
@@ -48,9 +49,12 @@ class FriendController extends BaseController {
 
         $url = $this->generateUrl('myfriends');
 
+        $dataAjax = array('success'=>TRUE, 'message' => $this->message , 'title'=>$t->trans('friend.delete.success',array(),'FriendBundle'));
+        if($redirect = $request->request->get('redirect'))
+              $dataAjax['url'] = $url;
         return new CheckAjaxResponse(
             $url,
-            array('success'=>TRUE, 'message' => $this->message ,'url'=>$url, 'title'=>$t->trans('friend.delete.success',array(),'FriendBundle'))
+            $dataAjax
         );
 
     }

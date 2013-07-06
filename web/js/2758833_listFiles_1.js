@@ -3,30 +3,37 @@ $(document).ready(function() {
     $('#fileupload').uniform();
     $('#fileupload').fileupload({
         dataType: 'json',
+        add: function (e, data) {
+            $(".progress-indicator").fadeIn(500);
+            data.submit();
+        },
         done: function (e, data) {
             if(data.result.success === true)
                 $.each(data.result.files, function (index, file) {
 
                     route = Routing.generate('api_download_file', { "id": file.id });
+                    deleteroute = Routing.generate('api_delete_task_file', {'idDocument': file.id , 'idTask': file.taskid } );
                     var view = {
+
                       route: route,
+                      deleteroute: deleteroute,
                       file: file
                     };
                     $('#list > tbody:last').append($.Mustache.render('add-file-html', view));
-                    $('#no-files').hide();
                     if($('#list').is(':hidden'))
                         $('#list').show();
-                    refereshQuota();
+                    toggleWarning();
+                    refreshQuota();
                 });
             else {
-                var n =noty({text: data.result.message, type: 'error', layout: 'top'});
+                var n =notificacion(data.result.message, 'error');
             }
-
-
+            $(".progress-indicator").fadeOut(500);
         },
         fail: function (e,data) {
             obj = jQuery.parseJSON(data.jqXHR.responseText);
-            var n =noty({text: obj.message, type: 'error', layout: 'top'});
+            $(".progress-indicator").fadeOut(500);
+            var n = notificacion(obj.message, 'error' );
         }
     });
 
@@ -44,18 +51,12 @@ $(document).ready(function() {
     });
 
     $.Mustache.add('add-file-html', $('#add-file-html').html());
-    if ($('#no-files').length > 0)
-        $('#list').hide();
-
-    $('body').on('delete-submit', function(event) {
-        if($('#list > tbody > tr').length == 1)
-        {
-            $('#list').hide();
-            $('#no-files').show();
-        }
-    });
 
     $remove = null;
     $('.footable').footable();
+
+    $('span.filename').text($.t('msg.uniform.fileButtonHtml'));
+    $('span.action').text($.t('msg.uniform.fileDefaultHtml'));
+
 });
 

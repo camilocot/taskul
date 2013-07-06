@@ -151,3 +151,7 @@ a.brand span {
   color: #000;
   font-weight: bold;
  }
+
+ .ui-progressbar {
+    height: 0.5em;
+}

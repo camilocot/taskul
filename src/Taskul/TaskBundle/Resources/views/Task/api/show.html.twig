@@ -4,10 +4,10 @@
     {{ apy_breadcrumb_trail_render() }}
     <div class="row-fluid sortable">
         <div class="span8">
-            <div class="row">
+            <div class="row-fluid">
                 <div class="box span12">
                     <div class="box-header" data-original-title>
-                        <h2><i class="icon-user"></i><span class="break"></span>{{ 'task.view.title'|trans({}, 'TaskBundle') }}</h2>
+                        <h2><i class="icon-user"></i><span class="break"></span>{{ 'task.view.title'|trans }}</h2>
                         <div class="box-icon">
                             <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
                         </div>
@@ -17,27 +17,27 @@
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <th>{{ 'task.view.name'|trans({}, 'TaskBundle') }}</th>
+                                    <th>{{ 'task.view.name'|trans }}</th>
                                     <td>{{ entity.name }}</td>
                                 </tr>
                                 <tr>
-                                    <th>{{ 'task.view.description'|trans({}, 'TaskBundle') }}</th>
+                                    <th>{{ 'task.view.description'|trans }}</th>
                                     <td>{{ entity.description|raw }}</td>
                                 </tr>
                                 <tr>
-                                    <th>{{ 'task.view.dateend'|trans({}, 'TaskBundle') }}</th>
+                                    <th>{{ 'task.view.dateend'|trans }}</th>
                                     <td>{{ entity.dateEnd|date('d-m-Y') }}</td>
                                 </tr>
                                 <tr>
-                                    <th>{{ 'task.view.tags'|trans({}, 'TaskBundle') }}</th>
+                                    <th>{{ 'task.view.tags'|trans }}</th>
                                     <td>{{ entity.tags|labelsinactive|raw }}</td>
                                 </tr>
                                 <tr>
-                                    <th>{{ 'task.view.status'|trans({}, 'TaskBundle') }}</th>
+                                    <th>{{ 'task.view.status'|trans }}</th>
                                     <td>{{ entity.status|status(entity.status)|raw }}</td>
                                 </tr>
                                 <tr>
-                                    <th>{{ 'task.view.percent'|trans({}, 'TaskBundle') }} ({{ entity.percent }}%)</th>
+                                    <th>{{ 'task.view.percent'|trans }} ({{ entity.percent }}%)</th>
                                     <td><div class="progress progressAnimate progressBlue" data-percent="{{ entity.percent }}"></div>
                                             <div class="field_notice"><span class="must progressAnimateValue"></span></div>
                                 </tr>
@@ -48,18 +48,18 @@
                         <div class="form-actions">
 
                             {% if is_granted('DELETE',entity) %}
-                            <button class="btn btn-danger modal-button" type="button" data-target="#deleteModal" data-toggle="modal" data-id="{{ entity.id }}">
-                                <i class="icon-trash icon-white"></i>&nbsp;{{ 'task.actions.delete'|trans({}, 'TaskBundle') }}
+                            <button class="btn btn-danger modal-button" type="button" data-target="#deleteModal" data-toggle="modal" data-href="{{ path('api_delete_task', {id:entity.id }) }}" data-redirect="api_get_tasks">
+                                <i class="icon-trash icon-white"></i>&nbsp;{{ 'task.actions.delete'|trans }}
                             </button>
 
                             {% endif %}
                             {% if is_granted('EDIT',entity) %}
-                            <a href="{{ path('api_edit_task', { 'id': entity.id }) }}" class="btn btn-success ajaxy" data-redirect="api_get_tasks">
-                                <i class="icon-edit icon-white"></i>&nbsp;{{ 'task.actions.edit'|trans({}, 'TaskBundle') }}
+                            <a href="{{ path('api_edit_task', { 'id': entity.id }) }}" class="btn btn-success ajaxy">
+                                <i class="icon-edit icon-white"></i>&nbsp;{{ 'task.actions.edit'|trans }}
                             </a>
                             {% endif %}
                             <a class="btn btn-cancel ajaxy btn-back-list" href="{{ path('api_get_tasks') }}">
-                                <i class="fa-icon-undo"></i>&nbsp;{{ 'task.actions.back'|trans({}, 'TaskBundle') }}
+                                <i class="fa-icon-undo"></i>&nbsp;{{ 'task.actions.back'|trans }}
                             </a>
 
                         </div>
@@ -68,63 +68,72 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="box span8">
+            <div class="row-fluid">
+                <div class="box span12">
                     <div class="box-header" data-original-title>
-                        <h2><i class="icon-user"></i><span class="break"></span>{{ 'task.files.view.title'|trans({}, 'TaskBundle') }}</h2>
+                        <h2><i class="icon-user"></i><span class="break"></span>{{ 'task.files.view.title'|trans }}</h2>
                         <div class="box-icon">
                             <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
                         </div>
                     </div>
                     <div class="box-content">
-                        <div class="uploader"><input id="fileupload" type="file" name="files[]" data-url="{{ path('api_post_task_file', { id: entity.id } ) }}.json" multiple></div>
-                        {% if documents is defined %}
-                        <table class="table table-striped table-bordered bootstrap-datatable footable" id="list">
-                            <thead>
-                                <tr>
-                                    <th data-class="expand" data-sort-initial="true">Name</th>
-                                    <th data-sort-ignore="true">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for doc in documents %}
-                                <tr id="#row{{ doc.id }}">
-                                    <td>{{ doc.name }}</td>
-                                    <td>
-                                        {% if is_granted('VIEW', doc) %}
-                                        <a href="{{ path('api_download_file', { 'id': doc.id }) }}" class="btn btn-info" title="show"><i class="icon-zoom-in icon-white"></i></a>
-                                        {% endif %}
-                                        {% if is_granted('DELETE', doc) %}
-                                        <button class="btn btn-danger delete-modal-btn" type="button" data-task-id="{{ doc.idObject }}" data-document-id="{{ doc.id }}" data-target="#deleteModal" data-toggle="modal"><i class="icon-trash icon-white"></i></button>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                        {% endif %}
-                    {% if documents|length == 0 %}
-                    <div class="alert alert-block" id="no-files">
-                    <h4 class="alert-heading">Warning!</h4>
-                    <p>No hay ningún archivo asociado a la tarea utiliza el formulario superior para almacenar archivos.</p>
-                    </div>
-                    {% endif %}
-                    </div>
-                </div>
-                <div class="span4">
-                    <div class="circleStatsItem red">
-                        <i class="fa-icon-thumbs-up"></i>
-                        <span class="plus">+</span>
-                        <span class="percent">%</span>
+                        <div class="well">
+                          <h2>{{ 'task.files.title'|trans }}</h2>
+                          <p style="margin-bottom: 0;" class="muted">
+                            {{ 'task.files.content'|trans }}
+                          </p>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span8">
+                                <div class="alert-block alert-info alert">
+                                <h4 class="alert-heading">{{'task.files.form.title'|trans }}</h4>
+                                <br>
+                                <div class="uploader"><input id="fileupload" type="file" name="files[]" data-url="{{ path('api_post_task_file', { id: entity.id } ) }}.json" multiple></div>
+                                </div>
+                                <div class="clearfix"><br></div>
+                                {% if documents is defined %}
+                                <table class="table table-striped table-bordered bootstrap-datatable footable" id="list">
+                                    <thead>
+                                        <tr>
+                                            <th data-class="expand" data-sort-initial="true">{{ 'task.view.name'|trans }}</th>
+                                            <th data-sort-ignore="true">{{'lists.actions'|trans({},'MainBundle')}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for doc in documents %}
+                                        <tr id="#row{{ doc.id }}">
+                                            <td>{{ doc.name }}</td>
+                                            <td>
+                                                {% if is_granted('VIEW', doc) %}
+                                                <a href="{{ path('api_download_file', { 'id': doc.id }) }}" class="btn btn-info" title="show"><i class="icon-zoom-in icon-white"></i></a>
+                                                {% endif %}
+                                                {% if is_granted('DELETE', doc) %}
+                                                <button class="btn btn-danger modal-button" data-href="{{ path('api_delete_task_file', {'idDocument': doc.id , 'idTask': doc.idObject }) }}" type="button" data-target="#deleteModal" data-toggle="modal"><i class="icon-trash icon-white"></i></button>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                {% endif %}
+                                {% include 'MainBundle:partials:warning-message.html.twig' with { 'warningtitle': 'warning.title'|trans, 'warningcontent': 'task.files.nofiles'|trans } only %}
+                            </div>
+                            <div class="span4">
+                                <div class="circleStatsItem red">
+                                    <i class="fa-icon-thumbs-up"></i>
+                                    <span class="plus">+</span>
+                                    <span class="percent">%</span>
 
-                        <input type="text" value="{{ current_quota }}" class="orangeCircle" id="dial-quota"/>
+                                    <input type="text" value="{{ current_quota }}" class="orangeCircle" id="dial-quota"/>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="box span4">
-            <div class="box-header" data-original-title>
+            <div class="box-header">
                 <h2><i class="icon-user"></i><span class="break"></span>{{ 'task.comments.title'|trans}}</h2>
                 <div class="box-icon">
                     <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
@@ -141,12 +150,12 @@
     <td>{{file.name}}</td>
     <td>
         <a title="show" class="btn btn-info" href="{{route}}"><i class="icon-zoom-in icon-white"></i></a>&nbsp;
-        <button class="btn btn-danger delete-modal-btn" type="button" data-task-id="{{file.taskid}}" data-document-id="{{file.id}}" data-target="#deleteModal" data-toggle="modal"><i class="icon-trash icon-white"></i></button>
+        <button class="btn btn-danger modal-button" data-target="#deleteModal" data-toggle="modal" type="button" data-href="{{deleteroute}}"><i class="icon-trash icon-white"></i></button>
     </td>
     </tr>
   </script>
 {% endverbatim %}
-{% include 'TaskBundle:partials:delete-modal-rest.html.twig' with {'type': 'api_delete_task_file'} %}
+{% include 'MainBundle:partials:delete-modal.html.twig' with {'type':'generic'} %}
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}

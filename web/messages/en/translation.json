@@ -7,6 +7,10 @@
         "friendrequest": {
             "facebook_empty_select": "Debe seleccionar alguno de tus contactos",
             "facebook_empty_msg": "Por favor introduzca el texto de la invitación"
+        },
+        "uniform": {
+            "fileButtonHtml": "Click aquí",
+            "fileDefaultHtml": "Click"
         }
-	}
+    }
 }

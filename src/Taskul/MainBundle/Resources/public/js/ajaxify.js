@@ -123,29 +123,10 @@ function loadAjaxForms()
                 $(".progress-indicator").fadeIn(500);
                 $(form).ajaxSubmit({
                     success: function (data){
-
-                        if(data.success === true && data.url && data.forceredirect) {
-                            if(data.message){
-                                notificacion(data.message,'success');
-                                setTimeout("redirect('"+data.url+"')",3000);
-                            }else
-                                redirect(data.url);
-                        }else if(data.success === true && data.url) {
-                            loadPage(data.url);
-                            historyBool = false;
-                            if(data.message)
-                                notificacion(data.message,'success');
-                            History.pushState(null,data.title,data.url);
-                        }else if (data.success === true && data.content){
-                            $('#content').html(data.content);
-                            loadAjaxForms();
-                        } else if (data.success === true && data.message) {
-                            notificacion(data.message,'success');
-                        }else if(data.success === false && data.message)
-                            notificacion(data.message,'error');
+                        checkResponse(data);
                     },
                     error: function(jqXHR,textStatus,errorThrown){
-                        alert(jqXHR.responseText.message);
+                        notificacion(jqXHR.responseText.message,'error');
                     }
                 });
             }
@@ -155,6 +136,29 @@ function loadAjaxForms()
 
 function redirect(url){
     window.location.replace(url);
+}
+
+function checkResponse(data)
+{
+    if(data.success === true && data.url && data.forceredirect) {
+        if(data.message){
+            notificacion(data.message,'success');
+            setTimeout("redirect('"+data.url+"')",3000);
+        }else
+            redirect(data.url);
+    }else if(data.success === true && data.url) {
+        loadPage(data.url);
+        historyBool = false;
+        if(data.message)
+            notificacion(data.message,'success');
+        History.pushState(null,data.title,data.url);
+    }else if (data.success === true && data.content){
+        $('#content').html(data.content);
+        loadAjaxForms();
+    } else if (data.success === true && data.message) {
+        notificacion(data.message,'success');
+    }else if(data.success === false && data.message)
+        notificacion(data.message,'error');
 }
 
 function loadAjaxModalForms()
@@ -169,33 +173,21 @@ function loadAjaxModalForms()
             success:    function(e) {
                 /* Este dato se asocia al formulario dinamicamente desde el boton que abre el modal */
                 var redirect = $form.data('redirect');
-
                 $modal.modal('hide');
-                var status = ( e.success ) ? 'success' : 'error';
-                notificacion(e.message,status);
 
-
-                if(status == 'success' && typeof $remove !== 'undefined'){
+                if(e.success === true && typeof $remove !== 'undefined'){
                     $remove.deleteTableRow(); // private.js
                 }
 
-                if(typeof redirect !== 'undefined')
-                {
-                    url = Routing.generate(redirect);
-                    $('.box-content').fadeOut();
-                    loadPage(url);
-                }
+                checkResponse(e);
 
             },
             error: function(e) {
                 $modal.modal('hide');
                 obj = jQuery.parseJSON(e.responseText);
                 var status = ( obj[0].success ) ? 'success' : 'info';
-                            $('.top-right').notify({
-                        message: { text: obj[0].message },
-                        type: status,
-                        fadeOut: { enabled: true, delay: 3000 }
-                }).show();
+                notificacion(obj[0].message, status);
+
             }
         };
         $form.ajaxForm(options);

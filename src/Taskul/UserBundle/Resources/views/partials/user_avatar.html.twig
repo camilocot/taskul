@@ -1,5 +1,5 @@
 {% if user.facebookId %}
 <img src="https://graph.facebook.com/{{ user.facebookId }}/picture"/>
 {% else %}
-{{ gravatar(user.email) }}
+<img src="{{ gravatar(user.email) }}" />
 {% endif %}

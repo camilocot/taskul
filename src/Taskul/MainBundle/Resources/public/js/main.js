@@ -70,7 +70,7 @@ function menuColor(selector) {
     $liactive.addClass('active');
 }
 
-function refereshQuota()
+function refreshQuota()
 {
     $.getJSON(Routing.generate('api_get_quota'), function(data) {
         actualValue = $('#dial-quota').val();

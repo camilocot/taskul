@@ -47,8 +47,7 @@
                         </div>
                         {{ form_rest(form) }}
                         <div class="form-actions">
-                            <button class="btn btn-primary" type="submit" value="0"><i class=" icon-file fa-icon-save"></i>&nbsp;{{ 'task.new.finish'|trans }}</button>
-                            <button class="btn btn-warning" type="submit" value="1"><i class=" icon-file icon-white"></i>&nbsp;{{ 'task.new.add_files'|trans }}</button>
+                            <button class="btn btn-primary" type="submit"><i class=" icon-file fa-icon-save"></i>&nbsp;{{ 'task.new.finish'|trans }}</button>
                             <a class="btn btn-cancel ajaxy" href="{{ path('api_get_tasks') }}">
                                 <i class="fa-icon-undo"></i>&nbsp;{{ 'task.new.back'|trans }}
                             </a>
@@ -74,7 +73,7 @@
             </div>
         </div>
         {% endif %}
-{% include 'TaskBundle:partials:delete-modal-rest.html.twig' with {'type': 'api_delete_task'}%}
+{% include 'MainBundle:partials:delete-modal.html.twig' with {'type':'task'} %}
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}

@@ -138,7 +138,7 @@ class TasksRestController extends BaseController {
     public function deleteAction($id) {
 
         $form = $this->createDeleteForm($id);
-
+        $t = $this->getTranslator();
         $request = $this->getRequest();
         $aclManager = $this->get('taskul.acl_manager');
         $em = $this->getEntityManager();
@@ -154,10 +154,13 @@ class TasksRestController extends BaseController {
             $em->remove($task);
             $em->flush();
 
-            $data = array('success'=>TRUE, 'message'=> 'Operacion relaizada correctamente');
+            $data = array('success'=>TRUE, 'message'=> $t->trans('task.new.delete_success',array(),'TAskBundle'));
+            if($redirect = $request->request->get('redirect'))
+              $data['url'] = $this->get('router')->generate($redirect);
+
         }else{
             $statusCode = 400;
-            $data = array('success'=>FALSE,'message'=>'error');
+            $data = array('success'=>FALSE,'message'=> $t->trans('task.new.delete_unsuccess',array(), 'TaskBundle'));
         }
 
         return $this->processView($data,$statusCode);

@@ -17,9 +17,15 @@
 {% endblock _taskul_commentbundle_entity_comment_default_component %}
 
 {% block _taskul_friendbundle_entity_friendrequest_default_component %}
+{% if value.active != 1 %}
 <a href="{{ path('frequest_show', { 'id': value.id }) }}" title="{{ 'friendrequest.view.title'|trans({}, 'FriendBundle') }}" class="btn btn-mini btn-danger ajaxy">
-{{ 'timeline.one_friend_request'|trans({}, 'TimelineBundle') }}&nbsp;<i class="fa-icon-arrow-right icon-white"></i>
-</a> {{ 'timeline.the'|trans({}, 'TimelineBundle') }} {{ value.created|date('d-m-Y') }}
+{% endif %}
+{{ 'timeline.one_friend_request'|trans({}, 'TimelineBundle') }}
+{% if value.active != 1 %}
+&nbsp;<i class="fa-icon-arrow-right icon-white"></i>
+</a>
+{% endif %}
+{{ 'timeline.the'|trans({}, 'TimelineBundle') }} {{ value.created|date('d-m-Y') }}
 {% endblock _taskul_friendbundle_entity_friendrequest_default_component %}
 
 {% block _taskul_messagebundle_entity_message_default_component %}

@@ -55,14 +55,14 @@ $(document).ready(function(){
 
 
     // Para identificar si vamos a un ver los detalles de la tarea o a gestionar los ficheros
-    $("button[type=submit]").click(function(e) {
-        e.preventDefault(e);
-        valSubmit = $(this).val();
-        $('input#task_goto_upload').val(valSubmit);
-        ne = nicEditors.findEditor('task_description');
-        $('#task_description').val(ne.getContent());
-        $(this).closest("form").submit();
-    });
+    // $("button[type=submit]").click(function(e) {
+    //     e.preventDefault(e);
+    //     valSubmit = $(this).val();
+    //     $('input#task_goto_upload').val(valSubmit);
+    //     ne = nicEditors.findEditor('task_description');
+    //     $('#task_description').val(ne.getContent());
+    //     $(this).closest("form").submit();
+    // });
 
     $('#minimize-comments').trigger('click');
     new nicEditor({fullPanel : true}).panelInstance('task_description');

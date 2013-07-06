@@ -24,6 +24,9 @@ modal:
         content:
             myfriends_delete: '¿ Está seguro de borrar al contacto ? <b>Se eliminará como miembro de sus tareas y también usted de las suyas</b>.'
             frequest_delete: '¿ Está seguro de eliminar la solicitud de contacto ?'
+            task: '¿ Está seguro de eliminar la tarea ?'
+            file: '¿ Está seguro de eliminar el fichero ?'
+            generic: '¿ Está seguro ?'
     confirm:
         confirm: Confirmar
         cancel: Cancelar

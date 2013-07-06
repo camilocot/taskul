@@ -54,13 +54,24 @@ task:
             members: 'Selecciona de tus contactos quien tendrá acceso a visualizar, cargar ficheros y comentar en esta tarea. Sino tienes contactos puedes enviarles invitaciones por <a href="%emaillink%" title="Enviar invitaciones a contactos por email" target="_blank"><strong>email</strong></a> o por <a href="%fblink%" title="Enviar invitaciones a contactos de Facebook" target="_blank"><strong>Facebook</strong></a>.'
         create_success: 'La tarea se ha creado correctamente'
         edit_success: 'La tarea ha sido modificada correctamente'
+        delete_success: 'La tarea ha sido eliminada correctamente'
+        delete_unsuccess: 'No se ha podido eliminar la tarea. Por favor, pruebe en unos minutos o contace con nosotros.'
     files:
-        title: 'Adminsitrar ficheros'
+        title: 'Administrar ficheros'
+        content: 'Utiliza el formulario de abajo para asociar ficheros a la tarea. Tus contactos asociados a la tarea también podrán incluir sus propios ficheros.'
         view:
             title: 'Ficheros asociados a la tarea'
+        nofiles: 'No existe ningún fichero asociado a la tarea. Puedes usar el formulario superior para adjuntar ficheros.'
+        form:
+            title: 'Haz click y selecciona los ficheros:'
+        success: 'Operación realizada correctamente'
+
     comments:
         title: Comentarios
 notification:
     task:
         pending: '{0} No tiene tareas pendientes|{1} Tienes una tarea pendiente|]1,Inf] Tienes %count% tareas pendientes'
         view_all: 'Ver todas las tareas'
+warning:
+    title: 'Advertencia'
+    content: 'No hay ninguna tarea creada. Puedes crear nuevas tareas usando <a href="%href%" class="ajaxy" title="Crear tareas">este formulario</a>.'

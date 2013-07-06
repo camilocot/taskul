@@ -63,6 +63,7 @@ class FriendRequestController extends BaseController {
       );
   }
 
+
   /**
    * Lists all FriendRequest entities.
    *
@@ -114,6 +115,7 @@ class FriendRequestController extends BaseController {
     return array(
       'entity' => $entity,
       'delete_form' => $this->createDeleteFormView(-1),
+      'activate_form' => $this->createActivateForm(-1)->createView()
       );
   }
 
@@ -253,15 +255,25 @@ class FriendRequestController extends BaseController {
     $form->bind($request);
 
     if ($form->isValid()) {
-
-      if(!$this->checkSpan($owner,$form->getData()))
+      if(!$this->checkSpan($owner,$form->getData())){
         $this->processFriendRequestsEmailForm($owner, $em, $form);
+      } else {
+        $this->message = $t->trans('friendrequest.list.error.spam',array(),'FriendBundle');
+        $this->success = FALSE;
+        $this->get('logger')->emerg('Intento de envio de SPAM usuario: '.$owner->getId().' :::: Mensaje '.print_r($form->getData(), true));
+      }
 
       $url = $this->generateUrl('frequest_sended');
+      $dataAjax = array('success'=>$this->success, 'message' => $this->message );
+
+      if($this->success) {
+        $dataAjax['url'] = $url;
+        $dataAjax['title'] = $t->trans('friendrequest.list.sended',array(),'FriendBundle');
+      }
 
       return new CheckAjaxResponse(
           $url,
-          array('success'=>$this->success, 'message' => $this->message ,'url'=>$url, 'title'=>$t->trans('friendrequest.list.sended',array(),'FriendBundle'))
+          $dataAjax
       );
     }
 
@@ -275,7 +287,7 @@ class FriendRequestController extends BaseController {
    * Deletes a FriendRequest entity.
    *
    * @Route("/{id}/delete", name="frequest_delete", options={ "expose": true })
-   * @Method("POST")
+   * @Method("POST|DELETE")
    *
    */
   public function deleteAction(Request $request, $id) {
@@ -304,9 +316,14 @@ class FriendRequestController extends BaseController {
 
     $url = $this->generateUrl('frequest');
 
+    $dataAjax = array('success'=>TRUE, 'message'=>$t->trans('friendrequest.delete.success',array(),'FriendBundle'));
+
+    if($redirect = $request->request->get('redirect'))
+              $dataAjax['url'] = $url;
+
     return new CheckAjaxResponse(
             $url,
-            array('success'=>TRUE,'url'=>$url, 'message'=>$t->trans('friendrequest.delete.success',array(),'FriendBundle'))
+            $dataAjax
     );
   }
 
@@ -332,6 +349,8 @@ class FriendRequestController extends BaseController {
 
     $em->persist($frequest);
     $em->flush();
+
+    $this->markAsReadNotification($frequest);
 
     $url = $this->generateUrl('myfriends');
 
@@ -394,9 +413,9 @@ class FriendRequestController extends BaseController {
    */
   private function checkTo($entity, $email) {
     $em = $this->getEntityManager();
+
     if (null === $entity->getTo()) {
       $to = $em->getRepository('UserBundle:User')->findOneByEmail($email);
-
       if (null !== $to) {
         $entity->setTo($to);
       }
@@ -427,11 +446,11 @@ class FriendRequestController extends BaseController {
     // Buscamos los emails
     $data = $form->getData();
     $emails = $this->processEmails($data->getEmail());
-
     foreach ($emails as $email) {
       if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
         // Comprobamos si estan en los contactos del usuario
         $friends = $owner->getMyFriends();
+
         if (FALSE === $this->checkFriendsEmail($friends, $email)) {
           $entity = $this->processFriendRequestEmail($owner,$email,$data);
 
@@ -486,6 +505,7 @@ class FriendRequestController extends BaseController {
 
     // Comprueba si el email de destino esta dado de alta como usuario
     $entity = $this->checkTo($entity, $email, $em);
+
     $entity->setHash($this->getHash($owner->getId()));
 
     $em->persist($entity);
@@ -654,5 +674,29 @@ class FriendRequestController extends BaseController {
   private function processEmails($emails)
   {
     return explode(';',$emails);
+  }
+
+  /**
+   * Marca como leida una notificacion de solicitud de contacto, por si se activa si acceder desde las notificaciones
+   */
+
+  private function markAsReadNotification($friendRequest)
+  {
+    $securityContext = $this->get('security.context');
+    $user = $securityContext->getToken()->getUser();
+    $actionManager   = $this->get('taskul_timeline.action_manager.orm');
+
+    $subject  = $actionManager->findOrCreateComponent($user);
+    $unreadNotifs = $this->get('taskul_timeline.unread_notifications')->getUnreadNotifications($subject,'FRIENDREQUEST');
+
+    foreach ($unreadNotifs as $key => $unreadNotif) {
+      $complement = $value->getComponent('complement');
+      if( TRUE == $complement->getData()->getActive() && $friendRequest->getId() == $complement->getData()->getId() )
+      {
+        $this->get('taskul_timeline.unread_notifications')->markAsReadAction($subject,$unreadNotif->getId(),'FRIENDREQUEST');
+        return TRUE;
+      }
+    }
+    return FALSE;
   }
 }
