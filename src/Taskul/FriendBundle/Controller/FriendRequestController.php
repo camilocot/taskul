@@ -690,7 +690,7 @@ class FriendRequestController extends BaseController {
     $unreadNotifs = $this->get('taskul_timeline.unread_notifications')->getUnreadNotifications($subject,'FRIENDREQUEST');
 
     foreach ($unreadNotifs as $key => $unreadNotif) {
-      $complement = $value->getComponent('complement');
+      $complement = $unreadNotif->getComponent('complement');
       if( TRUE == $complement->getData()->getActive() && $friendRequest->getId() == $complement->getData()->getId() )
       {
         $this->get('taskul_timeline.unread_notifications')->markAsReadAction($subject,$unreadNotif->getId(),'FRIENDREQUEST');

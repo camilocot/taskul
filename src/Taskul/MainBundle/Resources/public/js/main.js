@@ -59,7 +59,7 @@ function notificacion(message, status)
           onCompleted : function(){ // added in v2.0
           }
         });
-        launchNotifications();
+        //launchNotifications();
 }
 
 function menuColor(selector) {

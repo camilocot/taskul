@@ -27,12 +27,12 @@ modal:
             task: '¿ Está seguro de eliminar la tarea ?'
             file: '¿ Está seguro de eliminar el fichero ?'
             generic: '¿ Está seguro ?'
-    confirm:
+    activate:
         confirm: Confirmar
         cancel: Cancelar
         title: Advertencia
         content:
-            frequest_activate: '{ Está seguro de confirmar la solicitud de contacto ?'
+            frequest_activate: '¿ Está seguro de confirmar la solicitud de contacto ?'
 search:
     title: 'Búsqueda'
     clear_filter: 'Pulsa para limpiar la búsqueda'

@@ -44,13 +44,15 @@ class FriendController extends BaseController {
 
         $user = $this->getLoggedUser();
         $friend = $this->getUserFromId($id);
+        $t = $this->getTranslator();
 
-        $this->deleteFriend($user,$friend)->deleteMemberTasks($user,$friend)->deleteMemberTasks($friend,$user);
+        $this->deleteFriendRelation($user,$friend)->deleteMemberTasks($user,$friend)->deleteMemberTasks($friend,$user);
 
         $url = $this->generateUrl('myfriends');
 
-        $dataAjax = array('success'=>TRUE, 'message' => $this->message , 'title'=>$t->trans('friend.delete.success',array(),'FriendBundle'));
-        if($redirect = $request->request->get('redirect'))
+        $dataAjax = array('success'=>TRUE, 'message' => $t->trans('friend.delete.success',array(), 'FriendBundle'));
+        // Si se solicita la eliminacion desde el show
+        if($redirect = $this->get('request')->request->get('redirect'))
               $dataAjax['url'] = $url;
         return new CheckAjaxResponse(
             $url,

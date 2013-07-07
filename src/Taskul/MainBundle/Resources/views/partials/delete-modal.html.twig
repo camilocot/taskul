@@ -6,7 +6,7 @@
         <h3 id="deleteModalLabel">{{ 'modal.delete.title'|trans({},'MainBundle') }}</h3>
     </div>
     <div class="modal-body">
-        <p>{{ ('modal.delete.content.'~type)|trans({},'MainBundle') }}</p>
+        <p>{{ ('modal.delete.content.'~type)|trans({},'MainBundle')|raw }}</p>
     </div>
     <div class="modal-footer">
         <button class="btn" data-dismiss="modal" aria-hidden="true">{{ 'modal.delete.cancel'|trans({},'MainBundle') }}</button>
