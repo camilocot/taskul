@@ -74,8 +74,9 @@ function refreshQuota()
 {
     $.getJSON(Routing.generate('api_get_quota'), function(data) {
         actualValue = $('#dial-quota').val();
-        if(data.success === true && actualValue != data.current_quota)
+        if(data.success === true && actualValue != data.current_quota){
             $('#dial-quota').val(data.current_quota).trigger('change');
+        }
     });
 }
 

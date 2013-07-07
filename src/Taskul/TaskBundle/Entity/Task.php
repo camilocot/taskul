@@ -42,7 +42,7 @@ class Task implements Documentable, Taggable {
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      *
      * @Assert\NotBlank()
      */

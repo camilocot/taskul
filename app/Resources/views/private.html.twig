@@ -29,7 +29,7 @@
   </div>
   <div class="progress-indicator">
    <img src="/img/icon_loading_75x75.gif" alt="loading" />
-</div>
+  </div>
   <div class="navbar">
     <div class="navbar-inner">
       <div class="container-fluid">
@@ -82,8 +82,8 @@
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="{{ path('fos_user_profile_edit') }}"><i class="icon-user"></i> {{ 'user.profile'|trans({}, 'UserBundle') }}</a></li>
-                <li><a href="{{ path('fos_user_change_password') }}"><i class="icon-user"></i> {{ 'user.password'|trans({}, 'UserBundle') }}</a></li>
+                <li><a href="{{ path('fos_user_profile_edit') }}" class="ajaxy"><i class="icon-user"></i> {{ 'user.profile'|trans({}, 'UserBundle') }}</a></li>
+                <li><a href="{{ path('fos_user_change_password') }}" class="ajaxy"><i class="icon-user"></i> {{ 'user.password'|trans({}, 'UserBundle') }}</a></li>
                 <li class="divider"></li>
                 <li><a href="{{ path('fos_user_security_logout') }}"><i class="icon-off"></i> {{ 'user.logout'|trans({}, 'UserBundle') }}</a></li>
               </ul>
@@ -141,7 +141,7 @@
   </li>
   {{#result}}
     <li>
-    <a href="{{ url }}">
+    <a href="{{ url }}" class="ajaxy">
     + <i class="{{icon}}"></i> <span class="message">{{ msg }}</span> <span class="time">{{ time }}</span></a>
     </li>
     {{/result}}
@@ -152,7 +152,7 @@
   </li>
   {{#result}}
   <li>
-    <a href="{{url}}">
+    <a href="{{url}}" class="ajaxy">
       <span class="header">
         <span class="title">{{summary}}</span>
         <span class="percent"></span>
@@ -169,7 +169,7 @@
   </li>
   {{#result}}
   <li>
-    <a href="{{ url }}">
+    <a href="{{ url }}" class="ajaxy">
       <span class="avatar">
       {{#sender.facebookId}}
         <img src="https://graph.facebook.com/{{ sender.facebookId }}/picture"/>

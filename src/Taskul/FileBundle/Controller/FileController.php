@@ -29,10 +29,10 @@ class FileController extends Controller {
 		$request = $this->getRequest();
 		$user = $this->get('security.context')->getToken()->getUser();
 		$format = $request->getRequestFormat();
-		return new JsonResponse(array('data' => array(
+		return new JsonResponse(array(
 			'success' => true,
 			'current_quota' => $fileManager->getPercentQuota($user)
-			)));
+			));
 	}
 
 	/**

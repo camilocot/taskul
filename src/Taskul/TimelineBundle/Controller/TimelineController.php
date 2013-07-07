@@ -79,14 +79,14 @@ class TimelineController extends Controller
             case 'TASK':
                 $response = $this->getTaskNotificationResponse($entityid);
                 break;
-            case 'FILE':
+            case 'DOCUMENT':
                 $response = $this->getFileNotificationResponse($entityid);
                 break;
             case 'FRIENDREQUEST':
                 $response = $this->getFriendRequestNotificationResponse($entityid);
                 break;
             default:
-                $response = $this->redirect('dashboard');
+                $response = $this->redirect($this->generateUrl('dashboard'));
         }
 
         return $response;
@@ -140,7 +140,7 @@ class TimelineController extends Controller
     private function getFileNotificationResponse($entityid)
     {
         $document = $this->getDoctrine()->getManager()->getRepository('FileBundle:Document')->find($entityid);
-        return $this->redirect($this->generateUrl('api_get_task_files', array(
+        return $this->redirect($this->generateUrl('api_get_task', array(
                     'id'  => $document->getIdObject(),
                 )));
     }
@@ -162,6 +162,7 @@ class TimelineController extends Controller
             case 'FRIENDREQUEST':
     		break;
 
+            case 'DOCUMENT':
             case 'FILE': /* Esto por ahora se ponen como notificaciones de tareas*/
             case 'COMMENT':
                 $context = 'TASK';

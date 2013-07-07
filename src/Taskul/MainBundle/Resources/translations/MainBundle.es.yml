@@ -27,6 +27,7 @@ modal:
             task: '¿ Está seguro de eliminar la tarea ?'
             file: '¿ Está seguro de eliminar el fichero ?'
             generic: '¿ Está seguro ?'
+            fos_message_thread_delete: '¿ Está seguro de eliminar el hilo de mensajes ?'
     activate:
         confirm: Confirmar
         cancel: Cancelar

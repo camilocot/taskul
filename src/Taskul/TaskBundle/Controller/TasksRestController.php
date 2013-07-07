@@ -154,7 +154,7 @@ class TasksRestController extends BaseController {
             $em->remove($task);
             $em->flush();
 
-            $data = array('success'=>TRUE, 'message'=> $t->trans('task.new.delete_success',array(),'TAskBundle'));
+            $data = array('success'=>TRUE, 'message'=> $t->trans('task.new.delete_success',array(),'TaskBundle'));
             if($redirect = $request->request->get('redirect'))
               $data['url'] = $this->get('router')->generate($redirect);
 
@@ -288,7 +288,7 @@ class TasksRestController extends BaseController {
 
                 return $this->returnResponse(TRUE,$this->getResponseMessage($method),$this->getResponseUrl($data,$task->getId()), $this->getResponseTitle($data));
             }else{
-                return $this->returnResponse(FALSE,$form->getErrorsAsString());
+                return $this->returnResponse(FALSE,$form->getErrosAsString());
             }
         }
 
@@ -310,10 +310,15 @@ class TasksRestController extends BaseController {
     private function returnResponse($success=TRUE,$message='',$url='',$title='')
     {
       $t = $this->getTranslator();
+      $dataAjax = array('success'=>$success, 'message' => $message);
 
-        return new CheckAjaxResponse(
+      if(!empty($url))
+        $dataAjax['url'] = $url;
+      if(!empty($title))
+        $dataAjax['title'] = $title;
+      return new CheckAjaxResponse(
             $url,
-            array('success'=>$success, 'message' => $message ,'url'=>$url, 'title'=>$t->trans('friend.delete.success',array(),'FriendBundle'))
+            $dataAjax
         );
     }
 

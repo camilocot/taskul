@@ -22,7 +22,7 @@
                         {{ form_errors(form) }}
 
                         <fieldset>
-                            {{ form_row(form.name, {'help':'task.new.help.name'|trans, 'attr': { 'class':'required', 'minlength':'10' }, 'label': 'task.new.name'|trans } ) }}
+                            {{ form_row(form.name, {'help':'task.new.help.name'|trans, 'attr': { 'class':'required input-xlarge', 'minlength':'10' }, 'label': 'task.new.name'|trans } ) }}
                             {{ form_row(form.status, { 'label': 'task.new.status'|trans }) }}
 
                             {{ form_row(form.tags,{ 'attr': {'style':'min-width:298px'}, 'label':'task.new.tags'|trans, 'help':'task.new.help.tags'|trans } ) }}

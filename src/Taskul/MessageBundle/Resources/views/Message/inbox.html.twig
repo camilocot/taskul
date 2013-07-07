@@ -11,13 +11,16 @@
         </div>
 		<div class="box-content">
 			{% include 'MessageBundle:Message:threads_list.html.twig' with {'threads': threads} %}
-			<div class="form-actions" style="margin: 20px -10px -8px">
-                    <a href="{{ url('fos_message_thread_new' )}}" class="btn ajaxy">{% trans from 'FOSMessageBundle' %}send_new{% endtrans %}</a>
+            <div class="well">
+                <a class="btn btn-primary ajaxy" href="{{ path('fos_message_thread_new' )}}" title="{% trans from 'FOSMessageBundle' %}send_new{% endtrans %}">
+                    <i class="fa-icon-envelope"></i>&nbsp;{% trans from 'FOSMessageBundle' %}send_new{% endtrans %}
+                </a>
             </div>
         </div>
     </div><!--/box-->
 
 </div><!--/row-->
+{% include 'MainBundle:partials:delete-modal.html.twig' with {'type': 'fos_message_thread_delete'} %}
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}

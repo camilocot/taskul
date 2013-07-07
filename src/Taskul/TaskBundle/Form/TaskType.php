@@ -30,11 +30,11 @@ class TaskType extends AbstractType
         $user = $this->securityContext->getToken()->getUser();
         $builder
         ->add('name')
-        ->add('description','purified_textarea',array('required' => false))
+        ->add('description','purified_textarea',array('required' => FALSE))
         ->add('dateEnd','date', array('widget'=>'single_text', 'format' => 'dd/MM/yyyy','required'=>FALSE))
-        ->add('status', 'status', array('expanded' => true,'choices' => TaskStatusType::getChoices()))
+        ->add('status', 'status', array('expanded' => TRUE,'choices' => TaskStatusType::getChoices()))
         ->add('percent', 'integer')
-        ->add('tags','text', array('mapped'=>false,'data'=>$options['tags'],'required'=>FALSE))
+        ->add('tags','text', array('mapped'=>FALSE,'data'=>$options['tags'],'required'=>FALSE))
         ->add('goto_upload','hidden',array('property_path'=>FALSE,'data'=>0)) // Nos identifica si redireccionar hacia la subida de ficheros o a mostrar la tarea al editarla o crearla
         ->add('members', 'entity', array(
 
@@ -55,7 +55,7 @@ class TaskType extends AbstractType
                     return $qb->add('where','1=2'); // Para que no salga ninguno
             },
             'multiple'      => true,
-            'required'      => false
+            'required'      => FALSE
             ))
         ;
     }
@@ -65,7 +65,7 @@ class TaskType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Taskul\TaskBundle\Entity\Task',
             'tags' => '',
-            'csrf_protection'   => false,
+            //'csrf_protection'   => false,
             ));
     }
 

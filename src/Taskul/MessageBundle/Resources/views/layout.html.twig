@@ -1,14 +1,1 @@
 {% extends "::private.html.twig" %}
-{% block body %}
-{{ parent()}}
-{% include 'MessageBundle:partials:delete-modal.html.twig' with {'type': 'fos_message_thread_delete'} %}
-{% endblock %}
-{% block javascripts %}
-{{ parent() }}
-{% javascripts
-	'@MainBundle/Resources/public/js/vendor/nicEdit-latest.js'
-    '@MessageBundle/Resources/public/js/messageOp.js'
-    %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endblock %}

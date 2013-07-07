@@ -28,7 +28,7 @@
                         <td>
                             {% if is_granted('VIEW', entity) %}
                                 <a href="{{ path('api_get_task', { 'id': entity.id }) }}" class="ajaxy" title="{{'task.list.buttons.view'|trans({},'TaskBundle')}} :: {{ entity.name }}">
-                                    {{ entity.name }}
+                                    {{ entity.name }} →
                                 </a>
                             {% else %}
                                 {{ entity.name }}

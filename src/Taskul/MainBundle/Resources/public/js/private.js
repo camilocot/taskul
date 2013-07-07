@@ -21,7 +21,8 @@ $(document).ready(function(){
                     return render(text).substr(0,10) + '...';
                   };
                 };
-                $this.siblings('ul:first').mustache(dynroute+'-html', data);
+
+                $this.siblings('ul:first').text('').mustache(dynroute+'-html', data);
                 generateNotification[context] = false;
                 activateProgessBar();
               }
@@ -87,6 +88,7 @@ $(document).ready(function(){
         $('.helpinfo').remove();
         toggleWarning(); // ajaxyfy.js
     });
+    $('#dial-quota').trigger('deleterow');
   };
 
   /* Quitamos la clase ajaxy del dashboard */
@@ -135,6 +137,8 @@ $(document).ready(function(){
           return false;
         }
     });
+
+    $(".progress-indicator").fadeOut(500);
 
 });
 

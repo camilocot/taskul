@@ -195,7 +195,7 @@ a.dropdown-toggle::after {
    opacity:0.5; /* CSS3 */
    z-index:1000;
    background-color:white;
-   display:none;
+   /*display:none;*/
  }
 
  .progress-indicator img {

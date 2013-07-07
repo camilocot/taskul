@@ -58,5 +58,8 @@ $(document).ready(function() {
     $('span.filename').text($.t('msg.uniform.fileButtonHtml'));
     $('span.action').text($.t('msg.uniform.fileDefaultHtml'));
 
+    $('#dial-quota').bind('deleterow',function(e){
+        refreshQuota();
+    });
 });
 

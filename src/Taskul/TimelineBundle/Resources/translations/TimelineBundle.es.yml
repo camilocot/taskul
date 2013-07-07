@@ -4,8 +4,8 @@ notification:
     pending:
         TASK: '{0} No tienes notificaciones nuevas|{1} ienes una notificación nueva|]1,Inf] Tienes %total% notificaciones nuevas'
         FRIENDREQUEST: '{0} No tienes solicitudes pendientes|{1} Tienes una solicitud nueva|]1,Inf] Tienes %total% solicitudes nuevas'
-    FILE:
-        create: 'Nuevo fichero añadido por %extra%'
+    DOCUMENT:
+        create: 'Nuevo fichero añadido (%extra%)'
     COMMENT:
         create: 'Nuevo comentario creado por %extra%'
     TASK:

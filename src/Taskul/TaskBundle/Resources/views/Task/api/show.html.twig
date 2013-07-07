@@ -17,6 +17,14 @@
                         <table class="table">
                             <tbody>
                                 <tr>
+                                    <th>{{ 'task.view.created'|trans }}</th>
+                                    <td>{{ entity.created|date('d/m/y') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'task.view.updated'|trans }}</th>
+                                    <td>{{ entity.updated|date('d/m/y') }}</td>
+                                </tr>
+                                <tr>
                                     <th>{{ 'task.view.name'|trans }}</th>
                                     <td>{{ entity.name }}</td>
                                 </tr>
@@ -26,11 +34,25 @@
                                 </tr>
                                 <tr>
                                     <th>{{ 'task.view.dateend'|trans }}</th>
-                                    <td>{{ entity.dateEnd|date('d-m-Y') }}</td>
+                                    <td>{% if entity.dateEnd is null %}
+                                        {{ 'task.view.no_dateEnd'|trans}}
+                                        {% else %}
+                                        {{ entity.dateEnd|date('d-m-Y') }}</td>
+                                        {% endif %}
                                 </tr>
                                 <tr>
                                     <th>{{ 'task.view.tags'|trans }}</th>
                                     <td>{{ entity.tags|labelsinactive|raw }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'task.view.members'|trans }}</th>
+                                    <td>
+                                        <ul>
+                                        {% for member in entity.members %}
+                                        <li><strong>{{ member }}</strong></li>
+                                        {% endfor %}
+                                        </ul>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>{{ 'task.view.status'|trans }}</th>

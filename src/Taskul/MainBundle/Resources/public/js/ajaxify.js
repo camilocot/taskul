@@ -126,6 +126,7 @@ function loadAjaxForms()
                         checkResponse(data);
                     },
                     error: function(jqXHR,textStatus,errorThrown){
+                        $(".progress-indicator").fadeOut(500);
                         notificacion(jqXHR.responseText.message,'error');
                     }
                 });
@@ -157,8 +158,10 @@ function checkResponse(data)
         loadAjaxForms();
     } else if (data.success === true && data.message) {
         notificacion(data.message,'success');
-    }else if(data.success === false && data.message)
+    }else if(data.success === false && data.message){
         notificacion(data.message,'error');
+    }
+    $(".progress-indicator").fadeOut(500);
 }
 
 function loadAjaxModalForms()
@@ -187,6 +190,7 @@ function loadAjaxModalForms()
                 obj = jQuery.parseJSON(e.responseText);
                 var status = ( obj[0].success ) ? 'success' : 'info';
                 notificacion(obj[0].message, status);
+                $(".progress-indicator").fadeOut(500);
 
             }
         };
@@ -215,6 +219,7 @@ function toggleWarning()
     if($('#list > tbody > tr').length === 0)
     {
         $('#list').hide();
+        $('.well').hide();
         $('#filter-list').hide();
         $warning.show();
     }else

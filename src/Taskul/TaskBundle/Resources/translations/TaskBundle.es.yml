@@ -7,6 +7,10 @@ task:
         tags: 'Etiquetas'
         status: 'Estado'
         percent: 'Porcentaje finalizado'
+        no_dateEnd: 'Sin fecha prevista de finalización'
+        members: 'Miembros'
+        created: 'Creada el'
+        updated: 'Actualizada el'
     status:
         inprogress: 'En proceso'
         todo: 'Por hacer'
@@ -75,3 +79,5 @@ notification:
 warning:
     title: 'Advertencia'
     content: 'No hay ninguna tarea creada. Puedes crear nuevas tareas usando <a href="%href%" class="ajaxy" title="Crear tareas">este formulario</a>.'
+search:
+    title: 'Buscar tareas'
