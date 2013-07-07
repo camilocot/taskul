@@ -6,6 +6,9 @@
 		}
 	],
     "settings": {
-        "xdebug": { "url": "http://taskul.local/app_dev.php/" }
+        "xdebug": {
+            "url": "http://taskul.local/app_dev.php/",
+            "port": 9001
+        }
     }
 }
