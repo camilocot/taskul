@@ -105,9 +105,6 @@ class MenuBuilder
     {
         $menu = $this->factory->createItem('public');
         $menu->setChildrenAttribute('class','nav');
-        $menu->addChild('Home',array('route'=>'homepage'));
-        $menu['Home']->setLinkAttribute('class', 'ajaxy');
-        $menu['Home']->setLinkAttribute('title', 'Home');
         $menu->addChild('Login',array('route'=>'fos_user_security_login'));
         $menu['Login']->setLinkAttribute('class', 'ajaxy');
         $menu['Login']->setLinkAttribute('title', 'Login');
@@ -121,7 +118,6 @@ class MenuBuilder
     {
         $menu = $this->factory->createItem('public_logged');
         $menu->setChildrenAttribute('class','nav');
-        $menu->addChild('Home',array('route'=>'homepage'));
         $menu->addChild('DashBoard',array('route'=>'dashboard'));
         $menu['DashBoard']->setLinkAttribute('class', 'no-ajaxy');
         return $menu;

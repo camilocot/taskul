@@ -9,7 +9,6 @@
 		background: url(/img/bg.jpg) repeat;
 		filter: none;
 		padding: 25px 0px 25px 40px;
-		margin: -25px -4px;
 		position: relative;
 		z-index: 1;
 		min-height: 100%;
@@ -135,9 +134,8 @@
 		background: url(/img/bg.jpg) repeat;
 		filter: none;
 		padding: 25px 0px 25px 40px;
-		margin: -25px -4px;
 		position: relative;
-		z-index: 1px;
+		z-index: 1;
 
 	}
 
@@ -267,9 +265,8 @@
 		background: url(/img/bg.jpg) repeat;
 		filter: none;
 		padding: 25px 0px 25px 40px;
-		margin: -25px -4px;
 		position: relative;
-		z-index: 1px;
+		z-index: 1;
 	}
 
 	.noMargin {

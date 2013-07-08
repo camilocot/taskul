@@ -199,6 +199,7 @@ class MessageController extends BaseController
             $msgs[$i]->sender->gravatar = md5( strtolower( trim( $emailSender ) ) );
 
             $msgs[$i]->time = DateClass::getHumanDiff(new \DateTime($msgs[$i]->created_at));
+            $msgs[$i]->title =  $t->trans('notification.view.message',array(),'TimelineBundle');
 
         }
 

@@ -211,3 +211,77 @@ a.dropdown-toggle::after {
 .fos_comment_comment_form_holder > form > textarea {
   width: 100%;
 }
+
+.logo {
+  height: 20px;
+  margin-right: 10px;
+}
+
+.shadowspublic {
+      -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.95) ;
+         -moz-box-shadow: 0 0 10px rgba(0,0,0,0.95) ;
+            box-shadow: 0 0 10px rgba(0,0,0,0.95) ;
+    background-image: url('/img/skull_logo1.png');
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  background-position: 78% 90%;
+}
+
+
+footer {
+    bottom: -20px;
+}
+
+
+.box-taskul {
+  position: relative;
+margin: 15px 0;
+padding: 39px 19px 14px;
+background-color: #fff;
+border: 1px solid #ddd;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
+}
+.info-beta {
+  width:50px;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+
+/* Wrapper for page content to push down footer */
+#wrap {
+ min-height: 100%;
+ height: auto !important;
+ height: 100%;
+ /* Negative indent footer by it's height */
+ margin: 0 auto -60px;
+}
+
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+ height: 60px;
+}
+#footer {
+ background-color: #1b1b1b;
+}
+
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+ #footer {
+   margin-left: -20px;
+   margin-right: -20px;
+   padding-left: 20px;
+   padding-right: 20px;
+ }
+}
+
+.container .credit {
+ margin: 20px 0;
+}
+
+.navbar {
+margin-bottom: 0 !important;
+}

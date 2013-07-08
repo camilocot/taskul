@@ -1,8 +1,5 @@
 {% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "UserBundle::layout.html.twig" %}
 {% block content %}
-{% if not  app.request.isXmlHttpRequest %}
-<div id="content">
-{% endif %}
 {% block fos_user_content %}
 <div class="row-fluid">
     <div class="login-box">
@@ -45,7 +42,4 @@
 
 </div><!--/fluid-row-->
 {% endblock fos_user_content %}
-{% if not  app.request.isXmlHttpRequest %}
-</div>
-{% endif %}
 {% endblock %}

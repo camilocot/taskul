@@ -48,9 +48,6 @@
                                 {% endif %}
                         </td>
                         <td>
-                                {% if is_granted('VIEW', entity) %}
-                                    <a href="{{ path('api_get_task', { 'id': entity.id }) }}" class="btn btn-info ajaxy" title="{{'task.list.buttons.view'|trans({},'TaskBundle')}} :: {{ entity.name }}"><i class="icon-zoom-in icon-white"></i></a>
-                                {% endif %}
                                 {% if is_granted('EDIT', entity) %}
                                     <a href="{{ path('api_edit_task', { 'id': entity.id }) }}" class="btn btn-success ajaxy" title="{{'task.list.buttons.edit'|trans({},'TaskBundle')}} :: {{ entity.name }}"><i class="icon-edit icon-white"></i></a>
                                 {% endif %}

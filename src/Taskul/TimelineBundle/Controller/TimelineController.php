@@ -343,6 +343,7 @@ class TimelineController extends Controller
                 'icon' => $this->generateNotifIcon($entity),
                 'time' => DateClass::getHumanDiff(new \DateTime($action->getCreatedAt()->format('Y-m-d H:i:s'))),
                 'url'=> $this->generateNotifUrl($action,$entity),
+                'title' => $this->generateNotifTitle($entity),
                 );
     }
 
@@ -364,6 +365,32 @@ class TimelineController extends Controller
         $class = $this->getClass($entity);
 
         return $this->get('router')->generate('get_notification',array('id'=>$actionId, 'context'=>strtoupper($class),'entityid'=>$entity->getId()));
+    }
+
+    private function generateNotifTitle($entity)
+    {
+        $t = $this->get('translator');
+        $class = $this->getClass($entity);
+        $title = '';
+        switch ($class){
+            case 'Task':
+                $title = $t->trans('notification.view.task',array(),'TimelineBundle');
+                break;
+            case 'Comment':
+                $title = $t->trans('notification.view.task',array(),'TimelineBundle');
+                break;
+            case 'Document':
+                $title = $t->trans('notification.view.task',array(),'TimelineBundle');
+                break;
+            case 'FriendRequest':
+                $title = $t->trans('notification.view.friendrequest',array(),'TimelineBundle');
+                break;
+            case 'Message':
+                $title = $t->trans('notification.view.message',array(),'TimelineBundle');
+                break;
+        }
+        return $title;
+
     }
 
     private function generateNotifIcon($entity)

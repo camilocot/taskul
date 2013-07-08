@@ -1,10 +1,4 @@
 {% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "UserBundle::layout.html.twig" %}
 {% block content %}
-{% if not  app.request.isXmlHttpRequest %}
-<div id="content">
-{% endif %}
 {% include "UserBundle:Registration:register_content.html.twig" %}
-{% if not  app.request.isXmlHttpRequest %}
-</div>
-{% endif %}
 {% endblock %}

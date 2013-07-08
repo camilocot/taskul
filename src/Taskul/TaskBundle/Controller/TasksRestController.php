@@ -198,12 +198,14 @@ class TasksRestController extends BaseController {
     {
         $result = array();
         $router = $this->get('router');
+        $t = $this->getTranslator();
         $i = 0; // Limitamos el numero a 10
         foreach($entities as $e){
             $result[] = array(
                 'summary' => $e->getName(),
                 'url' => $router->generate('api_get_task',array('id'=>$e->getId())),
                 'percent' => $e->getPercent(),
+                'title' => $t->trans('notification.view.task',array(),'TimelineBundle'),
             );
             $i++;
             if($i === $this->numNotification)

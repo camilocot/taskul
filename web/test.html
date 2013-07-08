@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<style>
+			div.wrapper {
+				width: 600px;
+				margin: 0 auto;
+			}
+			div.sideshadows {
+				position: relative;
+				width: 500px;
+				height: 100px;
+				box-shadow: 0 0 20px #222;
+			}
+			div.sideshadows div.sideshadows-inner {
+				position: absolute;
+				top: -15px;
+				width: 500px;
+				height: 130px;
+				background-color: #fff;
+			}
+			div.content {
+				padding: 25px 20px;
+			}
+			p { 
+				margin: 25px 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrapper">
+			<h1>This is a side-shadow box</h1>
+			<div class="sideshadows">
+				<div class="sideshadows-inner">
+						<p>This is some content.</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

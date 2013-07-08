@@ -19,6 +19,10 @@ notification:
     FRIENDREQUEST:
         title: 'Solicitudes de amistad'
         create: 'Nueva solicitud de amistad de %extra%'
+    view:
+        task: 'Detalles de tarea'
+        friendrequest: 'Detalles de solicitu de contacto'
+        message: 'Vew mensaje'
 timeline:
     one_task: 'una tarea'
     assoc_task: 'en la tarea'

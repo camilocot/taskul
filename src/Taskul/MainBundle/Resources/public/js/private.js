@@ -24,6 +24,11 @@ $(document).ready(function(){
 
                 $this.siblings('ul:first').text('').mustache(dynroute+'-html', data);
                 generateNotification[context] = false;
+
+                $('.notification-content').click( function (e){
+                  $('.dropdown.open .dropdown-toggle').dropdown('toggle');
+                  generateNotification[context] = true;
+                });
                 activateProgessBar();
               }
            });
@@ -57,7 +62,6 @@ $(document).ready(function(){
       });
     });
   });
-
 
   launchNotifications();
   //setInterval('launchNotifications',60000);
