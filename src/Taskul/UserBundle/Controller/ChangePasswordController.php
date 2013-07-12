@@ -49,7 +49,7 @@ class ChangePasswordController extends BaseController
                 $userManager->updateUser($user);
 
                 if (null === $response = $event->getResponse()) {
-                    $url = $this->container->get('router')->generate('fos_user_profile_show');
+                    $url = $this->container->get('router')->generate('sonata_user_profile_show');
                 }
 
                 return new CheckAjaxResponse(
@@ -72,7 +72,7 @@ class ChangePasswordController extends BaseController
     }
 
 
-    public function changePasswordAction(Request $request)
+    public function changePasswordAction()
     {
         $t = $this->container->get('translator');
         $user = $this->container->get('security.context')->getToken()->getUser();
@@ -82,48 +82,20 @@ class ChangePasswordController extends BaseController
 
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
+
         }
 
-        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-        $dispatcher = $this->container->get('event_dispatcher');
+        $form = $this->container->get('fos_user.change_password.form');
+        $formHandler = $this->container->get('fos_user.change_password.form.handler');
 
-        $event = new GetResponseUserEvent($user, $request);
-        $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_INITIALIZE, $event);
+        $process = $formHandler->process($user);
+        if ($process) {
+            $url = $this->container->get('router')->generate('sonata_user_profile_show');
 
-        if (null !== $event->getResponse()) {
-            return $event->getResponse();
-        }
-
-        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
-        $formFactory = $this->container->get('fos_user.change_password.form.factory');
-
-        $form = $formFactory->createForm();
-        $form->setData($user);
-
-        if ($request->isMethod('POST')) {
-            $form->bind($request);
-
-            if ($form->isValid()) {
-                /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
-                $userManager = $this->container->get('fos_user.user_manager');
-
-                $event = new FormEvent($form, $request);
-                $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_SUCCESS, $event);
-
-                $userManager->updateUser($user);
-
-                if (null === $response = $event->getResponse()) {
-                    $url = $this->container->get('router')->generate('fos_user_profile_show');
-                    $response = new RedirectResponse($url);
-                }
-
-                $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-
-                        return new CheckAjaxResponse(
-                            $url,
-                            array('success'=>TRUE, 'message' =>  $t->trans('Password changed correctly'),'url'=>$url, 'title'=>$t->trans('View Profile'))
-                        );
-            }
+                    return new CheckAjaxResponse(
+                        $url,
+                        array('success'=>TRUE, 'message' =>  $t->trans('Password changed correctly'),'url'=>$url, 'title'=>$t->trans('View Profile'))
+                    );
         }
 
         $content = $this->container->get('templating')->render(

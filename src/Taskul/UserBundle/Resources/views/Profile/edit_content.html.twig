@@ -9,7 +9,7 @@
 			</div>
 		</div>
 		<div class="box-content">
-			<form class="form-horizontal validate ajaxform" action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" id="form_profile">
+			<form class="form-horizontal validate ajaxform" action="{{ path('sonata_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" id="form_profile">
 				<fieldset>
                         <fieldset>
                             {{ form_row(form.firstname,{'attr': { 'class':'required dadsasda', 'minlength':'5' } }) }}
@@ -21,7 +21,7 @@
 				</fieldset>
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary">{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}</button>
-					<a class="btn btn-cancel ajaxy" href="{{ path('fos_user_profile_show') }}" title="{{ 'profile.view'|trans({},'UserBundle') }}">
+					<a class="btn btn-cancel ajaxy" href="{{ path('sonata_user_profile_show') }}" title="{{ 'profile.view'|trans({},'UserBundle') }}">
                        <i class="fa-icon-undo"></i>&nbsp;{{ 'profile.back'|trans({},'UserBundle') }}
                     </a>
 				</div>

@@ -100,10 +100,11 @@ class Task implements Documentable, Taggable {
 
     /**
      * @ORM\Column(name="percent", type="smallint")
-     *
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 100
+     *      )
      * @Assert\NotBlank()
-     * @Assert\Max(limit = 100)
-     * @Assert\Min(limit = 0)
     */
     protected $percent;
 

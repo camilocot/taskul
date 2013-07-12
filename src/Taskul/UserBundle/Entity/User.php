@@ -2,7 +2,7 @@
 
 namespace Taskul\UserBundle\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
+use Sonata\UserBundle\Entity\BaseUser as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Taskul\TaskBundle\Entity\Task;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -38,24 +38,6 @@ class User extends BaseUser implements ParticipantInterface {
         $this->myFriends = new ArrayCollection();
         $this->tasksMember = new ArrayCollection();
     }
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="firstname", type="string", length=255,nullable=true)
-     *
-     * @Expose
-     */
-    protected $firstname;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="lastname", type="string", length=255,nullable=true)
-     *
-     * @Expose
-     */
-    protected $lastname;
 
     /**
      * @var string

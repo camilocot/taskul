@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"log",
+				"logout"
+			],
+			[
 				"marg",
 				"margin-right"
 			],
@@ -55,51 +59,11 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "app/Resources/views/public.html.twig",
-			"settings":
-			{
-				"buffer_size": 1783,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Taskul/MainBundle/Resources/public/css/main.css",
-			"settings":
-			{
-				"buffer_size": 6055,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "web/bundles/main/css/style-responsive.css",
-			"settings":
-			{
-				"buffer_size": 11789,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Taskul/MainBundle/Resources/public/css/private.css",
-			"settings":
-			{
-				"buffer_size": 3416,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/Resources/views/private.html.twig",
-			"settings":
-			{
-				"buffer_size": 10016,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 340.0,
+		"height": 274.0,
 		"selected_items":
 		[
 			[
@@ -143,7 +107,7 @@
 				"Preferences: SublimeLinter Settings – Default"
 			]
 		],
-		"width": 435.0
+		"width": 561.0
 	},
 	"console":
 	{
@@ -160,7 +124,60 @@
 	},
 	"file_history":
 	[
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Form/Type/ResettingFormType.php",
+		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Form/Handler/ResettingFormHandler.php",
+		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Form/Model/ChangePassword.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Resetting/reset_content.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/config/validation.xml",
+		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/ResettingController.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Controller/ResettingController.php",
+		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/views/Resetting/reset_content.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Registration/register_content.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/EventListener/RegistrationCompletedListener.php",
+		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/RegistrationController.php",
+		"/var/www/taskul.local/taskul.local/app/config/security.yml",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Controller/RegistrationController.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Event/UserEvent.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Event/FilterUserResponseEvent.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Event/FormEvent.php",
+		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/SecurityController.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Controller/SecurityController.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Controller/ChangePasswordController.php",
+		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/ChangePasswordController.php",
+		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/validation.xml",
+		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/views/Default/dashboard.html.twig",
+		"/var/www/taskul.local/taskul.local/app/Resources/views/private.html.twig",
+		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/routing/profile.xml",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/config/routing.yml",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Controller/ProfileController.php",
+		"/var/www/taskul.local/taskul.local/vendor/sonata-project/user-bundle/Sonata/UserBundle/Controller/ProfileController.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/ChangePassword/changePassword_content.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Profile/edit_content.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Profile/show_content.html.twig",
+		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/ProfileController.php",
+		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/profile.xml",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/TaskulUserEvents.php",
+		"/var/www/taskul.local/taskul.local/app/config/config.yml",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Security/login.html.twig",
+		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/views/Security/login.html.twig",
+		"/var/www/taskul.local/taskul.local/app/AppKernel.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Entity/User.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Entity/Group.php",
+		"/var/www/taskul.local/taskul.local/vendor/sonata-project/user-bundle/Sonata/UserBundle/Model/UserInterface.php",
+		"/var/www/taskul.local/taskul.local/vendor/sonata-project/user-bundle/Sonata/UserBundle/Model/User.php",
+		"/var/www/taskul.local/taskul.local/app/config/routing.yml",
+		"/var/www/taskul.local/taskul.local/app/autoload.php",
+		"/var/www/taskul.local/taskul.local/web/app_dev.php",
+		"/var/www/taskul.local/taskul.local/app/console",
+		"/var/www/taskul.local/taskul.local/app/config/parameters.yml",
+		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Entity/Task.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/UserBundle.php",
+		"/var/www/taskul.local/taskul.local/composer.json",
+		"/var/www/taskul.local/taskul.local/vendor/symfony/symfony/src/Symfony/Component/Validator/Constraint.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/css/private.css",
+		"/var/www/taskul.local/taskul.local/web/bundles/main/css/style-responsive.css",
+		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/css/main.css",
+		"/var/www/taskul.local/taskul.local/app/Resources/views/public.html.twig",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Resetting/reset.html.twig",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Resetting/request.html.twig",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Resetting/passwordAlreadyRequested.html.twig",
@@ -174,7 +191,6 @@
 		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/js/private.js",
 		"/var/www/taskul.local/taskul.local/src/Taskul/TimelineBundle/Resources/translations/TimelineBundle.es.yml",
 		"/var/www/taskul.local/taskul.local/src/Taskul/TimelineBundle/Controller/TimelineController.php",
-		"/var/www/taskul.local/taskul.local/app/Resources/views/private.html.twig",
 		"/var/www/taskul.local/taskul.local/web/test.html",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/css/style.css",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/css/style-responsive.css",
@@ -188,9 +204,7 @@
 		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/js/ajaxify.js",
 		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Form/TaskType.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Resources/views/Task/api/show.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/css/main.css",
 		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Resources/views/Task/api/form.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Entity/Task.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MessageBundle/Resources/views/Message/inbox.html.twig",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MessageBundle/Resources/views/Message/sent.html.twig",
 		"/var/www/taskul.local/taskul.local/src/Taskul/CommentBundle/Resources/views/Thread/comment_edit.html.twig",
@@ -201,7 +215,6 @@
 		"/var/www/taskul.local/taskul.local/src/Taskul/MessageBundle/Resources/public/js/inbox.js",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MessageBundle/Resources/public/js/sent.js",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MessageBundle/Resources/public/js/messageOp.js",
-		"/var/www/taskul.local/taskul.local/web/app_dev.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Controller/FriendController.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Controller/BaseController.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/views/partials/activate-modal.html.twig",
@@ -216,7 +229,6 @@
 		"/home/admon/.config/sublime-text-2/Packages/User/Xdebug.sublime-settings",
 		"/home/admon/Descargas/Sinister (2012)/Sinister.2012.720p.BRrip.x264.GAZ.YIFY.srt",
 		"/var/www/taskul.local/taskul.local/src/Taskul/TimelineBundle/Notification/Unread/UnreadNotificationManager.php",
-		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/css/private.css",
 		"/var/www/taskul.local/taskul.local/vendor/stephpy/TimelineBundle/Spy/TimelineBundle/Driver/ORM/TimelineManager.php",
 		"/var/www/taskul.local/taskul.local/vendor/stephpy/timeline/src/Spy/Timeline/Notification/Unread/UnreadNotificationManager.php",
 		"/var/www/taskul.local/taskul.local/vendor/stephpy/timeline/src/Spy/Timeline/Model/Action.php",
@@ -239,55 +251,7 @@
 		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/views/partials/delete-modal.html.twig",
 		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Resources/public/js/form.js",
 		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Resources/views/partials/warning-message-task.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Resources/views/partials/delete-modal.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Resources/views/partials/delete-modal-rest.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FileBundle/Entity/Document.php",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TimelineBundle/Entity/Action.php",
-		"/var/www/taskul.local/taskul.local/web/messages/es/translation.json",
-		"/var/www/taskul.local/taskul.local/web/messages/en/translation.json",
-		"/var/www/taskul.local/taskul.local/src/Taskul/CommentBundle/Resources/translations/FOSCommentBundle.es.yml",
-		"/var/www/taskul.local/taskul.local/web/bundles/main/js/vendor/jquery.uniform.js",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Resources/views/Task/api/listFiles.html.twig",
-		"/var/www/taskul.local/taskul.local/README.txt",
-		"/var/www/taskul.local/taskul.local/src/Taskul/CommentBundle/Resources/views/Thread/comment_content.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/views/Form/fields.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Controller/Base/TasksRestBaseController.php",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/DBAL/Types/TaskStatusType.php",
-		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Twig/LabelsExtension.php",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Form/Type/StatusType.php",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Resources/public/js/index.js",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Resources/views/layout.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/views/FriendRequest/index.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Resources/public/js/taskOp.js",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/public/js/friend/index.js",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/views/FriendRequest/importFacebook.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/views/layout/friendrequest.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/public/js/friendrequest/indexSended.js",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/views/layout/friend.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TimelineBundle/Resources/config/services.xml",
-		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Component/CheckAjaxResponse.php",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TimelineBundle/Spread/Spread.php",
-		"/var/www/taskul.local/taskul.local/vendor/lexik/mailer-bundle/Lexik/Bundle/MailerBundle/Resources/config/routing.xml",
-		"/home/admon/Descargas/Responsive_Template1.html",
-		"/var/www/clients/client0/web3/web/backbone-contact-manager/js/app.js",
-		"/var/www/clients/client0/web3/web/backbone-contact-manager/index.html",
-		"/home/admon/.cache/.fr-H3fYew/demo/js/app.js",
-		"/home/admon/.cache/.fr-VrpAFn/demo/js/app.js",
-		"/media/4C1C-880D/iguana-13e.xvid.sub",
-		"/home/admon/Descargas/ZMD Zombies Of Mass Destruction/vmt-zmd-xvid.srt",
-		"/home/admon/.cache/.fr-o0Cn4W/demo/js/tut.html",
-		"/home/admon/.cache/.fr-O1kHoz/demo/ContactManager.asmx",
-		"/home/admon/Descargas/ZMD Zombies Of Mass Destruction/Torrent_downloaded_from_Demonoid%2ecom[1].txt",
-		"/var/www/clients/client0/web3/web/angularjs/js/tv-premieres-app/controllers/mainController.js",
-		"/var/www/clients/client0/web3/web/angularjs/index.html",
-		"/var/www/clients/client0/laravel.local/web/laravel/app/routes.php",
-		"/var/www/clients/client0/laravel.local/web/laravel/public/js/app.js",
-		"/var/www/clients/client0/laravel.local/web/laravel/public/views/layouts/application.blade.php",
-		"/var/www/clients/client0/laravel.local/web/laravel/README.md",
-		"/var/www/clients/client0/laravel.local/web/laravel/public/js/BaseView.js",
-		"/var/www/clients/client0/laravel.local/web/laravel/public/js/PostView.js",
-		"/var/www/clients/client0/laravel.local/web/laravel/public/js/BlogView.js",
-		"/var/www/clients/client0/laravel.local/web/laravel/public/js/PartialView.js"
+		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Resources/views/partials/delete-modal.html.twig"
 	],
 	"find":
 	{
@@ -305,6 +269,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"fos_user_pr",
+			"fos_user",
+			"membe",
 			"\n		",
 			"#conte",
 			"content",
@@ -396,590 +363,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "app/Resources/views/public.html.twig",
-					"settings":
-					{
-						"buffer_size": 1783,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1267,
-								1267
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": true,
-							"sublimelinter_delay": 2,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/PHP-Twig/Syntaxes/HTML (Twig).tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/Taskul/MainBundle/Resources/public/css/main.css",
-					"settings":
-					{
-						"buffer_size": 6055,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6055,
-								6055
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": true,
-							"sublimelinter_delay": 2,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3900.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "web/bundles/main/css/style-responsive.css",
-					"settings":
-					{
-						"buffer_size": 11789,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7003,
-								7003
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": true,
-							"sublimelinter_delay": 2,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/CSS/CSS.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 4770.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "src/Taskul/MainBundle/Resources/public/css/private.css",
-					"settings":
-					{
-						"buffer_size": 3416,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": true,
-							"sublimelinter_delay": 2,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/CSS/CSS.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "app/Resources/views/private.html.twig",
-					"settings":
-					{
-						"buffer_size": 10016,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1548,
-								1548
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": true,
-							"sublimelinter_delay": 2,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/PHP-Twig/Syntaxes/HTML (Twig).tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 180.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -1032,6 +417,126 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"changepassword.php",
+				"vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Form/Model/ChangePassword.php"
+			],
+			[
+				"reset_content",
+				"vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/views/Resetting/reset_content.html.twig"
+			],
+			[
+				"resettingcontr",
+				"vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/ResettingController.php"
+			],
+			[
+				"security.",
+				"app/config/security.yml"
+			],
+			[
+				"registrationcontr",
+				"vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/RegistrationController.php"
+			],
+			[
+				"registration",
+				"src/Taskul/UserBundle/Controller/RegistrationController.php"
+			],
+			[
+				"registrationcontroll",
+				"vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/RegistrationController.php"
+			],
+			[
+				"securityco",
+				"vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/SecurityController.php"
+			],
+			[
+				"changepasswordcotr",
+				"vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/ChangePasswordController.php"
+			],
+			[
+				"userbundle/resources/views/profile/show_content.html.twig",
+				"src/Taskul/UserBundle/Resources/views/Profile/show_content.html.twig"
+			],
+			[
+				"userbundle/resources/views/profile/edit_content.html.twig",
+				"src/Taskul/UserBundle/Resources/views/Profile/edit_content.html.twig"
+			],
+			[
+				"userbundle/resources/views/changepassword/changepassword_content.html.twig",
+				"src/Taskul/UserBundle/Resources/views/ChangePassword/changePassword_content.html.twig"
+			],
+			[
+				"profilecontr",
+				"src/Taskul/UserBundle/Controller/ProfileController.php"
+			],
+			[
+				"changepasswordcontr",
+				"src/Taskul/UserBundle/Controller/ChangePasswordController.php"
+			],
+			[
+				"profilecontro",
+				"vendor/sonata-project/user-bundle/Sonata/UserBundle/Controller/ProfileController.php"
+			],
+			[
+				"profile.xml",
+				"vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/routing/profile.xml"
+			],
+			[
+				"profile.x",
+				"vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/profile.xml"
+			],
+			[
+				"private",
+				"app/Resources/views/private.html.twig"
+			],
+			[
+				"dashb",
+				"src/Taskul/MainBundle/Resources/views/Default/dashboard.html.twig"
+			],
+			[
+				"onatauserbundlemodeluser",
+				"vendor/sonata-project/user-bundle/Sonata/UserBundle/Model/User.php"
+			],
+			[
+				"appker",
+				"app/AppKernel.php"
+			],
+			[
+				"login.html",
+				"vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/views/Security/login.html.twig"
+			],
+			[
+				"securitycon",
+				"vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/SecurityController.php"
+			],
+			[
+				"registrationcontroller",
+				"vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/RegistrationController.php"
+			],
+			[
+				"config.ym",
+				"app/config/config.yml"
+			],
+			[
+				"user.php",
+				"src/Taskul/UserBundle/Entity/User.php"
+			],
+			[
+				"constra",
+				"vendor/symfony/symfony/src/Symfony/Component/Validator/Constraint.php"
+			],
+			[
+				"task.php",
+				"src/Taskul/TaskBundle/Entity/Task.php"
+			],
+			[
+				"para",
+				"app/config/parameters.yml"
+			],
+			[
+				"compose",
+				"composer.json"
+			],
 			[
 				"private.html.t",
 				"app/Resources/views/private.html.twig"
@@ -1253,24 +758,12 @@
 				"app/config/config.yml"
 			],
 			[
-				"security.",
-				"app/config/security.yml"
-			],
-			[
-				"config.ym",
-				"app/config/config.yml"
-			],
-			[
 				"appkernel",
 				"app/AppKernel.php"
 			],
 			[
 				"changepassword",
 				"vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/ChangePasswordController.php"
-			],
-			[
-				"registrationcontr",
-				"vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/RegistrationController.php"
 			],
 			[
 				"profilecon",
@@ -1321,10 +814,6 @@
 				"app/config/routing.yml"
 			],
 			[
-				"appker",
-				"app/AppKernel.php"
-			],
-			[
 				"lexrouting.xml",
 				"vendor/lexik/mailer-bundle/Lexik/Bundle/MailerBundle/Resources/config/routing.xml"
 			],
@@ -1335,10 +824,6 @@
 			[
 				"routing",
 				"app/config/routing.yml"
-			],
-			[
-				"para",
-				"app/config/parameters.yml"
 			]
 		],
 		"width": 0.0

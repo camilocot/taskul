@@ -4,7 +4,7 @@ namespace Taskul\UserBundle\EventListener;
 
 use Taskul\FriendBundle\Service\FriendRequestService;
 use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\FOSUserEvents;
+use Taskul\UserBundle\TaskulUserEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
@@ -24,11 +24,11 @@ class RegistrationCompletedListener implements EventSubscriberInterface {
      */
     public static function getSubscribedEvents() {
         return array(
-            FOSUserEvents::REGISTRATION_COMPLETED => 'onRegistrationCompleted',
+            TaskulUserEvents::TASKUL_REGISTRATION_COMPLETED => 'onRegistrationCompleted',
         );
     }
 
-    public function onRegistrationCompleted(\FOS\UserBundle\Event\FilterUserResponseEvent $event) {
+    public function onRegistrationCompleted(\Taskul\UserBundle\Event\FilterUserResponseEvent $event) {
         $user = $event->getUser();
         $this->frs->processRequests($user);
     }

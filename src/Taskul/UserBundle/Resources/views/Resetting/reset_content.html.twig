@@ -6,10 +6,20 @@
         </div>
         <h2>{% trans %}Reset your password{% endtrans %}</h2>
 
-		<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset" id="reset-pw-form">
+		<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="ajaxform fos_user_resetting_reset" id="reset-pw-form">
         <fieldset>
-            {% include "UserBundle:partials:password.html.twig" with {'form_name' : 'fos_user_resetting_form'} %}
-            {{ form_errors(form.plainPassword.password)}}
+            <div class="control-group">
+            <div class="input-prepend" title="Password">
+                <span class="add-on"><i class="icon-lock"></i></span>
+                <input type="password" id="fos_user_resetting_form_new_password" name="fos_user_resetting_form[new][password]" required="required" class="input-large span10 required" placeholder="{% trans %}Type password{% endtrans %}" minlength="6">
+            </div>
+            <div class="clearfix"></div>
+            <div class="input-prepend" title="Retype Password">
+                <span class="add-on"><i class="icon-lock"></i></span>
+                <input type="password" id="fos_user_resetting_form_new_password_confirmation" name="fos_user_resetting_form[new][password_confirmation]" required="required" class="input-large span10" placeholder="{% trans %}Retype password{% endtrans %}" minlength="6" >
+                {{ form_errors(form.new.password)}}
+            </div>
+            </div>
             {{ form_widget(form._token) }}
             <div class="clearfix"></div>
             <div class="button-login">

@@ -1,41 +1,50 @@
 {
     "name": "symfony/framework-standard-edition",
     "description": "The \"Symfony Standard Edition\" distribution",
+    "license": "MIT",
+    "type": "project",
     "autoload": {
         "psr-0": { "": "src/" }
     },
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "2.1.*@stable",
+        "symfony/symfony": "2.2.*",
         "doctrine/orm": ">=2.2.3,<2.4-dev",
-        "doctrine/doctrine-bundle": "1.0.*",
+        "doctrine/doctrine-bundle": "1.2.*",
         "twig/extensions": "1.0.*@dev",
-        "symfony/assetic-bundle": "2.3.*",
-        "symfony/swiftmailer-bundle": "2.1.*",
-        "symfony/monolog-bundle": "2.1.*",
-        "sensio/distribution-bundle": "2.1.*",
-        "sensio/framework-extra-bundle": "2.1.*",
-        "sensio/generator-bundle": "2.1.*",
-        "jms/security-extra-bundle": "dev-master",
-        "jms/di-extra-bundle": "dev-master",
+        "symfony/assetic-bundle": "2.1.*",
+        "symfony/swiftmailer-bundle": "2.2.*",
+        "symfony/monolog-bundle": "2.2.*",
+        "sensio/distribution-bundle": "2.2.*",
+        "sensio/framework-extra-bundle": "2.2.*",
+        "sensio/generator-bundle": "2.2.*",
+        "jms/security-extra-bundle": "1.4.*",
+        "jms/di-extra-bundle": "1.3.*",
         "kriswallsmith/assetic": "1.1.*@dev",
-        "friendsofsymfony/user-bundle": "*",
-        "friendsofsymfony/facebook-bundle": "1.1",
+        "friendsofsymfony/user-bundle": "1.3.*",
+        "friendsofsymfony/facebook-bundle": "dev-master",
         "knplabs/knp-menu-bundle":"1.1.*",
-	"punkave/symfony2-file-uploader-bundle":"dev-master",
-        "friendsofsymfony/comment-bundle": "master",
+	    "punkave/symfony2-file-uploader-bundle":"dev-master",
+        "friendsofsymfony/comment-bundle": "dev-master",
         "friendsofsymfony/message-bundle": "dev-master",
         "fpn/tag-bundle": "dev-master",
         "exercise/htmlpurifier-bundle": "dev-master",
         "fresh/doctrine-enum-bundle": "dev-master",
         "apy/breadcrumbtrail-bundle": "dev-master",
-	"friendsofsymfony/jsrouting-bundle": "1.1.*",
+	    "friendsofsymfony/jsrouting-bundle": "1.1.*",
         "jms/serializer-bundle": "0.12.*@dev",
-	"stephpy/TimelineBundle": "dev-master",
+	    "stephpy/TimelineBundle": "dev-master",
         "friendsofsymfony/rest-bundle": "0.12.*",
-	"ornicar/gravatar-bundle" : "dev-master",
+	    "ornicar/gravatar-bundle" : "dev-master",
         "ornicar/akismet-bundle": "dev-master",
-	"lexik/mailer-bundle": "dev-master"
+	    "lexik/mailer-bundle": "dev-master",
+        "sonata-project/cache-bundle": "dev-master",
+        "sonata-project/block-bundle": "dev-master",
+        "sonata-project/admin-bundle": "dev-master",
+        "sonata-project/doctrine-orm-admin-bundle": "dev-master",
+        "sonata-project/intl-bundle": "dev-master",
+        "simplethings/entity-audit-bundle": "dev-master",
+        "sonata-project/user-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
@@ -51,10 +60,16 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
         ]
     },
+    "config": {
+        "bin-dir": "bin"
+    },
     "minimum-stability": "dev",
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
-	"symfony-assets-install": "symlink"
+	"symfony-assets-install": "symlink",
+        "branch-alias": {
+            "dev-master": "2.2-dev"
+        }
     }
 }

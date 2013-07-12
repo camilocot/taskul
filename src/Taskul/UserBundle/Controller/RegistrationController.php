@@ -4,64 +4,83 @@ namespace Taskul\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
-use Symfony\Component\HttpFoundation\Request;
-use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\UserEvent;
-use FOS\UserBundle\Event\FilterUserResponseEvent;
+use Taskul\UserBundle\Event\FormEvent;
+use Taskul\UserBundle\Event\UserEvent;
+use Taskul\UserBundle\Event\FilterUserResponseEvent;
 use Taskul\MainBundle\Component\CheckAjaxResponse;
+use Taskul\UserBundle\TaskulUserEvents;
 
 class RegistrationController extends BaseController
 {
-    public function registerAction(Request $request)
+    public function registerAction()
     {
-    	/** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
-        $formFactory = $this->container->get('fos_user.registration.form.factory');
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
         $userManager = $this->container->get('fos_user.user_manager');
         /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
         $dispatcher = $this->container->get('event_dispatcher');
 
+        $request = $this->container->get('request');
+
         $t = $this->container->get('translator');
+
+
+        $form = $this->container->get('fos_user.registration.form');
+        $formHandler = $this->container->get('fos_user.registration.form.handler');
+        $confirmationEnabled = $this->container->getParameter('fos_user.registration.confirmation.enabled');
+
         $user = $userManager->createUser();
-        $user->setEnabled(true);
 
-        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, new UserEvent($user, $request));
+        $process = $formHandler->process($confirmationEnabled);
+        if ($process) {
+            $user = $form->getData();
 
-        $form = $formFactory->createForm();
-        $form->setData($user);
+            $authUser = false;
+            if ($confirmationEnabled) {
+                $this->container->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
+                $route = 'fos_user_registration_check_email';
+            } else {
+                $authUser = true;
+                $route = 'fos_user_registration_confirmed';
 
-        if ('POST' === $request->getMethod()) {
-            $form->bind($request);
+                $this->container->get('fos_user.security.login_manager')->loginUser(
+                $this->container->getParameter('fos_user.firewall_name'),
+                $user);
+            }
 
-            if ($form->isValid()) {
-                $event = new FormEvent($form, $request);
-                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
+            $this->setFlash('fos_user_success', 'registration.flash.user_created');
+            $url = $this->container->get('router')->generate($route);
 
+            if ($authUser) {
+                $user->setEnabled(true);
+                // Generamos código para guardar las subidas de ficheros
                 $user->setCodeUpload(hash("sha256", uniqid(), false));
-                 // Generamos código para guardar las subidas de ficheros
                 $userManager->updateUser($user);
+
+                $event = new FormEvent($form, $request);
 
                 if (null === $response = $event->getResponse()) {
                     $url = $this->container->get('router')->generate('fos_user_registration_confirmed',array(),TRUE);
                     $response = new RedirectResponse($url);
                 }
 
-				$this->container->get('logger')->info(
-             	   sprintf('New user registration: %s', $user)
-          		);
+                $this->container->get('logger')->info(
+                   sprintf('New user registration: %s', $user)
+                );
 
-                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+                $dispatcher->dispatch(TaskulUserEvents::TASKUL_REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
-                $url = $url = $this->container->get('router')->generate('dashboard');
+                $url = $this->container->get('router')->generate('dashboard');
+
+
                 return new CheckAjaxResponse($url,array(
                     'success' => TRUE,
                     'message' => $this->container->get('translator')->trans('form.registration.success',array(),'UserBundle'),
                     'forceredirect'=>TRUE,
                     'url'=>$url,
                 ));
-
             }
+
+            return $response;
         }
 
         if(NULL === $user->getEmail()){

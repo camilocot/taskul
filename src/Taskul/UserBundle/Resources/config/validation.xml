@@ -12,15 +12,30 @@
                 <option name="groups">
                     <value>Registration</value>
                     <value>Profile</value>
-                    <value>ResetPassword</value>
-                    <value>ChangePassword</value>
                 </option>
             </constraint>
             <constraint name="Taskul\UserBundle\Validator\Constraints\ContainsAlphaAndNumeric" >
              	<option name="groups">
                     <value>Registration</value>
-                    <value>ResetPassword</value>
+                    <value>Profile</value>
+                </option>
+            </constraint>
+        </property>
+    </class>
+    <class name="FOS\UserBundle\Form\Model\ChangePassword">
+        <property name="new">
+            <constraint name="Length">
+                <option name="min">6</option>
+                <option name="minMessage">fos_user.new_password.short</option>
+                <option name="groups">
                     <value>ChangePassword</value>
+                    <value>ResetPassword</value>
+                </option>
+            </constraint>
+            <constraint name="Taskul\UserBundle\Validator\Constraints\ContainsAlphaAndNumeric" >
+                <option name="groups">
+                    <value>ChangePassword</value>
+                    <value>ResetPassword</value>
                 </option>
             </constraint>
         </property>

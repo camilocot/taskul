@@ -4,13 +4,13 @@ namespace Taskul\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\SecurityController as BaseController;
 use Symfony\Component\DependencyInjection\ContainerAware;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
 use Taskul\MainBundle\Component\CheckAjaxResponse;
 class SecurityController extends BaseController
 {
-    public function loginAction(Request $request)
+    public function loginAction()
     {
+        $request = $this->container->get('request');
         /** @var $session \Symfony\Component\HttpFoundation\Session\Session */
         $session = $request->getSession();
 

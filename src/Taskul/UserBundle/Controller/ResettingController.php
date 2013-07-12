@@ -36,9 +36,9 @@ class ResettingController extends BaseController
     /**
      * Request reset user password: submit form and send email
      */
-    public function sendEmailAction(Request $request)
+    public function sendEmailAction()
     {
-        $username = $request->request->get('username');
+        $username = $this->container->get('request')->request->get('username');
         $t = $this->container->get('translator');
 
         /** @var $user UserInterface */
@@ -96,56 +96,41 @@ class ResettingController extends BaseController
     /**
      * Reset user password
      */
-    public function resetAction(Request $request, $token)
+    public function resetAction($token)
     {
-        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
-        $formFactory = $this->container->get('fos_user.resetting.form.factory');
-        /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
-        $userManager = $this->container->get('fos_user.user_manager');
-        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-        $dispatcher = $this->container->get('event_dispatcher');
+        $user = $this->container->get('fos_user.user_manager')->findUserByConfirmationToken($token);
         $t = $this->container->get('translator');
-        $user = $userManager->findUserByConfirmationToken($token);
 
         if (null === $user) {
             throw new NotFoundHttpException(sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
         }
 
-        $event = new GetResponseUserEvent($user, $request);
-        $dispatcher->dispatch(FOSUserEvents::RESETTING_RESET_INITIALIZE, $event);
+        if (!$user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
+            return new RedirectResponse($this->container->get('router')->generate('fos_user_resetting_request'));
+        }
+        $form = $this->container->get('fos_user.resetting.form');
+        $formHandler = $this->container->get('fos_user.resetting.form.handler');
+        $process = $formHandler->process($user);
 
-        if (null !== $event->getResponse()) {
-            return $event->getResponse();
+        if ($process) {
+            $this->setFlash('fos_user_success', 'resetting.flash.success');
+            $url = $this->container->get('router')->generate('sonata_user_profile_show');
+
+            $this->container->get('fos_user.security.login_manager')->loginUser(
+                $this->container->getParameter('fos_user.firewall_name'),
+                $user);
+
+            return new CheckAjaxResponse($url,
+                        array(
+                            'success'=>TRUE,
+                            'forceredirect'=>TRUE,
+                            'message' => $t->trans('Password updated successfully'),
+                            'url'=>$url,
+                            'title'=>$t->trans('View Profile')
+                            ));
+
         }
 
-        $form = $formFactory->createForm();
-        $form->setData($user);
-
-        if ('POST' === $request->getMethod()) {
-            $form->bind($request);
-
-            if ($form->isValid()) {
-                $event = new FormEvent($form, $request);
-                $dispatcher->dispatch(FOSUserEvents::RESETTING_RESET_SUCCESS, $event);
-
-                $userManager->updateUser($user);
-
-                if (null === $response = $event->getResponse()) {
-                    $url = $this->container->get('router')->generate('fos_user_profile_show');
-                    $response = new RedirectResponse($url);
-                }
-
-                $dispatcher->dispatch(FOSUserEvents::RESETTING_RESET_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-
-                return new CheckAjaxResponse($url,
-                            array(
-                                'success'=>TRUE,
-                                'message' => $t->trans('Password updated successfully'),
-                                'url'=>$url,
-                                'title'=>$t->trans('View Profile')
-                                ));
-            }
-        }
         return $this->returnAjaxResponse(self::RESET, array(
             'token' => $token,
             'form' => $form->createView(),
