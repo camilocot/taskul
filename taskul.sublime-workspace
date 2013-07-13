@@ -124,6 +124,10 @@
 	},
 	"file_history":
 	[
+		"/var/www/taskul.local/taskul.local/app/config/config.yml",
+		"/var/www/taskul.local/taskul.local/app/config/security.yml",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/config/routing.yml",
+		"/var/www/taskul.local/taskul.local/app/AppKernel.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Form/Type/ResettingFormType.php",
 		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Form/Handler/ResettingFormHandler.php",
 		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Form/Model/ChangePassword.php",
@@ -135,7 +139,6 @@
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Registration/register_content.html.twig",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/EventListener/RegistrationCompletedListener.php",
 		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/RegistrationController.php",
-		"/var/www/taskul.local/taskul.local/app/config/security.yml",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Controller/RegistrationController.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Event/UserEvent.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Event/FilterUserResponseEvent.php",
@@ -148,7 +151,6 @@
 		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/views/Default/dashboard.html.twig",
 		"/var/www/taskul.local/taskul.local/app/Resources/views/private.html.twig",
 		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/routing/profile.xml",
-		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/config/routing.yml",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Controller/ProfileController.php",
 		"/var/www/taskul.local/taskul.local/vendor/sonata-project/user-bundle/Sonata/UserBundle/Controller/ProfileController.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/ChangePassword/changePassword_content.html.twig",
@@ -157,10 +159,8 @@
 		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/ProfileController.php",
 		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/config/profile.xml",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/TaskulUserEvents.php",
-		"/var/www/taskul.local/taskul.local/app/config/config.yml",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Security/login.html.twig",
 		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/views/Security/login.html.twig",
-		"/var/www/taskul.local/taskul.local/app/AppKernel.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Entity/User.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Entity/Group.php",
 		"/var/www/taskul.local/taskul.local/vendor/sonata-project/user-bundle/Sonata/UserBundle/Model/UserInterface.php",
@@ -418,6 +418,10 @@
 		"selected_items":
 		[
 			[
+				"appker",
+				"app/AppKernel.php"
+			],
+			[
 				"changepassword.php",
 				"vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Form/Model/ChangePassword.php"
 			],
@@ -496,10 +500,6 @@
 			[
 				"onatauserbundlemodeluser",
 				"vendor/sonata-project/user-bundle/Sonata/UserBundle/Model/User.php"
-			],
-			[
-				"appker",
-				"app/AppKernel.php"
 			],
 			[
 				"login.html",
