@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 use Symfony\Component\Security\Core\SecurityContext;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
@@ -19,7 +19,7 @@ class ForcePasswordChange {
   private $router;
   private $session;
 
-  public function __construct(Router $router, SecurityContext $security_context, Session $session) {
+  public function __construct(RouterInterface $router, SecurityContext $security_context, Session $session) {
     $this->security_context = $security_context;
     $this->router           = $router;
     $this->session          = $session;

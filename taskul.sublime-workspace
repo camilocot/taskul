@@ -63,7 +63,7 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 274.0,
+		"height": 375.0,
 		"selected_items":
 		[
 			[
@@ -107,7 +107,7 @@
 				"Preferences: SublimeLinter Settings – Default"
 			]
 		],
-		"width": 561.0
+		"width": 435.0
 	},
 	"console":
 	{
@@ -124,10 +124,39 @@
 	},
 	"file_history":
 	[
-		"/var/www/taskul.local/taskul.local/app/config/config.yml",
-		"/var/www/taskul.local/taskul.local/app/config/security.yml",
-		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/config/routing.yml",
+		"/var/www/taskul.local/taskul.local/composer.json",
 		"/var/www/taskul.local/taskul.local/app/AppKernel.php",
+		"/var/www/taskul.local/taskul.local/app/config/config.yml",
+		"/var/www/taskul.local/taskul.local/app/config/routing.yml",
+		"/var/www/taskul.local/taskul.local/app/config/security.yml",
+		"/var/www/taskul.local/taskul.local/app/Resources/views/public.html.twig",
+		"/var/www/taskul.local/taskul.local/vendor/symfony-cmf/routing/Symfony/Cmf/Component/Routing/ChainRouter.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/EventListener/ForcePasswordChange.php",
+		"/var/www/taskul.local/taskul.local/app/autoload.php",
+		"/var/www/taskul.local/taskul.local/app/Application/Sonata/PageBundle/ApplicationSonataPageBundle.php",
+		"/var/www/taskul.local/taskul.local/vendor/kunstmaan/admin-bundle/Kunstmaan/AdminBundle/Entity/User.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/UserBundle.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Handler/AuthenticationHandler.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Entity/User.php",
+		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Security/LoginManager.php",
+		"/var/www/taskul.local/taskul.local/app/config/config_dev.yml",
+		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/SecurityController.php",
+		"/var/www/taskul.local/taskul.local/vendor/kunstmaan/admin-bundle/Kunstmaan/AdminBundle/Resources/config/routing.yml",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/config/routing.yml",
+		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/EventListener/AuthenticationListener.php",
+		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Doctrine/UserManager.php",
+		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Security/UserProvider.php",
+		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Model/UserManager.php",
+		"/var/www/taskul.local/taskul.local/app/config/parameters.yml",
+		"/var/www/taskul.local/taskul.local/app/config/parameters.yml.dist",
+		"/var/www/taskul.local/taskul.local/vendor/kunstmaan/admin-bundle/Kunstmaan/AdminBundle/DependencyInjection/KunstmaanAdminExtension.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/DependencyInjection/UserExtension.php",
+		"/var/www/taskul.local/taskul.local/behat.yml",
+		"/var/www/taskul.local/taskul.local/behat.yml.dist",
+		"/var/www/taskul.local/taskul.local/app/config/routing_dev.yml",
+		"/var/www/taskul.local/taskul.local/.gitignore",
+		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Entity/Task.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/TimelineBundle/Entity/Spread.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Form/Type/ResettingFormType.php",
 		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Form/Handler/ResettingFormHandler.php",
 		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Form/Model/ChangePassword.php",
@@ -143,7 +172,6 @@
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Event/UserEvent.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Event/FilterUserResponseEvent.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Event/FormEvent.php",
-		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/SecurityController.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Controller/SecurityController.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Controller/ChangePasswordController.php",
 		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/ChangePasswordController.php",
@@ -161,23 +189,15 @@
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/TaskulUserEvents.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Security/login.html.twig",
 		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/views/Security/login.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Entity/User.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Entity/Group.php",
 		"/var/www/taskul.local/taskul.local/vendor/sonata-project/user-bundle/Sonata/UserBundle/Model/UserInterface.php",
 		"/var/www/taskul.local/taskul.local/vendor/sonata-project/user-bundle/Sonata/UserBundle/Model/User.php",
-		"/var/www/taskul.local/taskul.local/app/config/routing.yml",
-		"/var/www/taskul.local/taskul.local/app/autoload.php",
 		"/var/www/taskul.local/taskul.local/web/app_dev.php",
 		"/var/www/taskul.local/taskul.local/app/console",
-		"/var/www/taskul.local/taskul.local/app/config/parameters.yml",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Entity/Task.php",
-		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/UserBundle.php",
-		"/var/www/taskul.local/taskul.local/composer.json",
 		"/var/www/taskul.local/taskul.local/vendor/symfony/symfony/src/Symfony/Component/Validator/Constraint.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/css/private.css",
 		"/var/www/taskul.local/taskul.local/web/bundles/main/css/style-responsive.css",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/css/main.css",
-		"/var/www/taskul.local/taskul.local/app/Resources/views/public.html.twig",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Resetting/reset.html.twig",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Resetting/request.html.twig",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Resetting/passwordAlreadyRequested.html.twig",
@@ -231,27 +251,7 @@
 		"/var/www/taskul.local/taskul.local/src/Taskul/TimelineBundle/Notification/Unread/UnreadNotificationManager.php",
 		"/var/www/taskul.local/taskul.local/vendor/stephpy/TimelineBundle/Spy/TimelineBundle/Driver/ORM/TimelineManager.php",
 		"/var/www/taskul.local/taskul.local/vendor/stephpy/timeline/src/Spy/Timeline/Notification/Unread/UnreadNotificationManager.php",
-		"/var/www/taskul.local/taskul.local/vendor/stephpy/timeline/src/Spy/Timeline/Model/Action.php",
-		"/var/www/taskul.local/taskul.local/vendor/stephpy/timeline/src/Spy/Timeline/Model/Component.php",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/views/FriendRequest/indexRecibed.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/views/FriendRequest/indexSended.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/partials/user_avatar.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/translations/FriendBundle.es.yml",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TimelineBundle/Resources/views/Timeline/components.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/views/FriendRequest/new.html.twig",
-		"/var/www/taskul.local/taskul.local/web/app.php",
-		"/home/admon/.config/sublime-text-2/Packages/Xdebug/Xdebug.py",
-		"/home/admon/.config/sublime-text-2/Packages/Xdebug/Xdebug.pyc",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/views/FriendRequest/show.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/views/partials/warning-message.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/public/js/friendrequest/importFacebook.js",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Controller/FilesRestController.php",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FileBundle/Service/UserFileManager.php",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Resources/public/js/show.js",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/views/partials/delete-modal.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Resources/public/js/form.js",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Resources/views/partials/warning-message-task.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Resources/views/partials/delete-modal.html.twig"
+		"/var/www/taskul.local/taskul.local/vendor/stephpy/timeline/src/Spy/Timeline/Model/Action.php"
 	],
 	"find":
 	{
@@ -262,6 +262,7 @@
 		"height": 0.0,
 		"where_history":
 		[
+			"/var/www/taskul.local/taskul.local/vendor/kunstmaan"
 		]
 	},
 	"find_state":
@@ -269,6 +270,15 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"BaseUser",
+			"findUserBy",
+			"monolog",
+			"fos_user",
+			"fos_user.db_driver",
+			"config.yml",
+			"] = ",
+			"monol",
+			"json",
 			"fos_user_pr",
 			"fos_user",
 			"membe",
@@ -352,6 +362,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			": ",
 			""
 		],
 		"reverse": false,
@@ -418,8 +429,84 @@
 		"selected_items":
 		[
 			[
+				"security",
+				"app/config/security.yml"
+			],
+			[
+				"chainrou",
+				"vendor/symfony-cmf/routing/Symfony/Cmf/Component/Routing/ChainRouter.php"
+			],
+			[
+				"forcepassword",
+				"src/Taskul/UserBundle/EventListener/ForcePasswordChange.php"
+			],
+			[
 				"appker",
 				"app/AppKernel.php"
+			],
+			[
+				"composer",
+				"composer.json"
+			],
+			[
+				"appke",
+				"app/AppKernel.php"
+			],
+			[
+				"userprovide",
+				"vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Security/UserProvider.php"
+			],
+			[
+				"loginmanager",
+				"vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Security/LoginManager.php"
+			],
+			[
+				"routing",
+				"app/config/routing.yml"
+			],
+			[
+				"forcepass",
+				"src/Taskul/UserBundle/EventListener/ForcePasswordChange.php"
+			],
+			[
+				"chainrouter",
+				"vendor/symfony-cmf/routing/Symfony/Cmf/Component/Routing/ChainRouter.php"
+			],
+			[
+				"para",
+				"app/config/parameters.yml"
+			],
+			[
+				"kunstmaanadminextension.php",
+				"vendor/kunstmaan/admin-bundle/Kunstmaan/AdminBundle/DependencyInjection/KunstmaanAdminExtension.php"
+			],
+			[
+				"composer.",
+				"composer.json"
+			],
+			[
+				"routing_de",
+				"app/config/routing_dev.yml"
+			],
+			[
+				"user.php",
+				"src/Taskul/UserBundle/Entity/User.php"
+			],
+			[
+				"config.",
+				"app/config/config.yml"
+			],
+			[
+				"spread.ph",
+				"src/Taskul/TimelineBundle/Entity/Spread.php"
+			],
+			[
+				"task.php",
+				"src/Taskul/TaskBundle/Entity/Task.php"
+			],
+			[
+				"config",
+				"app/config/config.yml"
 			],
 			[
 				"changepassword.php",
@@ -518,20 +605,8 @@
 				"app/config/config.yml"
 			],
 			[
-				"user.php",
-				"src/Taskul/UserBundle/Entity/User.php"
-			],
-			[
 				"constra",
 				"vendor/symfony/symfony/src/Symfony/Component/Validator/Constraint.php"
-			],
-			[
-				"task.php",
-				"src/Taskul/TaskBundle/Entity/Task.php"
-			],
-			[
-				"para",
-				"app/config/parameters.yml"
 			],
 			[
 				"compose",
@@ -816,14 +891,6 @@
 			[
 				"lexrouting.xml",
 				"vendor/lexik/mailer-bundle/Lexik/Bundle/MailerBundle/Resources/config/routing.xml"
-			],
-			[
-				"routing_de",
-				"app/config/routing_dev.yml"
-			],
-			[
-				"routing",
-				"app/config/routing.yml"
 			]
 		],
 		"width": 0.0

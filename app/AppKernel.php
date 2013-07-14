@@ -52,6 +52,9 @@ class AppKernel extends Kernel
             new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
+            // Locales
+            new Lunetics\LocaleBundle\LuneticsLocaleBundle(),
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

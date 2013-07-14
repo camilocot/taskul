@@ -44,7 +44,8 @@
         "sonata-project/doctrine-orm-admin-bundle": "dev-master",
         "sonata-project/intl-bundle": "dev-master",
         "simplethings/entity-audit-bundle": "dev-master",
-        "sonata-project/user-bundle": "dev-master"
+        "sonata-project/user-bundle": "dev-master",
+        "lunetics/locale-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
