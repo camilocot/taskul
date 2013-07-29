@@ -1,8 +1,9 @@
 <!-- inside a twig template -->
 {{ facebook_initialize({'xfbml': true}) }}
 {% if notshowlogin is not defined %}
-<div class="fb-div"><a class="fb-button" onClick="fblogin();">{{ 'user.facebook.login'|trans({},'UserBundle') }}</a></div>
-<div class="clearfix"></div>
+<a href="#" class="circle facebook" onClick="fblogin();" title="{{ 'user.facebook.login'|trans({},'UserBundle') }}" style="margin-right:0px">
+    <img src="/img/face.png" alt="{{ 'user.facebook.login'|trans({},'UserBundle') }}">
+</a>
 {% endif %}
 <script>
     function goLogIn(){

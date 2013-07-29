@@ -1,12 +1,21 @@
 {% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "UserBundle::layout.html.twig" %}
 {% block content %}
 {% block fos_user_content %}
-<div class="row-fluid">
-<div class="login-box">
-<p>
-{{ 'resetting.check_email'|trans({'%email%': email}, 'FOSUserBundle') }}
-</p>
-</div>
+<div id="reset_pwd" class="reset_page">
+        <div class="container">
+            <div class="row">
+                <div class="span12 box_wrapper">
+                    <div class="span12 box">
+                        <div>
+                            <div class="head">
+                                <h4>{{ 'resetting.check_email'|trans({'%email%': email}, 'FOSUserBundle') }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 {% endblock %}

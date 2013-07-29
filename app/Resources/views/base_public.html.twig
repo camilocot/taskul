@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Business Template</title>
+    <base href="{{ app.request.schemeAndHttpHost }}">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Styles -->
+    {% stylesheets
+    '@MainBundle/Resources/public/css/bootstrap-combined.min.css'
+    '@MainBundle/Resources/public/css/bootstrap-responsive.min.css'
+    '@MainBundle/Resources/public/css/bootstrap-overrides.css'
+    '@MainBundle/Resources/public/css/theme.css'
+    '@MainBundle/Resources/public/css/jNotify.jquery.css'
+    '@MainBundle/Resources/public/css/lib/animate.css'
+    '@MainBundle/Resources/public/css/index.css'
+    '@MainBundle/Resources/public/css/sign.css'
+    '@MainBundle/Resources/public/css/reset.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+    {% block stylesheets%}{% endblock %}
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body class="pull_top">
+{% block body %}
+{% endblock %}
+    <!-- starts footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="row credits">
+                <div class="span12">
+                    <div class="row social">
+                        <div class="span12">
+                            <a href="#" class="twitter">
+                                <span class="socialicons ico2"></span>
+                                <span class="socialicons_h ico2h"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row copyright">
+                        <div class="span12">
+                            © 2013 Camilo Cota Aranda. All rights reserved.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    {% javascripts
+    '@MainBundle/Resources/public/js/vendor/jquery-1.9.1.js'
+    '@MainBundle/Resources/public/js/vendor/jquery.history.js'
+    '@MainBundle/Resources/public/js/vendor/bootstrap.min.js'
+    '@MainBundle/Resources/public/js/vendor/i18next-1.6.3.js'
+    '@MainBundle/Resources/public/js/vendor/jquery.form.js'
+    '@MainBundle/Resources/public/js/vendor/jquery.validate.min.js'
+    '@MainBundle/Resources/public/js/vendor/additional-methods.min.js'
+    '@MainBundle/Resources/public/js/vendor/jquery.uniform.js'
+    '@MainBundle/Resources/public/js/vendor/jNotify.jquery.js'
+    '@MainBundle/Resources/public/js/theme.js'
+    '@MainBundle/Resources/public/js/main.js'
+
+    '@MainBundle/Resources/public/js/ajaxify.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% if app.request.locale != 'en' %}
+    {% javascripts
+    '@MainBundle/Resources/public/js/vendor/messages_es.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% endif %}
+    {% block javascripts %}{% endblock %}
+
+</body>
+</html>

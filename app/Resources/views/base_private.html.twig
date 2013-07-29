@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="en" <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{{ app.request.locale }}" {% block xmlns %}{% endblock %}> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <base href="{{ app.request.schemeAndHttpHost }}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- start: Meta -->
+    <meta charset="utf-8">
+    <title>Taskul</title>
+    <meta name="description" content="Taskul Admin">
+    <meta name="author" content="Camilo Cota">
+    <!-- end: Meta -->
+
+    <!-- start: Mobile Specific -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- end: Mobile Specific -->
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    {% stylesheets
+    '@MainBundle/Resources/public/css/bootstrap-combined.min.css'
+    '@MainBundle/Resources/public/css/bootstrap-responsive.min.css'
+    '@MainBundle/Resources/public/css/uniform.default.css'
+    '@MainBundle/Resources/public/css/jquery.iphone.toggle.css'
+    '@MainBundle/Resources/public/css/font-awesome.css'
+    '@MainBundle/Resources/public/css/font-awesome-ie7.css'
+    '@MainBundle/Resources/public/css/style.css'
+    '@MainBundle/Resources/public/css/style-responsive.css'
+    '@MainBundle/Resources/public/css/jNotify.jquery.css'
+    '@MainBundle/Resources/public/css/main.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+    {% block stylesheets%}{% endblock %}
+    {% javascripts '@MainBundle/Resources/public/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js'%}
+
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+</head>
+<body>
+    <div class='notifications top-right'></div>
+    <div class='notifications center'></div>
+    {{ locale_switcher() }}
+    {% block body %}
+    {% endblock %}
+</body>
+
+
+<script>
+           /* var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));*/
+</script>
+{% javascripts
+    '@MainBundle/Resources/public/js/vendor/jquery-1.9.1.js'
+    '@MainBundle/Resources/public/js/vendor/jquery-migrate-1.1.1.js'
+    '@MainBundle/Resources/public/js/vendor/jquery.scrollto.min.js'
+    '@MainBundle/Resources/public/js/vendor/jquery.history.js'
+    '@MainBundle/Resources/public/js/vendor/bootstrap.min.js'
+    '@MainBundle/Resources/public/js/vendor/i18next-1.6.3.js'
+    '@MainBundle/Resources/public/js/vendor/jquery.form.js'
+    '@MainBundle/Resources/public/js/vendor/jquery.validate.min.js'
+    '@MainBundle/Resources/public/js/vendor/additional-methods.min.js'
+    '@MainBundle/Resources/public/js/vendor/jNotify.jquery.js'
+    '@MainBundle/Resources/public/js/vendor/jquery.uniform.js'
+    '@MainBundle/Resources/public/js/main.js'
+    '@MainBundle/Resources/public/js/ajaxify.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% if app.request.locale != 'en' %}
+    {% javascripts
+    '@MainBundle/Resources/public/js/vendor/messages_es.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% endif %}
+    {% block javascripts %}{% endblock %}
+    </html>

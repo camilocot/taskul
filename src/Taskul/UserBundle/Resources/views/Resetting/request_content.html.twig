@@ -1,31 +1,34 @@
-<div class="row-fluid">
-    <div class="login-box">
-        <div class="icons">
-            <a href="{{ path('homepage') }}"><i class="icon-home"></i></a>
-        </div>
-        <h2>{% trans %}Request your password{% endtrans %}</h2>
-        <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="ajaxform" id="form_request-password">
+<div id="reset_pwd" class="reset_page">
+    <div class="container">
+        <div class="row">
+            <div class="span12 box_wrapper">
+                <div class="span12 box">
+                    <div>
+                        <div class="head">
+                            <h4>{% trans %}Request your password{% endtrans %}</h4>
+                            <div class="line"></div>
+                        </div>
+                        <div class="form">
+                            <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="ajaxform" id="form_request-password">
 
-            <fieldset>
-                <div class="control-group  {% if invalid_username is defined %} error {% endif %}">
-                    <div class="input-prepend" title="Username">
-                        <span class="add-on"><i class="icon-user"></i></span>
-                        <input class="input-large span10 email required" name="username" id="username"  name="_username" value="" type="text" placeholder="{% trans %}Enter your email to contact{% endtrans %}"/>
+                                <fieldset>
+                                    <div class="control-group  {% if invalid_username is defined %} error {% endif %}">
+                                        <div class="input-prepend" title="Username">
+                                            <span class="add-on"><i class="icon-user"></i></span>
+                                            <input class="email required" name="username" id="username"  name="_username" value="" type="text" placeholder="{% trans %}Enter your email to contact{% endtrans %}"/>
+                                        </div>
+                                        {% if invalid_username is defined %}
+                                        <label class="error" for="username">{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle') }}</label>
+                                        {% endif %}
+                                    </div>
+
+                                    <input type="submit" name="_submit" value="{{ 'resetting.request.submit'|trans({}, 'FOSUserBundle') }}">
+                                </fieldset>
+                            </form>
+                        </div>
                     </div>
-                    {% if invalid_username is defined %}
-                    <label class="error" for="username">{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle') }}</label>
-                    {% endif %}
                 </div>
-                <div class="clearfix"></div>
-
-                <div class="button-login">
-                    <button type="submit" class="btn btn-primary" name="_submit" ><i class="icon-off icon-white"></i> {{ 'resetting.request.submit'|trans({}, 'FOSUserBundle') }}</button>
-                </div>
-                <div class="clearfix"></div>
-            </fieldset>
-        </form>
-        <hr>
-        {% include "UserBundle:Helper:facebook_button.html.twig" %}
-        {% include "UserBundle:partials:new_account.html.twig" %}
-    </div><!--/login-box-->
-</div><!--/fluid-row-->
+            </div>
+        </div>
+    </div>
+</div>
