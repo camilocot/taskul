@@ -1,0 +1,30 @@
+{% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "::public.html.twig" %}
+{% block content %}
+<div id="service_2" class="top140">
+        <div class="container">
+            <div class="section_header">
+                <h3>Política de privacidad</h3>
+            </div>
+            <div class="row perk">
+                <div class="span2 circle circle1">
+                    <img src="img/service_ico1.png" alt="">
+                </div>
+
+                <div class="span10 description_wrapper">
+                    <h5>Your privacy is of most importance to us.</h5>
+                    <p>
+
+
+When you sign up for Nozbe, your data is being stored in our database and you are automatically subscribed to a Nozbe Users' Newsletter.
+
+Your data won't be shared or sold to anyone, for any reason. You have the right to remove your account and delete your data if you wish. It's all up to you.
+
+You can un-subscribe from the Newsletter at any time by clicking on the link at the bottom of every Email message you would receive.
+
+When processing payments we don't store your credit card details on our servers. We only send them to our bank for validation.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

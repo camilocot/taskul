@@ -16,6 +16,8 @@
     '@MainBundle/Resources/public/css/lib/animate.css'
     '@MainBundle/Resources/public/css/index.css'
     '@MainBundle/Resources/public/css/sign.css'
+    '@MainBundle/Resources/public/css/features.css'
+    '@MainBundle/Resources/public/css/services.css'
     '@MainBundle/Resources/public/css/reset.css'
     %}
     <link rel="stylesheet" href="{{ asset_url }}">
@@ -33,6 +35,18 @@
     <!-- starts footer -->
     <footer id="footer">
         <div class="container">
+            <div class="row info">
+                <div class="span6 privacy1">
+                    <ul>
+                        <li><a href="{{ path('privacy') }}">Politica de privacidad</a></li>
+                    </ul>
+                </div>
+                <div class="span5 privacy2">
+                    <ul>
+                        <li><a href="{{ path('legal') }}">Condiciones de uso</a></li>
+                    </ul>
+                </div>
+            </div>
             <div class="row credits">
                 <div class="span12">
                     <div class="row social">

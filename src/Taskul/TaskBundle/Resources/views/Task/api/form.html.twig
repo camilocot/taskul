@@ -16,7 +16,7 @@
                 {% if method == 'post' %}
                     <form class="form-horizontal validate ajaxform" action="{{ path( route ) }}" method="post" {{ form_enctype(form) }} id="form_task">
                 {% else %}
-                    <form class="form-horizontal validate ajaxform" action="{{ path( route, { id: id } ) }}" method="post" {{ form_enctype(form) }} id="form_task">
+                    <form class="form-horizontal validate ajaxform" action="{{ path( route, { id: id } ) }}" method="put" {{ form_enctype(form) }} id="form_task">
                 {% endif %}
                         <input type="hidden" name="_method" value="{{ method }}" >
                         {{ form_errors(form) }}

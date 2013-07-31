@@ -36,6 +36,26 @@ class DefaultController extends Controller
     }
 
     /**
+     *
+     * @Route("/privacy", name="privacy")
+     * @Template()
+     */
+    public function privacyAction(Request $request)
+    {
+      return array();
+    }
+
+    /**
+     * Home page, comprueba si tiene algun tipo de invitacion desde FB
+     * @Route("/legal", name="legal")
+     * @Template()
+     */
+    public function legalAction(Request $request)
+    {
+      return array();
+    }
+
+    /**
      * @Route("/dashboard", name="dashboard")
      * @Template()
      */
