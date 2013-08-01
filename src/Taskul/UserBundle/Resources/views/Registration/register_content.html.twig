@@ -25,12 +25,13 @@
                     <div class="box">
                         <div class="box_cont">
                             <div class="social">
+                                <h3>{{ 'login.access'|trans({},'UserBundle')}}</h3>
                                 {% include "UserBundle:Helper:facebook_button.html.twig" %}
                             </div>
 
                             <div class="division">
                                 <div class="line l"></div>
-                                <span>or</span>
+                                <span>{{ 'or'|trans({},'MainBundle')}}</span>
                                 <div class="line r"></div>
                             </div>
                             <div class="form">
@@ -49,6 +50,8 @@
                                  <hr>
 
                                 {% include "UserBundle:partials:forgot_password.html.twig" %}
+                                <hr>
+                                <div class="forgot">{{ 'registration.confirm'|trans({'%condiciones%': path('legal'), '%privacidad%': path('privacy')}, 'UserBundle')|raw }}</div>
                             </div>
                         </div>
                     </div>

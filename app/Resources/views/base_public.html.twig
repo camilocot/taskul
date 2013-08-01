@@ -38,12 +38,12 @@
             <div class="row info">
                 <div class="span6 privacy1">
                     <ul>
-                        <li><a href="{{ path('privacy') }}">Politica de privacidad</a></li>
+                        <li><a href="{{ path('privacy') }}" title="{{'privacy'|trans({},'MainBundle')}}" class="ajaxy">{{'privacy'|trans({},'MainBundle')}}</a></li>
                     </ul>
                 </div>
                 <div class="span5 privacy2">
                     <ul>
-                        <li><a href="{{ path('legal') }}">Condiciones de uso</a></li>
+                        <li><a href="{{ path('legal') }}" title="{{'legal'|trans({},'MainBundle')}}" class="ajaxy">{{'legal'|trans({},'MainBundle')}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -51,7 +51,11 @@
                 <div class="span12">
                     <div class="row social">
                         <div class="span12">
-                            <a href="#" class="twitter">
+                            <a href="https://twitter.com/TASKULnet" class="twitter" title="{{'follow.taskul.twitter'|trans({},'MainBundle')}}">
+                                <span class="socialicons ico2"></span>
+                                <span class="socialicons_h ico2h"></span>
+                            </a>
+                            <a href="https://twitter.com/camilocot" class="twitter" title="{{'follow.camilo.twitter'|trans({},'MainBundle')}}">
                                 <span class="socialicons ico2"></span>
                                 <span class="socialicons_h ico2h"></span>
                             </a>
@@ -59,7 +63,7 @@
                     </div>
                     <div class="row copyright">
                         <div class="span12">
-                            © 2013 Camilo Cota Aranda. All rights reserved.
+                            © 2013 <a href="http://es.linkedin.com/pub/camilo-cota/24/918/b36" title="Linkedin Camilo Cota">Camilo Cota Aranda.</a> All rights reserved.  Theme by Detail Canvas. Powered by: <a href="http://symfony.com/" title="Symfony is a PHP framework for web projects">Symfony</a>
                         </div>
                     </div>
                 </div>

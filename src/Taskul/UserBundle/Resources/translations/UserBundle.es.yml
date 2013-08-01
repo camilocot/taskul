@@ -28,3 +28,6 @@ form:
         success: 'Su cuenta ha sido creada correctamente. Estamos redirigiendo a su panel de control, un momento por favor ... '
 login:
     account: Acceder
+    access: 'Accede con'
+registration:
+    confirm: 'Al hacer clic en el botón de abajo confirmas que estás de acuerdo con las <a href="%condiciones%" title="Condiciones de uso" target="_blank">Condiciones de uso</a> y la <a href="%privacidad%" title="Política de privacidad" target="_blank">Política de Privacidad</a>'

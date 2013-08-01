@@ -39,6 +39,8 @@ var historyBool = true; // Para los formularios qeu sino carga la pagina 2 veces
                 if(typeof ulId !== undefined)
                     clearMenuActive($ul.attr('id'));
 
+                $('a').removeClass('active');
+                $this.addClass('active');
                 // Continue as normal for cmd clicks etc
                 if ( event.which == 2 || event.metaKey ) { return true; }
 
@@ -93,18 +95,20 @@ function loadPage(url)
                 $("#content").filter(':first').html(data.content).ajaxify();
             else
                 $("#content").filter(':first').html(data).ajaxify();
-            loadAjaxModalForms();
-            loadAjaxForms();
-            showWarningNoRecords();
-            template_functions(); //main.js
-            widthFunctions(); //main.js
-            launchNotifications(); // main.js
-            // Update the menu
-            $menuChildren = $menu.find(menuChildrenSelector);
-            $menuChildren.filter(activeSelector).removeClass(activeClass);
-            $menuChildren = $menuChildren.has('a[href^="'+relativeUrl+'"],a[href^="/'+relativeUrl+'"],a[href^="'+url+'"]');
-            if ( $menuChildren.length === 1 ) { $menuChildren.addClass(activeClass); }
-            $(".progress-indicator").fadeOut(500);
+            if($('#overlay').length == 1) { // Cargamos funciones del backend
+                loadAjaxModalForms();
+                loadAjaxForms();
+                showWarningNoRecords();
+                template_functions(); //main.js
+                widthFunctions(); //main.js
+                launchNotifications(); // main.js
+                // Update the menu
+                $menuChildren = $menu.find(menuChildrenSelector);
+                $menuChildren.filter(activeSelector).removeClass(activeClass);
+                $menuChildren = $menuChildren.has('a[href^="'+relativeUrl+'"],a[href^="/'+relativeUrl+'"],a[href^="'+url+'"]');
+                if ( $menuChildren.length === 1 ) { $menuChildren.addClass(activeClass); }
+                $(".progress-indicator").fadeOut(500);
+            }
 
         },
         error: function(jqXHR, textStatus, errorThrown){

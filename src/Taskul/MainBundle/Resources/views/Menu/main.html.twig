@@ -1,3 +1,14 @@
 {% extends "knp_menu.html.twig" %}
-
-{% block label %}{% if options.allow_safe_labels and item.getExtra('safe_label') is sameas(false) %}{{ item.label|raw }}{% else %}{{ item.label }}{% endif %}{% endblock %}
+{% macro attributestrans(attributes,item) %}
+{% for name, value in attributes %}
+    {%- if name == 'title' -%}
+    title="{{ value|trans(item.getExtra('translation_params', {}), item.getExtra('translation_domain', 'MainBundle')) }}"
+    {%- elseif value is not none and value is not sameas(false) -%}
+        {{- ' %s="%s"'|format(name, value is sameas(true) ? name|e : value|e)|raw -}}
+    {%- endif -%}
+{%- endfor -%}
+{% endmacro %}
+{% block label %}
+{{item.getExtra('icon')|raw}} {{ item.label|trans(item.getExtra('translation_params', {}), item.getExtra('translation_domain', 'MainBundle')) }}
+{% endblock %}
+{% block linkElement %}<a href="{{ item.uri }}"{{ _self.attributestrans(item.linkAttributes,item) }}>{{ block('label') }}</a>{% endblock %}

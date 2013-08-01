@@ -13,10 +13,10 @@
             </div>
             <div class="box-content">
                 {% set route = 'api_' ~ method|lower ~ '_task' %}
-                {% if method == 'post' %}
-                    <form class="form-horizontal validate ajaxform" action="{{ path( route ) }}" method="post" {{ form_enctype(form) }} id="form_task">
+                {% if method == 'POST' %}
+                    <form class="form-horizontal validate ajaxform" action="{{ path( route ) }}" method="POST" {{ form_enctype(form) }} id="form_task">
                 {% else %}
-                    <form class="form-horizontal validate ajaxform" action="{{ path( route, { id: id } ) }}" method="put" {{ form_enctype(form) }} id="form_task">
+                    <form class="form-horizontal validate ajaxform" action="{{ path( route, { id: id } ) }}" method="PUT" {{ form_enctype(form) }} id="form_task">
                 {% endif %}
                         <input type="hidden" name="_method" value="{{ method }}" >
                         {{ form_errors(form) }}

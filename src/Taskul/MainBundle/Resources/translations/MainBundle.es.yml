@@ -41,3 +41,56 @@ search:
 lists:
     actions: 'Acciones'
     view_more: 'Ver más'
+or: O
+privacy: 'Política de privacidad'
+legal: 'Aviso legal'
+follow:
+    taskul:
+        twitter: 'Seguir a Taskul en Twitter'
+    camilo:
+        twitter: 'Seguir a Camilo Cota en Twitter'
+taskul:
+    beta: 'Taskul.net</a> está en fase <strong>BETA</strong>, por favor ayúdenos a mejorar cumplimentando el formulario de sugerencias y/o problemas. Gracias.'
+menu:
+    title:
+        register: 'Registro gratuito en el gestor de tareas Taskul.NET'
+        login: 'Accede a administrar tus tareas'
+        dashboard: 'Panel de control de administración'
+        tasks: 'Revisa todas las tareas que gestionas'
+        task:
+            new: 'Crea una nueva tarea'
+            list: 'Listado de todas tus tareas'
+        frequests: 'Gestiona las solicitudes de contacto enviadas y recibidas'
+        frequest:
+            new: 'Envía una solicitud de contacto por email'
+            sended: 'Gestiona las solicitudes enviadas'
+            recibed: 'Gestiona las solicitudes recibidas'
+            import_fb: 'Iinvita a tus contactos de Facebbok'
+        friends: 'Gestiona tus contactos'
+        friend:
+            list: 'Listado de todos tus contactos'
+        messages: 'Gestiona tus mensajes privados'
+        message:
+            recibed: 'Listado de tus mensajes recibidos'
+            sended: 'Listado de tus mensajes enviados'
+
+    tasks: 'Listado de tareas'
+    register: 'Registro gratuito'
+    login: 'Acceder'
+    dashboard: 'Panel de administración'
+    task:
+        new: 'Crear nueva'
+        list: 'Todas'
+    frequests: 'Solicitudes'
+    frequest:
+        new: 'Enviar por email'
+        sended: 'Enviadas'
+        recibed: 'Recibidas'
+        import_fb: 'Invitar amigos de FB'
+    friends: Contactos
+    friend:
+        list: 'Listado'
+    messages: Mensajes
+    message:
+        recibed: Recibidos
+        sended: Enviados

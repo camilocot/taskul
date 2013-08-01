@@ -42,14 +42,14 @@ $(document).ready(function(){
   /* Numero de notificaciones */
   $('.notifnumber').each(function(){
     $(this).bind('notificationUpdate',function() {
-      $this = $(this);
+      var $this = $(this);
       var context = $this.parent().data('context');
       dynroute = $this.parent().data('route');
       route = Routing.generate(dynroute, { "context": context });
       $.ajax({
         method:'get',
         url: route,
-        async: false,
+        async: true,
         success:function(data){
           if(data.success) {
             total = $this.text();
@@ -143,6 +143,47 @@ $(document).ready(function(){
     });
 
     $(".progress-indicator").fadeOut(500);
+    $('#overlay').fadeOut(500);
+
+    $(document).on('click','.btn-close',function(e){
+        e.preventDefault();
+        $(this).parent().parent().parent().fadeOut();
+    });
+
+    $(document).on('click','.btn-minimize', function(e){
+        e.preventDefault();
+        var $target = $(this).parent().parent().next('.box-content');
+        if($target.is(':visible')) $('i',$(this)).removeClass('icon-chevron-up').addClass('icon-chevron-down');
+        else                       $('i',$(this)).removeClass('icon-chevron-down').addClass('icon-chevron-up');
+        $target.slideToggle();
+    });
+
+        // Almacena el boton pulsado para el envio
+    $("form button[type=submit]").on('click',function() {
+        $("button[type=submit]", $(this).parents("form")).removeAttr("clicked");
+        $(this).attr("clicked", "true");
+    });
+
+    /* ---------- Submenu  ---------- */
+
+    $(document).on('click','.dropmenu',function(e){
+
+        e.preventDefault();
+
+        $(this).parent().find('ul').slideToggle();
+        $(this).find('i').toggleClass('icon-chevron-down').toggleClass('icon-chevron-up');
+
+    });
+    //$("li.active").children().css('color','#0088cc');
+    template_functions();
+    widthFunctions();
+    /*init_masonry();
+    sparkline_charts();
+    charts();
+    calendars();
+    growlLikeNotifications();
+
+    circle_progess();*/
 
 });
 
@@ -166,4 +207,193 @@ function activateProgessBar(){
       $(this).parent().find(".percent").html(endValue + "%");
     });
   }
+}
+
+function refreshQuota()
+{
+    $.getJSON(Routing.generate('api_get_quota'), function(data) {
+        actualValue = $('#dial-quota').val();
+        if(data.success === true && actualValue != data.current_quota){
+            $('#dial-quota').val(data.current_quota).trigger('change');
+        }
+    });
+}
+
+function menuColor(selector) {
+    $liactive = $(selector);
+    $parent = $liactive.parent();
+    $parent.find('a').css('color','');
+    $liactive.find('a').css('color','#0088CC');
+    $liactive.addClass('active');
+}
+
+
+function launchNotifications()
+{
+  $.each($('.notifnumber'), function(){
+    $(this).trigger('notificationUpdate');
+  });
+}
+
+/* ---------- Numbers Sepparator ---------- */
+
+function numberWithCommas(x) {
+    x = x.toString();
+    var pattern = /(-?\d+)(\d{3})/;
+    while (pattern.test(x))
+        x = x.replace(pattern, "$1.$2");
+    return x;
+}
+
+/* ---------- Template Functions ---------- */
+
+function template_functions(){
+
+    /* ---------- Disable moving to top ---------- */
+    $('a[href="#"][data-top!=true]').click(function(e){
+        e.preventDefault();
+    });
+    /* ---------- Uniform ---------- */
+    $("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
+
+    /* ---------- Tooltip ---------- */
+    $('[rel="tooltip"],[data-rel="tooltip"]').tooltip({ "placement":"bottom" });
+
+    // $('.boostrap-tp').tooltip({
+    //     "trigger":"click"
+    // }).click(function(e){
+    //     e.preventDefault();
+    // });
+
+    /* Desplegamos los ul del menu */
+    $("li.active").parent('ul').css('display','block');
+
+}
+/* ---------- Page width functions ---------- */
+
+$(window).bind("resize", widthFunctions);
+
+function widthFunctions( e ) {
+    var winHeight = $(window).height();
+    var winWidth = $(window).width();
+
+    if (winHeight) {
+
+        $("#content").css("min-height",winHeight);
+
+    }
+
+    if (winWidth < 980 && winWidth > 767) {
+
+        if($(".main-menu-span").hasClass("span2")) {
+
+            $(".main-menu-span").removeClass("span2");
+            $(".main-menu-span").addClass("span1");
+
+        }
+
+        if($("#content").hasClass("span10")) {
+
+            $("#content").removeClass("span10");
+            $("#content").addClass("span11");
+
+        }
+
+
+        $("a").each(function(){
+
+            if($(this).hasClass("quick-button-small span1")) {
+
+                $(this).removeClass("quick-button-small span1");
+                $(this).addClass("quick-button span2 changed");
+
+            }
+
+        });
+
+        $(".circleStatsItem").each(function() {
+
+            var getOnTablet = $(this).parent().attr('onTablet');
+            var getOnDesktop = $(this).parent().attr('onDesktop');
+
+            if (getOnTablet) {
+
+                $(this).parent().removeClass(getOnDesktop);
+                $(this).parent().addClass(getOnTablet);
+
+            }
+
+        });
+
+        $(".box").each(function(){
+
+            var getOnTablet = $(this).attr('onTablet');
+            var getOnDesktop = $(this).attr('onDesktop');
+
+            if (getOnTablet) {
+
+                $(this).removeClass(getOnDesktop);
+                $(this).addClass(getOnTablet);
+
+            }
+
+        });
+
+    } else {
+
+        if($(".main-menu-span").hasClass("span1")) {
+
+            $(".main-menu-span").removeClass("span1");
+            $(".main-menu-span").addClass("span2");
+
+        }
+
+        if($("#content").hasClass("span11")) {
+
+            $("#content").removeClass("span11");
+            $("#content").addClass("span10");
+
+        }
+
+        $("a").each(function(){
+
+            if($(this).hasClass("quick-button span2 changed")) {
+
+                $(this).removeClass("quick-button span2 changed");
+                $(this).addClass("quick-button-small span1");
+
+            }
+
+        });
+
+        $(".circleStatsItem").each(function() {
+
+            var getOnTablet = $(this).parent().attr('onTablet');
+            var getOnDesktop = $(this).parent().attr('onDesktop');
+
+            if (getOnTablet) {
+
+                $(this).parent().removeClass(getOnTablet);
+                $(this).parent().addClass(getOnDesktop);
+
+            }
+
+        });
+
+        $(".box").each(function(){
+
+            var getOnTablet = $(this).attr('onTablet');
+            var getOnDesktop = $(this).attr('onDesktop');
+
+            if (getOnTablet) {
+
+                $(this).removeClass(getOnTablet);
+                $(this).addClass(getOnDesktop);
+
+            }
+
+        });
+
+    }
+
 }

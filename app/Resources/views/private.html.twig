@@ -17,7 +17,7 @@
   {% endstylesheets %}
   {% endblock %}
   {% block body %}
-  <div id="overlay" style="display:none">
+  <div id="overlay">
      <ul>
       <li class="li1"></li>
       <li class="li2"></li>
@@ -38,7 +38,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </a>
-        <a class="brand" href="{{ path('homepage')}}"><span><img src="/img/skull_logo1.png" class="logo" alt="Logo">Taskul</span></a>
+        <a class="brand" href="{{ path('homepage')}}"><span>TASKUL.NET</span></a>
 
         <!-- start: Header Menu -->
         <div class="nav-no-collapse header-nav">
@@ -106,15 +106,14 @@
       <div class="span2 main-menu-span">
         <div style="height:100%">
         <div class="nav-collapse sidebar-nav">
-          {{ knp_menu_render('main', {'allow_safe_labels':true ,'template': 'MainBundle:Default:knp_menu.html.twig', 'currentClass': 'active'})  }}
+          {{ knp_menu_render('main', { 'currentClass': 'active'})  }}
         </div><!--/.well -->
-        <div class="hidden-phone" style="bottom:40px;position:fixed"><img src="/img/skull_logo1.png"></div>
         </div>
       </div><!--/span-->
       <!-- end: Main Menu -->
 
       <noscript>
-        <div class="alert alert-block span10">
+        <div class="alert alert-block span10" style="z-index:1000000">
           <h4 class="alert-heading">Warning!</h4>
           <p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
         </div>
@@ -131,8 +130,8 @@
 
     <footer>
       <p>
-        <span style="text-align:left;float:left">&copy; <a href="http://clabs.co" target="_blank">creativeLabs</a> 2013</span>
-        <span style="text-align:right;float:right">Powered by: <a href="#">Perfectum Dashboard</a></span>
+        <span style="text-align:left;float:left">&copy; 2013 <a href="http://es.linkedin.com/pub/camilo-cota/24/918/b36" title="Linkedin Camilo Cota">Camilo Cota Aranda.</a> All rights reserved.</span>
+        <span style="text-align:right;float:right">Powered by: <a href="http://symfony.com/" title="Symfony is a PHP framework for web projects">Symfony</a></span>
       </p>
 
     </footer>
