@@ -33,12 +33,6 @@ var historyBool = true; // Para los formularios qeu sino carga la pagina 2 veces
                 url = $this.attr('href'),
                 title = $this.attr('title')||null;
 
-                $ul = $this.parents('ul');
-                ulId = $ul.attr('id');
-
-                if(typeof ulId !== undefined)
-                    clearMenuActive($ul.attr('id'));
-
                 $('a').removeClass('active');
                 $this.addClass('active');
                 // Continue as normal for cmd clicks etc
@@ -223,8 +217,9 @@ function toggleWarning()
     if($('#list > tbody > tr').length === 0)
     {
         $('#list').hide();
-        $('.well').hide();
-        $('#filter-list').hide();
+
+        //$('.well').hide();
+        //$('#filter-list').hide();
         $warning.show();
     }else
         $warning.hide();

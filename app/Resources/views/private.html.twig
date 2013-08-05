@@ -43,14 +43,14 @@
         <!-- start: Header Menu -->
         <div class="nav-no-collapse header-nav">
           <ul class="nav pull-right">
-            <li class="dropdown"><!-- Friend Request notifications -->
+            <li class="dropdown hidden-phone"><!-- Friend Request notifications -->
               <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#"  id="toggle-task-noti" data-context="FRIENDREQUEST" data-route="notification" data-route-content="get_notifications" rel="tooltip" title="{{ 'notification.FRIENDREQUEST.title'|trans({}, 'TimelineBundle') }}">
                 <i class="icon-flag icon-white"></i><span class="label label-important hidden-phone notifnumber">0</span>
               </a>
               <ul class="dropdown-menu notifications">
               </ul>
             </li>
-            <li class="dropdown"><!-- Task notifications -->
+            <li class="dropdown hidden-phone"><!-- Task notifications -->
               <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#"  id="toggle-task-noti" data-context="TASK" data-route="notification" data-route-content="get_notifications" rel="tooltip" title="{{ 'notification.TASK.title'|trans({}, 'TimelineBundle') }}">
                 <i class="icon-tasks icon-white"></i><span class="label label-important hidden-phone notifnumber">0</span>
               </a>
@@ -58,7 +58,7 @@
               </ul>
             </li>
             <!-- start: Pending task Dropdown -->
-            <li class="dropdown">
+            <li class="dropdown hidden-phone">
               <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#" id="toggle-task-inprogress" data-context="inprogress" data-route="api_count_task_list_status" data-route-content="api_list_task_status" rel="tooltip" title="{{ 'notification.TASK.pending.title'|trans({}, 'TimelineBundle') }}">
                 <i class="icon-fire icon-white"></i> <span class="label label-warning hidden-phone notifnumber" id="task-inprogress-number">0</span>
               </a>
@@ -67,7 +67,7 @@
             </li>
             <!-- end: Notifications Dropdown -->
             <!-- start: Message Dropdown -->
-            <li class="dropdown">
+            <li class="dropdown hidden-phone">
               <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#" data-context="messages" data-route="taskul_message_unread_messages" data-route-content="taskul_message_list_unread_messages">
                 <i class="icon-envelope icon-white"></i> <span class="label label-success hidden-phone notifnumber">0</span>
               </a>
@@ -90,7 +90,7 @@
             </li>
             <!-- end: User Dropdown -->
           </ul>
-          <div class="pull-right" style="padding:10px 20px">{{app.user.username}}</div>
+          <div class="pull-right hidden-phone" style="padding:10px 20px">{{app.user.username}}</div>
         </div>
         <!-- end: Header Menu -->
 
@@ -105,7 +105,7 @@
       <!-- start: Main Menu -->
       <div class="span2 main-menu-span">
         <div style="height:100%">
-        <div class="nav-collapse sidebar-nav">
+        <div class="nav-collapse sidebar-nav collapse">
           {{ knp_menu_render('main', { 'currentClass': 'active'})  }}
         </div><!--/.well -->
         </div>
@@ -130,8 +130,8 @@
 
     <footer>
       <p>
-        <span style="text-align:left;float:left">&copy; 2013 <a href="http://es.linkedin.com/pub/camilo-cota/24/918/b36" title="Linkedin Camilo Cota">Camilo Cota Aranda.</a> All rights reserved.</span>
-        <span style="text-align:right;float:right">Powered by: <a href="http://symfony.com/" title="Symfony is a PHP framework for web projects">Symfony</a></span>
+        <span style="text-align:left;float:left">&copy; 2013 <a href="http://es.linkedin.com/pub/camilo-cota/24/918/b36" title="Linkedin Camilo Cota">Camilo Cota Aranda.</a> <span class="hidden-phone">All rights reserved.</span></span>
+        <span style="text-align:right;float:right" class="hidden-phone">Powered by: <a href="http://symfony.com/" title="Symfony is a PHP framework for web projects">Symfony</a></span>
       </p>
 
     </footer>

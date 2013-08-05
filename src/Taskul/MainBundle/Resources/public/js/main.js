@@ -62,18 +62,6 @@ function notificacion(message, status)
         //launchNotifications();
 }
 
-function clearMenuActive(ulid)
-{
-    $('ul#'+ulid).parent().parent().find('ul').hide();
-	  $('ul#'+ulid).show();
-    $('ul#'+ulid).find('a').addClass('ajaxy');
-
-    $liactive = $('ul#'+ulid).children('li.active');
-    $liactive.find('a').css('color','');
-    $liactive.removeClass('active');
-}
-
-
 $(document).ready(function(){
     var option = { resGetPath: 'messages/__lng__/__ns__.json' };
     $.i18n.init(option);
@@ -83,3 +71,12 @@ function checkMobile()
 {
     return (( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent))?true:false);
 }
+
+var smartphone    = window.matchMedia( "(min-width: 320px)" ) && window.matchMedia( "(max-width: 1024px)" ),
+      sp_landscape  = window.matchMedia( "(min-width: 321px)" ),
+      sp_portrait   = window.matchMedia( "(max-width: 320px)" ),
+      tablet        = window.matchMedia( "(min-width: 768px)" ) && window.matchMedia( "(max-width: 1024px)" ),
+      tab_landscape = tablet && (window.orientation == 'landscape'),
+      tab_portrait  = tablet && (window.orientation == 'portrait'),
+      desktop       = window.matchMedia( "(min-width: 1224px)" ),
+      large         = window.matchMedia( "(min-width: 1824px)" );

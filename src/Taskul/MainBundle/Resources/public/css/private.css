@@ -1,11 +1,3 @@
-body {
-	background: url(/img/bg.jpg) repeat-y top right,
-				url(/img/dbg.jpg) repeat top left;
-	color: #646464;
-	border: none;
-	background-color: #0a0c0e;
-}
-
 /* Header Section
 =================================================================== */
 
@@ -154,4 +146,12 @@ a.brand span {
 
  .ui-progressbar {
     height: 0.5em;
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+ .box-header h2 {font-size: 12px;}
+}
+.navbar .nav > li {
+    float: right;
 }

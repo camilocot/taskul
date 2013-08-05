@@ -450,10 +450,7 @@ header {
 		margin:15px 0 15px;
 	}
 }
-/* Landscape phones and down */
-@media (max-width: 480px) {
 
-}
 
 /* Icons
 -------------------------------------------------- */
@@ -502,4 +499,14 @@ header {
 }
 .top140 {
 	margin-top: 140px !important;
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+	#footer .info .privacy2 ul {
+		text-align: left;
+	}
+	#footer .info .privacy2 ul li{
+		margin-left: 30px;
+	}
 }

@@ -1,6 +1,5 @@
 $(document).ready(function(){
-    clearMenuActive('task_ops');
-    menuColor('li#task_ops_new');
+
     $('#deleteModalWrap').appendTo(document.body);
     if ($(document.body).children('#deleteModalWrap').length>1) $(document.body).children('#deleteModalWrap:gt(0)').remove();
 
@@ -54,15 +53,6 @@ $(document).ready(function(){
     $("#task_percent").simpleSlider({'range': [1,100], 'step': 1});
 
 
-    // Para identificar si vamos a un ver los detalles de la tarea o a gestionar los ficheros
-    // $("button[type=submit]").click(function(e) {
-    //     e.preventDefault(e);
-    //     valSubmit = $(this).val();
-    //     $('input#task_goto_upload').val(valSubmit);
-    //     ne = nicEditors.findEditor('task_description');
-    //     $('#task_description').val(ne.getContent());
-    //     $(this).closest("form").submit();
-    // });
 
     $('#minimize-comments').trigger('click');
     new nicEditor({fullPanel : true}).panelInstance('task_description');

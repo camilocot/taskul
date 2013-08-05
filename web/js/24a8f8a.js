@@ -413,6 +413,5 @@ $(document).ready(function(){
     }
   });
   $('input.pretty').prettyCheckable();
-  menuColor('li#freq_ops_import');
 
 });
