@@ -8,12 +8,21 @@ $(document).ready(function(){
             $dp.datepicker('hide');
             $('input#task_dateEnd').val('');
         });
-        $dp = $('#datepick').datepicker()
+        datePick = $('input#task_dateEnd').val();
+        dpIcon = $('#datepick').datepicker()
         .on('changeDate', function(ev){
-            $('input#task_dateEnd').val($('#datepick').data('date'));
-            $('#datepick').datepicker('hide');
+            $('input#task_dateEnd').val($(this).data('date'));
+            $(this).datepicker('hide');
+            dpInput.datepicker('setValue',$('input#task_dateEnd').val());
         });
-        $('input#task_dateEnd').datepicker();
+        if(datePick !== '')
+            dpIcon.datepicker('setValue',datePick);
+
+        dpInput = $('input#task_dateEnd').datepicker().on('changeDate', function(ev){
+            $('input#task_dateEnd').val($(this).data('date'));
+            $(this).datepicker('hide');
+            dpIcon.datepicker('setValue',$('input#task_dateEnd').val());
+        });
     }
 
     if ($.fn.select2) {
@@ -54,7 +63,6 @@ $(document).ready(function(){
 
 
 
-    $('#minimize-comments').trigger('click');
     new nicEditor({fullPanel : true}).panelInstance('task_description');
 
     /* Percent Slider */

@@ -16,7 +16,7 @@
                 {% if method == 'POST' %}
                     <form class="form-horizontal validate ajaxform" action="{{ path( route ) }}" method="POST" {{ form_enctype(form) }} id="form_task">
                 {% else %}
-                    <form class="form-horizontal validate ajaxform" action="{{ path( route, { id: id } ) }}" method="PUT" {{ form_enctype(form) }} id="form_task">
+                    <form class="form-horizontal validate ajaxform" action="{{ path( route, { id: id } ) }}" method="POST" {{ form_enctype(form) }} id="form_task">
                 {% endif %}
                         <input type="hidden" name="_method" value="{{ method }}" >
                         {{ form_errors(form) }}
@@ -68,6 +68,12 @@
                     </div>
                 </div>
                 <div class="box-content">
+                    <div class="well">
+                      <h2>{{ 'task.comments.warning'|trans }}</h2>
+                      <p style="margin-bottom: 0;" class="muted">
+                        {{ 'task.comments.info'|trans }}
+                      </p>
+                    </div>
                    <div id="fos_comment_thread"></div>
                 </div>
             </div>

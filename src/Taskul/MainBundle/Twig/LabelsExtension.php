@@ -3,6 +3,7 @@ namespace Taskul\MainBundle\Twig;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Translation\TranslatorInterface;
+use JMS\TranslationBundle\Annotation\Ignore;
 
 class LabelsExtension extends \Twig_Extension
 {
@@ -34,7 +35,7 @@ class LabelsExtension extends \Twig_Extension
     			break;
     	}
 
-        return '<span class="'.$class.'">'.$this->translator->trans('task.status.'.$text,array(),'TaskBundle').'</span>';
+        return '<span class="'.$class.'">'.$this->translator->trans(/** @Ignore */'task.status.'.$text,array(),'TaskBundle').'</span>';
     }
 
 	public function labelArray(ArrayCollection $array){

@@ -21,6 +21,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        locales: %localesavailable%
 
 # Assetic Configuration
 assetic:
@@ -141,7 +143,10 @@ apy_breadcrumb_trail:
 
 fos_js_routing:
     routes_to_expose:
-        - "^api_.*" # expose all routes with a name starting with api_
+        - "^[es|en]__api_.*" # expose all routes with a name starting with api_
+        - api_count_task_list_status
+        - api_get_tags
+        - api_list_task_status
 
 jms_serializer:
     metadata:
@@ -306,14 +311,7 @@ sonata_user:
     class:                  # Entity Classes
         user:               Taskul\UserBundle\Entity\User
         group:              Taskul\UserBundle\Entity\Group
-
-lunetics_locale:
-    allowed_locales:
-        - en
-        - es
-    guessing_order:
-        - session
-        - cookie
-        - browser
-        - query
-        - router
+jms_i18n_routing:
+    default_locale: %locale%
+    locales: %localesavailable%
+    strategy: prefix

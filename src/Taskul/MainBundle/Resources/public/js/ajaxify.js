@@ -17,10 +17,10 @@ var historyBool = true; // Para los formularios qeu sino carga la pagina 2 veces
 	// Wait for Document
 	$(function(){
         $menu = $('#menu,#nav,nav:first,.nav:first').filter(':first');
-        var
-            $window = $(window),
-            $body = $(document.body),
-            rootUrl = History.getRootUrl();
+        $window = $(window);
+        $body = $(document.body);
+        rootUrl = History.getRootUrl();
+
         // Ajaxify Helper
         $.fn.ajaxify = function(){
 
@@ -72,10 +72,15 @@ var $menu,
     activeClass = 'active selected current youarehere',
     activeSelector = '.active,.selected,.current,.youarehere',
     menuChildrenSelector = '> li,> ul > li',
-    relativeUrl;
+    relativeUrl,
+    $window,
+    $body,
+    rootUrl,
+    completedEventName = 'statechangecomplete';
 
 function loadPage(url)
 {
+
     if(!$(".progress-indicator").is(':visible'))
         $(".progress-indicator").fadeIn(500);
     $.ajax({
@@ -103,6 +108,16 @@ function loadPage(url)
                 if ( $menuChildren.length === 1 ) { $menuChildren.addClass(activeClass); }
                 $(".progress-indicator").fadeOut(500);
             }
+
+            // document.title = title;
+            // try {
+            //         document.getElementsByTagName('title')[0].innerHTML = document.title.replace('<','&lt;').replace('>','&gt;').replace(' & ',' &amp; ');
+            //     }
+            // catch ( Exception ) { }
+
+            // Complete the change
+            $body.scrollTo( 0, 800 );
+            $window.trigger(completedEventName);
 
         },
         error: function(jqXHR, textStatus, errorThrown){
@@ -146,6 +161,7 @@ function checkResponse(data)
         }else
             redirect(data.url);
     }else if(data.success === true && data.url) {
+        title = data.title;
         loadPage(data.url);
         historyBool = false;
         if(data.message)

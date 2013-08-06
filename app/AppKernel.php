@@ -53,7 +53,10 @@ class AppKernel extends Kernel
             new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             // Locales
-            new Lunetics\LocaleBundle\LuneticsLocaleBundle(),
+            new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
+
+            // not required, but recommended for better extraction
+            new JMS\TranslationBundle\JMSTranslationBundle(),
 
         );
 

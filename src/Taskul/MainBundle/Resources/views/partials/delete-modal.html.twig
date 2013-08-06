@@ -13,7 +13,7 @@
         <button class="btn btn-danger btn-confirm-modal">{{ 'modal.delete.confirm'|trans({},'MainBundle') }}</button>
     </div>
 </div>
-<form action="" method="DELETE" {{ form_enctype(delete_form) }} data-input-id="#form_delete_id" data-modal-id="#deleteModal" class="ajaxmodalform">
+<form action="" method="POST" {{ form_enctype(delete_form) }} data-input-id="#form_delete_id" data-modal-id="#deleteModal" class="ajaxmodalform">
     <input name="_method" type="hidden" value="DELETE" />
     <input type="hidden" name="redirect" value="" />
     {{ form_widget(delete_form) }}

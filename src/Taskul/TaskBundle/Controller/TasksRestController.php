@@ -9,6 +9,7 @@ use FOS\RestBundle\Controller\Annotations\RouteResource;
 
 use Taskul\TaskBundle\Controller\Base\TasksRestBaseController as BaseController;
 use Taskul\MainBundle\Component\CheckAjaxResponse;
+
 /**
  * Task Rest controller.
  * @RouteResource("Task")
@@ -290,7 +291,7 @@ class TasksRestController extends BaseController {
 
                 return $this->returnResponse(TRUE,$this->getResponseMessage($method),$this->getResponseUrl($data,$task->getId()), $this->getResponseTitle($data));
             }else{
-                return $this->returnResponse(FALSE,$form->getErrosAsString());
+                return $this->returnResponse(FALSE,$form->getErrorsAsString());
             }
         }
 

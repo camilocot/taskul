@@ -72,6 +72,8 @@ task:
 
     comments:
         title: Comentarios
+        warning: Información
+        info: 'Los comentarios son analizados para evitar palabras ofensivas y el SPAM, por lo que suelen tardar unos segundos en mostrarse.'
 notification:
     task:
         pending: '{0} No tiene tareas pendientes|{1} Tienes una tarea pendiente|]1,Inf] Tienes %count% tareas pendientes'

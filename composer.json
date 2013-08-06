@@ -13,7 +13,8 @@
         "doctrine/doctrine-bundle": "1.2.*",
         "twig/extensions": "1.0.*@dev",
         "symfony/assetic-bundle": "2.1.*",
-        "symfony/swiftmailer-bundle": "2.2.*",
+        "symfony/swiftmailer-bundle": "2.1.*",
+	"swiftmailer/swiftmailer":"4.*",
         "symfony/monolog-bundle": "2.2.*",
         "sensio/distribution-bundle": "2.2.*",
         "sensio/framework-extra-bundle": "2.2.*",
@@ -45,7 +46,7 @@
         "sonata-project/intl-bundle": "dev-master",
         "simplethings/entity-audit-bundle": "dev-master",
         "sonata-project/user-bundle": "dev-master",
-        "lunetics/locale-bundle": "dev-master"
+        "jms/i18n-routing-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

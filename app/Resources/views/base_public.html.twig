@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ app.request.locale }}">
 <head>
     <title>Business Template</title>
     <base href="{{ app.request.schemeAndHttpHost }}">
@@ -19,6 +19,7 @@
     '@MainBundle/Resources/public/css/features.css'
     '@MainBundle/Resources/public/css/services.css'
     '@MainBundle/Resources/public/css/reset.css'
+    '@MainBundle/Resources/public/css/flags.css'
     %}
     <link rel="stylesheet" href="{{ asset_url }}">
     {% endstylesheets %}
@@ -82,9 +83,9 @@
     '@MainBundle/Resources/public/js/vendor/additional-methods.min.js'
     '@MainBundle/Resources/public/js/vendor/jquery.uniform.js'
     '@MainBundle/Resources/public/js/vendor/jNotify.jquery.js'
+    '@MainBundle/Resources/public/js/vendor/jquery.scrollTo.min.js'
     '@MainBundle/Resources/public/js/theme.js'
     '@MainBundle/Resources/public/js/main.js'
-
     '@MainBundle/Resources/public/js/ajaxify.js'
     %}
     <script src="{{ asset_url }}"></script>

@@ -1,0 +1,88 @@
+notification:
+    task:
+        pending: '{0} No tiene tareas pendientes|{1} Tienes una tarea pendiente|]1,Inf] Tienes %count% tareas pendientes'
+        view_all: 'Ver todas las tareas'
+
+search:
+    title: 'Buscar tareas'
+
+task:
+    actions:
+        back: 'Volver al listado'
+        delete: Borrar
+        edit: Modificar
+
+    comments:
+        info: task.comments.info   # FIXME
+        title: Comentarios
+        warning: task.comments.warning   # FIXME
+
+    files:
+        content: 'Utiliza el formulario de abajo para asociar ficheros a la tarea. Tus contactos asociados a la tarea también podrán incluir sus propios ficheros.'
+
+        form:
+            title: 'Haz click y selecciona los ficheros:'
+
+        nofiles: 'No existe ningún fichero asociado a la tarea. Puedes usar el formulario superior para adjuntar ficheros.'
+        success: 'Operación realizada correctamente'
+        title: 'Administrar ficheros'
+
+        view:
+            title: 'Ficheros asociados a la tarea'
+
+    list:
+        buttons:
+            delete: 'Borrar tarea'
+            edit: 'Modificar tarea'
+            new: 'Crear nueva tarea'
+            view: 'Ver los detalles de la tarea'
+
+        name: Descripción
+        notags: 'No existen tags definidas agrégalas modificando la tarea.'
+        status: Estado
+        title: 'Listado de todas tus tareas'
+
+    new:
+        back: 'Volver al listado'
+        create_success: 'La tarea se ha creado correctamente'
+        date_end: Finalización
+        delete_success: 'La tarea ha sido eliminada correctamente'
+        delete_unsuccess: 'No se ha podido eliminar la tarea. Por favor, pruebe en unos minutos o contace con nosotros.'
+        description: 'Descripción completa'
+        edit_success: 'La tarea ha sido modificada correctamente'
+        finish: Terminar
+
+        help:
+            date_end: 'Fecha aproximada de finalización'
+            description: 'Introduce una descripción completa de la tarea'
+            members: 'Selecciona de tus contactos quien tendrá acceso a visualizar, cargar ficheros y comentar en esta tarea. Sino tienes contactos puedes enviarles invitaciones por <a href="%emaillink%" title="Enviar invitaciones a contactos por email" target="_blank"><strong>email</strong></a> o por <a href="%fblink%" title="Enviar invitaciones a contactos de Facebook" target="_blank"><strong>Facebook</strong></a>.'
+            name: 'Introduce una pequeña descripcion para la tarea'
+            percent: 'Define el porcentaje completado de la tarea'
+            tags: 'Introduce etiquetas cons las que podrás organizar y filtrar todas tus tareas. Ej. asignaturas, clientes, etc ...'
+
+        members: Miembros
+        more_data: 'Datos adicionales'
+        name: Nombre
+        percent: Porcentaje
+        status: Estado
+        tags: Etiquetas
+        title: 'Nueva tarea'
+
+    search_clean: 'Pulsa para limpiar la búsqueda'
+
+    view:
+        created: 'Creada el'
+        dateend: 'Fecha de prevista de finalización'
+        description: Descripción
+        members: Miembros
+        name: Nombre
+        no_dateEnd: 'Sin fecha prevista de finalización'
+        percent: 'Porcentaje finalizado'
+        status: Estado
+        tags: Etiquetas
+        title: 'Ver tarea'
+        updated: 'Actualizada el'
+
+warning:
+    content: 'No hay ninguna tarea creada. Puedes crear nuevas tareas usando <a href="%href%" class="ajaxy" title="Crear tareas">este formulario</a>.'
+    title: Advertencia

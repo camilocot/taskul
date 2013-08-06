@@ -4,6 +4,7 @@ namespace Taskul\TaskBundle\Controller\Base;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\FOSRestController;
+use JMS\TranslationBundle\Annotation\Ignore;
 
 /**
  * Task Base Rest controller.
@@ -158,7 +159,7 @@ class TasksRestBaseController extends FOSRestController {
 		if(null !== $translationDomain)
 		{
 			$t = $this->getTranslator();
-			$this->getBreadCrumb()->add($t->trans($name,$paramsTranslation,$translationDomain), $route, $routeParams);
+			$this->getBreadCrumb()->add($t->trans(/** @Ignore */$name,$paramsTranslation,$translationDomain), $route, $routeParams);
 
 		}
 		else

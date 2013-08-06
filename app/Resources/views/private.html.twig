@@ -89,6 +89,13 @@
               </ul>
             </li>
             <!-- end: User Dropdown -->
+            {% set routeName = app.request.attributes.get("_route") %}
+            {% set routeParams = app.request.attributes.get("_route_params") %}
+            {% for locale in locales %}
+              {% if locale != app.request.locale %}
+              <li><a href="{{ path(routeName, routeParams|merge({"_locale": locale})) }}">{{ locale }}</a></li>
+              {% endif % }
+            {% endfor %}
           </ul>
           <div class="pull-right hidden-phone" style="padding:10px 20px">{{app.user.username}}</div>
         </div>

@@ -1,0 +1,34 @@
+notification:
+    latest: 'Últimas actualizaciones en tu cuenta'
+    no_result: 'No se ha encontrado actividad reciente en tu cuenta'
+    pending:
+        TASK: '{0} No tienes notificaciones nuevas|{1} ienes una notificación nueva|]1,Inf] Tienes %total% notificaciones nuevas'
+        FRIENDREQUEST: '{0} No tienes solicitudes pendientes|{1} Tienes una solicitud nueva|]1,Inf] Tienes %total% solicitudes nuevas'
+    DOCUMENT:
+        create: 'Nuevo fichero añadido (%extra%)'
+    COMMENT:
+        create: 'Nuevo comentario creado por %extra%'
+    TASK:
+        create: 'Nueva tarea creada (%extra%)'
+        update: 'Tarea actualizada (%extra%)'
+        delete: 'Tarea borrada (%extra%)'
+        name: 'tareas'
+        title: 'Notificaciones acerca de tareas'
+        pending:
+            title: 'Tareas pendientes'
+    FRIENDREQUEST:
+        title: 'Solicitudes de amistad'
+        create: 'Nueva solicitud de amistad de %extra%'
+    view:
+        task: 'Detalles de tarea'
+        friendrequest: 'Detalles de solicitu de contacto'
+        message: 'Vew mensaje'
+timeline:
+    one_task: 'una tarea'
+    assoc_task: 'en la tarea'
+    one_file: 'un fichero'
+    one_comment: 'un comentario'
+    one_message: 'un mensaje'
+    the: el
+    one_friend_request: 'una solicitud de amistad'
+    to: 'para'

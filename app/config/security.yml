@@ -70,20 +70,20 @@ security:
         #     anonymous:    true
 
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(es|en)/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(es|en)/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(es|en)/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         # Admin login page needs to be access without credential
-        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/frequest/, role: ROLE_USER }
-        - { path: ^/task/, role: ROLE_USER }
-        - { path: ^/friend/, role: ROLE_USER }
-        - { path: ^/api/, role: ROLE_USER }
-        - { path: ^/msg/, role: ROLE_USER }
-        - { path: ^/dashboard, role: ROLE_USER }
+        - { path: ^/(es|en)/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(es|en)/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(es|en)/admin/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(es|en)/admin/, role: ROLE_ADMIN }
+        - { path: ^/(es|en)/frequest/, role: ROLE_USER }
+        - { path: ^/(es|en)/task/, role: ROLE_USER }
+        - { path: ^/(es|en)/friend/, role: ROLE_USER }
+        - { path: ^/(es|en)/api/, role: ROLE_USER }
+        - { path: ^/(es|en)/msg/, role: ROLE_USER }
+        - { path: ^/(es|en)/dashboard, role: ROLE_USER }
 
     role_hierarchy:
         ROLE_ADMIN:       [ROLE_USER, ROLE_SONATA_ADMIN]

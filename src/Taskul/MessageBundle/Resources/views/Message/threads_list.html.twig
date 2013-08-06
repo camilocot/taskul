@@ -22,12 +22,11 @@
         {% for thread in threads %}
             <tr>
                 <td>
-                    <a href="{{ path('fos_message_thread_view', {'threadId': thread.id}) }}" class="ajaxy" title="{{ 'message.view.title'|trans({},'MessageBundle') }} : {{ thread.subject }}">
+                    <a href="{{ path('fos_message_thread_view', {'threadId': thread.id}) }}" class="ajaxy btn btn-mini btn-inverse" title="{{ 'message.view.title'|trans({},'MessageBundle') }} : {{ thread.subject }}">
                     {% if not fos_message_is_read(thread) %}
                         <span class="label label-success">{% trans from 'FOSMessageBundle' %}new{% endtrans %}</span>
                     {% endif %}
-                        <strong>{{ thread.subject }}</strong>
-                         →
+                        <strong>{{ thread.subject }}</strong>&nbsp;&nbsp;<i class="fa-icon-arrow-right icon-white"></i>
                     </a>
                 </td>
                 <td>

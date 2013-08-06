@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
-
+use JMS\DiExtraBundle\Annotation\Service;
 /**
  * @Service("request.set_messages_count_listener")
  *

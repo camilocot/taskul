@@ -1,0 +1,88 @@
+friendrequest:
+    view:
+        title: 'Ver solicitud de contacto'
+        message: 'Mensaje'
+        to: 'Destinatario'
+        from: 'Remitente'
+        back: 'Volver a las solicitudes'
+        activate: 'Confirmar'
+        delete: 'Borrar'
+        note: 'El siguiente usuario te ha enviado una solicitud para invitarte a conectar. Si la activas podréis asociaros como miembros, subir ficheros y comentar en vuestras tareas. También podréis enviaros mensajes privados entre vosotros.'
+        title_note: 'Importante, lee lo siguiente antes de continuar'
+        date: Fecha
+    list:
+        sended: 'Listado de solicitudes de contacto enviadas'
+        recibed: 'Listado de solicitudes de contacto recibidas'
+        from: 'Remitente'
+        to: Destinatario
+        message: Mensaje
+        date_recibed: Recibida
+        date_sended: Enviada
+        buttons:
+            delete: 'Pulsa para eliminar las solicitud'
+            activate: 'Pulsa para activar la solicitud'
+            show: 'Ver detalles de la solicitud'
+            new: 'Nueva invitación'
+        error:
+            spam: 'El mensaje que intentas enviar es considerado como SPAM, por favor revísalo y vuelve a intentarlo.'
+    email:
+        new:
+            title: 'Envía invitaciones por email a tus contactos'
+            email_help: 'Introduzca los emails separados por punto y comas ";"'
+            message_help: 'Introduzca el mensaje a enviar a los contactos ...'
+            send: 'Enviar'
+            back: 'Volver'
+    delete:
+        success: 'Se ha eliminado satisfactoriamente la solicitud.'
+    new:
+        email: 'Email(s) de destino'
+        message: 'Mensaje de invitación'
+        title: 'Invita a tus contactos'
+        content: 'Énvía invitaciones a tus contactos, cuando la acepten podrás agregarlos a tus tareas y ellos también a tí. Puedes separar una lista de emails con el caracter ";"'
+        email_help: 'example@example.com;example2@taskul.net'
+    breadcrumb:
+        index: 'Solicitudes de contacto'
+        recibed: 'Solicitudes de contacto recibidas'
+        sended: 'Solicitudes de contacto enviadas'
+        view: 'Detalle de solicitud de contacto'
+        new: 'Nueva solicitud de contacto'
+    recibed:
+        title: 'Solicitudes de contacto recibidas'
+    sended:
+        title: 'Solicitudes de contacto enviadas'
+    warning:
+        text: 'No tienes ninguna solicitud de contacto. Si quieres enviar invitaciones por email utiliza <a href="%email_form_contact%" class="ajaxy">este formulario</a> o si quieres invitar a tus amigos de Facebook utiliza <a href="%fb_form_contact%" class="ajaxy">este otro formulario</a>'
+    facebook:
+        message: 'Mensaje que acompañará a tu solicitud'
+        title: 'Envía invitaciones'
+        send: 'Enviar invitaciones'
+        select:
+            all: 'Seleccionar todos'
+            invert: 'Invertir selección'
+        summary: 'Se ha enviado una invitación.|Se han enviado %count% invitaciones.'
+    index:
+        title: 'Listado de solicitudes de contacto'
+        recibed: Recibidas
+        sended: Enviadas
+    activate:
+        successfully: 'Solicitud aceptada correctamente ...'
+
+message:
+    sent:
+        successfully: 'Invitacion enviada correctamente|Invitaciones (%num%) enviadas correctamente'
+    isSpam: 'Lo sentimos el contenido del mensaje ha sido clasificado como SPAM, por favor revíselo y vuelva a intentarlo'
+friend:
+    myfriends: 'Mis contactos'
+    search: 'Buscar contactos'
+    search_note: 'Introduce el nombre o email'
+    search_clean: 'Pulsa para limpiar la búsqueda'
+    name: 'Nombre'
+    actions: 'Acciones'
+    title: 'Aquí puedes ver tus contactos'
+    content: 'En el listado de abajo aparecen todos los contactos que tiene asociada tu cuenta, desde aquí puedes gestionarlos.'
+    delete:
+        success: 'Se ha eliminado satisfactoriamente el contacto.'
+    warning:
+        text: 'No tienes ningún contacto. Si quieres enviar invitaciones por email utiliza <a href="%email_form_contact%" class="ajaxy">este formulario</a> o si quieres invitar a tus amigos de Facebook utiliza <a href="%fb_form_contact%" class="ajaxy">este otro formulario</a>'
+warning:
+    title: 'Advertencia'

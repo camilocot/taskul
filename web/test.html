@@ -1,39 +1,108 @@
-<html>
-	<head>
-		<style>
-			div.wrapper {
-				width: 600px;
-				margin: 0 auto;
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Responsive Email Template</title>
+
+<style type="text/css">
+	.ReadMsgBody {width: 100%; background-color: #ffffff;}
+	.ExternalClass {width: 100%; background-color: #ffffff;}
+	body	 {width: 100%; background-color: #ffffff; margin:0; padding:0; -webkit-font-smoothing: antialiased;font-family: Georgia, Times, serif}
+	table {border-collapse: collapse;}
+
+	@media only screen and (max-width: 640px)  {
+					body[yahoo] .deviceWidth {width:440px!important; padding:0 4px;}
+					body[yahoo] .center {text-align: center!important;}
 			}
-			div.sideshadows {
-				position: relative;
-				width: 500px;
-				height: 100px;
-				box-shadow: 0 0 20px #222;
+
+	@media only screen and (max-width: 479px) {
+					body[yahoo] .deviceWidth {width:280px!important; padding:0 4px;}
+					body[yahoo] .center {text-align: center!important;}
 			}
-			div.sideshadows div.sideshadows-inner {
-				position: absolute;
-				top: -15px;
-				width: 500px;
-				height: 130px;
-				background-color: #fff;
-			}
-			div.content {
-				padding: 25px 20px;
-			}
-			p { 
-				margin: 25px 20px;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="wrapper">
-			<h1>This is a side-shadow box</h1>
-			<div class="sideshadows">
-				<div class="sideshadows-inner">
-						<p>This is some content.</p>
-				</div>
-			</div>
-		</div>
-	</body>
+
+</style>
+</head>
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" yahoo="fix" style="font-family: Georgia, Times, serif">
+
+<!-- Wrapper -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center">
+	<tr>
+		<td width="100%" valign="top" bgcolor="#ffffff" style="padding-top:20px">
+
+			<!-- Start Header-->
+			<table width="580" border="0" cellpadding="0" cellspacing="0" align="center" class="deviceWidth">
+				<tr>
+					<td width="100%" bgcolor="#ffffff">
+
+                            <!-- Logo -->
+                            <table width="580" border="0" cellpadding="0" cellspacing="0" align="left" class="deviceWidth" bgcolor="#eeeeed">
+                                <tr>
+                                    <td style="padding:10px 20px" class="center">
+									<img width="50" src="http://taskul.local/img/skull_logo1.png" alt="Logo" class="info-beta">
+                                    </td>
+
+                                    <td class="center" style="font-size: 13px; color: #272727; font-weight: light; text-align: right; font-family: Georgia, Times, serif; line-height: 20px; vertical-align: middle; padding:10px 20px; font-style:italic">
+                                        <a href="http://www.taskul.net" style="text-decoration: none; color: #3b3b3b;">TASKUL.NET</a>
+                                        &nbsp;&nbsp;&nbsp;
+                                    </td>
+                                </tr>
+                            </table><!-- End Nav -->
+
+					</td>
+				</tr>
+			</table><!-- End Header -->
+
+			<table width="580"  class="deviceWidth" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#eeeeed">
+                <tr>
+                    <td style="font-size: 13px; color: #959595; font-weight: normal; text-align: left; font-family: Georgia, Times, serif; line-height: 24px; vertical-align: top; padding:0px 20px 20px 20px" bgcolor="#eeeeed">
+
+                        <table>
+                            <tr>
+                                <td valign="middle" style="padding:0 10px 10px 0"><a href="#" style="text-decoration: none; color: #272727; font-size: 16px; color: #272727; font-weight: bold; font-family:Arial, sans-serif ">{% block title %}{% endblock %}</a>
+                                </td>
+                            </tr>
+                        </table>
+    					{% block content %}{% endblock %}
+                    </td>
+                </tr>
+			</table>
+			<table width="580" border="0" cellpadding="0" cellspacing="0" align="center" class="deviceWidth" >
+				<tr>
+                                <td bgcolor="#363636" style="padding:20px 20px 20px 15px">
+                                        <table width="45%" cellpadding="0" cellspacing="0"  border="0" align="left" class="deviceWidth">
+                                            <tr>
+                                                <td valign="top" style="font-size: 11px; color: #f1f1f1; color:#999; font-family: Arial, sans-serif; padding-bottom:20px" class="center">
+
+
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <table width="40%" cellpadding="0" cellspacing="0"  border="0" align="right" class="deviceWidth">
+                                            <tr>
+                                                <td valign="top" style="font-size: 11px; color: #f1f1f1; font-weight: normal; font-family: Georgia, Times, serif; line-height: 26px; vertical-align: top; text-align:right" class="center">
+
+
+                                                    <a href="https://twitter.com/TASKULnet"><img src="http://www.emailonacid.com/images/emails/5_13/footer_twitter.gif" width="42" height="42" alt="Twitter Taskul.net" title="Twitter Taskul.net" border="0" /></a>
+
+                                                    <a href="https://twitter.com/camilocot"><img src="http://www.emailonacid.com/images/emails/5_13/footer_twitter.gif" width="42" height="42" alt="Twitter Camilo Cota" title="Twitter Camilo Cota" border="0" /></a>
+
+                                                    <br />
+
+                                                    <a href="mailto:taskul.net@gmail.com" style="text-decoration: none; color: #848484; font-weight: normal;">taskul.net@gmail.com</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                        		</td>
+                </tr>
+            </table>
+		</td>
+	</tr>
+</table> <!-- End Wrapper -->
+
+</body>
 </html>

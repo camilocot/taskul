@@ -1,0 +1,12 @@
+message:
+    view:
+        title: 'Ver el mensaje'
+    search: 'Buscar mensajes'
+    search_clean: 'Pulsa para limpiar la búsqueda'
+    title: 'Listado de mensajes'
+    content: 'Aquí puede gestionar los mensajes que ha recibido/enviado, así como responder a los hilos de mensajes, para ellos pulse sobre el asunto del mensaje.'
+warning:
+    title: 'Advertencia'
+notification:
+    message:
+        pending: '{0} No tiene mensajes nuevos|{1} Tienes un mesaje nuevo|]1,Inf] Tienes %count% mensajes nuevos'

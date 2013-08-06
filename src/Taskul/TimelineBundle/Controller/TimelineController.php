@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\NoResultException;
 use Taskul\MainBundle\Component\DateClass;
 use Spy\Timeline\Model\ActionInterface;
+use JMS\TranslationBundle\Annotation\Ignore;
+
+
 /**
  * @Route("/api")
  */
@@ -32,6 +35,7 @@ class TimelineController extends Controller
      *
      * @Route("/get_notifications/{context}", name="get_notifications", defaults={"context" = "GLOBAL"}, options={"expose"=true})
      * @Method({"GET"})
+     *
      */
 
     public function getNotificationsAction($context)
@@ -43,7 +47,7 @@ class TimelineController extends Controller
             'success' => TRUE,
             'total' =>  $total,
             'result'=> $results,
-            'message' => $t->transChoice('notification.pending.'.$context,$total,array(
+            'message' => $t->transChoice(/** @Ignore */'notification.pending.'.$context,$total,array(
                 '%total%'=>$total,
                 ),'TimelineBundle')
             ));
@@ -355,7 +359,7 @@ class TimelineController extends Controller
         $verb = $action->getVerb();
         $t = $this->container->get('translator');
 
-        return $t->trans('notification.'.strtoupper($class).'.'.$verb,array('%extra%'=>$summary),'TimelineBundle');
+        return $t->trans(/** @Ignore */ 'notification.'.strtoupper($class).'.'.$verb,array('%extra%'=>$summary),'TimelineBundle');
 
     }
 

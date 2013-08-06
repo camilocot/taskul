@@ -13,6 +13,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerI
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Translation\TranslatorInterface;
 use Taskul\MainBundle\Component\CheckAjaxResponse;
+use JMS\TranslationBundle\Annotation\Ignore;
 
 class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, AuthenticationFailureHandlerInterface
 {
@@ -57,11 +58,11 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Au
         if ($request->isXmlHttpRequest()) {
             $result = array(
 	            	'success' => false,
-	            	'message' => $this->translator->trans($exception->getMessage(),array(),'FOSUserBundle')
+	            	'message' => $this->translator->trans(/** @Ignore */$exception->getMessage(),array(),'FOSUserBundle')
             	);
             return new JsonResponse($result);
         }else{
-        	$request->getSession()->setFlash('error', $this->translator->trans($exception->getMessage(),array(),'FOSUserBundle'));
+        	$request->getSession()->setFlash('error', $this->translator->trans(/** @Ignore */$exception->getMessage(),array(),'FOSUserBundle'));
             $url = $this->router->generate('fos_user_security_login');
             return new RedirectResponse($url);
         }

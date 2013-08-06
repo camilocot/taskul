@@ -2,7 +2,7 @@
 {% macro attributestrans(attributes,item) %}
 {% for name, value in attributes %}
     {%- if name == 'title' -%}
-    title="{{ value|trans(item.getExtra('translation_params', {}), item.getExtra('translation_domain', 'MainBundle')) }}"
+    {{- ' ' -}}title="{{ value|trans(item.getExtra('translation_params', {}), item.getExtra('translation_domain', 'MainBundle')) }}"
     {%- elseif value is not none and value is not sameas(false) -%}
         {{- ' %s="%s"'|format(name, value is sameas(true) ? name|e : value|e)|raw -}}
     {%- endif -%}

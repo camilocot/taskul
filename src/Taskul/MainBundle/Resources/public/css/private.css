@@ -148,6 +148,12 @@ a.brand span {
     height: 0.5em;
 }
 
+.form-horizontal .form-actions {
+padding-left: 20px;
+}
+.nicEdit-main {
+    padding: 10px;
+}
 /* Landscape phones and down */
 @media (max-width: 480px) {
  .box-header h2 {font-size: 12px;}

@@ -1,0 +1,96 @@
+dashboard:
+    current_quota:
+        box_header: 'Espacio en disco usado'
+        title: 'Aquí puedes ver el espacio ocupado por tus ficheros'
+        content: 'Aquí se muestra el porcentaje ocupada de tu espacio asignado. Este espacio es calculado a partir del tamaño de los ficheros que hayas subido en tus tareas. En principio está limitado a 50Mb por usuario.'
+    quick_links:
+        box_header: 'Accesos rápidos'
+        list_tasks: 'Lista de tareas'
+        new_task: 'Crear tarea'
+        new_message: 'Enviar mensaje'
+        new_friend_request: 'Enviar invitacion'
+        new_fb: 'Invitar a amigos'
+        titles:
+            list_tasks: 'Aquí podrás ver y gestionar todas tus tareas, también en las que te hayan agregado tus contactos'
+            new_task: 'Desde aquí podrás crear tus tareas'
+            new_message: 'Envía un mensaje a alguno de tus contactos'
+            new_friend_request: 'Invita a darse de alta a tus contactos por email, luego podrás agregarlos a tus tareas'
+            new_fb: 'Invita a darse de alta a tus contactos de facebook, luego podrás agregarlos a tus tareas'
+modal:
+    delete:
+        confirm: 'Eliminar'
+        cancel: 'Cancelar'
+        title: 'Advertencia'
+        content:
+            myfriends_delete: '¿ Está seguro de borrar al contacto ? <b>Se eliminará como miembro de sus tareas y también usted de las suyas</b>.'
+            frequest_delete: '¿ Está seguro de eliminar la solicitud de contacto ?'
+            task: '¿ Está seguro de eliminar la tarea ?'
+            file: '¿ Está seguro de eliminar el fichero ?'
+            generic: '¿ Está seguro ?'
+            fos_message_thread_delete: '¿ Está seguro de eliminar el hilo de mensajes ?'
+    activate:
+        confirm: Confirmar
+        cancel: Cancelar
+        title: Advertencia
+        content:
+            frequest_activate: '¿ Está seguro de confirmar la solicitud de contacto ?'
+search:
+    title: 'Búsqueda'
+    clear_filter: 'Pulsa para limpiar la búsqueda'
+    info: 'Introduce algún término para buscar'
+lists:
+    actions: 'Acciones'
+    view_more: 'Ver más'
+or: O
+privacy: 'Política de privacidad'
+legal: 'Aviso legal'
+follow:
+    taskul:
+        twitter: 'Seguir a Taskul en Twitter'
+    camilo:
+        twitter: 'Seguir a Camilo Cota en Twitter'
+taskul:
+    beta: 'Taskul.net</a> está en fase <strong>BETA</strong>, por favor ayúdenos a mejorar cumplimentando el formulario de sugerencias y/o problemas. Gracias.'
+menu:
+    title:
+        register: 'Registro gratuito en el gestor de tareas Taskul.NET'
+        login: 'Accede a administrar tus tareas'
+        dashboard: 'Panel de control de administración'
+        tasks: 'Revisa todas las tareas que gestionas'
+        task:
+            new: 'Crea una nueva tarea'
+            list: 'Listado de todas tus tareas'
+        frequests: 'Gestiona las solicitudes de contacto enviadas y recibidas'
+        frequest:
+            new: 'Envía una solicitud de contacto por email'
+            sended: 'Gestiona las solicitudes enviadas'
+            recibed: 'Gestiona las solicitudes recibidas'
+            import_fb: 'Iinvita a tus contactos de Facebbok'
+        friends: 'Gestiona tus contactos'
+        friend:
+            list: 'Listado de todos tus contactos'
+        messages: 'Gestiona tus mensajes privados'
+        message:
+            recibed: 'Listado de tus mensajes recibidos'
+            sended: 'Listado de tus mensajes enviados'
+
+    tasks: 'Listado de tareas'
+    register: 'Registro gratuito'
+    login: 'Acceder'
+    dashboard: 'Dashboard'
+    task:
+        new: 'Crear nueva'
+        list: 'Todas'
+    frequests: 'Solicitudes'
+    frequest:
+        new: 'Enviar por email'
+        sended: 'Enviadas'
+        recibed: 'Recibidas'
+        import_fb: 'Invitar amigos de FB'
+    friends: Contactos
+    friend:
+        list: 'Listado'
+    messages: Mensajes
+    message:
+        recibed: Recibidos
+        sended: Enviados

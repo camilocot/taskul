@@ -4,6 +4,7 @@ namespace Taskul\MainBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
+use JMS\TranslationBundle\Annotation\Ignore;
 
 class BaseController extends Controller {
 
@@ -43,7 +44,7 @@ class BaseController extends Controller {
 		if(null !== $translationDomain)
 		{
 			$t = $this->getTranslator();
-			$this->getBreadCrumb()->add($t->trans($name,$paramsTranslation,$translationDomain), $route, $routeParams);
+			$this->getBreadCrumb()->add($t->trans(/** @Ignore */$name,$paramsTranslation,$translationDomain), $route, $routeParams);
 
 		}
 		else
