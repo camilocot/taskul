@@ -4,7 +4,7 @@ $(document).ready(function(){
   if(window.location.href.match(/change_password$/)){
     $('a').click(function(e){
       e.preventDefault();
-      notificacion($.t('msg.change.password') ,'error');
+      notificacion(t('msg.change.password') ,'error');
       return false;
     });
   }
@@ -134,14 +134,14 @@ $(document).ready(function(){
         content = ne.getContent().replace(/^(<p\>(\&nbsp\;|(\s)*)<\/p\>|<br(\s\/)?\>)$/g,'');
         if(content === '')
         {
-          notificacion($.t('msg.comment.empty') ,'error');
+          notificacion(t('msg.comment.empty') ,'error');
           event.preventDefault();
           return false;
         }
         else
         {
           if(!$form.hasClass('ajaxform')) {
-            notificacion($.t('msg.comment.success_send'),'success'); // Esto es para los comentarios de la tareas
+            notificacion(t('msg.comment.success_send'),'success'); // Esto es para los comentarios de la tareas
           }
           $('#'+textareaid).val(content);
           $form.submit();

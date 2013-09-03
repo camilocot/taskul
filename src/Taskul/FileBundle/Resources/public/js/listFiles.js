@@ -31,9 +31,14 @@ $(document).ready(function() {
             $(".progress-indicator").fadeOut(500);
         },
         fail: function (e,data) {
-            obj = jQuery.parseJSON(data.jqXHR.responseText);
+            try {
+                obj = jQuery.parseJSON(data.jqXHR.responseText);
+                msg = obj.message;
+            } catch (ex) {
+                msg = t('msg.error.maxupload');
+            }
             $(".progress-indicator").fadeOut(500);
-            var n = notificacion(obj.message, 'error' );
+            var n = notificacion(msg, 'error', 5000 );
         }
     });
 
@@ -55,8 +60,8 @@ $(document).ready(function() {
     $remove = null;
     $('.footable').footable();
 
-    $('span.filename').text($.t('msg.uniform.fileButtonHtml'));
-    $('span.action').text($.t('msg.uniform.fileDefaultHtml'));
+    $('span.filename').text(t('msg.uniform.fileButtonHtml'));
+    $('span.action').text(t('msg.uniform.fileDefaultHtml'));
 
     $('#dial-quota').bind('deleterow',function(e){
         refreshQuota();

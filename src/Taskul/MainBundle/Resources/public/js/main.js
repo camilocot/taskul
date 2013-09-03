@@ -22,7 +22,7 @@
 }());
 
 
-function notificacion(message, status)
+function notificacion(message, status, delay)
 {
     // $('.top-right').notify({
     //                 message: { text: message },
@@ -30,6 +30,9 @@ function notificacion(message, status)
     //                 fadeOut: { enabled: true, delay: 3000 }
     // }).show();
     notif = 'jNotify';
+
+    if(typeof delay === 'undefined')
+      delay = 3000;
     switch (status)
     {
         case 'error':
@@ -45,7 +48,7 @@ function notificacion(message, status)
           autoHide : true, // added in v2.0
           clickOverlay : false, // added in v2.0
           MinWidth : 250,
-          TimeShown : 3000,
+          TimeShown : delay,
           ShowTimeEffect : 200,
           HideTimeEffect : 200,
           LongTrip :20,
