@@ -9,6 +9,9 @@ use FOS\RestBundle\Controller\Annotations\RouteResource;
 use Taskul\TaskBundle\Controller\Base\TasksRestBaseController as BaseController;
 use Taskul\FileBundle\Entity\Document;
 
+use FOS\RestBundle\Controller\Annotations\Route;
+
+
 /**
  * Task Rest controller.
  * @RouteResource("File")
@@ -52,6 +55,14 @@ class FilesRestController extends BaseController {
 
     } // "api_post_task_files"   [POST] /api/tasks/{id}/files
 
+    /**
+     * [deleteAction description]
+     * @param  [type] $idTask     [description]
+     * @param  [type] $idDocument [description]
+     * @return [type]             [description]
+     *
+     * @Route(options={"i18n": false, "expose": true})
+     */
     public function deleteAction($idTask, $idDocument)
     {
         $aclManager = $this->getAclManager();

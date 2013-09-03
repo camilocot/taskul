@@ -20,7 +20,7 @@ class FileController extends Controller {
 	/**
      * Lists all FriendRequest entities.
      *
-     * @Route("/getquota", name="api_get_quota", defaults={"_format" = "json"},  options={"expose"=true} )
+     * @Route("/getquota", name="api_get_quota", defaults={"_format" = "json" },  options={"expose"=true,"i18n" = false} )
      *
      */
 	public function getQuotaAction()
@@ -36,7 +36,7 @@ class FileController extends Controller {
 	}
 
 	/**
-    * @Route("/download/{id}", name="api_download_file",  options={"expose"=true} )
+    * @Route("/download/{id}", name="api_download_file",  options={"expose"=true,"i18n" = false} )
     */
 
     public function downloadAction($id)
