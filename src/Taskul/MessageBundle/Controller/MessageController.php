@@ -20,6 +20,11 @@ class MessageController extends BaseController
      */
     public function inboxAction()
     {
+        $t = $this->container->get('translator');
+        $this->container->get("apy_breadcrumb_trail")
+            ->add('Dashboard', 'dashboard')
+            ->add($t->trans('message.title',array(),'MessageBundle'));
+
         $threads = $this->getProvider()->getInboxThreads();
         $deleteForm = $this->createDeleteForm(-1);
 
@@ -36,6 +41,11 @@ class MessageController extends BaseController
      */
     public function sentAction()
     {
+        $t = $this->container->get('translator');
+        $this->container->get("apy_breadcrumb_trail")
+            ->add('Dashboard', 'dashboard')
+            ->add($t->trans('message.title',array(),'MessageBundle'));
+
         $threads = $this->getProvider()->getSentThreads();
         $deleteForm = $this->createDeleteForm(-1);
 
@@ -82,6 +92,11 @@ class MessageController extends BaseController
      */
     public function newThreadAction()
     {
+        $t = $this->container->get('translator');
+        $this->container->get("apy_breadcrumb_trail")
+            ->add('Dashboard', 'dashboard')
+            ->add($t->trans('send_new',array(),'FOSMessageBundle'));
+
         $user = $this->container->get('security.context')->getToken()->getUser();
         $actionManager = $this->container->get('taskul_timeline.action_manager.orm');
 
