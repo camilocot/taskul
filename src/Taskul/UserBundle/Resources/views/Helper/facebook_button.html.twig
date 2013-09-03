@@ -17,7 +17,7 @@
             if (response.session || response.authResponse) {
                 setTimeout(goLogIn, 500);
             } else {
-                window.location.href = "{{ path('_security_logout') }}";
+                window.location.href = "{{ path('fos_user_security_logout') }}";
             }
         }},{scope:'email'}); //whatever perms your app needs
     };

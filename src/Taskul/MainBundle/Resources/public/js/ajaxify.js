@@ -98,9 +98,9 @@ function loadPage(url)
                 loadAjaxModalForms();
                 loadAjaxForms();
                 showWarningNoRecords();
-                template_functions(); //main.js
-                widthFunctions(); //main.js
-                launchNotifications(); // main.js
+                template_functions(); //private.js
+                widthFunctions(); //private.js
+                launchNotifications(); // private.js
                 // Update the menu
                 $menuChildren = $menu.find(menuChildrenSelector);
                 $menuChildren.filter(activeSelector).removeClass(activeClass);

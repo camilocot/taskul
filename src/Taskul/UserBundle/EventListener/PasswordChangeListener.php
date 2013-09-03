@@ -2,7 +2,7 @@
 namespace Taskul\UserBundle\EventListener;
 
 use Taskul\UserBundle\TaskulUserEvents;
-use FOS\UserBundle\Event\FormEvent;
+use Taskul\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Doctrine\UserManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;

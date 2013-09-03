@@ -30,8 +30,10 @@ class ForcePasswordChange {
 
     if (($this->security_context->getToken()) && ($this->security_context->isGranted('IS_AUTHENTICATED_FULLY'))) {
 
-      $route_name = $event->getRequest()->get('_route');
-      if ($route_name != 'taskul_user_change_password_without_verification') {
+      $route_name = strtolower($event->getRequest()->get('_route'));
+
+
+      if (! preg_match('/taskul_user_change_password_without_verification/',$route_name) && ! $event->getRequest()->isXmlHttpRequest()) {
 
         if ($this->security_context->getToken()->getUser()->hasRole('ROLE_FORCEPASSWORDCHANGE')) {
 

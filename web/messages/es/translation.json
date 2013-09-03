@@ -11,6 +11,9 @@
         "uniform": {
             "fileButtonHtml": "Click aquí",
             "fileDefaultHtml": "Click"
+        },
+        "change": {
+            "password": "Debe asignar una contraseña a su usuario antes de continuar"
         }
 	}
 }

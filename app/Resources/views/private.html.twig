@@ -68,7 +68,7 @@
             <!-- end: Notifications Dropdown -->
             <!-- start: Message Dropdown -->
             <li class="dropdown hidden-phone">
-              <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#" data-context="messages" data-route="taskul_message_unread_messages" data-route-content="taskul_message_list_unread_messages">
+              <a class="btn dropdown-toggle notiftoggle" data-toggle="dropdown" href="#" data-context="messages" data-route="es__RG__taskul_message_unread_messages" data-route-content="es__RG__taskul_message_list_unread_messages">
                 <i class="icon-envelope icon-white"></i> <span class="label label-success hidden-phone notifnumber">0</span>
               </a>
               <ul class="dropdown-menu messages">
@@ -94,7 +94,7 @@
             {% for locale in locales %}
               {% if locale != app.request.locale %}
               <li><a href="{{ path(routeName, routeParams|merge({"_locale": locale})) }}">{{ locale }}</a></li>
-              {% endif % }
+              {% endif %}
             {% endfor %}
           </ul>
           <div class="pull-right hidden-phone" style="padding:10px 20px">{{app.user.username}}</div>
@@ -207,8 +207,9 @@
   {% block javascripts %}
   {{ parent() }}
   <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-  <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+<!--  <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script> -->
   {% javascripts
+    'js/fos_js_routes.js'
     '@MainBundle/Resources/public/js/vendor/mustache.js'
     '@MainBundle/Resources/public/js/vendor/jquery.mustache.js'
     '@MainBundle/Resources/public/js/vendor/jquery-ui-1.10.2.custom.js'

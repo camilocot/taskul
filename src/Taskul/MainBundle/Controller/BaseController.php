@@ -3,7 +3,6 @@
 namespace Taskul\MainBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
 use JMS\TranslationBundle\Annotation\Ignore;
 
 class BaseController extends Controller {

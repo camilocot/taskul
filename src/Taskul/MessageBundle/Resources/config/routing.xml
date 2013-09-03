@@ -23,6 +23,7 @@
 
     <route id="taskul_message_unread_messages" pattern="/unread">
         <default key="_controller">MessageBundle:Message:getUnreadMessages</default>
+        <option key="i18n">false</option><!-- @FIXME: esto no funciona y no se xq se pone a es por defecto en el private.yml -->
         <option key="expose">true</option>
     </route>
     <route id="taskul_message_list_unread_messages" pattern="/inbox/unread">

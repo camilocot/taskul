@@ -7,7 +7,7 @@ framework:
 
 web_profiler:
     toolbar: true
-    intercept_redirects: true
+    intercept_redirects: false
 
 monolog:
     handlers:
@@ -24,3 +24,7 @@ assetic:
 
 swiftmailer:
     delivery_address: camilocot@gmail.com
+
+
+parameters:
+    router.request_context.base_url: "/app_dev.php"

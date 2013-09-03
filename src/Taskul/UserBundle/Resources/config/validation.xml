@@ -12,12 +12,14 @@
                 <option name="groups">
                     <value>Registration</value>
                     <value>Profile</value>
+                    <value>ChangePasswordWithoutVerification</value>
                 </option>
             </constraint>
             <constraint name="Taskul\UserBundle\Validator\Constraints\ContainsAlphaAndNumeric" >
              	<option name="groups">
                     <value>Registration</value>
                     <value>Profile</value>
+                    <value>ChangePasswordWithoutVerification</value>
                 </option>
             </constraint>
         </property>

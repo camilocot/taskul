@@ -18,7 +18,7 @@
 			{% else %}
 			{{ knp_menu_render('public', {'currentClass': 'active'})  }}
 			{% endif %}
-            <ul class="nav">
+            <ul class="nav pull-right">
             {% set routeName = app.request.attributes.get("_route") %}
             {% set routeParams = app.request.attributes.get("_route_params") %}
             {% for locale in locales %}
@@ -26,7 +26,7 @@
               <li><a href="{{ path(routeName, routeParams|merge({"_locale": locale})) }}" class="flaglink"><div class="flag flag-{{locale}}"></div></a></li>
             {% endif %}
             {% endfor %}
-            </ul>
+        </ul>
         </div>
         <div class="hidden-tablet hidden-phone" style="color:#FF9999;margin-left:400px"><p><img width="20" src="/img/skull_logo1.png" alt="Logo" class="info-beta" style="float:left"><a class="ajaxy" href="{{ path('homepage') }}">{{'taskul.beta'|trans({},'MainBundle')|raw}}</p></div>
     </div>

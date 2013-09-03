@@ -10,6 +10,7 @@ use FOS\RestBundle\Controller\Annotations\RouteResource;
 use Taskul\TaskBundle\Controller\Base\TasksRestBaseController as BaseController;
 use Taskul\MainBundle\Component\CheckAjaxResponse;
 
+use FOS\RestBundle\Controller\Annotations\Route;
 /**
  * Task Rest controller.
  * @RouteResource("Task")
@@ -171,6 +172,8 @@ class TasksRestController extends BaseController {
      * Acción que devuelve un numero determinado de tareas pendientes por realizar
      * @param  [type] $context [description]
      * @return [type]          [description]
+     *
+     * @Route(options={"i18n": false})
      */
     public function listStatusAction($context) {
         $user = $this->get('security.context')->getToken()->getUser();
@@ -237,6 +240,8 @@ class TasksRestController extends BaseController {
      *
      * @param  [type] $context [description]
      * @return [type]          [description]
+     *
+     * @Route(options={"i18n": false})
      */
     public function countListStatusAction($context) {
 

@@ -1,6 +1,14 @@
 $(document).ready(function(){
 
-  /* COntenido del listado de las notificaciones */
+  /* Si esstamos forzando a cambiar la clave se desactivan los a href */
+  if(window.location.href.match(/change_password$/)){
+    $('a').click(function(e){
+      e.preventDefault();
+      notificacion($.t('msg.change.password') ,'error');
+      return false;
+    });
+  }
+  /* Contenido del listado de las notificaciones */
   $('.notiftoggle').click(function() {
         // Only call notifications when opening the dropdown
         $this = $(this);

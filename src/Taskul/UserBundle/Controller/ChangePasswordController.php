@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Controller\ChangePasswordController as BaseController;
 use Taskul\UserBundle\Form\Type\ChangePasswordWithoutVerificationFormType;
 use Taskul\UserBundle\TaskulUserEvents;
-use FOS\UserBundle\Event\FormEvent;
+use Taskul\UserBundle\Event\FormEvent;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
@@ -48,9 +48,8 @@ class ChangePasswordController extends BaseController
 
                 $userManager->updateUser($user);
 
-                if (null === $response = $event->getResponse()) {
-                    $url = $this->container->get('router')->generate('sonata_user_profile_show');
-                }
+                $url = $this->container->get('router')->generate('sonata_user_profile_show');
+
 
                 return new CheckAjaxResponse(
                             $url,

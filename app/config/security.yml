@@ -18,16 +18,16 @@ security:
             security: false
         # -> custom firewall for the admin area of the URL
         admin:
-            pattern:            /admin(.*)
+            pattern:            /(es|en)/admin(.*)
             context:            user
             form_login:
                 provider:       fos_userbundle
-                login_path:     /admin/login
+                login_path:     sonata_user_admin_security_login
                 use_forward:    false
-                check_path:     /admin/login_check
+                check_path:     sonata_user_admin_security_check
                 failure_path:   null
             logout:
-                path:           /admin/logout
+                path:           sonata_user_admin_security_logout
             anonymous:          true
         public:
             # since anonymous is allowed users will not be forced to login
@@ -51,6 +51,7 @@ security:
             anonymous: true
             logout:
                 invalidate_session: false
+                path: fos_user_security_logout
         login:
             pattern: ^/login$
             security: false

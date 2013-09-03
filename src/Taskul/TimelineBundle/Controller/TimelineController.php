@@ -21,7 +21,7 @@ class TimelineController extends Controller
     /**
      * Devuelve el numero de notificaciones no leidas asociadas a un contexto
      *
-     * @Route("/notification/{context}", name="notification", defaults={"context" = "GLOBAL"}, options={"expose"=true})
+     * @Route("/notification/{context}", name="notification", defaults={"context" = "GLOBAL"}, options={"expose"=true, "i18n": false })
      * @Method({"GET"})
      */
 
@@ -33,7 +33,7 @@ class TimelineController extends Controller
     /**
      * Devuelve el numero y una descripcion de las notificaciones
      *
-     * @Route("/get_notifications/{context}", name="get_notifications", defaults={"context" = "GLOBAL"}, options={"expose"=true})
+     * @Route("/get_notifications/{context}", name="get_notifications", defaults={"context" = "GLOBAL"}, options={"expose"=true,  "i18n": false })
      * @Method({"GET"})
      *
      */

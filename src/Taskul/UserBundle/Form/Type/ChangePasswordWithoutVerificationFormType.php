@@ -25,4 +25,12 @@ class ChangePasswordWithoutVerificationFormType extends AbstractType
     {
         return 'taskul_user_change_password_without_verification';
     }
+
+    public function getDefaultOptions(array $options)
+    {
+        return array(
+            'validation_groups' => array('ChangePasswordWithoutVerification'),
+        );
+    }
+
 }

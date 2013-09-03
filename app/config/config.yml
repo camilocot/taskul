@@ -211,10 +211,10 @@ sonata_block:
     blocks:
         sonata.admin.block.admin_list:
             contexts:   [admin]
-        sonata_admin_doctrine_phpcr.tree_block:
-            settings:
-                id: '/cms'
-            contexts:   [admin]
+        # sonata_admin_doctrine_phpcr.tree_block:
+        #     settings:
+        #         id: '/cms'
+        #     contexts:   [admin]
 
         #sonata.admin_doctrine_orm.block.audit:
         #    contexts:   [admin]
@@ -297,7 +297,7 @@ sonata_admin:
         blocks:
             # display a dashboard block
             - { position: left, type: sonata.admin.block.admin_list }
-            - { position: left, type: sonata_admin_doctrine_phpcr.tree_block }
+            # - { position: left, type: sonata_admin_doctrine_phpcr.tree_block }
 
             # Customize this part to add new block configuration
             - { position: right, type: sonata.block.service.text, settings: { content: "<h2>Welcome to the Sonata Admin</h2> <p>This is a <code>sonata.block.service.text</code> from the Block Bundle, you can create and add new block in these area by configuring the <code>sonata_admin</code> section.</p> <br /> For instance, here a RSS feed parser (<code>sonata.block.service.rss</code>):"} }
@@ -311,6 +311,7 @@ sonata_user:
     class:                  # Entity Classes
         user:               Taskul\UserBundle\Entity\User
         group:              Taskul\UserBundle\Entity\Group
+
 jms_i18n_routing:
     default_locale: %locale%
     locales: %localesavailable%

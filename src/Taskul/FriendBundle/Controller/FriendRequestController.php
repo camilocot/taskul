@@ -11,7 +11,6 @@ use Taskul\FriendBundle\Entity\FriendRequest;
 use Taskul\FriendBundle\Form\FriendRequestType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
-use APY\BreadcrumbTrailBundle\Annotation\Breadcrumb;
 use Taskul\MainBundle\Component\CheckAjaxResponse;
 use Taskul\MainBundle\Controller\BaseController;
 

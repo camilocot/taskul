@@ -4,3 +4,4 @@ user:
 fos_user:
     password:
         short: "[-Inf,Inf]La contraseña es demasiado corta (mínimo 6 caractéres)."
+        mismatch: "Las claves no coinciden"
