@@ -16,7 +16,9 @@
             "password": "Debe asignar una contraseña a su usuario antes de continuar"
         },
         "error": {
-            "maxupload": "Ha ocurrido un error inesperado, revise que el archivo que intenta subir es menor de 50Mb.<br>Si el error persiste ayúdenos a mejorar rellenado el formulario de contacto / sugerencias. Gracias"
+            "maxupload": "Ha ocurrido un error inesperado, revise que el archivo que intenta subir es menor de 50Mb.<br>Si el error persiste ayúdenos a mejorar rellenado el formulario de contacto / sugerencias. Gracias",
+            "email": "Por favor introduce un email válido",
+            "emails": "Por favor introduce emails válidos separados por punto y coma (;)"
         }
     }
 }

@@ -4,6 +4,7 @@ namespace Taskul\TagBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
+use FOS\RestBundle\Controller\Annotations\Route;
 
 /**
  * Task Rest controller.
@@ -14,6 +15,12 @@ use FOS\RestBundle\Controller\Annotations\RouteResource;
 class TagsRestController extends FOSRestController
 {
 
+	/**
+	 * [cgetAction description]
+	 * @return [type] [description]
+	 *
+	 * @Route(options={"i18n": false, "expose": true})
+	 */
  	public function cgetAction(){
 		$em = $this->getDoctrine()->getManager();
 		$tagManager = $this->get('fpn_tag.tag_manager');

@@ -66,8 +66,28 @@ function notificacion(message, status, delay)
 }
 
 $(document).ready(function(){
-    var option = { resGetPath: 'messages/__lng__/__ns__.json' };
+    var option = { resGetPath: 'messages/__lng__/__ns__.json', useLocalStorage: true };
     $.i18n.init(option);
+
+    $.validator.addMethod(
+
+    'validateEmail', function(value,element,params) {
+      var regex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+      return (regex.test(value)) ? true : false;
+    },i18n.t("msg.error.email"));
+
+    $.validator.addMethod(
+    'validateEmails', function(string) {
+      var result = string.replace(/\s/g, "").split(/,|;/);
+
+      for(var i = 0;i < result.length;i++) {
+          if(! jQuery.validator.methods.validateEmail.call(this, result[i])) {
+              return false;
+          }
+      }
+
+      return true;
+    },i18n.t("msg.error.emails"));
 });
 
 function checkMobile()

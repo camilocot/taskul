@@ -24,7 +24,7 @@
                       {{ form_errors(form) }}
                       {{ form_row(form.email,{
                         'help': 'friendrequest.email.new.email_help'|trans,
-                        'attr': {'placeholder':'friendrequest.new.email_help'|trans,'class':'span11 required','maxlength':'255' }
+                        'attr': {'placeholder':'friendrequest.new.email_help'|trans,'class':'span11 required validateEmails','maxlength':'255' }
                         })
                       }}
                       {{ form_row(form.message, {'attr': {'placeholder':'friendrequest.email.new.message_help'|trans, 'class':'nicEdit span11','rows':'10'} } ) }}
