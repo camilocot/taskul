@@ -3,7 +3,6 @@
 namespace Taskul\UserBundle\EventListener;
 
 use Taskul\FriendBundle\Service\FriendRequestService;
-use FOS\UserBundle\Event\FormEvent;
 use Taskul\UserBundle\TaskulUserEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
