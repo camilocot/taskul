@@ -35,7 +35,7 @@ $(document).ready(function() {
                 obj = jQuery.parseJSON(data.jqXHR.responseText);
                 msg = obj.message;
             } catch (ex) {
-                msg = t('msg.error.maxupload');
+                msg = $.t('msg.error.maxupload');
             }
             $(".progress-indicator").fadeOut(500);
             var n = notificacion(msg, 'error', 5000 );
@@ -60,8 +60,8 @@ $(document).ready(function() {
     $remove = null;
     $('.footable').footable();
 
-    $('span.filename').text(t('msg.uniform.fileButtonHtml'));
-    $('span.action').text(t('msg.uniform.fileDefaultHtml'));
+    $('span.filename').data('i18n','msg.uniform.fileButtonHtml').i18n();
+    $('span.action').data('i18n','msg.uniform.fileDefaultHtml').i18n();
 
     $('#dial-quota').bind('deleterow',function(e){
         refreshQuota();
