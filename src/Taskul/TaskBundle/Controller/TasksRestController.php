@@ -25,6 +25,7 @@ class TasksRestController extends BaseController {
 
     public function cgetAction()
     {
+      // @TODO: esto crea muchos sql implemetarlo con ajax / paginacion cuando el footable lo implemente
       $this->putDashBoardBreadCrumb()
       ->putBreadCrumb('task.breadcrumb.list', 'api_get_tasks', 'TaskBundle')
       ;
