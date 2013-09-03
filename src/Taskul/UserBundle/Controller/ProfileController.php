@@ -48,7 +48,7 @@ class ProfileController extends BaseController
 
         return new CheckAjaxResponse(
                     $content,
-                    array('success'=>TRUE, 'content' => $content),
+                    array('success'=>TRUE, 'content' => $content,'dd'=>print_r($process,true)),
                     FALSE
                 );
 

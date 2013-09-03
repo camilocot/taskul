@@ -12,6 +12,7 @@
 			<form class="form-horizontal validate ajaxform" action="{{ path('sonata_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" id="form_profile">
 				<fieldset>
                         <fieldset>
+                            {{ form_errors(form) }}
                             {{ form_row(form.firstname,{'attr': { 'class':'required dadsasda', 'minlength':'5' } }) }}
                             {{ form_row(form.lastname,{'attr': { 'class':'required', 'minlength':'5' } }) }}
                             {{ form_row(form.email,{'help':'form.help.email'|trans({},'UserBundle'), 'attr': { 'class':'required', 'minlength':'5' } }) }}
