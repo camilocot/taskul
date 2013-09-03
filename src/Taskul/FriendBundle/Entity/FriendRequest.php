@@ -48,14 +48,14 @@ class FriendRequest {
     /**
      * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="\Taskul\UserBundle\Entity\User", inversedBy="contReqSend")
+     * @ORM\ManyToOne(targetEntity="\Taskul\UserBundle\Entity\User", inversedBy="friReqSend")
      */
     private $from;
 
     /**
      * @var \User
      *
-     * @ORM\ManyToOne(targetEntity="\Taskul\UserBundle\Entity\User", inversedBy="contReqRecb")
+     * @ORM\ManyToOne(targetEntity="\Taskul\UserBundle\Entity\User", inversedBy="friReqRecb")
      * @ORM\JoinColumn(name="to_id", referencedColumnName="id", nullable=true)
      */
     private $to;

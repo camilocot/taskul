@@ -122,6 +122,17 @@ class User extends BaseUser implements ParticipantInterface {
      */
     private $updated;
 
+    /**
+     * [$contReqSend description]
+     * @var [type]
+     */
+    private $contReqSend;
+
+    /**
+     * [$contReqRecb description]
+     * @var [type]
+     */
+    private $contReqRecb;
 
     public function serialize() {
         return serialize(array($this->facebookId, parent::serialize()));

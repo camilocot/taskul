@@ -57,7 +57,7 @@ class Task implements Documentable, Taggable {
 
     /**
      *
-     * @ORM\ManyToMany(targetEntity="Taskul\UserBundle\Entity\User", inversedBy="taskMembers")
+     * @ORM\ManyToMany(targetEntity="Taskul\UserBundle\Entity\User", inversedBy="tasksMember")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true)
      */
     private $members;
