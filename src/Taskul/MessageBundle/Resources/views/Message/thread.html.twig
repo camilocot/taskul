@@ -1,7 +1,13 @@
 {% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "MessageBundle::layout.html.twig" %}
-
+{% trans_default_domain "MessageBundle" %}
 {% block content %}
 {{ apy_breadcrumb_trail_render() }}
+<div class="well">
+    <h2>{{ 'thread.title'|trans( {}, 'MessageBundle') }}</h2>
+      <p style="margin-bottom: 0;" class="muted">
+        {{ 'thread.content'|trans( {}, 'MessageBundle') }}
+      </p>
+</div>
 <div class="row-fluid sortable">
     <div class="box span6">
         <div class="box-header" data-original-title>
@@ -28,7 +34,7 @@
     </div>
     <div class="box span6">
         <div class="box-header" data-original-title>
-            <h2><i class="icon-user"></i><span class="break"></span>Responder</h2>
+            <h2><i class="icon-user"></i><span class="break"></span>{{ 'thread.reply'|trans}}</h2>
             <div class="box-icon">
                 <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
             </div>
@@ -36,16 +42,15 @@
         <div class="box-content">
             <h3>{% trans from 'FOSMessageBundle' %}reply{% endtrans %}</h3>
 
-            <form action="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}" method="post" class="form-horizontal validate" id="form_thread">
+            <form action="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}" method="post" class="form-horizontal ajaxform" id="form_thread">
                 <fieldset>
                     {{ form_row(form.body, {'attr':
-                    {'placeholder':'Introduzca una descripción ...', 'class':'nicEdit span11','rows':'10','minlength':'8' } } ) }}
+                    {'placeholder':'thread.new.body_placeholder'|trans, 'class':'nicEdit span11','rows':'10','minlength':'8' }, 'label': 'thread.new.body'|trans } ) }}
 
                     {{ form_rest(form) }}
                 </fieldset>
                 <div class="form-actions">
-                    <button class="btn btn-primary ajaxy" type="submit"><i class="fa-icon-envelope"></i>&nbsp;Enviar</button>
-                </div>
+                    <button class="btn btn-primary ajaxy" type="submit"><i class="fa-icon-envelope"></i>&nbsp;{{'thread.new.send'|trans}}</button>
                 </div>
             </form>
         </div>

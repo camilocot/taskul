@@ -1,5 +1,6 @@
 {% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "MessageBundle::layout.html.twig" %}
 {% form_theme form 'MainBundle:Form:fields.html.twig' %}
+{% trans_default_domain "MessageBundle" %}
 {% block content %}
 {{ apy_breadcrumb_trail_render() }}
 <div class="row-fluid sortable">
@@ -11,17 +12,17 @@
             </div>
         </div>
         <div class="box-content">
-			<form action="{{ url('fos_message_thread_new') }}" method="post" class="form-horizontal validate" id="form_thread">
+			<form action="{{ url('fos_message_thread_new') }}" method="post" class="form-horizontal ajaxform" id="form_thread">
 				<fieldset>
-	                {{ form_row(form.recipient,{'help':'sdasdasasda', 'attr': { 'class':'required', 'minlength':'10' } }) }}
-                    {{ form_row(form.subject) }}
+	                {{ form_row(form.recipient,{'help':'thread.new.recipient_note'|trans, 'attr': { 'class':'required', 'minlength':'10'}, 'label': 'thread.new.recipìent'|trans  } ) }}
+                    {{ form_row(form.subject, {'label': 'thread.new.subject'|trans, 'attr': { 'class':'required', 'maxlength':'255'} }) }}
                     {{ form_row(form.body, {'attr':
-                    {'placeholder':'Introduzca una descripción ...', 'class':'nicEdit span11','rows':'10','minlength':'8' } } ) }}
+                    {'placeholder':'thread.new.body_placeholder'|trans, 'class':'nicEdit span11','rows':'10','minlength':'8' }, 'label': 'thread.new.body'|trans } ) }}
 
                     {{ form_rest(form) }}
 				</fieldset>
 				<div class="form-actions">
-			        <button class="btn btn-primary" type="submit">Enviar</button>
+			        <button class="btn btn-primary" type="submit">{{'thread.new.send'|trans}}</button>
 			    </div>
 			</form>
 		</div>

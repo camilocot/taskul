@@ -170,6 +170,8 @@ function checkResponse(data)
     }else if (data.success === true && data.content){
         $('#content').html(data.content);
         loadAjaxForms();
+        if(data.message)
+            notificacion(data.message,'success');
     } else if (data.success === true && data.message) {
         notificacion(data.message,'success');
     }else if(data.success === false && data.message){

@@ -63,6 +63,13 @@ class MessageController extends BaseController
      */
     public function threadAction($threadId)
     {
+
+        $t = $this->container->get('translator');
+        $this->container->get("apy_breadcrumb_trail")
+            ->add('Dashboard', 'dashboard')
+            ->add($t->trans('thread.title',array(),'MessageBundle'));
+
+
         $thread = $this->getProvider()->getThread($threadId);
         $form = $this->container->get('fos_message.reply_form.factory')->create($thread);
         $formHandler = $this->container->get('fos_message.reply_form.handler');
@@ -70,11 +77,18 @@ class MessageController extends BaseController
         $deleteForm = $this->createDeleteForm($thread->getId());
 
         if ($message = $formHandler->process($form)) {
+
+            $content = $this->container->get('templating')->render('MessageBundle:Message:thread.html.twig', array(
+            'form' => $form->createView(),
+            'thread' => $thread,
+            'delete_form' => $deleteForm->createView(),
+            ));
+
             return new CheckAjaxResponse(
                     $this->container->get('router')->generate('fos_message_thread_view', array(
                     'threadId' => $message->getThread()->getId()
                     )),
-                    array('success'=>TRUE,'threadid'=>$message->getThread()->getId())
+                    array('success'=>TRUE,'threadid'=>$message->getThread()->getId(),'message'=>$t->trans('message.reply.success', array(), 'MessageBundle'),'content'=>$content)
                 );
         }
 
@@ -117,15 +131,16 @@ class MessageController extends BaseController
                 foreach ($metadata as $meta) {
                     $participant = $meta->getParticipant();
                     if($participant->getId() !== $sender->getId())
-                        $actionManager->handle($sender,'SEND',$message,$participant());
+                        $actionManager->handle($sender,'SEND',$message,$participant);
                 }
 
+                $url = $this->container->get('router')->generate('fos_message_thread_view', array(
+                        'threadId' => $message->getThread()->getId()
+                    ));
 
                 return new CheckAjaxResponse(
-                    $this->container->get('router')->generate('fos_message_thread_view', array(
-                        'threadId' => $message->getThread()->getId()
-                    )),
-                    array('success' => TRUE, 'message'=>'OK')
+                    $url,
+                    array('success' => TRUE, 'message'=>$t->trans('message.sent.success',array(),'MessageBundle'), 'url'=>$url,'title'=>$t->trans('message.title',array(),'MessageBundle'))
                 );
             }
 

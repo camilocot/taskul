@@ -1,4 +1,5 @@
 {% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "MessageBundle::layout.html.twig" %}
+{% trans_default_domain "MessageBundle" %}
 {% block content %}
 {{ apy_breadcrumb_trail_render() }}
 <div class="row-fluid sortable">

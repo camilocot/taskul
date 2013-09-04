@@ -5,8 +5,23 @@ message:
     search_clean: 'Pulsa para limpiar la búsqueda'
     title: 'Listado de mensajes'
     content: 'Aquí puede gestionar los mensajes que ha recibido/enviado, así como responder a los hilos de mensajes, para ellos pulse sobre el asunto del mensaje.'
+    sent:
+        success: 'Mensaje enviado correctamente'
+    reply:
+        success: 'Respuesta enviada correctamente'
 warning:
     title: 'Advertencia'
 notification:
     message:
         pending: '{0} No tiene mensajes nuevos|{1} Tienes un mesaje nuevo|]1,Inf] Tienes %count% mensajes nuevos'
+thread:
+    new:
+        recipient_note: 'Seleccione el contacto al que quiere enviar el mensaje. Sino tiene ningún contacto utilice la sección de "solicitudes" para invitar a sus contactos.'
+        recipìent: 'Destinatario'
+        subject: 'Asunto'
+        body: 'Cuerpo del mensaje'
+        body_paceholder: 'Introduzca el cuerpo del mensaje'
+        send: 'Enviar'
+    title: 'Ver hilo de mensajes'
+    reply: 'Responder'
+    content: 'Aquí puede responder a los mensajes enviados así como a las respuestas de sus contactos'

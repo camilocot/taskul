@@ -1,4 +1,4 @@
-{% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "FriendBundle::layout/friendrequest.html.twig" %}
+{% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "FriendBundle::layout/friend.html.twig" %}
 {% trans_default_domain "FriendBundle" %}
 {% block content %}
 {{ apy_breadcrumb_trail_render() }}
