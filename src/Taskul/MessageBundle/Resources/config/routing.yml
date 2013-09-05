@@ -1,0 +1,39 @@
+fos_message_inbox:
+    pattern: "/"
+    defaults: { _controller: MessageBundle:Message:inbox }
+
+fos_message_sent:
+    pattern: "/sent"
+    defaults: { _controller: MessageBundle:Message:sent }
+    options: { expose: true }
+
+fos_message_search:
+    pattern: "/search"
+    defaults: { _controller: MessageBundle:Message:search }
+
+fos_message_thread_new:
+    pattern: "/new"
+    defaults: { _controller: MessageBundle:Message:newThread }
+
+taskul_message_unread_messages:
+    pattern: "/unread"
+    defaults: { _controller: MessageBundle:Message:getUnreadMessages }
+    options: { expose: true, i18n: false }
+
+taskul_message_list_unread_messages:
+    pattern: "/inbox/unread"
+    defaults: { _controller: MessageBundle:Message:listUnreadMessages }
+    options: { expose: true, i18n: false }
+
+fos_message_thread_view:
+    pattern: "/{threadId}"
+    defaults: { _controller: MessageBundle:Message:thread }
+    requirements: { threadId: \d+ }
+    options: { expose: true }
+
+fos_message_thread_delete:
+    pattern: "/{id}/delete"
+    defaults: { _controller: MessageBundle:Message:delete }
+    requirements: { method: POST|DELETE }
+    options: { expose: true }
+

@@ -41,7 +41,7 @@ fos_comment_api:
     defaults: { _format: html }
 
 fos_message:
-    resource: "@MessageBundle/Resources/config/routing.xml"
+    resource: "@MessageBundle/Resources/config/routing.yml"
     prefix: /msg
 
 fos_js_routing:
