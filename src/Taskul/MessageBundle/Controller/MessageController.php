@@ -214,6 +214,7 @@ class MessageController extends BaseController
     private function processMessages($result)
     {
         $serializer = $this->container->get('serializer');
+        $t = $this->container->get('translator');
         $userRepository = $this->container->get("doctrine.orm.entity_manager")->getRepository('UserBundle:User');
         $msgs = array();
         $senders = array();
