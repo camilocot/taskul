@@ -29,7 +29,8 @@ class BaseController extends Controller {
 
 	public function putDashBoardBreadCrumb()
 	{
-		$this->putBreadCrumb('DashBoard','dashboard');
+		$t = $this->getTranslator();
+		$this->putBreadCrumb($t->trans('dashboard.title',array(),'MainBundle'),'dashboard');
 		return $this;
 	}
 

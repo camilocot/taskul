@@ -71,11 +71,6 @@
 #sign_up2 a.btn_sign:hover{
 	background: #252528;
 }
-#sign_up2 .icos{
-	background: url('../img/signin_icos.png') no-repeat;
-	width: 96px;
-	height: 30px;
-}
 #sign_up2 .signin_box{
 	float: right;
 }

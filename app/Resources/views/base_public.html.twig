@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="{{ app.request.locale }}">
 <head>
-    <title>Business Template</title>
+    <title>{% block title %}{% endblock %}</title>
+    {% block description %}{% endblock %}
+    {% block keywords %}{% endblock %}
+    <link rel="shortcut icon" href="/favicon.ico" />
     <base href="{{ app.request.schemeAndHttpHost }}">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,8 +34,11 @@
     <![endif]-->
 </head>
 <body class="pull_top">
+    <div class="wrapper">
 {% block body %}
 {% endblock %}
+<div class="push"></div>
+</div>
     <!-- starts footer -->
     <footer id="footer">
         <div class="container">
@@ -71,7 +77,7 @@
             </div>
         </div>
     </footer>
-
+    </div>
     <!-- Scripts -->
     {% javascripts
     '@MainBundle/Resources/public/js/vendor/jquery-1.9.1.js'

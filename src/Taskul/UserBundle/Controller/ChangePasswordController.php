@@ -26,7 +26,7 @@ class ChangePasswordController extends BaseController
         $user = $this->container->get('security.context')->getToken()->getUser();
         $t = $this->container->get('translator');
         $this->container->get("apy_breadcrumb_trail")
-            ->add('Dashboard', 'dashboard')
+            ->add($t->trans('dashboard.title',array(),'MainBundle'), 'dashboard')
             ->add($t->trans('profile.change_password',array(),'UserBundle'), 'fos_user_change_password');
 
         if (!is_object($user) || !$user instanceof UserInterface || !$user->hasRole('ROLE_FORCEPASSWORDCHANGE')) {
@@ -76,7 +76,7 @@ class ChangePasswordController extends BaseController
         $t = $this->container->get('translator');
         $user = $this->container->get('security.context')->getToken()->getUser();
         $this->container->get("apy_breadcrumb_trail")
-            ->add('Dashboard', 'dashboard')
+            ->add($t->trans('dashboard.title',array(),'MainBundle'), 'dashboard')
             ->add($t->trans('profile.change_password',array(),'UserBundle'), 'fos_user_change_password');
 
         if (!is_object($user) || !$user instanceof UserInterface) {

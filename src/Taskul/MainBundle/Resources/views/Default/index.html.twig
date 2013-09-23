@@ -1,40 +1,30 @@
 {% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "::public.html.twig" %}
+{% trans_default_domain "MainBundle" %}
+{% block title %}{{'index.title'|trans}}{% endblock %}
+{% block description %}<meta name="description" content="{{'index.description'|trans}}" />{% endblock %}
+{% block keywords %}<meta name="keywords" content="{{'index.keywords'|trans}}" />{% endblock %}
 {% block content %}
     <section id="feature_slider" class="">
-        <!--
-            Each slide is composed by <img> and .info
-            - .info's position is customized with css in index.css
-            - each <img> parallax effect is declared by the following params inside its class:
-
-            example: class="asset left-472 sp600 t120 z3"
-            left-472 means left: -472px from the center
-            sp600 is speed transition
-            t120 is top to 120px
-            z3 is z-index to 3
-            Note: Maintain this order of params
-
-            For the backgrounds, you can combine from the bgs folder :D
-        -->
         <article class="slide" id="showcasing" style="background: url('img/backgrounds/deep-green.jpg') repeat-x top center;">
-            <img class="asset left-30 sp600 t120 z1" src="img/slides/scene1/taskul_net-list_b.png" />
+            <img class="asset left-30 sp600 t120 z1" src="img/slides/scene1/taskul_net-list_b.png" alt="{{ 'index.slide.slide1.img.alt'|trans}}"/>
             <div class="info">
-                <h2>Organízate con Eficacia y Fácilmente.</h2>
-                <a href="{{ path('fos_user_security_login') }}" class="ajaxy btn-trans">Regístrate (es gratis)</a>
+                <h2>{{ 'index.slide.slide1.content1'|trans}}</h2>
+                <a href="{{ path('fos_user_registration_register') }}" class="ajaxy btn-trans" title="{{ 'index.slide.slide1.content2_title'|trans}}">{{ 'index.slide.slide1.content2'|trans}}</a>
             </div>
         </article>
         <article class="slide" id="responsive" style="background: url('img/backgrounds/aqua.jpg') repeat-x top center;">
 
-            <img class="asset left-472 sp600 t120 z3" src="img/slides/scene2/taskul_net-files1_b.png" />
-            <img class="asset left-210 sp500 t120 z2" src="img/slides/scene2/taskul_net-files2_b.png" />
+            <img class="asset left-472 sp600 t120 z3" src="img/slides/scene2/taskul_net-files1_b.png" alt="{{ 'index.slide.slide2.img1_alt'|trans}}" />
+            <img class="asset left-210 sp500 t120 z2" src="img/slides/scene2/taskul_net-files2_b.png" alt="{{ 'index.slide.slide2.img2_alt'|trans}}" />
             <div class="info">
-                <h2>Asocia ficheros y compártelos.</h2>
+                <h2>{{ 'index.slide.slide2.content'|trans}}</h2>
             </div>
         </article>
         <article class="slide" id="tour" style="background: url('img/backgrounds/color-splash.jpg') repeat-x top center;">
-            <img class="asset left-472 sp650 t110 z3" src="img/slides/scene3/taskul_edit1_b.png" />
+            <img class="asset left-472 sp650 t110 z3" src="img/slides/scene3/taskul_edit1_b.png" alt="{{ 'index.slide.slide3.img1_alt'|trans}}" />
             <div class="info">
-                <h2>Añade comentarios</h2>
-                <a href="{{ path('homepage') }}#features">Ver todas las características</a>
+                <h2>{{ 'index.slide.slide3.content1'|trans}}</h2>
+                <a href="{{ path('homepage') }}#features" title="{{ 'index.slide.slide3.content2_title'|trans}}">{{ 'index.slide.slide3.content2'|trans}}</a>
             </div>
         </article>
     </section>
@@ -43,35 +33,35 @@
              <!-- Feature Wrapper -->
             <div class="feature_wrapper option2">
                 <div class="section_header">
-                    <h3>Organíza tus tareas y proyectos</h3>
+                    <h3>{{ 'index.title1'|trans}}</h3>
                 </div>
-                <div class="row subtitle">
-                    <h2>
-                        Taskul es un programa que ayuda a los profesionales más ocupados y equipos a organizar su tiempo y proyectos.
-                    </h2>
+                <div class="row intro">
+                    <p>{{'index.paragraph1'|trans|raw}}</p>
                 </div>
                 <!-- Features Row -->
                 <div class="row">
                     <!-- Feature -->
                     <div class="span6 feature">
                         <div class="box">
-                            <img class="one" src="img/features-ico4.png" />
+                            <img class="one" src="img/icons/People-128.png" alt="{{'index.block1.img_alt'|trans}}"/>
                         </div>
                         <div class="text">
-                            <h6>Asociar compañeros</h6>
+                            <h6>{{'index.block1.title'|trans}}</h6>
                             <p>
-                               Podrás asociar amigos / compañeros en tus tareas para compartirlas y gestionarlas en grupo</p>
+                               {{'index.block1.content'|trans}}
+                           </p>
                         </div>
                     </div>
                     <!-- Feature -->
                     <div class="span6 feature right">
                         <div class="box">
-                            <img class="two" src="img/features-ico5.png" />
+                            <img class="two" src="img/icons/Files-128.png" alt="{{'index.block2.img_alt'|trans}}"/>
                         </div>
                         <div class="text">
-                            <h6>Gestión de ficheros</h6>
+                            <h6>{{'index.block2.title'|trans}}</h6>
                             <p>
-                                Podrás asociar ficheros a tus tareas, que compartirás con los miembros de esta tarea</p>
+                               {{'index.block2.content'|trans}}
+                           </p>
                         </div>
                     </div>
                 </div>
@@ -81,23 +71,52 @@
                     <!-- Feature -->
                     <div class="span6 feature">
                         <div class="box">
-                            <img class="one" src="img/features-ico6.png" />
+                            <img class="one" src="img/icons/Message-128.png" alt="{{'index.block3.img_alt'|trans}}"/>
                         </div>
                         <div class="text">
-                            <h6>Mensajes privados</h6>
+                            <h6>{{'index.block3.title'|trans}}</h6>
                             <p>
-                                Podrás intercambiar mensajes privados con tus contactos</p>
+                               {{'index.block3.content'|trans}}
+                           </p>
                         </div>
                     </div>
                     <!-- Feature -->
                     <div class="span6 feature right">
                         <div class="box">
-                            <img class="two" src="img/features-ico7.png" />
+                            <img class="two" src="img/icons/Messages-128.png" alt="{{'index.block4.img_alt'|trans}}"/>
                         </div>
                         <div class="text">
-                            <h6>Comentarios</h6>
+                            <h6>{{'index.block4.title'|trans}}</h6>
                             <p>
-                                Podrás asociar comentarios a tus taareas, así como los miembros de tus tareas.</p>
+                               {{'index.block4.content'|trans}}
+                           </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Features Row -->
+                <div class="row last">
+                    <!-- Feature -->
+                    <div class="span6 feature">
+                        <div class="box">
+                            <img class="one" src="img/icons/Tag-128.png" alt="{{'index.block5.img_alt'|trans}}"/>
+                        </div>
+                        <div class="text">
+                            <h6>{{'index.block5.title'|trans}}</h6>
+                            <p>
+                               {{'index.block5.content'|trans}}
+                           </p>
+                        </div>
+                    </div>
+                    <!-- Feature -->
+                    <div class="span6 feature right">
+                        <div class="box">
+                            <img class="two" src="img/icons/ProgressIndicator-128.png" alt="{{'index.block6.img_alt'|trans}}"/>
+                        </div>
+                        <div class="text">
+                            <h6>{{'index.block6.title'|trans}}</h6>
+                            <p>
+                               {{'index.block6.content'|trans}}
+                           </p>
                         </div>
                     </div>
                 </div>
@@ -107,12 +126,11 @@
     <div id="helpus" name="help-us" class="features_page">
         <div class="container">
             <div class="section_header">
-                <h3>Ayúdanos a mejorar</h3>
+                <h3>{{'index.helpus.title'|trans}}</h3>
             </div>
             <div class="row intro">
                 <h6>
-                    Estaremos encantados de recibir tus opiniones, observaciones y mejoras sobre el gestor de tareas. Ayudanos a mejorar taskul.
-                    Estamos en constante mejora.
+                    {{'index.helpus.content'|trans|raw}}
                 </h6>
 
             </div>

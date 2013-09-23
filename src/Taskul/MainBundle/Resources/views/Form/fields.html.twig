@@ -108,3 +108,9 @@
         <input type="hidden" name="{{ form.get('full_name') }}" value="{{ selected }}" class="hidden-status" id="{{ id }}" />
     {% endspaceless %}
 {% endblock %}
+
+{% block textarea_widget %}
+{% spaceless %}
+    <textarea {{ block('widget_attributes') }}>{{ value|trans({}, translation_domain)|raw }}</textarea>
+{% endspaceless %}
+{% endblock textarea_widget %}

@@ -23,7 +23,7 @@ class ProfileController extends BaseController
         $t = $this->container->get('translator');
 
         $this->container->get("apy_breadcrumb_trail")
-            ->add('Dashboard', 'dashboard')
+            ->add($t->trans('dashboard.title',array(),'MainBundle'), 'dashboard')
             ->add($t->trans('profile.edit',array(),'UserBundle'), 'sonata_user_profile_show');
 
         if (!is_object($user) || !$user instanceof UserInterface) {
@@ -59,7 +59,7 @@ class ProfileController extends BaseController
     {
         $t = $this->container->get('translator');
         $this->container->get("apy_breadcrumb_trail")
-            ->add('Dashboard', 'dashboard')
+            ->add($t->trans('dashboard.title',array(),'MainBundle'), 'dashboard')
             ->add($t->trans('profile.view',array(),'UserBundle'), 'sonata_user_profile_show');
         return parent::showAction();
     }

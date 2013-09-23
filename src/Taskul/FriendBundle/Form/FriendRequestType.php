@@ -12,7 +12,7 @@ class FriendRequestType extends AbstractType
     {
         $builder
         ->add('email','text',array('translation_domain'=>'FriendBundle','label'=>'friendrequest.new.email'))
-        ->add('message','purified_textarea',array('translation_domain'=>'FriendBundle','label'=>'friendrequest.new.message'))
+        ->add('message','purified_textarea',array('translation_domain'=>'FriendBundle','label'=>'friendrequest.new.message','data'=>'friendrequest.email.new.message'))
 
         ;
     }

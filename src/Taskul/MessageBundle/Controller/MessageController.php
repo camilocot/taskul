@@ -22,7 +22,7 @@ class MessageController extends BaseController
     {
         $t = $this->container->get('translator');
         $this->container->get("apy_breadcrumb_trail")
-            ->add('Dashboard', 'dashboard')
+            ->add($t->trans('dashboard.title',array(),'MainBundle'), 'dashboard')
             ->add($t->trans('message.title',array(),'MessageBundle'));
 
         $threads = $this->getProvider()->getInboxThreads();
@@ -43,7 +43,7 @@ class MessageController extends BaseController
     {
         $t = $this->container->get('translator');
         $this->container->get("apy_breadcrumb_trail")
-            ->add('Dashboard', 'dashboard')
+            ->add($t->trans('dashboard.title',array(),'MainBundle'), 'dashboard')
             ->add($t->trans('message.title',array(),'MessageBundle'));
 
         $threads = $this->getProvider()->getSentThreads();
@@ -66,7 +66,7 @@ class MessageController extends BaseController
 
         $t = $this->container->get('translator');
         $this->container->get("apy_breadcrumb_trail")
-            ->add('Dashboard', 'dashboard')
+            ->add($t->trans('dashboard.title',array(),'MainBundle'), 'dashboard')
             ->add($t->trans('thread.title',array(),'MessageBundle'));
 
 
@@ -108,7 +108,7 @@ class MessageController extends BaseController
     {
         $t = $this->container->get('translator');
         $this->container->get("apy_breadcrumb_trail")
-            ->add('Dashboard', 'dashboard')
+            ->add($t->trans('dashboard.title',array(),'MainBundle'), 'dashboard')
             ->add($t->trans('send_new',array(),'FOSMessageBundle'));
 
         $user = $this->container->get('security.context')->getToken()->getUser();

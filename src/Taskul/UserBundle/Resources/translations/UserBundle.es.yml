@@ -13,6 +13,8 @@ profile:
     complete_name: "Nombre completo"
     view: "Ver perfil"
     back: "Volver al perfil"
+    last_login: "Último acceso"
+    gravatar: 'Puedes usar el servicio de <a href="http://www.gravatar.com" target="_black"><strong>Gravatar</strong></a> para tener tu imagen de pérfil en varias aplicaciones web almacenandola únicamente en un lugar.'
 form:
     firstname: Nombre
     lastname: Apellidos
@@ -31,3 +33,11 @@ login:
     access: 'Accede con'
 registration:
     confirm: 'Al hacer clic en el botón de abajo confirmas que estás de acuerdo con las <a href="%condiciones%" title="Condiciones de uso" target="_blank">Condiciones de uso</a> y la <a href="%privacidad%" title="Política de privacidad" target="_blank">Política de Privacidad</a>'
+    title: '¿Eres nuevo en <strong>Taskul.net</strong>? Crea tu cuenta, es gratis.'
+    block1:
+        content: 'Registrate con tu cuenta de <strong>Facebook</strong> en <strong>Taskul.NET</strong>'
+    block2:
+        content: 'Taskul te permite gestionar tus tareas y compartirlas con tus compañeros'
+    register: 'Regístrate con '
+    placeholder:
+        email: 'Introduce tu email'

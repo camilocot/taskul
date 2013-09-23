@@ -32,7 +32,7 @@
             </trans-unit>
             <trans-unit id="9">
                 <source>No problem</source>
-                <target>Sin problema</target>
+                <target>No te preocupes</target>
             </trans-unit>
             <trans-unit id="10">
                 <source>click here</source>
@@ -72,7 +72,7 @@
             </trans-unit>
             <trans-unit id="19">
                 <source>Create your account</source>
-                <target>Crea tu cuenta de TasKul.net</target>
+                <target>¿Eres nuevo en <strong>Taskul.net</strong>? Crea tu cuenta, es gratis.</target>
             </trans-unit>
             <trans-unit id="20">
                 <source>Type email</source>

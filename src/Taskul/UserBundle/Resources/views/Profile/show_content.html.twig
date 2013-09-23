@@ -1,9 +1,10 @@
 {{ apy_breadcrumb_trail_render() }}
+{% trans_default_domain "UserBundle" %}
 <div class="row-fluid sortable">
 	<div class="box span6 noMargin" ontablet="span12" ondesktop="span6">
 
 		<div class="box-header">
-			<h2><i class="icon-user"></i><span class="break"></span>{% trans %}View Profile{% endtrans %}</h2>
+			<h2><i class="icon-user"></i><span class="break"></span>{{ 'profile.view'|trans}}</h2>
 			<div class="box-icon">
 			<a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
 			</div>
@@ -15,7 +16,7 @@
 					  {% if user.facebookId %}
 				        <img src="https://graph.facebook.com/{{ user.facebookId }}/picture"/>
 				      {% else %}
-				        {{ gravatar(user.email) }}
+				        <img src="{{ gravatar(user.email) }}" />
 				      {% endif %}
 				     </span>
 			 	</div>
@@ -26,6 +27,7 @@
 					<strong>{{ 'user.created'|trans({}, 'UserBundle') }}:</strong> {{ user.created|date('d/m/y') }}</span><br/>
 				</div>
 			</div>
+			<div class="chat-form">{{'profile.gravatar'|trans|raw}}</div>
 
 		</div><!--/box-->
 	</div><!--/row-->

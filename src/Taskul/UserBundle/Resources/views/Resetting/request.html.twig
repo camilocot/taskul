@@ -1,4 +1,5 @@
 {% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "UserBundle::layout.html.twig" %}
+{% block title %}{{'reseting.title'|trans({},'MainBundle')}}{% endblock %}
 {% block content %}
 {% include "UserBundle:Resetting:request_content.html.twig" %}
 {% endblock %}

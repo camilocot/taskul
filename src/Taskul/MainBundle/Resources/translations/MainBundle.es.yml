@@ -16,6 +16,7 @@ dashboard:
             new_message: 'Envía un mensaje a alguno de tus contactos'
             new_friend_request: 'Invita a darse de alta a tus contactos por email, luego podrás agregarlos a tus tareas'
             new_fb: 'Invita a darse de alta a tus contactos de facebook, luego podrás agregarlos a tus tareas'
+    title: 'Página de inicio'
 modal:
     delete:
         confirm: 'Eliminar'
@@ -53,8 +54,8 @@ taskul:
     beta: 'Taskul.net</a> está en fase <strong>BETA</strong>, por favor ayúdenos a mejorar cumplimentando el formulario de sugerencias y/o problemas. Gracias.'
 menu:
     title:
-        register: 'Registro gratuito en el gestor de tareas Taskul.NET'
-        login: 'Accede a administrar tus tareas'
+        register: 'Taskul: Registro gratuito en el gestor de tareas'
+        login: 'Taskul: Accede a administrar tus tareas, puedes usar '
         dashboard: 'Panel de control de administración'
         tasks: 'Revisa todas las tareas que gestionas'
         task:
@@ -94,3 +95,56 @@ menu:
     message:
         recibed: Recibidos
         sended: Enviados
+index:
+    slide:
+        slide1:
+            content1: 'Gestiona tus tareas con facilidad'
+            content2: 'Regístrate (es gratis)'
+            content2_title: 'Regístrate en Taskul (es gratis)'
+            img:
+                alt: 'Listado de tareas de ejemplo'
+        slide2:
+            content: 'Asocia ficheros y compártelos con tu equipo'
+            img1_alt: 'Ficha completa de una actividad'
+            img2_alt: 'Panel de asociación de ficheros a las tareas'
+        slide3:
+            content1: 'Añade comentarios a las tareas'
+            content2_title: 'Las características de Taskul'
+            content2: 'Ver todas las características'
+            img1_alt: 'Edición de tarea y panel de comentarios'
+    title1:  'Gestiona con eficacia tus tareas y proyectos,  y compártelas con tus compañeros'
+    paragraph1: '¿Tienes <strong>trabajos o proyectos pendientes</strong> y no sabes cómo organizarte? Taskul es una herramienta útil que organiza tus tareas de <strong>forma sencilla</strong> y eficaz. Es un aliado perfecto que gestiona la <strong>organización de tus actividades</strong> y proyectos, horas de trabajo, personas y recursos implicados. Puedes organizar las tareas fácilmente a través del título y las etiquetas, además puedes añadir comentarios a la tarea y representar su progreso. '
+    block1:
+        title: 'Asociar compañeros'
+        content: 'Taskul facilita el trabajo en grupo permitiendo de manera rápida y cómoda <strong>compartir las tareas y proyectos entre varias personas</strong>. Tienes la posibilidad de añadir nuevos contactos mediante Facebook o correo electrónico.'
+        img_alt: 'Taskul permite asociar compañeros a tus tareas'
+    block2:
+        title: Gestión de ficheros
+        content: 'Asocia ficheros a tus trabajos y proyectos, y compartirlos de manera sencilla con tus compañeros que también pueden asociar nuevos ficheros en las actividades en las que participen.'
+        img_alt: 'Puedes compartir ficheros en tus tareas'
+    block3:
+        title: 'Mensajes privados'
+        content: 'Puedes enviar mensajes privados a tus contactos y crear conversaciones con ellos. Asimismo, estos mensajes son independientes de las tareas en el caso de que necesites  comunicar ideas alternativas solamente a uno de los miembros de la actividad compartida.'
+        img_alt: 'Envía mensajes privados a tus personas de tu grupo'
+    block4:
+        title: 'Comentarios'
+        content: 'Taskul te posibilita gestionar tus tareas y proyectos con eficacia permitiendo a cada uno de los miembros de una actividad añadir comentarios a través de los cuales es posible expresar las ideas y opinión con el objetivo de solicitar cambios en la tarea o añadir información adicional.'
+        img_alt: 'Comenta todas las tareas a las que pertenezcas'
+    block5:
+        title: 'Etiquetas'
+        content: 'Emplea el uso de las etiquetas con el fin de facilitar la organización de tus trabajos y proyectos que encontrarás de manera mucho más cómoda y rápida. Tienes la posibilidad de agrupar tus actividades por clientes, asignaturas, materias, categorías,etc.'
+        img_alt: 'Etiqueta las tareas para organizarlas'
+    block6:
+        title: 'Progreso'
+        content: 'Tienes la oportunidad de representar el nivel de la realización de una tarea mediante dos opciones principales, por una parte, puedes optar por los botones: por hacer, en proceso, finalizado, y por otra, indicando el porcentaje de realización de la tarea.'
+        img_alt: 'Indica el progreso en el que se encuentran tus tareas'
+    helpus:
+        title: 'Ayúdanos a mejorar'
+        content: 'Estaremos encantados de recibir tus opiniones, observaciones y mejoras sobre el gestor de tareas. Ayudanos a mejorar <strong>Taskul</strong>.                    Estamos en constante mejora.'
+    description: 'Taskul es Una aplicación web con la que prodrás organizar tus tareas con facilidad y compartirlas con tus compañeros.'
+    title: 'Taskul: Organizador de tareas y proyectos con tus compañeros'
+    keywords: 'gestor tareas,gestión personal,español,compartir tarea,gestor de proyectos,taskul,software,herramienta,saas'
+reseting:
+    title: 'Taskul: restablece tu contraseña'
+requestpassword:
+    info: 'Introduce tu email de contacto abajo. Recibirás un email con las instrucciones para restablecer tu clave.'

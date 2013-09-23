@@ -1,23 +1,21 @@
 {% form_theme form 'MainBundle:Form:fields.html.twig' %}
+{% trans_default_domain "UserBundle" %}
+
 <div id="sign_up2">
     <div class="container">
         <div class="row login">
             <div class="login-box">
                 <div class="span5 left_box">
-                    <h4>{% trans %}Create your account{% endtrans %}</h4>
+                    <h4>{{ 'registration.title'|trans|raw }}</h4>
 
                     <div class="perk_box">
                         <div class="perk">
                             <span class="icos"><img src="/img/facebook-icon.png"></span>
-                            <p>Registrate con tu cuenta de <strong>Facebook</strong> en <strong>Taskul.NET</strong>.</p>
+                            <p>{{'registration.block1.content'|trans|raw}}.</p>
                         </div>
                         <div class="perk">
-                            <span class="icos ico2"></span>
-                            <p><strong>There are many variations</strong> of passages of Lorem alteration in some form  injected humour these randomised words.</p>
-                        </div>
-                        <div class="perk">
-                            <span class="icos ico3"></span>
-                            <p><strong>Alteration in some form</strong> injected humour these randomised words.</p>
+                            <span class="icos ico2"><span class="icos"><img src="/img/icons/Crab-128.png"></span></span>
+                            <p>{{'registration.block2.content'|trans|raw}}</p>
                         </div>
                     </div>
                 </div>
@@ -25,7 +23,7 @@
                     <div class="box">
                         <div class="box_cont">
                             <div class="social">
-                                <h3>{{ 'register'|trans({},'UserBundle')}}</h3>
+                                <h3>{{ 'registration.register'|trans}}</h3>
                                 {% include "UserBundle:Helper:facebook_button.html.twig" %}
                             </div>
 
@@ -39,7 +37,7 @@
                                     <div class="control-group {% if form_errors(form.email) %} error {% endif %}">
                                     <div class="input-prepend">
                                         <span class="add-on"><i class="icon-user"></i></span>
-                                        <input type="email" id="fos_user_registration_form_email" name="fos_user_registration_form[email]" required="required" class=" email required" placeholder="{% trans %}Type email{% endtrans %}" {% if user.email %} value="{{ user.email }}" {% else %} value="{{ form.email.vars.value }}" {% endif %}>
+                                        <input type="email" id="fos_user_registration_form_email" name="fos_user_registration_form[email]" required="required" class=" email required" placeholder="{{'registration.placeholder.email'|trans}}" {% if user.email %} value="{{ user.email }}" {% else %} value="{{ form.email.vars.value }}" {% endif %}>
                                         {{ form_errors(form)}}
                                     </div>
                                     </div>
