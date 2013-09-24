@@ -45,6 +45,32 @@ lists:
 or: O
 privacy: 'Política de privacidad'
 legal: 'Aviso legal'
+privacy_content:
+    title: 'Taskul: Política de privacidad'
+    title1: 'Su privacidad es muy importante para nosotros.'
+    content1: '<ul><li>Nosotros no solicitamos información personal a menos que realmente la necesitemos.</li><li>Nosotros no compartimos su información personal con nadie, excepto para cumplir con la ley o para proteger nuestros derechos.</li></ul>Si usted tiene preguntas sobre la eliminación o corrección de sus datos personales , por favor mándenos un email.'
+    title2: 'Rergistro de visitas web'
+    content2: 'TAskul recoge información de identificación no-personal que los navegadores y servidores proveen, como el tipo de navegador, idioma, sitio de procedencia, así como la fecha y hora de cada solicitud del visitante. El propósito de Taskul para la recogida de dicha información es comprender mejor cómo los usuarios usan su sitio web.'
+    title3: 'Cookies'
+    content3: 'Una cookie es un pequeño fragmento de texto que los sitios web que visitas envían al navegador y que permite que el sitio web recuerde información sobre tu visita, como tu idioma preferido y otras opciones, lo que puede facilitar tu próxima visita y hacer que el sitio te resulte más útil. Las cookies desempeñan un papel muy importante, ya que sin ellas el uso de la Web sería una experiencia mucho más frustrante. Taskul  utiliza cookies para ayudar a identificar a los visitantes.<br/>Los visitantes que no deseen tener las cookies en sus ordenadores deben configurar sus navegadores para rechazarlas antes de utilizar este sitio web, con el inconveniente de que ciertas características no pueden funcionar adecuadamente sin la ayuda de éstas.'
+    title4: 'Cambios en la Política de Privacidad'
+    content4: 'Aunque la mayoría de los cambios tienden a ser menores, Taskul puede cambiar su Política de Privacidad de vez en cuando.  Estos cambios se harán efectivos después de su publicación en el Sitio o del envío de correos electrónicos a los usuarios. El uso continuado de este sitio después de cualquier cambio en esta Política de Privacidad , constituirá la aceptación de tales cambios.'
+legal_content:
+    title: 'Taskul: Aviso legal'
+    title1: 'Tus obligaciones'
+    content1: 'Aceptas dar información exacta, actual y completa acerca de ti; actualizarla cuando sea necesario; preservar la seguridad de tu contraseña e identificación; y ser totalmente responsable de todo el uso de tu cuenta y de todas las acciones que tengan lugar utilizando tu cuenta. Debes cumplir todas las leyes actuales. Debes leer y aceptar completamente nuestra Política de Privacidad.'
+    title2: 'Tus derechos'
+    content2: 'Bajo la condición de que cumplas con tus obligaciones, te concedemos un acceso restringido, revocable, no exclusivo e intransferible mediante un navegador de internet para ver la información que proporcionamos en nuestras páginas.'
+    title3: 'Nuestros derechos y obligaciones'
+    content3: 'Taskul proporcionará su plataforma y sus servicios, los cuales pueden ser actualizados, mejorados, suspendidos y cambiados en cualquier momento, con el propósito de proporcionar a sus usuarios aplicaciones de gestión en la red. Podemos modificar, reemplazar, rechazar el acceso o suspender Taskul, parcial o completamente. Todos estos cambios se harán efectivos después de su publicación en el Sitio o del envío de correos electrónicos a los usuarios. Nos reservamos el derecho de cesar tu cuenta si determinamos, a nuestro criterio, que debemos hacerlo.'
+    title4: 'Descargo de responsabilidad'
+    content4: 'Taskul no tiene obligación de verificar la identidad de sus usuarios ni de supervisar el contenido que ha sido proporcionado por sus usuarios. Taskul no es responsable del uso incorrecto de la información por parte de un usuario. TAskul no garantiza que los servicios que proporciona funcionen sin interrupción o sin errores de funcionamiento. Si estás descontento con el servicio de Taskul puedes abandonarlo y romper este acuerdo, en cualquier momento.'
+    title5: 'Causar baja'
+    content5: 'Puedes causar baja en cualquier momento, por cualquier causa o sin ella, a través del enlace Cancelar cuenta disponible en la opción Cuenta En cuanto causas baja, pierdes el acceso a Taskul, y los datos introducidos.'
+    title6: 'Información de contacto'
+    content6: 'Si tienes cualquier pregunta o comentario acerca de las Condiciones de Uso, por favor envíanos un correo electrónico.'
+    title7: 'Cambios en condiciones de uso'
+    content7: 'Nos reservamos el derecho de modificar, complementar o reemplazar las Condiciones de Uso, haciéndolas efectivas al publicarlas en el Sitio o notificándolas de cualquier otra manera. Si no estás de acuerdo con los cambios establecidos, puedes romper este acuerdo en cualquier momento.'
 follow:
     taskul:
         twitter: 'Seguir a Taskul en Twitter'

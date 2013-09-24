@@ -84,12 +84,12 @@
 	height: 136px;
 	box-shadow: 1px 1px 2px 0px #E0E0E0;
 }
-#service_2 .circle img{
+/*#service_2 .circle img{
 	margin-top: 42px;
 }
 #service_2 .circle1 img{
 	margin-top:49px;
-}
+}*/
 #service_2 .description_wrapper{
 	float: right;
 }
@@ -182,7 +182,7 @@
 @media (max-width: 979px) {
 }
 /* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) { 
+@media (min-width: 768px) and (max-width: 979px) {
 	#service_2 .description_wrapper{
 		width: 77%;
 	}
@@ -201,7 +201,7 @@
 	}
 }
 /* Landscape phone to portrait tablet */
-@media (max-width: 767px) {	
+@media (max-width: 767px) {
 	#service_1 .service_wrapper .feature .img_box{
 		text-align: center;
 	}

@@ -69,14 +69,14 @@
     '@MainBundle/Resources/public/js/vendor/jquery.uniform.js'
     '@MainBundle/Resources/public/js/main.js'
     '@MainBundle/Resources/public/js/ajaxify.js'
-    %}
+    output='js/compiled/public.js' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
     {% if app.request.locale != 'en' %}
     {% javascripts
     '@MainBundle/Resources/public/js/vendor/messages_es.js'
     %}
-    <script src="{{ asset_url }}"></script>
+    <script src="{{ asset_url }}" async></script>
     {% endjavascripts %}
     {% endif %}
     {% block javascripts %}{% endblock %}

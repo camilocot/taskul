@@ -1,28 +1,26 @@
 {% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "::public.html.twig" %}
+{% trans_default_domain "MainBundle" %}
+{% block title %}{{'privacy_content.title'|trans}}{% endblock %}
 {% block content %}
 <div id="service_2" class="top140">
         <div class="container">
             <div class="section_header">
-                <h3>Política de privacidad</h3>
+                <h3>{{'privacy'|trans}}</h3>
             </div>
             <div class="row perk">
                 <div class="span2 circle circle1">
-                    <img src="img/service_ico1.png" alt="">
+                    <img src="img/icons/Finger-Print-128.png" alt="{{'privacy'|trans}}">
                 </div>
 
                 <div class="span10 description_wrapper">
-                    <h5>Your privacy is of most importance to us.</h5>
-                    <p>
-
-
-When you sign up for Nozbe, your data is being stored in our database and you are automatically subscribed to a Nozbe Users' Newsletter.
-
-Your data won't be shared or sold to anyone, for any reason. You have the right to remove your account and delete your data if you wish. It's all up to you.
-
-You can un-subscribe from the Newsletter at any time by clicking on the link at the bottom of every Email message you would receive.
-
-When processing payments we don't store your credit card details on our servers. We only send them to our bank for validation.</p>
-                </div>
+                    <h5>{{'privacy_content.title1'|trans}}</h5>
+                    <p>{{'privacy_content.content1'|trans|raw}}</p>
+                    <h5>{{'privacy_content.title2'|trans}}</h5>
+                    <p>{{'privacy_content.content2'|trans|raw}}</p>
+                    <h5>{{'privacy_content.title3'|trans}}</h5>
+                    <p>{{'privacy_content.content3'|trans|raw}}</p>
+                    <h5>{{'privacy_content.title4'|trans}}</h5>
+                    <p>{{'privacy_content.content4'|trans|raw}}</p>
             </div>
 
         </div>

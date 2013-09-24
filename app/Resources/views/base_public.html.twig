@@ -45,12 +45,12 @@
             <div class="row info">
                 <div class="span6 privacy1">
                     <ul>
-                        <li><a href="{{ path('privacy') }}" title="{{'privacy'|trans({},'MainBundle')}}" class="ajaxy">{{'privacy'|trans({},'MainBundle')}}</a></li>
+                        <li><a href="{{ path('privacy') }}" title="{{'privacy_content.title'|trans({},'MainBundle')}}" class="ajaxy">{{'privacy'|trans({},'MainBundle')}}</a></li>
                     </ul>
                 </div>
                 <div class="span5 privacy2">
                     <ul>
-                        <li><a href="{{ path('legal') }}" title="{{'legal'|trans({},'MainBundle')}}" class="ajaxy">{{'legal'|trans({},'MainBundle')}}</a></li>
+                        <li><a href="{{ path('legal') }}" title="{{'legal_content.title'|trans({},'MainBundle')}}" class="ajaxy">{{'legal'|trans({},'MainBundle')}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -77,7 +77,6 @@
             </div>
         </div>
     </footer>
-    </div>
     <!-- Scripts -->
     {% javascripts
     '@MainBundle/Resources/public/js/vendor/jquery-1.9.1.js'
@@ -93,7 +92,7 @@
     '@MainBundle/Resources/public/js/theme.js'
     '@MainBundle/Resources/public/js/main.js'
     '@MainBundle/Resources/public/js/ajaxify.js'
-    %}
+    output='js/compiled/public.js' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
     {% if app.request.locale != 'en' %}
