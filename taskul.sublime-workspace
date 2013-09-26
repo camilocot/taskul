@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"content",
+				"content1"
+			],
+			[
+				"para",
+				"paragraph1"
+			],
+			[
+				"im",
+				"img_alt"
+			],
+			[
 				"thre",
 				"threadId"
 			],
@@ -111,38 +123,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "src/Taskul/MessageBundle/Controller/MessageController.php",
-			"settings":
-			{
-				"buffer_size": 9040,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/Taskul/MessageBundle/Resources/config/routing.yml",
-			"settings":
-			{
-				"buffer_size": 1155,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/media/4C1C-880D/right.at.your.door-done.srt",
-			"settings":
-			{
-				"buffer_size": 101392,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/Resources/views/private.html.twig",
-			"settings":
-			{
-				"buffer_size": 10494,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -208,6 +188,48 @@
 	},
 	"file_history":
 	[
+		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/translations/MainBundle.es.yml",
+		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/views/Default/legal.html.twig",
+		"/var/www/taskul.local/taskul.local/app/Resources/views/base_public.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/css/services.css",
+		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/views/Default/privacy.html.twig",
+		"/var/www/taskul.local/taskul.local/app/Resources/views/base_private.html.twig",
+		"/var/www/taskul.local/taskul.local/app/config/parameters.yml",
+		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/views/Form/fields.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Controller/BaseController.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Profile/show_content.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/translations/UserBundle.es.yml",
+		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/views/FriendRequest/new.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/translations/FriendBundle.es.yml",
+		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Form/FriendRequestType.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/public/js/friendrequest/new.js",
+		"/var/www/taskul.local/taskul.local/vendor/symfony/symfony/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/MessageBundle/Controller/MessageController.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Controller/ProfileController.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Controller/ChangePasswordController.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Controller/Base/TasksRestBaseController.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Profile/edit_content.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/views/Friend/index.html.twig",
+		"/var/www/taskul.local/taskul.local/web/robots.txt",
+		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Menu/MenuBuilder.php",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/partials/forgot_password.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Resetting/request.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Resetting/reset.html.twig",
+		"/var/www/taskul.local/taskul.local/app/Resources/views/public.html.twig",
+		"/var/www/taskul.local/taskul.local/app/Resources/views/private.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Registration/register_content.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/js/index-slider.js",
+		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/views/Default/index.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/MessageBundle/Resources/config/routing.yml",
+		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/css/theme.css",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Security/login.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Registration/register.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Resetting/passwordAlreadyRequested.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Resetting/request_content.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Resetting/reset_content.html.twig",
+		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/css/sign.css",
+		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/translations/messages.es.xlf",
+		"/media/4C1C-880D/right.at.your.door-done.srt",
 		"/var/www/taskul.local/taskul.local/app/AppKernel.php",
 		"/var/www/taskul.local/taskul.local/vendor/jms/i18n-routing-bundle/JMS/I18nRoutingBundle/Tests/Router/Fixture/routing.yml",
 		"/var/www/taskul.local/taskul.local/app/config/routing.yml",
@@ -218,18 +240,15 @@
 		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/js/ajaxify.js",
 		"/var/www/taskul.local/taskul.local/src/Taskul/TimelineBundle/Entity/Action.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/js/private.js",
-		"/var/www/taskul.local/taskul.local/app/Resources/views/private.html.twig",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MessageBundle/Resources/config/routing.xml",
 		"/var/www/taskul.local/taskul.local/src/Taskul/TimelineBundle/Entity/Timeline.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MessageBundle/Resources/views/Message/newThread.html.twig",
 		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Controller/FriendController.php",
-		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Controller/BaseController.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MessageBundle/Resources/public/js/newThread.js",
 		"/var/www/taskul.local/taskul.local/src/Taskul/TimelineBundle/Driver/ORM/ActionManager.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MessageBundle/Resources/views/Message/threads_list.html.twig",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MessageBundle/FormType/NewThreadMessageFormType.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Controller/FriendRequestController.php",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/views/Friend/index.html.twig",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MessageBundle/MessageBundle.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Controller/TasksRestController.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/TagBundle/Entity/Tag.php",
@@ -245,20 +264,15 @@
 		"/var/www/taskul.local/taskul.local/web/messages/es-ES/translation.json",
 		"/var/www/taskul.local/taskul.local/README.txt",
 		"/var/www/taskul.local/taskul.local/src/Taskul/FileBundle/Resources/public/js/listFiles.js",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/views/FriendRequest/new.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/public/js/friendrequest/new.js",
 		"/var/www/taskul.local/taskul.local/src/Taskul/TagBundle/Controller/TagsRestController.php",
 		"/var/www/taskul.local/taskul.local/web/messages/en-US/translation.json",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/config/validation.xml",
-		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Controller/ProfileController.php",
 		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Form/Handler/ProfileFormHandler.php",
-		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Profile/edit_content.html.twig",
 		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Resources/views/Profile/edit_content.html.twig",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Form/Type/ProfileFormType.php",
 		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Form/Type/ProfileFormType.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/EventListener/PasswordChangeListener.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/translations/validators.es.yml",
-		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Controller/ChangePasswordController.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/ChangePassword/changePasswordWithoutVerification_content.html.twig",
 		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/user-bundle/FOS/UserBundle/Controller/ChangePasswordController.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Form/Type/ChangePasswordWithoutVerificationFormType.php",
@@ -278,19 +292,14 @@
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Helper/facebook_button.html.twig",
 		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/comment-bundle/FOS/CommentBundle/Tests/EventListener/CommentBlamerListenerTest.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Tests/Controller/Base/TaskRestBaseControllerTest.php",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Controller/Base/TasksRestBaseController.php",
 		"/var/www/taskul.local/taskul.local/vendor/friendsofsymfony/rest-bundle/FOS/RestBundle/Controller/FOSRestController.php",
 		"/var/www/taskul.local/taskul.local/vendor/symfony/symfony/src/Symfony/Bundle/FrameworkBundle/Controller/Controller.php",
-		"/var/www/taskul.local/taskul.local/app/Resources/views/public.html.twig",
 		"/var/www/taskul.local/taskul.local/app/cache/dev/classes.php",
 		"/var/www/taskul.local/taskul.local/vendor/apy/breadcrumbtrail-bundle/APY/BreadcrumbTrailBundle/EventListener/BreadcrumbListener.php",
 		"/var/www/taskul.local/taskul.local/vendor/apy/breadcrumbtrail-bundle/APY/BreadcrumbTrailBundle/Resources/config/services.xml",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/translations/MainBundle.en.yml",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Twig/LabelsExtension.php",
 		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Handler/AuthenticationHandler.php",
-		"/var/www/taskul.local/taskul.local/app/config/parameters.yml",
-		"/var/www/taskul.local/taskul.local/app/Resources/views/base_public.html.twig",
-		"/var/www/taskul.local/taskul.local/app/Resources/views/base_private.html.twig",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/css/flags.css",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/js/ajaxify-html5.js",
 		"/var/www/taskul.local/taskul.local/src/Taskul/CommentBundle/Resources/views/Thread/comment_edit.html.twig",
@@ -303,39 +312,10 @@
 		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Resources/public/js/form.js",
 		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/views/Menu/main.html.twig",
 		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Resources/config/tasks_routes.yml",
-		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Security/login.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Registration/register_content.html.twig",
 		"/var/www/taskul.local/taskul.local/composer.json",
 		"/var/www/taskul.local/taskul.local/web/test.html",
 		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/views/FriendRequest/indexSended.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/views/FriendRequest/indexRecibed.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/CommentBundle/Resources/views/Thread/async.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/views/Default/dashboard.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/css/theme.css",
-		"/var/www/taskul.local/taskul.local/web/perfectum_dashboard_1_0_4_html/index.html",
-		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/css/style.css",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/public/js/friendrequest/indexSended.js",
-		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/views/Profile/edit.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Resources/public/js/index.js",
-		"/var/www/taskul.local/taskul.local/src/Taskul/TaskBundle/Resources/public/js/show.js",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/public/js/friendRequestOps.js",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/public/js/friendOps.js",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/public/js/friend/index.js",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/public/js/friendrequest/importFacebook.js",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/public/js/friendrequest/indexRecibed.js",
-		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/public/js/friendrequest/show.js",
-		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/translations/MainBundle.es.yml",
-		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Menu/MenuBuilder.php",
-		"/var/www/taskul.local/taskul.local/vendor/knplabs/knp-menu/src/Knp/Menu/Resources/views/knp_menu.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/UserBundle/Resources/translations/UserBundle.es.yml",
-		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/public/js/theme.js",
-		"/var/www/taskul.local/taskul.local/web/clean-canvas-wrap/css/about.css",
-		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/views/Default/index.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/views/Default/privacy.html.twig",
-		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Resources/views/Default/legal.html.twig",
-		"/var/www/taskul.local/taskul.local/web/clean-canvas-wrap/about-us.html",
-		"/var/www/taskul.local/taskul.local/src/Taskul/MainBundle/Controller/DefaultController.php",
-		"/var/www/taskul.local/taskul.local/web/clean-canvas-wrap/features.html"
+		"/var/www/taskul.local/taskul.local/src/Taskul/FriendBundle/Resources/views/FriendRequest/indexRecibed.html.twig"
 	],
 	"find":
 	{
@@ -354,9 +334,18 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"margin-topp",
+			"trans",
+			"textarea_widget",
+			"textare",
+			"Dashboar",
+			"animate",
+			"resetting",
+			"sign",
+			"Crea",
 			"taskul_message_list_unread_messages",
 			"generateUrl",
 			"url",
@@ -493,475 +482,8 @@
 	"groups":
 	[
 		{
-			"selected": 2,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "src/Taskul/MessageBundle/Controller/MessageController.php",
-					"settings":
-					{
-						"buffer_size": 9040,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								8058,
-								8058
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": true,
-							"sublimelinter_delay": 2,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2792.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/Taskul/MessageBundle/Resources/config/routing.yml",
-					"settings":
-					{
-						"buffer_size": 1155,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								784,
-								784
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": true,
-							"sublimelinter_delay": 2,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/YAML/YAML.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/media/4C1C-880D/right.at.your.door-done.srt",
-					"settings":
-					{
-						"buffer_size": 101392,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": true,
-							"sublimelinter_delay": 2,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "app/Resources/views/private.html.twig",
-					"settings":
-					{
-						"buffer_size": 10494,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3836,
-								3836
-							]
-						],
-						"settings":
-						{
-							"annotations":
-							[
-								"TODO",
-								"README",
-								"FIXME"
-							],
-							"csslint_options":
-							{
-								"adjoining-classes": "warning",
-								"box-model": true,
-								"box-sizing": "warning",
-								"compatible-vendor-prefixes": "warning",
-								"display-property-grouping": true,
-								"duplicate-background-images": "warning",
-								"duplicate-properties": true,
-								"empty-rules": true,
-								"errors": true,
-								"fallback-colors": "warning",
-								"floats": "warning",
-								"font-faces": "warning",
-								"font-sizes": "warning",
-								"gradients": "warning",
-								"ids": "warning",
-								"import": "warning",
-								"important": "warning",
-								"known-properties": true,
-								"outline-none": "warning",
-								"overqualified-elements": "warning",
-								"qualified-headings": "warning",
-								"regex-selectors": "warning",
-								"rules-count": "warning",
-								"shorthand": "warning",
-								"star-property-hack": "warning",
-								"text-indent": "warning",
-								"underscore-property-hack": "warning",
-								"unique-headings": "warning",
-								"universal-selector": "warning",
-								"vendor-prefix": true,
-								"zero-units": "warning"
-							},
-							"gjslint_ignore":
-							[
-								110
-							],
-							"gjslint_options":
-							[
-							],
-							"javascript_linter": "jshint",
-							"jshint_options":
-							{
-								"browser": true,
-								"evil": true,
-								"regexdash": true,
-								"sub": true,
-								"trailing": true,
-								"wsh": true
-							},
-							"pep8": true,
-							"pep8_ignore":
-							[
-								"E501"
-							],
-							"perl_linter": "perlcritic",
-							"pyflakes_ignore":
-							[
-							],
-							"pyflakes_ignore_import_*": true,
-							"sublimelinter": true,
-							"sublimelinter_delay": 2,
-							"sublimelinter_disable":
-							[
-							],
-							"sublimelinter_executable_map":
-							{
-							},
-							"sublimelinter_fill_outlines": false,
-							"sublimelinter_gutter_marks": true,
-							"sublimelinter_gutter_marks_theme": "simple",
-							"sublimelinter_mark_style": "none",
-							"sublimelinter_notes": false,
-							"sublimelinter_objj_check_ascii": false,
-							"sublimelinter_popup_errors_on_save": false,
-							"sublimelinter_syntax_map":
-							{
-								"C++": "c",
-								"Python Django": "python",
-								"Ruby on Rails": "ruby"
-							},
-							"sublimelinter_wrap_find": true,
-							"syntax": "Packages/PHP-Twig/Syntaxes/HTML (Twig).tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 662.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -1014,6 +536,38 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"fields",
+				"src/Taskul/MainBundle/Resources/views/Form/fields.html.twig"
+			],
+			[
+				"field",
+				"src/Taskul/MainBundle/Resources/views/Form/fields.html.twig"
+			],
+			[
+				"form_div",
+				"vendor/symfony/symfony/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig"
+			],
+			[
+				"form_div_",
+				"vendor/symfony/symfony/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig"
+			],
+			[
+				"changepas",
+				"src/Taskul/UserBundle/Controller/ChangePasswordController.php"
+			],
+			[
+				"profilecontr",
+				"src/Taskul/UserBundle/Controller/ProfileController.php"
+			],
+			[
+				"mainbundle.es.",
+				"src/Taskul/MainBundle/Resources/translations/MainBundle.es.yml"
+			],
+			[
+				"messagecontr",
+				"src/Taskul/MessageBundle/Controller/MessageController.php"
+			],
 			[
 				"routeing.ym",
 				"vendor/jms/i18n-routing-bundle/JMS/I18nRoutingBundle/Tests/Router/Fixture/routing.yml"
@@ -1279,10 +833,6 @@
 				"src/Taskul/UserBundle/Resources/views/ChangePassword/changePassword_content.html.twig"
 			],
 			[
-				"profilecontr",
-				"src/Taskul/UserBundle/Controller/ProfileController.php"
-			],
-			[
 				"changepasswordcontr",
 				"src/Taskul/UserBundle/Controller/ChangePasswordController.php"
 			],
@@ -1423,10 +973,6 @@
 				"web/bundles/main/js/vendor/jquery.uniform.js"
 			],
 			[
-				"field",
-				"src/Taskul/MainBundle/Resources/views/Form/fields.html.twig"
-			],
-			[
 				"fields.",
 				"src/Taskul/MainBundle/Resources/views/Form/fields.html.twig"
 			],
@@ -1501,30 +1047,6 @@
 			[
 				"commettas",
 				"app/database/seeds/CommentsTableSeeder.php"
-			],
-			[
-				"routes",
-				"app/routes.php"
-			],
-			[
-				"app.mus",
-				"public/views/app.mustache"
-			],
-			[
-				"application",
-				"public/views/layouts/application.blade.php"
-			],
-			[
-				"styles",
-				"public/css/styles.less"
-			],
-			[
-				"style",
-				"public/css/styles.less"
-			],
-			[
-				"database",
-				"app/config/database.php"
 			]
 		],
 		"width": 0.0
