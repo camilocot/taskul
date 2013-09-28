@@ -2233,3 +2233,6 @@ footer p {
   background-image: url("/img/glyphicons-halflings-red.png");
 }
 
+.uv-icon.uv-top-right {
+top: 90px !important;
+}

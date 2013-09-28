@@ -523,6 +523,9 @@ footer, .push {
     line-height: 24px;
     margin-bottom: 47px;
    }
+.uv-icon.uv-top-right {
+top: 100px !important;
+}
 /* Landscape phones and down */
 @media (max-width: 480px) {
 	#footer .info .privacy2 ul {
