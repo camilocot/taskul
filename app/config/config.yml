@@ -312,7 +312,7 @@ sonata_user:
         user:               Taskul\UserBundle\Entity\User
         group:              Taskul\UserBundle\Entity\Group
 
-# jms_i18n_routing:
-#     default_locale: %locale%
-#     locales: %localesavailable%
-#     strategy: prefix
+jms_i18n_routing:
+    default_locale: %locale%
+    locales: %localesavailable%
+    strategy: prefix
