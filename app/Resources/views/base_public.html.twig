@@ -27,6 +27,18 @@
     <link rel="stylesheet" href="{{ asset_url }}">
     {% endstylesheets %}
     {% block stylesheets%}{% endblock %}
+    <meta name="DC.Title" xml:lang="{{ app.request.locale }}" content="{% block titledc %}{% endblock %}" />
+    <meta name="DC.Creator" content="Ćamilo Cota" />
+    <meta name="DC.Creator.Address" content="info@taskul.net" />
+    <meta name="DC.Type" content="text/html" />
+    <meta name="DC.Description" xml:lang="{{ app.request.locale }}" content="{% block descriptiondc %}{% endblock %}">
+    <meta name="DC.title" content="" />
+    <meta name="geo.region" content="ES-MA" />
+    <meta name="geo.placename" content="M&aacute;laga" />
+    <meta name="geo.position" content="36.72;-4.42" />
+    <meta name="ICBM" content="36.72, -4.42" />
+
+    <meta name="DC.Language" scheme="dcterms:RFC1766" content="{{ app.request.locale }}" />
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
 
     <!--[if lt IE 9]>
@@ -39,6 +51,7 @@
 {% endblock %}
 <div class="push"></div>
 </div>
+
     <!-- starts footer -->
     <footer id="footer">
         <div class="container">
@@ -77,7 +90,6 @@
             </div>
         </div>
     </footer>
-
     {% include 'MainBundle:partials:basejs.html.twig' %}
 
     {% javascripts
@@ -104,5 +116,6 @@
       {% include 'MainBundle:partials:ganalytics.html.twig' %}
       {% include 'MainBundle:partials:uservoice.html.twig' %}
     {% endif %}
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </body>
 </html>

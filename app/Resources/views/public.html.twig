@@ -14,7 +14,6 @@
         <a class="brand ajaxy" href="{{ path('homepage') }}" title="{{'index.title'|trans({},'MainBundle')}}">
             <strong>TASKUL.NET</strong>
         </a>
-
         <div class="nav-collapse collapse">
 			{% if is_granted('ROLE_USER') %}
 			{{ knp_menu_render('public_logged', {'currentClass': 'active'})  }}
@@ -31,7 +30,8 @@
             {% endfor %}
         </ul>
         </div>
-        <div class="hidden-tablet hidden-phone" style="color:#FF9999;margin-left:400px"><p><img height="20" width="20" src="/img/icons/Crab-128.png" alt="Logo" class="info-beta" style="float:left"><a class="ajaxy" href="{{ path('homepage') }}" title="{{'index.title'|trans({},'MainBundle')}}">{{'taskul.beta'|trans({},'MainBundle')|raw}}</p></div>
+        <div class="hidden-tablet hidden-phone helptaskul"><p><img src="/img/icons/Crab-128.png" alt="Logo"><a class="ajaxy" href="{{ path('homepage') }}" title="{{'index.title'|trans({},'MainBundle')}}">{{'taskul.beta'|trans({},'MainBundle')|raw}}</p></div>
+
     </div>
   </div>
 </div>

@@ -81,7 +81,7 @@ taskul:
 menu:
     title:
         register: 'Taskul: Registro gratuito en el gestor de tareas'
-        login: 'Taskul: Accede a administrar tus tareas, puedes usar '
+        login: 'Taskul: Accede a administrar tus tareas'
         dashboard: 'Panel de control de administración'
         tasks: 'Revisa todas las tareas que gestionas'
         task:

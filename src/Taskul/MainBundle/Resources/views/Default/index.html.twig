@@ -4,15 +4,15 @@
 {% block description %}<meta name="description" content="{{'index.description'|trans}}" />{% endblock %}
 {% block keywords %}<meta name="keywords" content="{{'index.keywords'|trans}}" />{% endblock %}
 {% block content %}
-    <section id="feature_slider" class="">
-        <article class="slide" id="showcasing" style="background: url('img/backgrounds/deep-green.jpg') repeat-x top center;">
+    <section id="feature_slider">
+        <article class="slide" id="showcasing">
             <img class="asset left-30 sp600 t120 z1" src="img/slides/scene1/taskul_net-list_b.png" alt="{{ 'index.slide.slide1.img.alt'|trans}}"/>
             <div class="info">
                 <h2>{{ 'index.slide.slide1.content1'|trans}}</h2>
                 <a href="{{ path('fos_user_registration_register') }}" class="ajaxy btn-trans" title="{{ 'index.slide.slide1.content2_title'|trans}}">{{ 'index.slide.slide1.content2'|trans}}</a>
             </div>
         </article>
-        <article class="slide" id="responsive" style="background: url('img/backgrounds/aqua.jpg') repeat-x top center;">
+        <article class="slide" id="responsive">
 
             <img class="asset left-472 sp600 t120 z3" src="img/slides/scene2/taskul_net-files1_b.png" alt="{{ 'index.slide.slide2.img1_alt'|trans}}" />
             <img class="asset left-310 sp500 t120 z2" src="img/slides/scene2/taskul_net-files2_b.png" alt="{{ 'index.slide.slide2.img2_alt'|trans}}" />
@@ -20,7 +20,7 @@
                 <h2>{{ 'index.slide.slide2.content'|trans}}</h2>
             </div>
         </article>
-        <article class="slide" id="tour" style="background: url('img/backgrounds/color-splash.jpg') repeat-x top center;">
+        <article class="slide" id="tour">
             <img class="asset left-472 sp650 t110 z3" src="img/slides/scene3/taskul_edit1_b.png" alt="{{ 'index.slide.slide3.img1_alt'|trans}}" />
             <div class="info">
                 <h2>{{ 'index.slide.slide3.content1'|trans}}</h2>
@@ -28,12 +28,12 @@
             </div>
         </article>
     </section>
-    <div  name="features" id="features" class="features_page">
+    <div  id="features" class="features_page">
         <div class="container">
              <!-- Feature Wrapper -->
             <div class="feature_wrapper option2">
                 <div class="section_header">
-                    <h3>{{ 'index.title1'|trans}}</h3>
+                    <h1>{{ 'index.title1'|trans}}</h1>
                 </div>
                 <div class="row intro">
                     <p>{{'index.paragraph1'|trans|raw}}</p>
@@ -123,7 +123,7 @@
             </div>
         </div>
     </div>
-    <div id="helpus" name="help-us" class="features_page">
+    <div id="helpus" class="features_page">
         <div class="container">
             <div class="section_header">
                 <h3>{{'index.helpus.title'|trans}}</h3>

@@ -41,7 +41,7 @@ namespace :symfony do
   end
 end
 
-after "deploy", "symfony:clear_apc"
+#after "deploy", "symfony:clear_apc"
 
 namespace :symfony do
   desc "Clear apc cache"

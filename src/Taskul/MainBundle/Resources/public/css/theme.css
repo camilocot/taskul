@@ -109,6 +109,17 @@ header {
 	margin:0;
 }
 
+.section_header h1 {
+    color: rgb(100, 100, 100);
+    font-weight: 300;
+    font-style: italic;
+    font-size: 27px;
+    border-bottom: 1px solid #b3b3b3;
+    padding-bottom: 0px;
+    display: inline-block;
+    margin:0;
+}
+
 /* Footer
 -------------------------------------------------- */
 #footer {
@@ -543,6 +554,29 @@ footer, .push {
  .progress-indicator img {
    margin-top:75px;
  }
+
+ #showcasing {
+    background: url('/img/backgrounds/deep-green.jpg') repeat-x top center;
+ }
+
+ #responsive {
+    background: url('img/backgrounds/aqua.jpg') repeat-x top center;
+ }
+
+#tour {
+    background: url('img/backgrounds/color-splash.jpg') repeat-x top center;
+}
+
+.helptaskul {
+    color:#FF9999;
+    margin-left:400px;
+}
+
+.helptaskul > p > img {
+    width: 20px;
+    height: 20px;
+    float:left;
+}
 /* Landscape phones and down */
 @media (max-width: 480px) {
 	#footer .info .privacy2 ul {
