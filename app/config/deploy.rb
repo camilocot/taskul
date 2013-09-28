@@ -19,6 +19,7 @@ set  :use_composer,   true
 set  :update_vendors, true
 set  :shared_files,   ["app/config/parameters.yml"]
 set  :shared_children,     [app_path + "/logs", web_path + "/uploads", "vendor"]
+set  :dump_assetic_assets, true
 
 # Be more verbose by uncommenting the following line
-# logger.level = Logger::MAX_LEVEL
+logger.level = Logger::MAX_LEVEL
