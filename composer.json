@@ -46,7 +46,6 @@
         "sonata-project/intl-bundle": "dev-master",
         "simplethings/entity-audit-bundle": "dev-master",
         "sonata-project/user-bundle": "dev-master",
-        "jms/i18n-routing-bundle": "dev-master",
         "doctrine/doctrine-migrations-bundle": "dev-master"
     },
     "scripts": {

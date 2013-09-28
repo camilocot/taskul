@@ -56,7 +56,7 @@ class AppKernel extends Kernel
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
 
             // not required, but recommended for better extraction
-            new JMS\TranslationBundle\JMSTranslationBundle(),
+            //new JMS\TranslationBundle\JMSTranslationBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
         );
 
