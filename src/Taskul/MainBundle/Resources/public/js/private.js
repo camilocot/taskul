@@ -150,7 +150,6 @@ $(document).ready(function(){
         }
     });
 
-    $(".progress-indicator").fadeOut(500);
     $('#overlay').fadeOut(500);
 
     $(document).on('click','.btn-close',function(e){

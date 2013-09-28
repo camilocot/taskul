@@ -88,6 +88,10 @@ $(document).ready(function(){
 
       return true;
     },i18n.t("msg.error.emails"));
+
+    $('input, textarea').placeholder();
+    $(".progress-indicator").fadeOut(500);
+
 });
 
 function checkMobile()

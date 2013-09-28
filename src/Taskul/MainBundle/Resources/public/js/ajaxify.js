@@ -106,8 +106,9 @@ function loadPage(url)
                 $menuChildren.filter(activeSelector).removeClass(activeClass);
                 $menuChildren = $menuChildren.has('a[href^="'+relativeUrl+'"],a[href^="/'+relativeUrl+'"],a[href^="'+url+'"]');
                 if ( $menuChildren.length === 1 ) { $menuChildren.addClass(activeClass); }
-                $(".progress-indicator").fadeOut(500);
+
             }
+            $(".progress-indicator").fadeOut(500);
 
             // document.title = title;
             // try {
