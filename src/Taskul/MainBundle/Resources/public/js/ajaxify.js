@@ -64,6 +64,7 @@ var historyBool = true; // Para los formularios qeu sino carga la pagina 2 veces
         loadAjaxModalForms();
         loadAjaxForms();
         showWarningNoRecords();
+        var intervalID = setInterval(launchNotifications, 600000);
     }); // end onDomLoad
 
 })(window); // end closure
@@ -100,7 +101,7 @@ function loadPage(url)
                 showWarningNoRecords();
                 template_functions(); //private.js
                 widthFunctions(); //private.js
-                launchNotifications(); // private.js
+                // launchNotifications(); // private.js, esto esta desactivado porque consume muchos recursos en el servidor de test la ejecutamos cada hora
                 // Update the menu
                 $menuChildren = $menu.find(menuChildrenSelector);
                 $menuChildren.filter(activeSelector).removeClass(activeClass);
