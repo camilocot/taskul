@@ -17,3 +17,11 @@ monolog:
             type:  stream
             path:  "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
+fos_user:
+    from_email:
+        address: info@taskul.net
+        sender_name: Taskul.net
+
+lexik_mailer:
+    admin_email: info@taskul.net
+
