@@ -64,7 +64,6 @@ var historyBool = true; // Para los formularios qeu sino carga la pagina 2 veces
         loadAjaxModalForms();
         loadAjaxForms();
         showWarningNoRecords();
-        var intervalID = setInterval(launchNotifications, 600000);
     }); // end onDomLoad
 
 })(window); // end closure

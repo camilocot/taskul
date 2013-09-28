@@ -72,7 +72,7 @@ $(document).ready(function(){
   });
 
   launchNotifications();
-  //setInterval('launchNotifications',60000);
+  var intervalID = setInterval('launchNotifications', 600000);
 
   /* Para eliminar las filas de las tablas al pulsar sobre el boton */
   $.fn.deleteTableRow = function ()

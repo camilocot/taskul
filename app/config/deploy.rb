@@ -17,7 +17,7 @@ role :app,        domain, :primary => true       # This may be the same as your 
 set  :use_sudo,       false
 set  :keep_releases,  3
 set  :use_composer,   true
-set  :update_vendors, true
+set  :update_vendors, false
 set  :shared_files,        ["app/config/parameters.yml","web/js/fos_js_routes.js"]
 set  :shared_children,     [app_path + "/logs", web_path + "/uploads", "vendor" , app_path + "/logs"]
 set  :dump_assetic_assets, true
