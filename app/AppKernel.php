@@ -57,7 +57,7 @@ class AppKernel extends Kernel
 
             // not required, but recommended for better extraction
             new JMS\TranslationBundle\JMSTranslationBundle(),
-
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

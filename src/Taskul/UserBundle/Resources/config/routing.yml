@@ -35,4 +35,5 @@ taskul_user_get_friends:
     options:
         expose: true
 
-
+fos_facebook_channel:
+  resource: "@FOSFacebookBundle/Resources/config/routing.xml"

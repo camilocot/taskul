@@ -13,3 +13,7 @@ web/css/*
 # Configuration files
 app/config/parameters.ini
 app/config/parameters.yml
+
+README*
+taskul.sublime*
+backups/*
