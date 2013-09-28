@@ -1,0 +1,11 @@
+User-agent: *
+Crawl-delay: 30
+Disallow: /es/msg/
+Disallow: /es/dashboard
+Disallow: /es/frequest/
+Disallow: /es/msg/
+Disallow: /es/friend/
+Disallow: /es/api/
+Disallow: /es/profile/
+
+Sitemap: http://www.taskul.net/sitemap.xml
