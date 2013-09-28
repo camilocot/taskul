@@ -22,4 +22,4 @@ var staticHeader = {
             $("body").css("padding-top", 0);
         }
     }
-}
+};

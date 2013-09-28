@@ -78,14 +78,15 @@
         </div>
     </footer>
     <!-- Scripts -->
+    <script src="{{ asset('bundles/main/js/vendor/jquery-1.9.1.js') }}" type="text/javascript" ></script>
+    <script src="{{ asset('bundles/main/js/vendor/jquery.history.js') }}" type="text/javascript" ></script>
+    <script src="{{ asset('bundles/main/js/vendor/jquery.validate.min.js') }}" type="text/javascript" ></script>
+    <script src="{{ asset('bundles/main/js/vendor/additional-methods.min.js') }}" type="text/javascript" ></script>
+    <script src="{{ asset('bundles/main/js/vendor/bootstrap.min.js') }}" type="text/javascript" ></script>
+
     {% javascripts
-    '@MainBundle/Resources/public/js/vendor/jquery-1.9.1.js'
-    '@MainBundle/Resources/public/js/vendor/jquery.history.js'
-    '@MainBundle/Resources/public/js/vendor/bootstrap.min.js'
     '@MainBundle/Resources/public/js/vendor/i18next-1.6.3.js'
     '@MainBundle/Resources/public/js/vendor/jquery.form.js'
-    '@MainBundle/Resources/public/js/vendor/jquery.validate.min.js'
-    '@MainBundle/Resources/public/js/vendor/additional-methods.min.js'
     '@MainBundle/Resources/public/js/vendor/jquery.uniform.js'
     '@MainBundle/Resources/public/js/vendor/jNotify.jquery.js'
     '@MainBundle/Resources/public/js/vendor/jquery.scrollTo.min.js'
@@ -99,7 +100,6 @@
     {% javascripts
     '@MainBundle/Resources/public/js/vendor/messages_es.js'
     %}
-    <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
     {% endif %}
     {% block javascripts %}{% endblock %}
