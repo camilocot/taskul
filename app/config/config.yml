@@ -316,3 +316,7 @@ jms_i18n_routing:
     default_locale: %locale%
     locales: %localesavailable%
     strategy: prefix
+
+ornicar_apc:
+  host: http://www.taskul.net
+  web_dir: %kernel.root_dir%/../web

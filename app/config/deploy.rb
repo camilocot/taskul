@@ -29,14 +29,25 @@ logger.level = Logger::MAX_LEVEL
 # set  :shared_children,     [app_path + "/logs", web_path + "/uploads", app_path + "/logs"]
 # before 'symfony:composer:update', 'symfony:copy_vendors'
 
-# namespace :symfony do
-#   desc "Copy vendors from previous release"
-#   task :copy_vendors, :except => { :no_release => true } do
-#     if Capistrano::CLI.ui.agree("Do you want to copy last release vendor dir then do composer install ?: (y/N)")
-#       capifony_pretty_print "--> Copying vendors from previous release"
+namespace :symfony do
+  desc "Copy vendors from previous release"
+  task :copy_vendors, :except => { :no_release => true } do
+    if Capistrano::CLI.ui.agree("Do you want to copy last release vendor dir then do composer install ?: (y/N)")
+      capifony_pretty_print "--> Copying vendors from previous release"
 
-#       run "cp -a #{previous_release}/vendor #{latest_release}/"
-#       capifony_puts_ok
-#     end
-#   end
-# end
+      run "cp -a #{previous_release}/vendor #{latest_release}/"
+      capifony_puts_ok
+    end
+  end
+end
+
+after "deploy", "symfony:clear_apc"
+
+namespace :symfony do
+  desc "Clear apc cache"
+  task :clear_apc do
+    capifony_pretty_print "--> Clear apc cache"
+    run "#{try_sudo} sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} apc:clear --env=#{symfony_env_prod}'"
+    capifony_puts_ok
+  end
+end
