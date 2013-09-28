@@ -17,3 +17,5 @@ app/config/parameters.yml
 README*
 taskul.sublime*
 backups/*
+error/*
+stats/*
