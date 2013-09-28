@@ -64,7 +64,10 @@
         ]
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+	"github-oauth": {
+        	"github.com": "1f5b7904d2fea3125ef858ead0ad1055560fc9b1"
+	}
     },
     "minimum-stability": "dev",
     "extra": {
