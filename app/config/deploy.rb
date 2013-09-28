@@ -18,8 +18,8 @@ set  :use_sudo,       false
 set  :keep_releases,  3
 set  :use_composer,   true
 set  :update_vendors, false
-set  :shared_files,        ["app/config/parameters.yml","web/js/fos_js_routes.js"]
-set  :shared_children,     [app_path + "/logs", web_path + "/uploads", "vendor" , app_path + "/logs"]
+set  :shared_files,        ["app/config/parameters.yml","web/js/fos_js_routes.js", "web/css/errors.css"]
+set  :shared_children,     [app_path + "/logs", web_path + "/uploads", "vendor" ]
 set  :dump_assetic_assets, true
 
 # Be more verbose by uncommenting the following line
