@@ -207,9 +207,10 @@
   {% block javascripts %}
   {{ parent() }}
   <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+  <script type="text/javascript" src="/js/fos_js_routes.js"></script>
+
 <!--  <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script> -->
   {% javascripts
-    'js/fos_js_routes.js'
     '@MainBundle/Resources/public/js/vendor/mustache.js'
     '@MainBundle/Resources/public/js/vendor/jquery.mustache.js'
     '@MainBundle/Resources/public/js/vendor/jquery-ui-1.10.2.custom.js'
