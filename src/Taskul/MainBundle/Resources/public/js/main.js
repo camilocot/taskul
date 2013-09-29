@@ -92,6 +92,11 @@ $(document).ready(function(){
     $('input, textarea').placeholder();
     $(".progress-indicator").fadeOut(500);
 
+    $(document).on('click','a.scroll', function(e){
+      e.preventDefault();
+      $.scrollTo($(e.currentTarget).data('scroll'),800, {offset: -70});
+    });
+
 });
 
 function checkMobile()

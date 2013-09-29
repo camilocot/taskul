@@ -117,7 +117,7 @@ function loadPage(url)
             // catch ( Exception ) { }
 
             // Complete the change
-            $body.scrollTo( 0, 800 );
+            $body.scrollTo($('h1:first,h2:first,h3:first,h4:first,h5.first,h6.first').first(), 800, {offset: -70} );
             $window.trigger(completedEventName);
 
         },

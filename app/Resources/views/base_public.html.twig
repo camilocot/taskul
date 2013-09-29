@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app.request.locale }}">
+<html lang="{{ app.request.locale }}" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
     <title>{% block title %}{% endblock %}</title>
     {% block description %}{% endblock %}
@@ -23,7 +23,7 @@
     '@MainBundle/Resources/public/css/services.css'
     '@MainBundle/Resources/public/css/reset.css'
     '@MainBundle/Resources/public/css/flags.css'
-    %}
+    output='css/public.min.css' filter='yui_css'  %}
     <link rel="stylesheet" href="{{ asset_url }}">
     {% endstylesheets %}
     {% block stylesheets%}{% endblock %}
@@ -93,29 +93,10 @@
     {% include 'MainBundle:partials:basejs.html.twig' %}
 
     {% javascripts
-    '@MainBundle/Resources/public/js/vendor/i18next-1.6.3.js'
-    '@MainBundle/Resources/public/js/vendor/jquery.form.js'
-    '@MainBundle/Resources/public/js/vendor/jquery.uniform.js'
-    '@MainBundle/Resources/public/js/vendor/jNotify.jquery.js'
-    '@MainBundle/Resources/public/js/vendor/jquery.scrollTo.min.js'
-    '@MainBundle/Resources/public/js/vendor/jquery.placeholder.js'
     '@MainBundle/Resources/public/js/theme.js'
-    '@MainBundle/Resources/public/js/main.js'
-    '@MainBundle/Resources/public/js/ajaxify.js'
-    output='js/compiled/public.js' %}
+    output='js/compiled/public.min.js' filter='yui_js' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    {% if app.request.locale != 'en' %}
-    {% javascripts
-    '@MainBundle/Resources/public/js/vendor/messages_es.js'
-    %}
-    {% endjavascripts %}
-    {% endif %}
     {% block javascripts %}{% endblock %}
-    {% if app.environment  == 'prod' %}
-      {% include 'MainBundle:partials:ganalytics.html.twig' %}
-      {% include 'MainBundle:partials:uservoice.html.twig' %}
-    {% endif %}
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </body>
 </html>

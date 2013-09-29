@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="en" <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="{{ app.request.locale }}" {% block xmlns %}{% endblock %}> <!--<![endif]-->
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="{{ app.request.locale }}" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="{{ app.request.locale }}" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="{{ app.request.locale }}" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{{ app.request.locale }}" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <base href="{{ app.request.schemeAndHttpHost }}">
@@ -32,14 +32,11 @@
     '@MainBundle/Resources/public/css/jNotify.jquery.css'
     '@MainBundle/Resources/public/css/main.css'
     '@MainBundle/Resources/public/css/flags.css'
-    %}
+    output='css/private.min.css' filter='yui_css' %}
     <link rel="stylesheet" href="{{ asset_url }}">
     {% endstylesheets %}
     {% block stylesheets%}{% endblock %}
-    {% javascripts '@MainBundle/Resources/public/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js'%}
-
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+    <script src="{{  asset('bundles/main/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}"></script>
 </head>
 <body>
     <div class='notifications top-right'></div>
@@ -48,31 +45,6 @@
     {% endblock %}
     {% include 'MainBundle:partials:basejs.html.twig' %}
 
-  {% javascripts
-    '@MainBundle/Resources/public/js/vendor/jquery.scrollTo.min.js'
-    '@MainBundle/Resources/public/js/vendor/i18next-1.6.3.js'
-    '@MainBundle/Resources/public/js/vendor/jquery.form.js'
-    '@MainBundle/Resources/public/js/vendor/jNotify.jquery.js'
-    '@MainBundle/Resources/public/js/vendor/jquery.uniform.js'
-    '@MainBundle/Resources/public/js/vendor/jquery.placeholder.js'
-    '@MainBundle/Resources/public/js/main.js'
-    '@MainBundle/Resources/public/js/ajaxify.js'
-    output='js/compiled/public.js' %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-
-    {% if app.request.locale != 'en' %}
-    {% javascripts
-    '@MainBundle/Resources/public/js/vendor/messages_es.js'
-    %}
-    <script src="{{ asset_url }}" async></script>
-    {% endjavascripts %}
-    {% endif %}
-
     {% block javascripts %}{% endblock %}
-    {% if app.environment  == 'prod' %}
-      {% include 'MainBundle:partials:ganalytics.html.twig' %}
-      {% include 'MainBundle:partials:uservoice.html.twig' %}
-    {% endif %}
 </body>
 </html>
