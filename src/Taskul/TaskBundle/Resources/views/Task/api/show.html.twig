@@ -30,7 +30,7 @@
                                 </tr>
                                 <tr>
                                     <th>{{ 'task.view.description'|trans }}</th>
-                                    <td>{{ entity.description|raw }}</td>
+                                    <td>{{ entity.description|bbcode_filter('my_description_filter') }}</td>
                                 </tr>
                                 <tr>
                                     <th>{{ 'task.view.dateend'|trans }}</th>

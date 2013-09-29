@@ -3,9 +3,9 @@ $(document).ready(function(){
     $('#deleteModalWrap').appendTo(document.body);
     if ($(document.body).children('#deleteModalWrap').length>1) $(document.body).children('#deleteModalWrap:gt(0)').remove();
 
-    if ($.fn.datepicker) {
+    if ($.fn.datepicker && !checkMobile()) {
         $('#btn-trash').click(function(e){
-            $dp.datepicker('hide');
+            $('.datepicker').hide();
             $('input#task_dateEnd').val('');
         });
         datePick = $('input#task_dateEnd').val();
@@ -24,6 +24,9 @@ $(document).ready(function(){
             dpIcon.datepicker('setValue',$('input#task_dateEnd').val());
         });
     }
+
+    if(checkMobile())
+        $('#datepick').hide();
 
     if ($.fn.select2) {
         $("select#task_members").select2();
@@ -61,9 +64,6 @@ $(document).ready(function(){
 
     $("#task_percent").simpleSlider({'range': [1,100], 'step': 1});
 
-
-
-    new nicEditor({fullPanel : true}).panelInstance('task_description');
 
     /* Percent Slider */
     $("#task_percent").bind("slider:changed", function (event, data) {

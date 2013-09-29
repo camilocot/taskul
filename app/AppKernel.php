@@ -60,6 +60,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Ornicar\ApcBundle\OrnicarApcBundle(),
             //new Taskul\FacebookBundle\TaskulFacebookBundle(),
+            new FM\BbcodeBundle\FMBbcodeBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

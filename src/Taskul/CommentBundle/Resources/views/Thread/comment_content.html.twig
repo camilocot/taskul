@@ -52,7 +52,7 @@
                 <p class="text-error">{% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}</p>
             {% else %}
                 {% if comment is fos_comment_raw %}
-                    {{ comment.rawBody | raw }}
+                    {{ comment.rawBody | bbcode_filter('my_comment_filter') }}
                 {% else %}
                     {{ comment.body | nl2br }}
                 {% endif %}

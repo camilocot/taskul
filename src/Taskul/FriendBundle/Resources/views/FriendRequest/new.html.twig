@@ -27,10 +27,10 @@
                         'attr': {'placeholder':'friendrequest.new.email_help'|trans,'class':'span11 required validateEmails','maxlength':'255' }
                         })
                       }}
-                      {{ form_row(form.message, {'attr': {'class':'span11','rows':'10'} } ) }}
+                      {{ form_row(form.message, {'attr': {'class':'span11','rows':'10','maxlength':200} } ) }}
                       {{ form_rest(form) }}
                       <div class="form-actions">
-                        <button type="submit" class="btn btn-success submit-niceditor"><i class="fa-icon-envelope"></i>&nbsp;{{'friendrequest.email.new.send'|trans}}</button>
+                        <button type="submit" class="btn btn-success"><i class="fa-icon-envelope"></i>&nbsp;{{'friendrequest.email.new.send'|trans}}</button>
                         <a href="{{ path('frequest') }}" class="btn ajaxy">
                             <i class="fa-icon-undo"></i>&nbsp;{{'friendrequest.email.new.back'|trans}}
                         </a>
@@ -40,12 +40,4 @@
         </div>
   </div>
 </div>
-{% endblock %}
-{% block javascripts %}
-{{ parent() }}
-{% javascripts
-    '@FriendBundle/Resources/public/js/friendrequest/new.js'
-%}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
 {% endblock %}

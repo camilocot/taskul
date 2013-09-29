@@ -14,7 +14,7 @@
         "twig/extensions": "1.0.*@dev",
         "symfony/assetic-bundle": "2.1.*",
         "symfony/swiftmailer-bundle": "2.1.*",
-	"swiftmailer/swiftmailer":"4.*",
+	    "swiftmailer/swiftmailer":"4.*",
         "symfony/monolog-bundle": "2.2.*",
         "sensio/distribution-bundle": "2.2.*",
         "sensio/framework-extra-bundle": "2.2.*",
@@ -48,20 +48,23 @@
         "sonata-project/user-bundle": "dev-master",
         "jms/i18n-routing-bundle": "dev-master",
         "doctrine/doctrine-migrations-bundle": "dev-master",
- 	"ornicar/apc-bundle": "dev-master"
+ 	    "ornicar/apc-bundle": "dev-master",
+        "helios-ag/fm-bbcode-bundle": "6.2"
     },
     "scripts": {
         "post-install-cmd": [
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "FM\\BbcodeBundle\\Composer\\ScriptHandler::installEmoticons"
         ],
         "post-update-cmd": [
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "FM\\BbcodeBundle\\Composer\\ScriptHandler::installEmoticons"
         ]
     },
     "config": {

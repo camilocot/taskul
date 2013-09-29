@@ -19,6 +19,8 @@ $(document).ready(function(){
      notificacion($.t('msg.friendrequest.facebook_empty_select'), 'error');
     else if (msg === '')
       notificacion($.t('msg.friendrequest.facebook_empty_msg'), 'error');
+    else if (msg.length > 200)
+      notificacion($.t('msg.friendrequest.facebook_long_msg'), 'error');
     else
     {
       FB.ui({method: 'apprequests',

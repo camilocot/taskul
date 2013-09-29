@@ -39,8 +39,8 @@
                                     <div id="collapseOne" class="accordion-body collapse">
                                     <div class="accordion-inner">
                                         {{ form_row(form.percent, {'label': 'task.new.percent'|trans, 'help': 'task.new.help.percent'|trans } ) }}
-                                        {{ form_row(form.description, {'attr':                            { 'class':'nicEdit span11','rows':'10','minlength':'8' }, 'help':'task.new.help.description'|trans, 'label': 'task.new.description'|trans } ) }}
-                                        {{ form_row(form.dateEnd, { 'attr': {'data-date-format': 'dd/mm/yyyy'} , 'label':'task.new.date_end'|trans, 'help':'task.new.help.date_end'|trans }) }}
+                                        {{ form_row(form.description, {'attr': { 'class':'span11','rows':'10','minlength':'8', 'maxlength': '5000' }, 'help':'task.new.help.description'|trans, 'label': 'task.new.description'|trans } ) }}
+                                        {{ form_row(form.dateEnd, { 'attr': {'class':'dateITA','data-date-format': 'dd/mm/yyyy'} , 'label':'task.new.date_end'|trans, 'help':'task.new.help.date_end'|trans }) }}
                                     </div>
                                 </div>
                             </div>

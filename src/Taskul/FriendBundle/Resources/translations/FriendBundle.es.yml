@@ -32,7 +32,7 @@ friendrequest:
             message_help: 'Introduzca el mensaje a enviar a los contactos ...'
             send: 'Enviar'
             back: 'Volver'
-            message: 'Hola, <br/>te invito a usar <a href="http://wwww.taskul.net" title="Gestor de tareas social">Taskul</a> como gestor de tareas.<br/> Puedes unirte a mis contactos para comenzar a compartir nuestras actividades.'
+            message: "Hola,\n\nEstoy usando Taskul (http://www.taslkul.net) como gestor de tareas / proyectos, me gustaría que te unieras a mi grupo de compañeros para poder compartir algunas actividades.\nUn saludo"
     delete:
         success: 'Se ha eliminado satisfactoriamente la solicitud.'
     new:

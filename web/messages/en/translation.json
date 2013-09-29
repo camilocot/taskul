@@ -6,7 +6,8 @@
 		},
         "friendrequest": {
             "facebook_empty_select": "Debe seleccionar alguno de tus contactos",
-            "facebook_empty_msg": "Por favor introduzca el texto de la invitación"
+            "facebook_empty_msg": "Por favor introduzca el texto de la invitación",
+            "facebook_long_msg": "El mensaje es demasiado largo, por favor redúcelo"
         },
         "uniform": {
             "fileButtonHtml": "Click aquí",

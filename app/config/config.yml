@@ -321,6 +321,17 @@ jms_i18n_routing:
     strategy: prefix
 
 ornicar_apc:
-  host: http://www.taskul.net
-  web_dir: %kernel.root_dir%/../web
-  mode: curl
+    host: http://www.taskul.net
+    web_dir: %kernel.root_dir%/../web
+    mode: curl
+fm_bbcode:
+    filter_sets:
+        my_comment_filter:
+            locale: %locale%
+            xhtml: true
+            filters: [ default, quote ]
+            whitelist: [ b, quote ]
+        my_description_filter:
+          locale: %locale%
+          xhtml: true
+          filters: [ default, block, code, email, image, list, quote, text, url, video ]
