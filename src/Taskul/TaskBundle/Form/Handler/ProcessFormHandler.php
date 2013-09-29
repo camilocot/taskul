@@ -47,6 +47,13 @@ class ProcessFormHandler
   			$this->aclManager->revokeAll($task);
   			$members = $task->getMembers();
   			$this->aclManager->grant($task,$members);
+
+        $documents = $this->em->getRepository('TaskBundle:Task')->getDocuments($task);
+
+        foreach ($documents as $doc) {
+          $this->aclManager->grant($doc,$members);
+        }
+
   			return TRUE;
       }
       return FALSE;

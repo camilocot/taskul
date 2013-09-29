@@ -23,7 +23,7 @@
     '@MainBundle/Resources/public/css/services.css'
     '@MainBundle/Resources/public/css/reset.css'
     '@MainBundle/Resources/public/css/flags.css'
-    output='css/public.min.css' filter='yui_css'  %}
+    output='css/public.min.css' filter='?yui_css'  %}
     <link rel="stylesheet" href="{{ asset_url }}">
     {% endstylesheets %}
     {% block stylesheets%}{% endblock %}
@@ -94,7 +94,7 @@
 
     {% javascripts
     '@MainBundle/Resources/public/js/theme.js'
-    output='js/compiled/public.min.js' filter='yui_js' %}
+    output='js/compiled/public.min.js' filter='?yui_js' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
     {% block javascripts %}{% endblock %}

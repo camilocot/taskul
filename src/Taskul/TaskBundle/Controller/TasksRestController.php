@@ -120,7 +120,7 @@ class TasksRestController extends BaseController {
     	$data = array('entity' => $task);
 
     	if( 'html' === strtolower($format)){
-    		$data['documents'] = $em->getRepository('FileBundle:Document')->findBy(array('class' => $task->getClassName(),'idObject'=>$task->getId()));
+    		$data['documents'] = $em->getRepository('TaskBundle:Task')->getDocuments($task);
     		$data['delete_form'] = $this->createDeleteForm($id)->createView();
         $data['delete_id'] = $id;
         $tags = $this->loadTags($task);

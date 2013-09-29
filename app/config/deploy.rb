@@ -19,7 +19,7 @@ set  :keep_releases,  3
 set  :use_composer,   true
 set  :update_vendors, false
 set  :shared_files,        ["app/config/parameters.yml","web/js/fos_js_routes.js", "web/css/errors.css"]
-set  :shared_children,     [app_path + "/logs", web_path + "/uploads", "vendor" ]
+set  :shared_children,     [app_path + "/logs", web_path + "/uploads", "vendor", app_path + "/sessions" ]
 set  :dump_assetic_assets, true
 
 # Be more verbose by uncommenting the following line
@@ -41,13 +41,13 @@ namespace :symfony do
   end
 end
 
-#after "deploy", "symfony:clear_apc"
+after "deploy", "symfony:clear_apc"
 
 namespace :symfony do
   desc "Clear apc cache"
   task :clear_apc do
     capifony_pretty_print "--> Clear apc cache"
-    run "#{try_sudo} sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} apc:clear'"
+    run "#{try_sudo} sh -c 'cd #{latest_release} && #{php_bin} #{symfony_console} apc:clear -e #{symfony_env_prod}'"
     capifony_puts_ok
   end
 end

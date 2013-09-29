@@ -37,4 +37,8 @@ class TaskRepository extends EntityRepository
             ->setParameter('status', $status)
             ->getSingleResult();
     }
+    public function getDocuments($task)
+    {
+        return $this->getEntityManager()->getRepository('FileBundle:Document')->findBy(array('class' => $task->getClassName(),'idObject'=>$task->getId()));
+    }
 }

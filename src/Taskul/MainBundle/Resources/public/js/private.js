@@ -190,6 +190,20 @@ $(document).ready(function(){
     template_functions();
     widthFunctions();
 
+    // Comments actions loading
+    $( document ).ajaxSend(function( event, jqxhr, settings ) {
+      var n=settings.url.indexOf("api/threads");
+      if(settings.type === 'POST' && n > 0)
+        if(!$(".progress-indicator").is(':visible'))
+          $(".progress-indicator").fadeIn(500);
+    }).ajaxComplete(function( event, xhr, settings ) {
+      var n=settings.url.indexOf("api/threads");
+      if(settings.type === 'POST' && n > 0)
+        if($(".progress-indicator").is(':visible'))
+          $(".progress-indicator").fadeOut(500);
+    });
+
+
 });
 
 var generateNotification = [];

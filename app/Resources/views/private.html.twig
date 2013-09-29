@@ -12,7 +12,7 @@
   '@MainBundle/Resources/public/css/jquery-ui-1.8.21.custom.css'
   '@MainBundle/Resources/public/css/private.css'
   '@FOSCommentBundle/Resources/assets/css/comments.css'
-  %}
+  output='css/private2.min.css' filter='?yui_css' %}
   <link rel="stylesheet" href="{{ asset_url }}">
   {% endstylesheets %}
   {% endblock %}
@@ -228,7 +228,7 @@
     '@MainBundle/Resources/public/js/vendor/footable.paginate.js'
     '@MainBundle/Resources/public/js/vendor/footable.sortable.js'
     '@MainBundle/Resources/public/js/private.js'
-  %}
+     output='js/compiled/private.min.js' filter='?yui_css' %}
   <script src="{{ asset_url }}"></script>
   {% endjavascripts %}
   {% endblock %}
