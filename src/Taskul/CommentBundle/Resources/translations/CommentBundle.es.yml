@@ -1,0 +1,25 @@
+comment:
+    new:
+        help:
+            bbcode:
+                title: 'Puedes utilizar <a href="http://es.wikipedia.org/wiki/BBCode" target="_blank"><strong>BBCode</strong></a> para dar formato a tus texto. Pulsa aquí para ver algunos ejemplos.<br> Códigos soportados: [block], [b], [i], [u], [s], [sub], [sup], [abbr], [br], [hr], [time], [code], [email], [list], [quote], [color], [url] y emoticonos'
+                content: >
+                    <br>
+                    Puedes usar los siguiente códigos:<br/>
+                    <ul><li>[b] Para la negrita ([b]Negrita[/b] == <b>Negrita</b>)</li>
+                    <li>[i] Para la itálica ([i]Cursiva[/i] == <i>Cursiva</i>)</li>
+                    <li>[u] Para subrayar un texto ([u]Subrayado[/u] == <u>Subrayado</u>)</li>
+                    <li>[br] Para insertar un salto de página</li>
+                    <li>[time] Para inserta la hora</li>
+                    <li>[url] Para insertar un link ( [url="http://www.google.com"]Google[/url] == <a href="http://www.google.com">Google</a>)</li>
+                    <li>[color] Para colorear un texto ( [color="orange"] Texto a formatear [/color] == <span style="color:orange">Texto a formatear</span>)</li>
+                    <li>[list] Para crear listas ( [list] [li]Elemento 1[/li] [li]Elemento 2[/li] [li]Elemento 3[/li] [/list] )
+                    <ul>
+                    <li>Elemento 1</li>
+                    <li>Elemento 2</li>
+                    <li>Elemento 3</li>
+                    </ul>
+                    </li>
+                    <li>[quote] Para realizar un cita de alguien ( [quote="James"]Éste es el texto que quiero citar.[/quote] )
+                    <li>Puedes usar también emoticonos, prueba a escribir algunos de estos :] :) :D :/ >[ :p :o >_> (también puedes hacer con los siguientes textos :happy: :aw: :cool: :kiss: :meh: :mmf: :heart:' )</li>
+                    </ul>
