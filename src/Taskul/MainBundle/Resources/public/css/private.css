@@ -154,6 +154,9 @@ padding-left: 20px;
 .nicEdit-main {
     padding: 10px;
 }
+.togglediv {
+  cursor: pointer;
+}
 /* Landscape phones and down */
 @media (max-width: 480px) {
  .box-header h2 {font-size: 12px;}

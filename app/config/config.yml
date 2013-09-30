@@ -335,3 +335,4 @@ fm_bbcode:
           locale: %locale%
           xhtml: true
           filters: [ default, block, code, email, image, list, quote, text, url, video ]
+          hooks: [ emoticon ]

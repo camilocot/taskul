@@ -114,6 +114,10 @@ $(document).ready(function(){
         }
     });
 
+    $(document).on('click','.togglediv',function(e){
+      $($(this).data('target')).toggle();
+    });
+
 
 });
 
