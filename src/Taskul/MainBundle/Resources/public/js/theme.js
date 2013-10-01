@@ -14,6 +14,8 @@ $(function () {
     }
 
     staticHeader.initialize();
+    if(!checkMobile())
+    $('#beta').text('Taskul.net está en fase BETA, por favor ayúdenos a mejorar cumplimentando el formulario de sugerencias y/o problemas. Gracias.');
 });
 
 var staticHeader = {

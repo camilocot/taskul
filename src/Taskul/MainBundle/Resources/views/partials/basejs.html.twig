@@ -18,14 +18,14 @@
     '@MainBundle/Resources/public/js/vendor/jquery.placeholder.js'
     '@MainBundle/Resources/public/js/main.js'
     '@MainBundle/Resources/public/js/ajaxify.js'
-output='js/compiled/base.min.js' filter='yui_js' %}
+output='js/compiled/base.min.js' filter='?yui_js' %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 
 {% if app.request.locale == 'es' %}
 {% javascripts
 '@MainBundle/Resources/public/js/vendor/messages_es.js'
-output='js/compiled/messages.min.js' filter='yui_js' %}
+output='js/compiled/messages.min.js' filter='?yui_js' %}
 <script src="{{ asset_url }}" async></script>
 {% endjavascripts %}
 {% endif %}

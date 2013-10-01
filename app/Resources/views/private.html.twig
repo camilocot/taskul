@@ -208,10 +208,9 @@
   {{ parent() }}
   <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
   <script type="text/javascript" src="/js/fos_js_routes.js"></script>
-
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
 <!--  <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script> -->
   {% javascripts
-    '@MainBundle/Resources/public/js/vendor/mustache.js'
     '@MainBundle/Resources/public/js/vendor/jquery.mustache.js'
     '@MainBundle/Resources/public/js/vendor/jquery-ui-1.10.2.custom.js'
     '@MainBundle/Resources/public/js/vendor/excanvas.js'
@@ -228,7 +227,7 @@
     '@MainBundle/Resources/public/js/vendor/footable.paginate.js'
     '@MainBundle/Resources/public/js/vendor/footable.sortable.js'
     '@MainBundle/Resources/public/js/private.js'
-     output='js/compiled/private.min.js' filter='?yui_css' %}
+     output='js/compiled/private.min.js' %}
   <script src="{{ asset_url }}"></script>
   {% endjavascripts %}
   {% endblock %}
