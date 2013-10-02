@@ -184,7 +184,7 @@
 {% javascripts
     '@TaskBundle/Resources/public/js/show.js'
     '@FileBundle/Resources/public/js/listFiles.js'
-    %}
+output='js/task/show.js' %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 {% include 'FOSCommentBundle:Thread:async.html.twig' with {'id': entity.id} %}

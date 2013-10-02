@@ -81,7 +81,7 @@
 {{ parent() }}
 {% javascripts
     '@TaskBundle/Resources/public/js/index.js'
-    %}
+output='js/task/index.js' %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 {% endblock %}

@@ -60,7 +60,7 @@
 {{ parent() }}
 {% javascripts
 '@FriendBundle/Resources/public/js/friend/index.js'
-%}
+output='js/friend/index.js' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 {% endblock %}

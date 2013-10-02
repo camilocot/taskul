@@ -94,7 +94,7 @@
 {{ parent() }}
 {% javascripts
     '@TaskBundle/Resources/public/js/form.js'
-    %}
+output='js/task/form.js' %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 {% if entity.id > 0 %}

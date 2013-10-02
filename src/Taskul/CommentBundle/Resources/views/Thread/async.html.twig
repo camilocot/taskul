@@ -1,6 +1,8 @@
 <div id="fos_comment_thread"></div>
 
-{% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' %}
+{% javascripts
+    '@FOSCommentBundle/Resources/assets/js/comments.js'
+output='js/comment/comments.js' %}
 <script type="text/javascript">
 // thread id
 var fos_comment_thread_id = '{{ id }}';

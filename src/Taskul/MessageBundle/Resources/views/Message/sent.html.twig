@@ -26,7 +26,7 @@
 {{ parent() }}
 {% javascripts
     '@MessageBundle/Resources/public/js/sent.js'
-    %}
+output='js/msg/sent.js' %}
     <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+{% endjavascripts %}
 {% endblock %}

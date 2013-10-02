@@ -43,7 +43,7 @@
 {{ parent() }}
 {% javascripts
     '@MessageBundle/Resources/public/js/newThread.js'
-    %}
+output='js/msg/newThread.js' %}
     <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+{% endjavascripts %}
 {% endblock %}

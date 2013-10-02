@@ -154,7 +154,7 @@
 {{ parent() }}
 {% javascripts
     '@MainBundle/Resources/public/js/index-slider.js'
-    %}
+output='js/main/index.js' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 {% endblock %}
