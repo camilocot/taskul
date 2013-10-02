@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="messenger_thread_message_body" id="message_{{ message.id }}">
-                    {{ message.body|raw }}
+                    {{ message.body| bbcode_filter('my_message_filter')  }}
                     <hr/>
                 </div>
             </div>
@@ -45,9 +45,18 @@
             <form action="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}" method="post" class="form-horizontal ajaxform" id="form_thread">
                 <fieldset>
                     {{ form_row(form.body, {'attr':
-                    {'placeholder':'thread.new.body_placeholder'|trans, 'class':'nicEdit span11','rows':'10','minlength':'8' }, 'label': 'thread.new.body'|trans } ) }}
+                    {'placeholder':'thread.new.body_placeholder'|trans, 'class':'span12','rows':'5','minlength':'8' }, 'label': 'thread.new.body'|trans } ) }}
 
                     {{ form_rest(form) }}
+                    <br>
+                <div class="well">
+                <div class="togglediv" data-target="#bbcodecomment">
+                  {{'comment.new.help.bbcode.title'|trans({},'CommentBundle')|raw}}
+                </div>
+                <div id="bbcodecomment" class="hide">
+                    {{'comment.new.help.bbcode.content'|trans({},'CommentBundle')|raw}}
+                </div>
+                </div>
                 </fieldset>
                 <div class="form-actions">
                     <button class="btn btn-primary ajaxy" type="submit"><i class="fa-icon-envelope"></i>&nbsp;{{'thread.new.send'|trans}}</button>
@@ -57,12 +66,4 @@
     </div>
 </div>
 
-{% endblock %}
-{% block javascripts %}
-{{ parent() }}
-{% javascripts
-    '@MessageBundle/Resources/public/js/thread.js'
-    %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
 {% endblock %}

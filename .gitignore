@@ -17,3 +17,4 @@ taskul.sublime*
 backups/*
 error/*
 stats/*
+app/config/deploy.rb

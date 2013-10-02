@@ -52,7 +52,7 @@ task:
         help:
             name: 'Introduce una pequeña descripcion para la tarea.'
             percent: 'Define el porcentaje completado de la tarea'
-            description: 'Introduce una descripción completa de la tarea.Puedes utilizar <a href="http://es.wikipedia.org/wiki/BBCode" target="_blank"><strong>BBCode</strong></a> para dar formato a tus texto. Pulsa el sobre el enlace de abajo para ver algunos ejemplos de cómo usarlo.<br> Códigos soportados: [block], [b], [i], [u], [s], [sub], [sup], [abbr], [br], [hr], [time], [code], [email], [image], [list], [quote], [color], [url] y emoticonos'
+            description: 'Introduce una descripción completa de la tarea.Puedes utilizar <a href="http://es.wikipedia.org/wiki/BBCode" target="_blank"><strong>BBCode</strong></a> para dar formato a tus texto. Pulsa el sobre el enlace de abajo para ver algunos ejemplos de cómo usarlo.<br> Códigos soportados: [block], [b], [i], [u], [s], [sub], [sup], [abbr], [br], [hr], [code], [email], [image], [list], [quote], [color], [url] y emoticonos'
             bbcode:
                 title: 'Pulsa aqui para ver los ejemplos'
                 content: >
@@ -61,8 +61,7 @@ task:
                     <li>[i] Para la itálica ( [i]Cursiva[/i] == <i>Cursiva</i>)</li>
                     <li>[u] Para subrayar un texto ( [u]Subrayado[/u] == <u>Subrayado</u>)</li>
                     <li>[br] Para insertar un salto de página</li>
-                    <li>[time] Para inserta la hora</li>
-                    <li>[img width=16] Para adjuntar una imagen ( [img]http://www.taskul.net/img/icons/Message-128.png[/img] == <img width="16" src="http://www.taskul.net/img/icons/Message-128.png")</li>
+                    <li>[img width=16] Para adjuntar una imagen ( [img]http://www.taskul.net/img/icons/Crab-28.png[/img] == <img width="16" src="http://www.taskul.net/img/icons/Crab-128.png")</li>
                     <li>[url] Para insertar un link ( [url="http://www.google.com"]Google[/url] == <a href="http://www.google.com">Google</a>)</li>
                     <li>[color] Para colorear un texto ( [color="orange"] Texto a formatear [/color] == <span style="color:orange">Texto a formatear</span>)</li>
                     <li>[list] Para crear listas ( [list] [li]Elemento 1[/li] [li]Elemento 2[/li] [li]Elemento 3[/li] [/list] )

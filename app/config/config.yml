@@ -332,7 +332,12 @@ fm_bbcode:
             filters: [ default, block, code, email, list, quote, text, url ]
             hooks: [ emoticon, censor ]
         my_description_filter:
-          locale: %locale%
-          xhtml: true
-          filters: [ default, block, code, email, image, list, quote, text, url, video ]
-          hooks: [ emoticon ]
+            locale: %locale%
+            xhtml: true
+            filters: [ default, block, code, email, image, list, quote, text, url, video ]
+            hooks: [ emoticon ]
+        my_message_filter:
+            locale: %locale%
+            xhtml: true
+            filters: [ default, block, code, email, image, list, quote, text, url, video ]
+            hooks: [ emoticon, censor ]

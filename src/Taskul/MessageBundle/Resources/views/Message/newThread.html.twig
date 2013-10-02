@@ -17,9 +17,18 @@
 	                {{ form_row(form.recipient,{'help':'thread.new.recipient_note'|trans, 'attr': { 'class':'required', 'minlength':'10'}, 'label': 'thread.new.recipìent'|trans  } ) }}
                     {{ form_row(form.subject, {'label': 'thread.new.subject'|trans, 'attr': { 'class':'required', 'maxlength':'255'} }) }}
                     {{ form_row(form.body, {'attr':
-                    {'placeholder':'thread.new.body_placeholder'|trans, 'class':'nicEdit span11','rows':'10','minlength':'8' }, 'label': 'thread.new.body'|trans } ) }}
+                    {'placeholder':'thread.new.body_placeholder'|trans, 'class':'span11','rows':'10','minlength':'8' }, 'label': 'thread.new.body'|trans } ) }}
 
                     {{ form_rest(form) }}
+                    <br>
+                <div class="well">
+                <div class="togglediv" data-target="#bbcodecomment">
+                  {{'thread.new.help.bbcode.title'|trans|raw}}
+                </div>
+                <div id="bbcodecomment" class="hide">
+                    {{'thread.new.help.bbcode.content'|trans|raw}}
+                </div>
+                </div>
 				</fieldset>
 				<div class="form-actions">
 			        <button class="btn btn-primary" type="submit">{{'thread.new.send'|trans}}</button>
