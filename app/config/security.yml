@@ -9,12 +9,27 @@ security:
             id: fos_user.user_provider.username
         my_fos_facebook_provider:
             id: my.facebook.user
+
     encoders:
         FOS\UserBundle\Model\UserInterface: sha512
 
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        api:
+            pattern: ^/api/v2
+            fos_oauth: true
+            stateless: true
+        oauth_authorize:
+            pattern: ^/oauth/v2/auth
+            form_login:
+                provider: fos_userbundle
+                check_path: taskul_oauth_server_auth_login_check
+                login_path: taskul_oauth_server_auth_login
+            anonymous: true
+        oauth_token:
+            pattern: ^/oauth/v2/token
             security: false
         # -> custom firewall for the admin area of the URL
         admin:
@@ -55,20 +70,6 @@ security:
         login:
             pattern: ^/login$
             security: false
-
-        # main:
-        #     pattern: ^/
-        #     form_login:
-        #         csrf_provider: form.csrf_provider
-        #     fos_facebook:
-        #         app_url: "http://apps.facebook.com/taskulnet/"
-        #         server_url: "http://fosfacebook.local.com/facebookApp"
-        #         login_path: /login
-        #         check_path: /loginFacebook
-        #         provider: my_fos_facebook_provider
-        #         default_target_path: /
-        #     logout:       true
-        #     anonymous:    true
 
     access_control:
         - { path: ^/(es|en)/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }

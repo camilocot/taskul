@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 class DefaultController extends Controller
 {
@@ -97,4 +98,17 @@ class DefaultController extends Controller
     );
   }
 
+ /**
+   * Guarda las variables de session de una solicitud de contacto para usarlas en el registro
+   *
+   * @Route("/csrf_token", name="taskul_csrf_token", options = { "i18n" = false })
+   *
+   */
+  public function csrfTokenAction() {
+
+    $csrf = $this->get('form.csrf_provider'); //Symfony\Component\Form\Extension\Csrf\CsrfProvider\SessionCsrfProvider by default
+    $token = $csrf->generateCsrfToken(''); //Intention should be empty string, if you did not define it in parameters
+
+    return new Response($token);
+    }
 }

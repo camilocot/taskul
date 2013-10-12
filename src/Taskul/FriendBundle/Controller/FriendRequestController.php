@@ -27,7 +27,7 @@ class FriendRequestController extends BaseController {
   /**
    * List all friend request send and recibed
    *
-   * @Route("/", name="frequest", options={ "expose": true })
+   * @Route("/", name="frequest", options={ "expose" = true })
    * @Template()
    */
   public function indexAction() {
@@ -66,7 +66,7 @@ class FriendRequestController extends BaseController {
   /**
    * Lists all FriendRequest entities.
    *
-   * @Route("/sended", name="frequest_sended", options={ "expose": true })
+   * @Route("/sended", name="frequest_sended", options={ "expose" = true })
    * @Template()
    *
    */
@@ -285,7 +285,7 @@ class FriendRequestController extends BaseController {
   /**
    * Deletes a FriendRequest entity.
    *
-   * @Route("/{id}/delete", name="frequest_delete", options={ "expose": true })
+   * @Route("/{id}/delete", name="frequest_delete", options={ "expose" = true })
    * @Method("POST|DELETE")
    *
    */
@@ -327,7 +327,7 @@ class FriendRequestController extends BaseController {
   }
 
   /**
-   * @Route("/activate/{id}", name="frequest_activate", options={ "expose": true })
+   * @Route("/activate/{id}", name="frequest_activate", options={ "expose" = true })
    * @Method("POST")
    *
    */

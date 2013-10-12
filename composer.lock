@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "ff197f75712288425a8baab2b56f015c",
+    "hash": "b71ca1c0272ec3b249fa7b8be0d9d5b9",
     "packages": [
         {
             "name": "apy/breadcrumbtrail-bundle",
@@ -472,19 +472,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineMigrationsBundle.git",
-                "reference": "3db446747fa70dedb7adbd5413cd87bb5a4ad1bb"
+                "reference": "1a7f58d7639cf65b8fcae56fd9a8f4e42a41a27c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/3db446747fa70dedb7adbd5413cd87bb5a4ad1bb",
-                "reference": "3db446747fa70dedb7adbd5413cd87bb5a4ad1bb",
+                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/1a7f58d7639cf65b8fcae56fd9a8f4e42a41a27c",
+                "reference": "1a7f58d7639cf65b8fcae56fd9a8f4e42a41a27c",
                 "shasum": ""
             },
             "require": {
                 "doctrine/doctrine-bundle": "~1.0",
                 "doctrine/migrations": "*",
                 "php": ">=5.3.2",
-                "symfony/framework-bundle": ">=2.1.0,<2.4-dev"
+                "symfony/framework-bundle": "~2.1"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -517,7 +517,7 @@
                 "migrations",
                 "schema"
             ],
-            "time": "2013-09-03 20:38:48"
+            "time": "2013-10-02 14:42:48"
         },
         {
             "name": "doctrine/inflector",
@@ -650,12 +650,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/migrations.git",
-                "reference": "99475d79841dc00a63fe7dd051f8fb1ba03bf1a8"
+                "reference": "e96022469595b4def59756f7b6b9ceb78c9f0e66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/migrations/zipball/99475d79841dc00a63fe7dd051f8fb1ba03bf1a8",
-                "reference": "99475d79841dc00a63fe7dd051f8fb1ba03bf1a8",
+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/e96022469595b4def59756f7b6b9ceb78c9f0e66",
+                "reference": "e96022469595b4def59756f7b6b9ceb78c9f0e66",
                 "shasum": ""
             },
             "require": {
@@ -696,7 +696,7 @@
                 "database",
                 "migrations"
             ],
-            "time": "2013-09-13 02:44:30"
+            "time": "2013-10-03 12:44:16"
         },
         {
             "name": "doctrine/orm",
@@ -1174,12 +1174,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle.git",
-                "reference": "73fd9994ee85e57e778e059c28beb1b963679fa5"
+                "reference": "052ab23e7233493494b26c4eca3c13a14df7e08a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSJsRoutingBundle/zipball/73fd9994ee85e57e778e059c28beb1b963679fa5",
-                "reference": "73fd9994ee85e57e778e059c28beb1b963679fa5",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSJsRoutingBundle/zipball/052ab23e7233493494b26c4eca3c13a14df7e08a",
+                "reference": "052ab23e7233493494b26c4eca3c13a14df7e08a",
                 "shasum": ""
             },
             "require": {
@@ -1219,7 +1219,7 @@
             "keywords": [
                 "Js Routing"
             ],
-            "time": "2013-09-10 15:45:38"
+            "time": "2013-10-04 08:52:27"
         },
         {
             "name": "friendsofsymfony/message-bundle",
@@ -1274,6 +1274,121 @@
                 "symfony"
             ],
             "time": "2013-09-06 08:54:23"
+        },
+        {
+            "name": "friendsofsymfony/oauth-server-bundle",
+            "version": "dev-master",
+            "target-dir": "FOS/OAuthServerBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfSymfony/FOSOAuthServerBundle.git",
+                "reference": "e48ceba7a7678dc62854aab84c8b98c0f33b46aa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSOAuthServerBundle/zipball/e48ceba7a7678dc62854aab84c8b98c0f33b46aa",
+                "reference": "e48ceba7a7678dc62854aab84c8b98c0f33b46aa",
+                "shasum": ""
+            },
+            "require": {
+                "friendsofsymfony/oauth2-php": "~1.0.4",
+                "php": ">=5.3.3",
+                "symfony/framework-bundle": "~2.1",
+                "symfony/security-bundle": "~2.1"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "~1.0",
+                "doctrine/mongodb-odm": "1.0.*@dev",
+                "doctrine/orm": ">=2.2,<2.5-dev",
+                "symfony/class-loader": "~2.1",
+                "symfony/yaml": "~2.1",
+                "willdurand/propel-typehintable-behavior": "1.0.*"
+            },
+            "suggest": {
+                "doctrine/doctrine-bundle": "*",
+                "doctrine/mongodb-odm-bundle": "*",
+                "propel/propel-bundle": "If you want to use Propel with Symfony2, then you will have to install the PropelBundle",
+                "willdurand/propel-typehintable-behavior": "The Typehintable behavior is useful to add type hints on generated methods, to be compliant with interfaces"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "FOS\\OAuthServerBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arnaud Le Blanc",
+                    "email": "arnaud.lb@gmail.com"
+                },
+                {
+                    "name": "FriendsOfSymfony Community",
+                    "homepage": "https://github.com/FriendsOfSymfony/FOSOAuthServerBundle/contributors"
+                }
+            ],
+            "description": "Symfony2 OAuth Server Bundle",
+            "homepage": "http://friendsofsymfony.github.com",
+            "keywords": [
+                "oauth",
+                "oauth2",
+                "server"
+            ],
+            "time": "2013-08-28 21:44:28"
+        },
+        {
+            "name": "friendsofsymfony/oauth2-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfSymfony/oauth2-php.git",
+                "reference": "e1037bfc98df15a5c46ff745a91de13c7f48f66a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/oauth2-php/zipball/e1037bfc98df15a5c46ff745a91de13c7f48f66a",
+                "reference": "e1037bfc98df15a5c46ff745a91de13c7f48f66a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/http-foundation": "~2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "OAuth2": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arnaud Le Blanc",
+                    "email": "arnaud.lb@gmail.com"
+                },
+                {
+                    "name": "FriendsOfSymfony Community",
+                    "homepage": "https://github.com/FriendsOfSymfony/oauth2-php/contributors"
+                }
+            ],
+            "description": "OAuth2 library",
+            "homepage": "https://github.com/FriendsOfSymfony/oauth2-php",
+            "keywords": [
+                "oauth",
+                "oauth2"
+            ],
+            "time": "2013-07-24 06:48:28"
         },
         {
             "name": "friendsofsymfony/rest",
@@ -1970,12 +2085,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/serializer.git",
-                "reference": "ad2153e3aeaa420f50cd97b3551d476509c1b68d"
+                "reference": "08f9352dee7757b5d80a0542b39d157b51b86aad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/ad2153e3aeaa420f50cd97b3551d476509c1b68d",
-                "reference": "ad2153e3aeaa420f50cd97b3551d476509c1b68d",
+                "url": "https://api.github.com/repos/schmittjoh/serializer/zipball/08f9352dee7757b5d80a0542b39d157b51b86aad",
+                "reference": "08f9352dee7757b5d80a0542b39d157b51b86aad",
                 "shasum": ""
             },
             "require": {
@@ -2029,7 +2144,7 @@
                 "serialization",
                 "xml"
             ],
-            "time": "2013-09-26 06:27:00"
+            "time": "2013-10-04 10:43:33"
         },
         {
             "name": "jms/serializer-bundle",
@@ -2515,12 +2630,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "df90f919b73e2e848d767a372caf9ca036877bf6"
+                "reference": "b5fa119527f25b787fbb20e75593e0671b0ea079"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/df90f919b73e2e848d767a372caf9ca036877bf6",
-                "reference": "df90f919b73e2e848d767a372caf9ca036877bf6",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/b5fa119527f25b787fbb20e75593e0671b0ea079",
+                "reference": "b5fa119527f25b787fbb20e75593e0671b0ea079",
                 "shasum": ""
             },
             "require": {
@@ -2570,7 +2685,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2013-09-27 14:18:10"
+            "time": "2013-10-03 15:23:01"
         },
         {
             "name": "nikic/php-parser",
@@ -2909,12 +3024,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/punkave/symfony2-file-uploader-bundle.git",
-                "reference": "c3d92f612531245a39eb210a77669c6ac9123747"
+                "reference": "862d1b2b5ebb02c8bbf7cf92409b43620d7278a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/punkave/symfony2-file-uploader-bundle/zipball/c3d92f612531245a39eb210a77669c6ac9123747",
-                "reference": "c3d92f612531245a39eb210a77669c6ac9123747",
+                "url": "https://api.github.com/repos/punkave/symfony2-file-uploader-bundle/zipball/862d1b2b5ebb02c8bbf7cf92409b43620d7278a4",
+                "reference": "862d1b2b5ebb02c8bbf7cf92409b43620d7278a4",
                 "shasum": ""
             },
             "require": {
@@ -2962,7 +3077,7 @@
                 "upload",
                 "uploader"
             ],
-            "time": "2013-09-11 12:06:36"
+            "time": "2013-10-03 16:08:32"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -3155,12 +3270,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "a6347af7bc8550b400e3545acb28d8b95dd23707"
+                "reference": "013456608134c704edb01ff9487d8a664200af11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/a6347af7bc8550b400e3545acb28d8b95dd23707",
-                "reference": "a6347af7bc8550b400e3545acb28d8b95dd23707",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/013456608134c704edb01ff9487d8a664200af11",
+                "reference": "013456608134c704edb01ff9487d8a664200af11",
                 "shasum": ""
             },
             "require": {
@@ -3225,7 +3340,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2013-09-28 09:53:52"
+            "time": "2013-10-04 10:31:12"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -3234,12 +3349,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataBlockBundle.git",
-                "reference": "4e96f86a37b89946f2c204418af0b56826bb3798"
+                "reference": "7ffc4212df6ec3fda34031789eb6cdb0ca258f11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/4e96f86a37b89946f2c204418af0b56826bb3798",
-                "reference": "4e96f86a37b89946f2c204418af0b56826bb3798",
+                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/7ffc4212df6ec3fda34031789eb6cdb0ca258f11",
+                "reference": "7ffc4212df6ec3fda34031789eb6cdb0ca258f11",
                 "shasum": ""
             },
             "require": {
@@ -3287,7 +3402,7 @@
                 "block",
                 "sonata"
             ],
-            "time": "2013-09-20 08:30:37"
+            "time": "2013-10-03 16:32:12"
         },
         {
             "name": "sonata-project/cache-bundle",
@@ -3296,12 +3411,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCacheBundle.git",
-                "reference": "6042e6eba04952e73eae0df01e32e16ce555b42e"
+                "reference": "60b14fb3ed324a5ee28900c114f3892df70dea48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCacheBundle/zipball/6042e6eba04952e73eae0df01e32e16ce555b42e",
-                "reference": "6042e6eba04952e73eae0df01e32e16ce555b42e",
+                "url": "https://api.github.com/repos/sonata-project/SonataCacheBundle/zipball/60b14fb3ed324a5ee28900c114f3892df70dea48",
+                "reference": "60b14fb3ed324a5ee28900c114f3892df70dea48",
                 "shasum": ""
             },
             "require": {
@@ -3352,7 +3467,7 @@
             "keywords": [
                 "cache block"
             ],
-            "time": "2013-09-20 08:30:01"
+            "time": "2013-10-03 16:31:31"
         },
         {
             "name": "sonata-project/doctrine-extensions",
@@ -3409,12 +3524,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataDoctrineORMAdminBundle.git",
-                "reference": "cecd8ade4095d17bc3e2f229b94e928628b60ac7"
+                "reference": "6f0312984965d0edc029e437486715a2687749e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/cecd8ade4095d17bc3e2f229b94e928628b60ac7",
-                "reference": "cecd8ade4095d17bc3e2f229b94e928628b60ac7",
+                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/6f0312984965d0edc029e437486715a2687749e6",
+                "reference": "6f0312984965d0edc029e437486715a2687749e6",
                 "shasum": ""
             },
             "require": {
@@ -3457,7 +3572,7 @@
                 "generator",
                 "sonata"
             ],
-            "time": "2013-09-27 23:20:41"
+            "time": "2013-10-01 10:26:22"
         },
         {
             "name": "sonata-project/easy-extends-bundle",
@@ -3732,12 +3847,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataUserBundle.git",
-                "reference": "673cc3e7c9457f71d7b30b5ef7c22784847a091a"
+                "reference": "6724a406648dcc235256b9332ba4daf059b91b71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataUserBundle/zipball/673cc3e7c9457f71d7b30b5ef7c22784847a091a",
-                "reference": "673cc3e7c9457f71d7b30b5ef7c22784847a091a",
+                "url": "https://api.github.com/repos/sonata-project/SonataUserBundle/zipball/6724a406648dcc235256b9332ba4daf059b91b71",
+                "reference": "6724a406648dcc235256b9332ba4daf059b91b71",
                 "shasum": ""
             },
             "require": {
@@ -3789,7 +3904,7 @@
                 "sonata",
                 "user"
             ],
-            "time": "2013-09-23 13:22:14"
+            "time": "2013-10-03 15:33:46"
         },
         {
             "name": "stephpy/TimelineBundle",
@@ -4151,12 +4266,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "a46ff2fc59107f74b7e90846935b2636aac98058"
+                "reference": "e410b1f311a0712a9c8abf3fc2fbce1bb5631d9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/a46ff2fc59107f74b7e90846935b2636aac98058",
-                "reference": "a46ff2fc59107f74b7e90846935b2636aac98058",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/e410b1f311a0712a9c8abf3fc2fbce1bb5631d9c",
+                "reference": "e410b1f311a0712a9c8abf3fc2fbce1bb5631d9c",
                 "shasum": ""
             },
             "require": {
@@ -4242,7 +4357,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-09-27 21:42:26"
+            "time": "2013-10-04 14:07:27"
         },
         {
             "name": "twig/extensions",
@@ -4297,12 +4412,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "5d67e0eaa42fa738ef47b9c6eb2f31bfe78435d0"
+                "reference": "f47c6d63a9806f795c7d892d5f2d1b10f230547d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/5d67e0eaa42fa738ef47b9c6eb2f31bfe78435d0",
-                "reference": "5d67e0eaa42fa738ef47b9c6eb2f31bfe78435d0",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/f47c6d63a9806f795c7d892d5f2d1b10f230547d",
+                "reference": "f47c6d63a9806f795c7d892d5f2d1b10f230547d",
                 "shasum": ""
             },
             "require": {
@@ -4338,7 +4453,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-09-28 11:31:14"
+            "time": "2013-10-04 14:13:23"
         }
     ],
     "packages-dev": [
@@ -4373,7 +4488,8 @@
         "sonata-project/user-bundle": 20,
         "jms/i18n-routing-bundle": 20,
         "doctrine/doctrine-migrations-bundle": 20,
-        "ornicar/apc-bundle": 20
+        "ornicar/apc-bundle": 20,
+        "friendsofsymfony/oauth-server-bundle": 20
     },
     "platform": {
         "php": ">=5.3.3"

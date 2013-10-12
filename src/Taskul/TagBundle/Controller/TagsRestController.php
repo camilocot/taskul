@@ -19,7 +19,7 @@ class TagsRestController extends FOSRestController
 	 * [cgetAction description]
 	 * @return [type] [description]
 	 *
-	 * @Route(options={"i18n": false, "expose": true})
+	 * @Route(options={"i18n" = false, "expose" = true})
 	 */
  	public function cgetAction(){
 		$em = $this->getDoctrine()->getManager();

@@ -36,7 +36,7 @@ class FriendController extends BaseController {
     /**
      * Elimina la relacion entre contactos
      *
-     * @Route("/{id}/delete", name="myfriends_delete", options={ "expose": true })
+     * @Route("/{id}/delete", name="myfriends_delete", options={ "expose" = true })
      * @Method("POST|DELETE")
      *
      */

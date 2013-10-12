@@ -1,0 +1,6 @@
+fos_oauth_server_authorize:
+    pattern: /oauth/v2/auth
+    defaults:
+        _controller: 'FOSOAuthServerBundle:Authorize:authorize'
+    options:
+        i18n: false
