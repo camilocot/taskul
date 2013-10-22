@@ -13,7 +13,7 @@ use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Exclude;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lexik\Bundle\MailerBundle\Mapping\Annotation as Mailer;
-
+use Taskul\TimelineBundle\Entity\NotificationMessage;
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
@@ -122,6 +122,13 @@ class User extends BaseUser implements ParticipantInterface {
      */
     private $updated;
 
+    /**
+     * @var TaskBundle:Task
+     *
+     * @ORM\OneToMany(targetEntity="\Taskul\TimelineBundle\Entity\NotificationMessage", mappedBy="to")
+     * @return type
+     */
+    protected $notiMessages;
 
     public function serialize() {
         return serialize(array($this->facebookId, parent::serialize()));
@@ -546,4 +553,33 @@ class User extends BaseUser implements ParticipantInterface {
         return $this->updated;
     }
 
+    /**
+     *
+     *
+     * @param \Taskul\TimelineBundle\Entity\NotificationMessage $notifMessage
+     * @return User
+     */
+    public function addNotiMessage(NotificationMessage $notiMessage) {
+        $this->ownTasks[] = $ownTasks;
+
+        return $this;
+    }
+
+    /**
+     * Remove ownTasks
+     *
+     * @param \Taskul\TimelineBundle\Entity\NotificationMessage $notiMessage
+     */
+    public function removeNotiMessage(NotificationMessage $notiMessage) {
+        $this->ownTasks->removeElement($ownTasks);
+    }
+
+    /**
+     *
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNotiMessages() {
+        return $this->notiMessages;
+    }
 }

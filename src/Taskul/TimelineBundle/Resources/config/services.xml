@@ -10,14 +10,14 @@
         <parameter key="taskul_timeline.unread_notifications.class">Taskul\TimelineBundle\Notification\Unread\UnreadNotificationManager</parameter>
         <parameter key="taskul_timeline.action_manager.orm.class">Taskul\TimelineBundle\Driver\ORM\ActionManager</parameter>
         <parameter key="taskul_timeline.timeline_manager.orm.class">Taskul\TimelineBundle\Driver\ORM\TimelineManager</parameter>
+        <parameter key="taskul_timeline.notification_message.handle.class">Taskul\TimelineBundle\Notification\Handle\NotificationMessageHandle</parameter>
     </parameters>
 
     <services>
         <service id="taskul_timeline.spread" class="%taskul_timeline.spread.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="logger" />
-            <argument type="service" id="lexik_mailer.message_factory" />
-            <argument type="service" id="mailer" />
+            <argument type="service" id="taskul_timeline.notification_message.handle" />
             <tag name="spy_timeline.spread"/>
         </service>
         <service id="taskul_timeline.unread_notifications" class="%taskul_timeline.unread_notifications.class%">
@@ -37,6 +37,11 @@
             <argument type="service" id="spy_timeline.driver.object_manager" />
             <argument type="service" id="spy_timeline.result_builder" />
             <argument>%spy_timeline.class.timeline%</argument>
+        </service>
+        <service id="taskul_timeline.notification_message.handle" class="%taskul_timeline.notification_message.handle.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="router" />
+            <argument type="service" id="translator" />
         </service>
     </services>
 </container>

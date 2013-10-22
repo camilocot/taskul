@@ -76,11 +76,11 @@
 
                             {% endif %}
                             {% if is_granted('EDIT',entity) %}
-                            <a href="{{ path('api_edit_task', { 'id': entity.id }) }}" class="btn btn-success ajaxy">
+                            <a href="{{ path('api_edit_task', { 'id': entity.id }) }}" class="btn btn-success ajaxy" title="{{'task.list.buttons.edit'|trans({},'TaskBundle')}} :: {{ entity.name }}">
                                 <i class="icon-edit icon-white"></i>&nbsp;{{ 'task.actions.edit'|trans }}
                             </a>
                             {% endif %}
-                            <a class="btn btn-cancel ajaxy btn-back-list" href="{{ path('api_get_tasks') }}">
+                            <a class="btn btn-cancel ajaxy btn-back-list" href="{{ path('api_get_tasks') }}" title="{{'task.list.buttons.delete'|trans({},'TaskBundle')}} :: {{ entity.name }}">
                                 <i class="fa-icon-undo"></i>&nbsp;{{ 'task.actions.back'|trans }}
                             </a>
 

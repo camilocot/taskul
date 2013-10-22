@@ -5,7 +5,7 @@
     {{ apy_breadcrumb_trail_render() }}
     <div class="row-fluid sortable">
         <div class="box span12">
-            <div class="box-header" data-original-title>
+            <div class="box-header">
                 <h2><i class="icon-user"></i><span class="break"></span>{{'task.new.title'|trans({},'TaskBundle')}}</h2>
                 <div class="box-icon">
                     <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
@@ -40,16 +40,14 @@
                                     <div class="accordion-inner">
                                         {{ form_row(form.percent, {'label': 'task.new.percent'|trans, 'help': 'task.new.help.percent'|trans } ) }}
                                         {{ form_row(form.description, {'attr': { 'class':'span11','rows':'10','minlength':'8', 'maxlength': '5000' }, 'help':'task.new.help.description'|trans, 'label': 'task.new.description'|trans|raw } ) }}
-                                        <div class="controls well">
+                                        <div class="controls well hidden-phone hidden-tablet">
                                             <div class="togglediv" data-target="#bbcodedescription">
                                               <strong>{{'task.new.help.bbcode.title'|trans}}</strong>
                                             </div>
-                                            <div id="bbcodedescription" class="hide">
                                                 {{'task.new.help.bbcode.content'|trans|raw}}
-                                            </div>
                                         </div>
 
-                                        {{ form_row(form.dateEnd, { 'attr': {'class':'dateITA','data-date-format': 'dd/mm/yyyy'} , 'label':'task.new.date_end'|trans, 'help':'task.new.help.date_end'|trans }) }}
+                                        {{ form_row(form.dateEnd, { 'attr': {'class':'dateITA','data-date-format': 'dd/mm/yyyy', 'placeholder':'dd/mm/yyyy'} , 'label':'task.new.date_end'|trans, 'help':'task.new.help.date_end'|trans }) }}
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +55,7 @@
                         {{ form_rest(form) }}
                         <div class="form-actions">
                             <button class="btn btn-primary" type="submit"><i class=" icon-file fa-icon-save"></i>&nbsp;{{ 'task.new.finish'|trans }}</button>
-                            <a class="btn btn-cancel ajaxy" href="{{ path('api_get_tasks') }}">
+                            <a class="btn btn-cancel ajaxy" href="{{ path('api_get_tasks') }}" title={{'menu.title.task.list'|trans({},'MainBundle')}}>
                                 <i class="fa-icon-undo"></i>&nbsp;{{ 'task.new.back'|trans }}
                             </a>
                         </div>

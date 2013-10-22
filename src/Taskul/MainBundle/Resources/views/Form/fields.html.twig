@@ -55,7 +55,7 @@
     {% if widget == 'single_text' %}
    		<div class="input-prepend input-append date" >
    		<span class="add-on" id="btn-trash"><i class="icon-trash"></i></span>
-        {{ block('form_widget_simple' ) }}
+        <input type="date" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
     	<span class="add-on" id="datepick" data-date-format="dd/mm/yyyy" data-date="{{ "now"|date("d/m/Y") }}"><i class="icon-calendar"></i></span>
     </div>
     {% else %}

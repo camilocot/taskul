@@ -20,13 +20,13 @@ task:
         edit: 'Modificar'
         back: 'Volver al listado'
     breadcrumb:
-        list: 'Listado de tareas'
+        list: 'Todas tus tareas'
         new: 'Nueva'
         update: 'Modificar'
         show: Ver
     search_clean: 'Pulsa para limpiar la búsqueda'
     list:
-        title: 'Listado de todas tus tareas'
+        title: 'Todas tus tareas'
         status: 'Estado'
         name: 'Descripción'
         buttons:

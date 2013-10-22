@@ -24,6 +24,8 @@ assetic:
 
 swiftmailer:
     delivery_address: camilocot@gmail.com
+    spool:
+        type: file
 
 
 parameters:

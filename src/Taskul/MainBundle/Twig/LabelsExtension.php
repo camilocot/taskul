@@ -12,32 +12,43 @@ class LabelsExtension extends \Twig_Extension
     function __construct(TranslatorInterface $translator) {
         $this->translator = $translator;
     }
+
     public function getFilters()
     {
         return array(
             'status' => new \Twig_Filter_Method($this, 'statusColor'),
             'labelsinactive' => new \Twig_Filter_Method($this, 'labelArray'),
+            'labelColor' => new \Twig_Filter_Method($this, 'labelColor'),
         );
     }
 
     public function statusColor($text,$label)
     {
-    	$class = 'label ';
-    	switch ($label){
-    		case 'inprogress':
-    			$class .= 'label-warning';
-    			break;
-    		case 'todo':
-    			$class .= 'label-important';
-    			break;
-    		case 'done':
-    			$class .= 'label-success';
-    			break;
-    	}
-
-        return '<span class="'.$class.'">'.$this->translator->trans(/** @Ignore */'task.status.'.$text,array(),'TaskBundle').'</span>';
+        return $this->labelColor($this->translator->trans(/** @Ignore */'task.status.'.$text,array(),'TaskBundle'),$label);
     }
 
+    public function labelColor($text,$label)
+    {
+        return '<span class="'.$this->color($label).'">'.$text.'</span>';
+    }
+
+    public function color($label)
+    {
+        $class = 'label ';
+        switch ($label){
+            case 'inprogress':
+                $class .= 'label-warning';
+                break;
+            case 'todo':
+                $class .= 'label-important';
+                break;
+            case 'done':
+                $class .= 'label-success';
+                break;
+        }
+
+        return $class;
+    }
 	public function labelArray(ArrayCollection $array){
 		$res = '';
 		$array = $array->toArray();

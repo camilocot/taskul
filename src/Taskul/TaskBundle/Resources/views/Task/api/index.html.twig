@@ -11,15 +11,20 @@
             </div>
         </div>
         <div class="box-content">
+            <div class="well hidden-desktop">
+               <a href="{{ path('api_new_task') }}" class="btn ajaxy btn-primary" title="{{'task.list.buttons.new'|trans({},'TaskBundle')}}">
+                {{'task.list.buttons.new'|trans({},'TaskBundle')}}
+                </a>
+            </div>
             {% if entities|length > 0 %}
-            <div class="pull-right" id="filter-list">{{'search.title'|trans}}: <input id="filter" type="text" autocomplete="off" /><a href="#clear" class="clear-filter btn" title="{{'task.search_clean'|trans({},'TaskBundle')}}" rel="tooltip"><i class="fa-icon-trash"></i></a></div>
+            <div class="pull-right" id="filter-list"><span class="hidden-phone">{{'search.title'|trans}}: </span><input id="filter" type="text" autocomplete="off" /><a href="#clear" class="clear-filter btn" title="{{'task.search_clean'|trans({},'TaskBundle')}}" rel="tooltip"><i class="fa-icon-trash"></i></a></div>
             <table class="table table-striped table-bordered bootstrap-datatable footable" id="list" data-filter="#filter">
                 <thead>
                     <tr>
                         <th data-class="expand" data-sort-initial="true">{{'task.list.name'|trans}}</th>
                         <th data-hide="phone,tablet">{{'task.list.status'|trans}}</th>
                         <th data-sort-ignore="true" data-hide="default,phone,tablet">Tags</th>
-                        <th data-sort-ignore="true" width="200px">{{'lists.actions'|trans({},'MainBundle')}}</th>
+                        <th data-sort-ignore="true">{{'lists.actions'|trans({},'MainBundle')}}</th>
                     </tr>
                 </thead>
                 <tbody>

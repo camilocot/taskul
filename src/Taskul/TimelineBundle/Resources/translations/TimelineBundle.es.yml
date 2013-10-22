@@ -32,3 +32,9 @@ timeline:
     the: el
     one_friend_request: 'una solicitud de amistad'
     to: 'para'
+messages:
+    task: 'La tarea <a href="%url%">%name%</a> ha sido modificada por su creador'
+    message: '<a href="%url%">Tienes un mensaje nuevo sin leer</a>.|<a href="%url%">Tienes %count% mensajes sin leer</a>.'
+    comment: 'Hay un comentario nuevo en la tarea <a href="%url%">%name%</a>.|Hay %count% comentarios nuevos en la tarea <a href="%url%">%name%</a>.'
+    file: 'Hay un fichero nuevo en la tarea <a href="%url%">%name%</a>.|Hay %count% ficheros nuevos en la tarea <a href="%url%">%name%</a>.'
+    friendrequest: '<a href="%url%">Tienes una solicitud de contacto nueva</a>.|<a href="%url%">Tienes %count% solicitudes de contacto pendientes.</a>'

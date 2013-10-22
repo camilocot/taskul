@@ -8,8 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\NoResultException;
-use Taskul\MainBundle\Component\DateClass;
-use Spy\Timeline\Model\ActionInterface;
 use JMS\TranslationBundle\Annotation\Ignore;
 
 
@@ -61,93 +59,12 @@ class TimelineController extends Controller
     {
         $contextNotification = $this->parseContext($context);
         $this->markReadNotification($id,$contextNotification);
-        return $this->generateResponseForNotification($context,$entityid);
+        $notiHandle = $this->get('taskul_timeline.notification_message.handle');
+        return $notiHandle->generateResponseForNotification($context,$entityid);
 
-
-    }
-    /**
-     * Devuelve una respuesta (redireccion) dependiendo del contexto pasado
-     * @param  [type] $context  [description]
-     * @param  [type] $entityid [description]
-     * @return [type]           [description]
-     */
-    private function generateResponseForNotification($context,$entityid)
-    {
-
-        switch ($context)
-        {
-            case 'COMMENT':
-                $response = $this->getCommentNotificationResponse($entityid);
-                break;
-            break;
-            case 'TASK':
-                $response = $this->getTaskNotificationResponse($entityid);
-                break;
-            case 'DOCUMENT':
-                $response = $this->getFileNotificationResponse($entityid);
-                break;
-            case 'FRIENDREQUEST':
-                $response = $this->getFriendRequestNotificationResponse($entityid);
-                break;
-            default:
-                $response = $this->redirect($this->generateUrl('dashboard'));
-        }
-
-        return $response;
-    }
-    /**
-     * Genera un respuesta para una notificacion de comentario
-     * @param  [type] $entityid [description]
-     * @return [type]           [description]
-     */
-    private function getCommentNotificationResponse($entityid)
-    {
-        $comment = $this->getDoctrine()->getManager()->getRepository('TaskulCommentBundle:Comment')->find($entityid);
-        $thread = $comment->getThread();
-
-        return $this->redirect($this->generateUrl('api_get_task', array(
-            'id'  => $thread->getEntityId(),
-        )));
-    }
-
-    /**
-     * Genera una respuesta para una notificacion de tarea
-     * @param  [type] $entityid [description]
-     * @return [type]           [description]
-     */
-    private function getTaskNotificationResponse($entityid)
-    {
-        return $this->redirect($this->generateUrl('api_get_task', array(
-                    'id'  => $entityid,
-                )));
-    }
-    /**
-     * Genera una respuesta para una notificacion de solicitud de amistad
-     *
-     * @param  [type] $entityid [description]
-     * @return [type]           [description]
-     */
-    private function getFriendRequestNotificationResponse($entityid)
-    {
-        return $this->redirect($this->generateUrl('frequest_show', array(
-                    'id'  => $entityid,
-                )));
     }
 
 
-
-    /**
-     * Genera una respuesta para una notificacion de fichero
-     * @param  [type] $entityid [description]
-     * @return [type]           [description]
-     */
-    private function getFileNotificationResponse($entityid)
-    {
-        $document = $this->getDoctrine()->getManager()->getRepository('FileBundle:Document')->find($entityid);
-        return $this->redirect($this->generateUrl('api_get_task', array(
-                    'id'  => $document->getIdObject(),
-                )));
-    }
 
     /**
      * Procesa un string para devolver un context válido
@@ -266,51 +183,10 @@ class TimelineController extends Controller
      */
     protected function getClass($entity)
     {
-        $class = explode('\\', get_class($entity));
-        return end($class);
+        $notiHandle = $this->get('taskul_timeline.notification_message.handle');
+        return $notiHandle->getClass($class);
     }
 
-    /**
-     * Obtine la entidad asociada a un componente
-     *
-     * @param  [type] $respository [description]
-     * @param  [type] $id          [description]
-     * @return [type]              [description]
-     */
-    public function getComponentEntity($respository,$id)
-    {
-        return $this->getDoctrine()->getManager()->getRepository($respository)->find($id);
-    }
-
-    /**
-     * Obtinene la descripcion una entidad
-     *
-     * @param  [type] $entity [description]
-     * @return [type]         [description]
-     */
-    protected function getSummary($entity)
-    {
-        $class = $this->getClass($entity);
-        $summary = '';
-        switch ($class){
-            case 'Task':
-                $summary = $entity->getName();
-                break;
-            case 'Comment':
-                $summary = $entity->getAuthor()->getUserName();
-                break;
-            case 'Document':
-                $summary = $entity->getName();
-                break;
-            case 'FriendRequest':
-                $summary = $entity->getFrom()->getUserName();
-                break;
-            case 'Message':
-                $summary = $entity->getSender()->getUserName();
-                break;
-        }
-        return $summary;
-    }
 
     /**
      * Procesa las acciones para devolver un array
@@ -320,105 +196,23 @@ class TimelineController extends Controller
      */
     private function processActions($actions)
     {
+        $notiHandle = $this->get('taskul_timeline.notification_message.handle');
         $results = array();
         foreach($actions as $action)
         {
             if($action->hasComponent('complement')){
-                $results[] = $this->processAction($action);
+                $results[] = $notiHandle->processAction($action);
             }
 
         }
         return $results;
     }
 
-    /**
-     * Obtine varios valores asociados a una accion y a la entidad asociada al complemento de la accion
-     * @param  [type] $action [description]
-     * @return [type]         [description]
-     */
-    private function processAction(ActionInterface $action)
-    {
-        $complement = $action->getComponent('complement');
-        $model = $complement->getModel();
-        $entity = $this->getComponentEntity($model,$complement->getIdentifier());
-
-        return array(
-                'msg' => $this->generateNotifMsg($action,$entity),
-                'icon' => $this->generateNotifIcon($entity),
-                'time' => DateClass::getHumanDiff(new \DateTime($action->getCreatedAt()->format('Y-m-d H:i:s'))),
-                'url'=> $this->generateNotifUrl($action,$entity),
-                'title' => $this->generateNotifTitle($entity),
-                );
-    }
-
-    private function generateNotifMsg(ActionInterface $action, $entity)
-    {
-
-        $class = $this->getClass($entity);
-        $summary = $this->getSummary($entity);
-        $verb = $action->getVerb();
-        $t = $this->container->get('translator');
-
-        return $t->trans(/** @Ignore */ 'notification.'.strtoupper($class).'.'.$verb,array('%extra%'=>$summary),'TimelineBundle');
-
-    }
-
-    private function generateNotifUrl(ActionInterface $action,$entity)
-    {
-        $actionId = $action->getId();
-        $class = $this->getClass($entity);
-
-        return $this->get('router')->generate('get_notification',array('id'=>$actionId, 'context'=>strtoupper($class),'entityid'=>$entity->getId()));
-    }
-
     private function generateNotifTitle($entity)
     {
         $t = $this->get('translator');
-        $class = $this->getClass($entity);
-        $title = '';
-        switch ($class){
-            case 'Task':
-                $title = $t->trans('notification.view.task',array(),'TimelineBundle');
-                break;
-            case 'Comment':
-                $title = $t->trans('notification.view.task',array(),'TimelineBundle');
-                break;
-            case 'Document':
-                $title = $t->trans('notification.view.task',array(),'TimelineBundle');
-                break;
-            case 'FriendRequest':
-                $title = $t->trans('notification.view.friendrequest',array(),'TimelineBundle');
-                break;
-            case 'Message':
-                $title = $t->trans('notification.view.message',array(),'TimelineBundle');
-                break;
-        }
-        return $title;
-
+        $notiHandle = $this->get('taskul_timeline.notification_message.handle');
+        return $t->trans($notiHandle->generateNotifTitle($entity),array(),'TimelineBundle');
     }
 
-    private function generateNotifIcon($entity)
-    {
-        $class = $this->getClass($entity);
-        $icon = '';
-        switch ($class){
-            case 'Task':
-                $icon = 'icon-fire icon-red';
-                break;
-            case 'Comment':
-                $icon = 'icon-comment';
-                break;
-            case 'Document':
-                $icon = 'icon-file';
-                break;
-            case 'FriendRequest':
-                $icon = 'icon-user';
-                break;
-            case 'Message':
-                $icon = 'icon-envelope';
-                break;
-            default:
-                $icon = 'icon-th';        }
-        return $icon;
-    }
 }
