@@ -1,0 +1,19 @@
+{% trans_default_domain "MainBundle" %}
+<div class="container">
+    <div class="row well">
+        <div class="text active">
+            <h3>{{'index.news.index'|trans}}</h3>
+            <h4>{{'index.news.new3.title'|trans}}</h4>
+            <p>{{'index.news.new3.content'|trans|raw}}
+            </p>
+            <hr>
+            <h4>{{'index.news.new2.title'|trans}}</h4>
+            <p>{{'index.news.new2.content'|trans|raw}}
+            </p>
+            <hr>
+            <h4>{{'index.news.new1.title'|trans}}</h4>
+            <p>{{'index.news.new1.content'|trans({'%emoticons%': ':) :] <3'|bbcode_filter('my_comment_filter'),'%login_url%':path('fos_user_security_login'), '%login_title%':'menu.title.login'|trans})|raw}}
+            </p>
+        </div>
+    </div>
+</div>

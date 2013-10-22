@@ -139,12 +139,16 @@ index:
             content2: 'Ver todas las características'
             img1_alt: 'Edición de tarea y panel de comentarios'
     news:
+        index: 'Novedades'
         new1:
-            title: 'Actualización - 01 Octubre 2013'
+            title: '01 Octubre 2013'
             content: 'Está activo el uso de <a href="http://es.wikipedia.org/wiki/BBCode" title="Más información sobre BBcode" target="_blank">BBcode</a> en las descripciones y en los comentarios de las tareas. Gracias a él podrás mejoras la presentación de las descripciones de las tareas, así como los comentarios que se hagan en ellas, podrás incluso insertar emoticonos como estos: %emoticons%.<br> <a href="%login_url%" class="ajaxy" title="%login_title%">Accede a tu panel de control para probarlos</a>.'
         new2:
-            title: 'Actualización - 02 Octubre 2013'
+            title: '02 Octubre 2013'
             content: 'Ya puedes usar <a href="http://es.wikipedia.org/wiki/BBCode" title="Más información sobre BBcode" target="_blank">BBcode</a> en los mensajes que envías a tus compañeros.'
+        new3:
+            title: '22 Octubre 2013'
+            content: '<ul><li>Pequeñas mejoras en la versión móvil.</li><li>Las mensajes de notificaciones y avisos de tus tareas se han agrupado</li></ul>'
     title1:  'Gestiona con eficacia tus tareas y proyectos,  y compártelas con tus compañeros'
     paragraph1: '¿Tienes <strong>trabajos o proyectos pendientes</strong> y no sabes cómo organizarte? Taskul es una herramienta útil que organiza tus tareas de <strong>forma sencilla</strong> y eficaz. Es un aliado perfecto que gestiona la <strong>organización de tus actividades</strong> y proyectos, horas de trabajo, personas y recursos implicados. Puedes organizar las tareas fácilmente a través del título y las etiquetas, además puedes añadir comentarios a la tarea y representar su progreso. '
     block1:
