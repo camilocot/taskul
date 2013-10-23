@@ -1,0 +1,19 @@
+<!-- Modal -->
+{% trans_default_domain "UserBundle" %}
+<div id="unsubscribeModalWrap">
+<div id="unsubscribeModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="unsubscribeModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="unsubscribeModalLabel">{{ 'modal.unsubscribe.title'|trans }}</h3>
+    </div>
+    <div class="modal-body">
+        <p>{{ 'modal.unsubscribe.content'|trans|raw }}</p>
+        <form action="{{ path('taskul_user_disable') }}" method="POST" data-input-id="#form_unsubscribe_id" data-modal-id="#unsubscribeModal">
+            <textarea class="width-95per" name="unsubscribe-reason" id="unsubscribe-reason"></textarea>
+            <hr>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">{{ 'modal.unsubscribe.cancel'|trans }}</button>
+            <input type="submit" class="btn btn-danger" value="{{ 'modal.unsubscribe.confirm'|trans }}">
+        </form>
+    </div>
+</div>
+</div>

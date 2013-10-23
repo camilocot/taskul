@@ -3,4 +3,13 @@
 {% block fos_user_content %}
 {% include "UserBundle:Profile:show_content.html.twig" %}
 {% endblock fos_user_content %}
+{% include 'UserBundle:partials:unsubscribe-modal.html.twig' %}
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+{% javascripts
+    '@UserBundle/Resources/public/js/show-profile.js'
+output='js/profile/show.js' %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
 {% endblock %}

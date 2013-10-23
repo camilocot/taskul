@@ -494,13 +494,13 @@
     background-position: 0px 0px;
 }
 #clients .client .img{
-    cursor: pointer;    
+    cursor: pointer;
     -webkit-transition: box-shadow .1s linear;
     -moz-transition: box-shadow .1s linear;
     transition: box-shadow .1s linear;
 }
 #clients .client .img:hover{
-    cursor: pointer;    
+    cursor: pointer;
     /*box-shadow: 0px 0px 2px 0px rgb(155, 155, 155);*/
     border-radius: 8px;
 }
@@ -514,15 +514,15 @@
 
 }
 @media (min-width: 980px) {
-    
+
 }
 @media (max-width: 979px) {
     #showcase .features_op1_row .feature .img_box span.circle{
         top: 35%;
-    }    
+    }
 }
 /* Portrait tablet to landscape and desktop */
-@media (min-width: 768px) and (max-width: 979px) { 
+@media (min-width: 768px) and (max-width: 979px) {
     #in_pricing .plan a.order{
         width: 64%;
     }
@@ -536,7 +536,7 @@
         right: 6%;
         width: 25%;
     }
-    .slide#responsive .info 
+    .slide#responsive .info
     .slide#tour .info a {
         font-size: 15px;
     }
@@ -625,3 +625,47 @@
     }
 }
 
+/** NOTE **/
+#note {
+    position: absolute;
+    z-index: 6001;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fde073;
+    text-align: center;
+    line-height: 2.5;
+    overflow: hidden;
+    -webkit-box-shadow: 0 0 5px black;
+    -moz-box-shadow:    0 0 5px black;
+    box-shadow:         0 0 5px black;
+}
+.cssanimations.csstransforms #note {
+    -webkit-transform: translateY(-50px);
+    -webkit-animation: slideDown 2.5s 1.0s 1 ease forwards;
+    -moz-transform:    translateY(-50px);
+    -moz-animation:    slideDown 2.5s 1.0s 1 ease forwards;
+}
+
+#close-note {
+  position: absolute;
+  right: 10px;
+  top: 9px;
+  text-indent: -9999px;
+  background: url(/images/close.png);
+  height: 16px;
+  width: 16px;
+  cursor: pointer;
+}
+.cssanimations.csstransforms #close-note {
+  display: none;
+}
+
+@-webkit-keyframes slideDown {
+    0%, 100% { -webkit-transform: translateY(-50px); }
+    10%, 90% { -webkit-transform: translateY(0px); }
+}
+@-moz-keyframes slideDown {
+    0%, 100% { -moz-transform: translateY(-50px); }
+    10%, 90% { -moz-transform: translateY(0px); }
+}

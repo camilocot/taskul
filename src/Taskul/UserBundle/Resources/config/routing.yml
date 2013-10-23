@@ -6,6 +6,10 @@ fos_facebook_security_check:
     pattern: /fb/login_check
     defaults: { _controller: UserBundle:User:fbLoginCheck }
 
+taskul_user_disable:
+    pattern: /disable
+    defaults: { _controller: UserBundle:User:disable }
+
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

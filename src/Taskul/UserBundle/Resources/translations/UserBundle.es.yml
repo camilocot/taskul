@@ -15,6 +15,11 @@ profile:
     back: "Volver al perfil"
     last_login: "Último acceso"
     gravatar: 'Puedes usar el servicio de <a href="http://www.gravatar.com" target="_black"><strong>Gravatar</strong></a> para tener tu imagen de pérfil en varias aplicaciones web almacenandola únicamente en un lugar.'
+    unsubscribe: 'Tu solicud de baja ha sido cursada.'
+    request:
+        unsubscribe:
+            button: 'Solicitar baja'
+            title: 'Solicitar baja del servicio'
 form:
     firstname: Nombre
     lastname: Apellidos
@@ -41,3 +46,9 @@ registration:
     register: 'Regístrate con '
     placeholder:
         email: 'Introduce tu email'
+modal:
+    unsubscribe:
+        title: 'Ayúdanos a mejorar'
+        content: 'Por favor, rellena el cuadro de abajo con los motivos, queja o sugerencia que te llevan a solicitar la baja.<br><b>Para nosotros es muy importante tu opinión.</b><br>No es obligatorio, si no lo deseas.'
+        cancel: 'Cancelar'
+        confirm: 'Confirmar baja'

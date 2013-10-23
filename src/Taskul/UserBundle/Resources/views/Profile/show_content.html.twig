@@ -21,10 +21,10 @@
 				     </span>
 			 	</div>
 			 	<div class="span8">
-					<strong>{{ 'profile.complete_name'|trans({}, 'UserBundle') }}:</strong> {{ user.firstname }} {{ user.lastname}}</span><br/>
-					<strong>{{ 'profile.show_email'|trans({}, 'UserBundle') }}:</strong> {{ user.email }}</span><br/>
-					<strong>{{ 'profile.last_login'|trans({}, 'UserBundle') }}:</strong> {{ user.lastlogin|date('d/m/y') }}</span><br/>
-					<strong>{{ 'user.created'|trans({}, 'UserBundle') }}:</strong> {{ user.created|date('d/m/y') }}</span><br/>
+					<strong>{{ 'profile.complete_name'|trans }}:</strong> {{ user.firstname }} {{ user.lastname}}</span><br/>
+					<strong>{{ 'profile.show_email'|trans }}:</strong> {{ user.email }}</span><br/>
+					<strong>{{ 'profile.last_login'|trans }}:</strong> {{ user.lastlogin|date('d/m/y') }}</span><br/>
+					<strong>{{ 'user.created'|trans }}:</strong> {{ user.created|date('d/m/y') }}</span><br/>
 				</div>
 			</div>
 			<div class="chat-form">{{'profile.gravatar'|trans|raw}}</div>
@@ -35,10 +35,14 @@
 <div class="row-fluid">
 		<a class="quick-button-small span1 ajaxy" href="{{ path('fos_user_change_password') }}" title="{{ 'profile.change_password'|trans({}, 'UserBundle') }}">
 			<i class="fa-icon-group"></i>
-			<p>{{ 'profile.change_password'|trans({}, 'UserBundle') }}</p>
+			<p>{{ 'profile.change_password'|trans }}</p>
 		</a>
 		<a class="quick-button-small span1 ajaxy" href="{{ path('sonata_user_profile_edit') }}" title="{{ 'profile.edit'|trans({}, 'UserBundle') }}">
 			<i class="fa-icon-group"></i>
-			<p>{{ 'profile.edit'|trans({}, 'UserBundle') }}</p>
+			<p>{{ 'profile.edit'|trans }}</p>
 		</a>
+		<button class="quick-button-small btn-danger span1 btn modal-button" data-href="{{ path('taskul_user_disable') }}" data-target="#unsubscribeModal" data-toggle="modal" type="button" title="{{'profile.request.unsubscribe.title'|trans}}">
+			<i class="fa-icon-group"></i>
+			<p>{{ 'profile.request.unsubscribe.button'|trans }}</p>
+		</button>
 </div>

@@ -164,3 +164,7 @@ padding-left: 20px;
 .navbar .nav > li {
     float: right;
 }
+
+.width-95per {
+  width:95%;
+}

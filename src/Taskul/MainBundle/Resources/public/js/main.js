@@ -21,6 +21,13 @@
     }
 }());
 
+var closeNote = document.getElementById("close-note");
+if(document.body.contains(closeNote)) {
+  closeNote.addEventListener('click', function() {
+   note = document.getElementById("note");
+   note.style.display = 'none';
+  }, false);
+}
 
 function notificacion(message, status, delay)
 {

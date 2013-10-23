@@ -46,6 +46,14 @@
     <![endif]-->
 </head>
 <body class="pull_top">
+    {% if app.session.flashbag.get('notice') is defined %}
+    <div id="note">
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+    {{ flashMessage }}
+    {% endfor %}
+    <a id="close-note">[close]</a>
+    </div>
+    {% endif %}
     <div class="wrapper">
 {% block body %}
 {% endblock %}
