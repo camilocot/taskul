@@ -16,6 +16,7 @@ main:
     prefix:   /
 
 tasks:
+    type: rest
     resource: "@TaskBundle/Resources/config/tasks_routes.yml"
     prefix: /api
 
