@@ -16,8 +16,6 @@ use FOS\RestBundle\Controller\Annotations\Route;
  * Task Rest controller.
  * @RouteResource("File")
  *
- *
- * @todo : en el breadcrump hay que meter un enlace a ver la tarea que estamos editando
  */
 class FilesRestController extends BaseController {
 

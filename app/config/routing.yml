@@ -16,16 +16,15 @@ main:
     prefix:   /
 
 tasks:
-    type: rest
     resource: "@TaskBundle/Resources/config/tasks_routes.yml"
     prefix: /api
 
-tasks_api_v2:
-    type: rest
-    resource: Taskul\TaskBundle\Controller\TasksRestController
-    defaults: { _format: html }
-    prefix: /api/v2
-    options: { i18n: false }
+# tasks_api_v2:
+#     type: rest
+#     resource: Taskul\TaskBundle\Controller\TasksRestController
+#     defaults: { _format: html }
+#     prefix: /api/v2
+#     options: { i18n: false }
 
 files:
     resource: "@FileBundle/Controller/"
