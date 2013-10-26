@@ -14,6 +14,8 @@ use JMS\Serializer\Annotation\Exclude;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lexik\Bundle\MailerBundle\Mapping\Annotation as Mailer;
 use Taskul\TimelineBundle\Entity\NotificationMessage;
+use Taskul\TaskBundle\Entity\Period;
+
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
@@ -129,6 +131,15 @@ class User extends BaseUser implements ParticipantInterface {
      * @return type
      */
     protected $notiMessages;
+
+
+    /**
+     * @var TaskBundle:Period
+     *
+     * @ORM\OneToMany(targetEntity="\Taskul\TaskBundle\Entity\Period", mappedBy="owner")
+     * @return type
+     */
+    protected $ownPeriods;
 
     public function serialize() {
         return serialize(array($this->facebookId, parent::serialize()));
@@ -581,5 +592,33 @@ class User extends BaseUser implements ParticipantInterface {
      */
     public function getNotiMessages() {
         return $this->notiMessages;
+    }
+
+    /**
+     *
+     * @param \Taskul\TaskBundle\Entity\Period $period
+     * @return User
+     */
+    public function addOwnPeriod(Period $period) {
+        $this->ownPeriods[] = $period;
+
+        return $this;
+    }
+
+    /**
+     * Remove period
+     *
+     * @param \Taskul\TaskBundle\Entity\Period $period
+     */
+    public function removeOwnPeriod(Period $period) {
+        $this->ownPeriods->removeElement($period);
+    }
+
+    /**
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOwnPeriods() {
+        return $this->ownPeriods;
     }
 }

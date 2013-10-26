@@ -108,6 +108,15 @@ class Task implements Documentable, Taggable {
     protected $percent;
 
 
+    /**
+     * @var TaskBundle:Period
+     *
+     * @ORM\OneToMany(targetEntity="\Taskul\TaskBundle\Entity\Period", mappedBy="task")
+     * @return type
+     */
+    private $periods;
+
+
     public function getTags()
     {
         $this->tags = $this->tags ?: new ArrayCollection();
@@ -402,5 +411,33 @@ class Task implements Documentable, Taggable {
             }
         }
         return $members;
+    }
+
+    /**
+     *
+     * @param \Taskul\TaskBundle\Entity\Period $period
+     * @return Task
+     */
+    public function addPeriod(Period $period) {
+        $this->periods[] = $period;
+
+        return $this;
+    }
+
+    /**
+     * Remove period
+     *
+     * @param \Taskul\TaskBundle\Entity\Period $period
+     */
+    public function removePeriod(Period $period) {
+        $this->periods->removeElement($period);
+    }
+
+    /**
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPeriods() {
+        return $this->periods;
     }
 }
