@@ -17,20 +17,20 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        api:
-            pattern: ^/api/v2
-            fos_oauth: true
-            stateless: true
-        oauth_authorize:
-            pattern: ^/oauth/v2/auth
-            form_login:
-                provider: fos_userbundle
-                check_path: taskul_oauth_server_auth_login_check
-                login_path: taskul_oauth_server_auth_login
-            anonymous: true
-        oauth_token:
-            pattern: ^/oauth/v2/token
-            security: false
+        # api:
+        #     pattern: ^/api/v2
+        #     fos_oauth: true
+        #     stateless: true
+        # oauth_authorize:
+        #     pattern: ^/oauth/v2/auth
+        #     form_login:
+        #         provider: fos_userbundle
+        #         check_path: taskul_oauth_server_auth_login_check
+        #         login_path: taskul_oauth_server_auth_login
+        #     anonymous: true
+        # oauth_token:
+        #     pattern: ^/oauth/v2/token
+        #     security: false
         # -> custom firewall for the admin area of the URL
         admin:
             pattern:            /(es|en)/admin(.*)

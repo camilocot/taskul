@@ -61,8 +61,8 @@ class AppKernel extends Kernel
             new Ornicar\ApcBundle\OrnicarApcBundle(),
             //new Taskul\FacebookBundle\TaskulFacebookBundle(),
             new FM\BbcodeBundle\FMBbcodeBundle(),
-            new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
-            new Taskul\OAuthServerBundle\TaskulOAuthServerBundle(),
+            //new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
+            //new Taskul\OAuthServerBundle\TaskulOAuthServerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

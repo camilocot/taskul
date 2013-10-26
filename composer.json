@@ -50,7 +50,8 @@
         "doctrine/doctrine-migrations-bundle": "dev-master",
  	    "ornicar/apc-bundle": "dev-master",
         "helios-ag/fm-bbcode-bundle": "6.2",
-        "friendsofsymfony/oauth-server-bundle": "dev-master"
+        "friendsofsymfony/oauth-server-bundle": "dev-master",
+        "phpspec/phpspec": "2.0.*@dev"
     },
     "scripts": {
         "post-install-cmd": [
@@ -70,17 +71,17 @@
     },
     "config": {
         "bin-dir": "bin",
-	"github-oauth": {
-        	"github.com": "1f5b7904d2fea3125ef858ead0ad1055560fc9b1"
-	}
+    	"github-oauth": {
+            	"github.com": "1f5b7904d2fea3125ef858ead0ad1055560fc9b1"
+    	}
     },
     "minimum-stability": "dev",
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
-	"symfony-assets-install": "symlink",
-        "branch-alias": {
-            "dev-master": "2.2-dev"
-        }
+    	"symfony-assets-install": "symlink",
+            "branch-alias": {
+                "dev-master": "2.2-dev"
+            }
     }
 }
