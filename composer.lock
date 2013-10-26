@@ -718,12 +718,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "66d8b43f69105f3e3f0fb7d042f805eec1107e22"
+                "reference": "08e636368471c4232e83be0abf2f31b35336d641"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/66d8b43f69105f3e3f0fb7d042f805eec1107e22",
-                "reference": "66d8b43f69105f3e3f0fb7d042f805eec1107e22",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/08e636368471c4232e83be0abf2f31b35336d641",
+                "reference": "08e636368471c4232e83be0abf2f31b35336d641",
                 "shasum": ""
             },
             "require": {
@@ -780,7 +780,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2013-09-08 14:03:26"
+            "time": "2013-10-26 09:18:16"
         },
         {
             "name": "exercise/htmlpurifier-bundle",
@@ -4447,12 +4447,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "ed799c96afd44d458e4f061bd6601e8f5bd249a6"
+                "reference": "6fcb06034ab07b18cf2b7fe69025d1726488610d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/ed799c96afd44d458e4f061bd6601e8f5bd249a6",
-                "reference": "ed799c96afd44d458e4f061bd6601e8f5bd249a6",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/6fcb06034ab07b18cf2b7fe69025d1726488610d",
+                "reference": "6fcb06034ab07b18cf2b7fe69025d1726488610d",
                 "shasum": ""
             },
             "require": {
@@ -4538,7 +4538,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-10-26 07:51:51"
+            "time": "2013-10-26 08:02:56"
         },
         {
             "name": "twig/extensions",
@@ -4593,12 +4593,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "932f7fcb75a05b87376d4c24e92d3ca30ea7fb40"
+                "reference": "5eb8373b1cb91770f251a14086817346abfc5d17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/932f7fcb75a05b87376d4c24e92d3ca30ea7fb40",
-                "reference": "932f7fcb75a05b87376d4c24e92d3ca30ea7fb40",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/5eb8373b1cb91770f251a14086817346abfc5d17",
+                "reference": "5eb8373b1cb91770f251a14086817346abfc5d17",
                 "shasum": ""
             },
             "require": {
@@ -4634,7 +4634,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2013-10-26 06:34:09"
+            "time": "2013-10-26 07:59:29"
         },
         {
             "name": "willdurand/jsonp-callback-validator",
