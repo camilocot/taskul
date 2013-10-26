@@ -15,9 +15,23 @@ use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 
 /**
- * Task Rest controller.
- * @RouteResource("Task")
+ * Period Rest controller.
+ * @RouteResource("Period")
  *
  */
-class TasksRestController extends BaseController implements ClassResourceInterface {
+class PeriodRestController extends BaseController implements ClassResourceInterface {
+    public function cgetAction($idTask)
+    {} // "get_task_periods"     [GET] /tasks/{idTask}/periods
+
+    public function newAction($idTask)
+    {} // "new_task_period"     [GET] /tasks/{idTask}/periods/new
+
+    public function getAction($idTask, $id)
+    {} // "get_task_period"      [GET] /tasks/{idTask}/periods/{id}
+
+    public function editAction($idTask, $id)
+    {} // "edit_task_period"   [GET] /tasks/{idTask}/periods/{id}/edit
+
+    public function removeAction($idTask, $id)
+    {} // "remove_task_period" [GET] /tasks/{idTask}/periods/{id}/remove
 }

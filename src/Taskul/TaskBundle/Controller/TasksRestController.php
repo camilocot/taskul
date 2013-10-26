@@ -100,6 +100,13 @@ class TasksRestController extends BaseController implements ClassResourceInterfa
      * Finds and displays a Task entity.
      *
      */
+    public function getTaskAction($id){
+      return $this->getAction($id);
+    }
+    /**
+     * Finds and displays a Task entity.
+     *
+     */
     public function getAction($id)
     {
 
