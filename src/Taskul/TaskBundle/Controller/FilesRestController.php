@@ -10,6 +10,7 @@ use Taskul\TaskBundle\Controller\Base\TasksRestBaseController as BaseController;
 use Taskul\FileBundle\Entity\Document;
 
 use FOS\RestBundle\Controller\Annotations\Route;
+use FOS\RestBundle\Routing\ClassResourceInterface;
 
 
 /**
@@ -17,7 +18,7 @@ use FOS\RestBundle\Controller\Annotations\Route;
  * @RouteResource("File")
  *
  */
-class FilesRestController extends BaseController {
+class FilesRestController extends BaseController implements ClassResourceInterface {
 
     public function postAction($id)
     {

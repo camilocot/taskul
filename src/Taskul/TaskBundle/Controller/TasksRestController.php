@@ -11,12 +11,14 @@ use Taskul\TaskBundle\Controller\Base\TasksRestBaseController as BaseController;
 use Taskul\MainBundle\Component\CheckAjaxResponse;
 
 use FOS\RestBundle\Controller\Annotations\Route;
+use FOS\RestBundle\Routing\ClassResourceInterface;
+
 /**
  * Task Rest controller.
  * @RouteResource("Task")
  *
  */
-class TasksRestController extends BaseController {
+class TasksRestController extends BaseController implements ClassResourceInterface {
 
     private $numNotification = 10;
     /**
