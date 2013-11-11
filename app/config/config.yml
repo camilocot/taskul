@@ -146,7 +146,8 @@ apy_breadcrumb_trail:
 
 fos_js_routing:
     routes_to_expose:
-        - "^[es|en]__api_.*" # expose all routes with a name starting with api_
+        - "^es__RG__api_.*"
+        - "^en__RG__api_.*"
         - api_count_task_list_status
         - api_get_tags
         - api_list_task_status

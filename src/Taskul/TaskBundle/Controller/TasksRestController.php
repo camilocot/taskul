@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 
 use Taskul\TaskBundle\Controller\Base\TasksRestBaseController as BaseController;
-use Taskul\MainBundle\Component\CheckAjaxResponse;
 
 use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\Routing\ClassResourceInterface;
@@ -323,21 +322,6 @@ class TasksRestController extends BaseController implements ClassResourceInterfa
         ->setTemplate("TaskBundle:Task:api/form.html.twig")
         ;
         return $this->handleView($view);
-    }
-
-    private function returnResponse($success=TRUE,$message='',$url='',$title='')
-    {
-      $t = $this->getTranslator();
-      $dataAjax = array('success'=>$success, 'message' => $message);
-
-      if(!empty($url))
-        $dataAjax['url'] = $url;
-      if(!empty($title))
-        $dataAjax['title'] = $title;
-      return new CheckAjaxResponse(
-            $url,
-            $dataAjax
-        );
     }
 
     private function getResponseMessage($method)

@@ -5,6 +5,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\FOSRestController;
 use JMS\TranslationBundle\Annotation\Ignore;
+use Taskul\MainBundle\Component\CheckAjaxResponse;
 
 /**
  * Task Base Rest controller.
@@ -141,6 +142,21 @@ class TasksRestBaseController extends FOSRestController {
         $view = $this->view($json, $statusCode)->setFormat('json');
         ;
         return $this->handleView($view);
+    }
+
+    protected function returnResponse($success=TRUE,$message='',$url='',$title='')
+    {
+      $t = $this->getTranslator();
+      $dataAjax = array('success'=>$success, 'message' => $message);
+
+      if(!empty($url))
+        $dataAjax['url'] = $url;
+      if(!empty($title))
+        $dataAjax['title'] = $title;
+      return new CheckAjaxResponse(
+            $url,
+            $dataAjax
+        );
     }
 
     public function putDashBoardBreadCrumb()

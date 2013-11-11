@@ -1,0 +1,70 @@
+{% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "TaskBundle::layout.html.twig" %}
+{% trans_default_domain "TaskBundle" %}
+{% block content %}
+{{ apy_breadcrumb_trail_render() }}
+<div id="main" ng-app>
+<div class="row-fluid sortable">
+    <div class="box span12">
+        <div class="box-header" data-original-title>
+            <h2><i class="icon-user"></i><span class="break"></span>{{'task.list.title'|trans}}</h2>
+            <div class="box-icon">
+            <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+            </div>
+        </div>
+        <div class="box-content">
+            <div class="well hidden-desktop">
+               <a href="{{ path('api_new_task') }}" class="btn ajaxy btn-primary" title="{{'task.list.buttons.new'|trans({},'TaskBundle')}}">
+                {{'task.list.buttons.new'|trans({},'TaskBundle')}}
+                </a>
+            </div>
+            {% if periods|length > 0 %}
+            <div class="pull-right" id="filter-list"><span class="hidden-phone">{{'search.title'|trans}}: </span><input id="filter" type="text" autocomplete="off" /><a href="#clear" class="clear-filter btn" title="{{'task.search_clean'|trans({},'TaskBundle')}}" rel="tooltip"><i class="fa-icon-trash"></i></a></div>
+            <table class="table table-striped table-bordered bootstrap-datatable footable" id="list" data-filter="#filter">
+                <thead>
+                    <tr>
+                        <th data-class="expand" data-sort-initial="true">{{'task.list.name'|trans}}</th>
+                        <th data-hide="phone,tablet">{{'task.list.status'|trans}}</th>
+                        <th data-sort-ignore="true" data-hide="default,phone,tablet">Tags</th>
+                        <th data-sort-ignore="true">{{'lists.actions'|trans({},'MainBundle')}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in periods %}
+                    <tr>
+                        <td>
+                            {{ entity.begin|date}}
+                        </td>
+                        <td>
+{{ entity.end|date}}
+                        </td>
+
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        </tr>
+                        {% endfor %}
+                </tbody>
+                <tfoot class="footable-pagination">
+                    <tr>
+                      <td colspan="4"><ul id="pagination" class="footable-nav"></ul></td>
+                    </tr>
+                </tfoot>
+            </table>
+                {% endif %}
+                {% include 'MainBundle:partials:warning-message.html.twig' with { 'warningtitle': 'warning.title'|trans, 'warningcontent': 'warning.content'|trans({'%href%': path('api_new_task')}, 'TaskBundle') } only %}
+                <div class="well">
+                   <a href="{{ path('api_new_task') }}" class="btn ajaxy btn-primary" title="{{'task.list.buttons.new'|trans({},'TaskBundle')}}">
+                    {{'task.list.buttons.new'|trans({},'TaskBundle')}}
+                    </a>
+                </div>
+        </div>
+    </div><!--/box-->
+
+</div><!--/row-->
+</div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+{% endblock %}

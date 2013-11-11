@@ -41,4 +41,17 @@ class TaskRepository extends EntityRepository
     {
         return $this->getEntityManager()->getRepository('FileBundle:Document')->findBy(array('class' => $task->getClassName(),'idObject'=>$task->getId()));
     }
+
+    public function findTaskByUserAndId($user,$id)
+    {
+        try {
+            return $this->getEntityManager($user)
+                ->createQuery('SELECT t FROM TaskBundle:Task t WHERE (t.owner = :user or :user MEMBER OF t.members) and id = :id order by t.updated DESC')
+                ->setParameter('user', $user->getId())
+                ->setParameter('id', $id)
+                ->getSingleResult();
+        }catch (\Exception $e){
+            return null;
+        }
+    }
 }

@@ -1,0 +1,21 @@
+<script type="text/ng-template" id="list.html">
+    <input type="text" ng-model="search" class="search-query" placeholder="Search">
+    <table>
+      <thead>
+      <tr>
+        <th>Project</th>
+        <th>Description</th>
+        <th><a href="#/new"><i class="icon-plus-sign"></i></a></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="period in periods | filter:search">
+        <td>{{period.begin}}</td>
+        <td>{{period.end}}</td>
+        <td>
+          <a href="#/edit/{{period.$id}}"><i class="icon-pencil"></i></a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+</script>
