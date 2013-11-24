@@ -3,7 +3,7 @@
 namespace Taskul\TaskBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Taskul\MainBundle\Entity\BaseEntity;
 /**
  * Task Period
  *
@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\HasLifecycleCallbacks()
  *
  */
-class Period {
+class Period extends BaseEntity {
 
     /**
      * @var integer

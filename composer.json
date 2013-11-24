@@ -51,7 +51,8 @@
  	    "ornicar/apc-bundle": "dev-master",
         "helios-ag/fm-bbcode-bundle": "6.2",
         "friendsofsymfony/oauth-server-bundle": "dev-master",
-        "phpspec/phpspec": "2.0.*@dev"
+        "phpspec/phpspec": "2.0.*@dev",
+        "phpmd/phpmd" : "1.4.*"
     },
     "scripts": {
         "post-install-cmd": [

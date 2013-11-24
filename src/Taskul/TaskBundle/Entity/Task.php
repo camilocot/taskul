@@ -10,6 +10,7 @@ use Taskul\TaskBundle\DBAL\Types\TaskStatusType;
 use Fresh\Bundle\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 use Taskul\FileBundle\Documentable\Documentable;
+use Taskul\MainBundle\Entity\BaseEntity;
 
 /**
  * Task
@@ -19,7 +20,7 @@ use Taskul\FileBundle\Documentable\Documentable;
  * @ORM\HasLifecycleCallbacks()
  *
  */
-class Task implements Documentable, Taggable {
+class Task extends BaseEntity implements Documentable, Taggable {
 
     /**
      * @var integer

@@ -44,7 +44,7 @@ class TasksRestBaseController extends FOSRestController {
 		return $this->get('fpn_tag.tag_manager');
 	}
 
-	protected function getAclMAnager()
+	protected function getAclManager()
 	{
 		return $this->get('taskul.acl_manager');
 	}

@@ -11,7 +11,11 @@
                 </div>
             </div>
             <div class="box-content">
-                    <form class="form-horizontal validate ajaxform" action="{{ path( 'api_post_task_period',{'idTask': idTask} ) }}" method="POST" {{ form_enctype(form) }} id="form_task">
+                    {% if method == 'POST' %}
+                        <form class="form-horizontal validate ajaxform" action="{{ path( 'api_post_task_period',{'idTask': idTask} ) }}" method="POST" {{ form_enctype(form) }} id="form_task">
+                    {% else %}
+                        <form class="form-horizontal validate ajaxform" action="{{ path( 'api_put_task_period',{'idTask': idTask, 'id': id} ) }}" method="POST" {{ form_enctype(form) }} id="form_task">
+                    {% endif %}
                         <input type="hidden" name="_method" value="{{ method }}" >
                         {{ form_errors(form) }}
 
@@ -21,8 +25,8 @@
                         </fieldset>
                         {{ form_rest(form) }}
                         <div class="form-actions">
-                            <button class="btn btn-primary" type="submit"><i class=" icon-file fa-icon-save"></i>&nbsp;{{ 'task.new.finish'|trans }}</button>
-                            <a class="btn btn-cancel ajaxy" href="{{ path('api_get_tasks') }}" title={{'menu.title.task.list'|trans({},'MainBundle')}}>
+                            <button class="btn btn-primary" type="submit" id="form_task_submit"><i class=" icon-file fa-icon-save"></i>&nbsp;{{ 'task.new.finish'|trans }}</button>
+                            <a class="btn btn-cancel ajaxy" href="{{ path('api_get_task_periods', {'idTask': idTask}) }}" title={{'menu.title.task.list'|trans({},'MainBundle')}}>
                                 <i class="fa-icon-undo"></i>&nbsp;{{ 'task.new.back'|trans }}
                             </a>
                         </div>
