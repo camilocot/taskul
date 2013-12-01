@@ -10,6 +10,8 @@
         <parameter key="taskul.period.manager.class">Taskul\TaskBundle\Entity\PeriodManager</parameter>
         <parameter key="taskul.period.controller.class">Taskul\TaskBundle\Controller\PeriodRestController</parameter>
         <parameter key="taskul.period.listener.class">Taskul\TaskBundle\EventListener\PeriodSubscriber</parameter>
+        <parameter key="taskul.task.listener.class">Taskul\TaskBundle\EventListener\TaskSubscriber</parameter>
+        <parameter key="taskul.task.check_grant.listener.class">Taskul\TaskBundle\EventListener\TaskCheckGrantListener</parameter>
     </parameters>
 
     <services>
@@ -17,7 +19,7 @@
         <tag name="form.type" alias="status" />
         <argument>%taskul.status.prefered.choice%</argument>
       </service>
-      <service id="form.type.status" class="Taskul\TaskBundle\Form\Type\StatusType">
+      <service id="taskul.task.form_handler" class="%taskul.task.form_handler.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="taskul.acl_manager" />
             <argument type="service" id="taskul.tags.manager" />
@@ -32,6 +34,16 @@
             <argument type="service" id="security.context" />
             <argument type="service" id="taskul.acl_manager" />
             <tag name="kernel.event_subscriber" />
+        </service>
+        <service id="taskul.task.listener" class="%taskul.task.listener.class%">
+            <argument type="service" id="security.context" />
+            <argument type="service" id="taskul.acl_manager" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+        <service id="taskul.task.check_grant.listener" class="%taskul.task.check_grant.listener.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="security.context" />
+            <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
         </service>
     </services>
 </container>

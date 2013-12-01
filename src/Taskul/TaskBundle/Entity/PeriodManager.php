@@ -17,6 +17,12 @@ class PeriodManager extends BaseEntityManager
         return TRUE;
     }
 
+    public function savePeriod(Period $period)
+    {
+        $this->save($period);
+        return $this;
+    }
+
     public function find($id)
     {
         $entity = $this->repository->find($id);

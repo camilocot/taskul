@@ -15,8 +15,8 @@ class PeriodType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('begin','date', array('widget'=>'single_text', 'format' => 'dd/MM/yyyy','required'=>TRUE))
-            ->add('end','date', array('widget'=>'single_text', 'format' => 'dd/MM/yyyy','required'=>TRUE))
+            ->add('begin','date', array('widget'=>'single_text','required'=>TRUE))
+            ->add('end','date', array('widget'=>'single_text','required'=>TRUE))
         ;
     }
 
@@ -26,7 +26,8 @@ class PeriodType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Taskul\TaskBundle\Entity\Period'
+            'data_class' => 'Taskul\TaskBundle\Entity\Period',
+            'csrf_protection' => false,
         ));
     }
 
@@ -35,6 +36,7 @@ class PeriodType extends AbstractType
      */
     public function getName()
     {
-        return 'taskul_taskbundle_period';
+        // Empty string to map all fields at top level
+        return '';
     }
 }

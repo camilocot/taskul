@@ -16,5 +16,3 @@ periods_tasks_api:
     parent:   tasks_api
     name_prefix: api_
     resource: Taskul\TaskBundle\Controller\PeriodRestController
-    defaults: { _format: json }
-

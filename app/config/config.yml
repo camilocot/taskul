@@ -172,6 +172,11 @@ fos_rest:
         default_priorities: [ html, 'json', '*/*']
         fallback_format: json
         prefer_extension: true
+    # routing_loader:
+    #     default_format: json
+    body_listener:
+        decoders:
+            json: fos_rest.decoder.jsontoform
 
 spy_timeline:
     drivers:

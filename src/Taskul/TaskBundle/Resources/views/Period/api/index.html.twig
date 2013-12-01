@@ -12,63 +12,84 @@
             </div>
         </div>
         <div class="box-content">
-            <div class="well hidden-desktop">
-               <a href="{{ path('api_new_task') }}" class="btn ajaxy btn-primary" title="{{'task.list.buttons.new'|trans({},'TaskBundle')}}">
-                {{'task.list.buttons.new'|trans({},'TaskBundle')}}
-                </a>
-            </div>
-        </div>
+          <section id="periodsapp">
+              <div class="row">
+                <div class="span5 offset1" id="calendar">
+                </div>
+                <div class="span4">
+                    <form id="addPeriod" action="#">
+                        <div>
+                            <input id="begin" type="hidden" value="{{ "now"|date("c") }}">
+                            <input id="end" type="hidden" value="{{ "now"|date("c") }}" >
+                            <div class="well" style="overflow: auto">
+                                <div id="reportrange" class="pull-left reportrange">
+                                  <i class="glyphicon glyphicon-calendar icon-calendar icon-large"></i>
+                                  <span></span> <b class="caret"></b>
+                                </div>
+                           </div>
+                            <button id="add">Add</button>
+                        </div>
+                        <section id="periods">
+                        </section>
+                    </form>
+                  </div>
+              </div>
+            </section>
+         </div>
     </div><!--/box-->
-<ul class="menu">
-    <li><a href="{{ path('api_index_task_period', {'idTask':162}) }}/add">view1</a></li>
-  </ul>
+</div>
+</div>
+<script id="periodTemplate" type="text/template">
+    <ul>
+        <li><% print(moment(begin).format('DD-MM-YYYY')) %></li>
+        <li><% print(moment(end).format('DD-MM-YYYY')) %></li>
+    </ul>
 
-  <div ng-view></div>
+    <button class="delete">Delete</button>
+</script>
+<script id="calendarTemplate" type="text/template">
+<!-- Responsive calendar - START -->
+<div class="responsive-calendar">
+  <div class="controls">
+      <a class="pull-left" data-go="prev"><div class="btn"><i class="icon-chevron-left"></i></div></a>
+      <h4 class="timeInfo"></h4>
+      <a class="pull-right" data-go="next"><div class="btn"><i class="icon-chevron-right"></i></div></a>
+  </div><hr/>
+  <div class="day-headers">
+    <div class="day header">Mon</div>
+    <div class="day header">Tue</div>
+    <div class="day header">Wed</div>
+    <div class="day header">Thu</div>
+    <div class="day header">Fri</div>
+    <div class="day header">Sat</div>
+    <div class="day header">Sun</div>
+  </div>
+  <div class="days" data-group="days">
+    <!-- the place where days will be generated -->
+  </div>
 </div>
-{% verbatim %}
-<script type="text/ng-template" id="period-list">
-<h1 class="lead">Periods</h1>
+<!-- Responsive calendar - END -->
+</script>
+<script>
+        window.Api = {
+            get_periods: '{{ path('api_get_task_periods', {'idTask': idTask} )|escape('js') }}'
+        }
 
-<div class="well">
-  <table class="table table-striped table-bordered">
-    <thead>
-      <tr>
-        <th class="span1">ID</th>
-        <th class="span2">END</th>
-        <th class="span2">BEGIN</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="period in taskPeriods.periods">
-        <td class="text-center">{{period.id}}</td>
-        <td class="text-center">{{period.begin}}</td>
-        <td class="text-center">{{period.end}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+        window.Data = {
+            periods: {{ periods|serialize|raw }}
+        }
 </script>
-<script type="text/ng-template" id="view2">
-    <p>This is the partial for view 2.</p>
-    <p>
-aquiii
-    </p>
-</script>
-{% endverbatim %}
-</div>
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}
-<script src="//code.angularjs.org/1.0.8/angular.min.js"></script>
-<script src="//code.angularjs.org/1.0.8/angular-resource.min.js"></script>
 {% javascripts
-'@TaskBundle/Resources/public/js/period/app.js'
-'@TaskBundle/Resources/public/js/period/services.js'
-'@TaskBundle/Resources/public/js/period/controllers.js'
-'@TaskBundle/Resources/public/js/period/filters.js'
-'@TaskBundle/Resources/public/js/period/directives.js'
-output='js/period/app.js' %}
-<script src="{{ asset_url }}"></script>
+    '@TaskBundle/Resources/public/js/models/period.js'
+    '@TaskBundle/Resources/public/js/collections/periods.js'
+    '@TaskBundle/Resources/public/js/views/calendar.js'
+    '@TaskBundle/Resources/public/js/views/period.js'
+    '@TaskBundle/Resources/public/js/views/periods.js'
+    '@TaskBundle/Resources/public/js/app.js'
+     output='js/compiled/periods.min.js' %}
+  <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
-
 {% endblock %}

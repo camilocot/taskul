@@ -26,25 +26,29 @@ use Symfony\Component\Security\Acl\Permission\MaskBuilder;
  * @RouteResource("Period")
  *
  */
-class PeriodRestController extends BaseController implements ClassResourceInterface {
+class PeriodRestController extends BaseController implements ClassResourceInterface
+{
 
     private $periodManager;
+    private $em;
 
     public function setPeriodManager(PeriodManager $manager)
     {
         $this->periodManager =  $manager;
     }
 
+    public function setEntityManager($em)
+    {
+        $this->em = $em;
+    }
+
+
+
     public function indexAction($idTask)
     {
-        $task = $this->checkGrant($idTask, 'VIEW');
-        $em = $this->getEntityManager();
+        $periods = $this->getPeriodsFromTask($idTask);
 
-        $periods = $em->getRepository('TaskBundle:Period')->findByTask($task);
-        $data = array();
-
-
-        $view = $this->view( array() , Codes::HTTP_OK)->setTemplate("TaskBundle:Period:api/index.html.twig");
+        $view = $this->view( array('periods' => $periods,'idTask' => $idTask), Codes::HTTP_OK)->setTemplate("TaskBundle:Period:api/index.html.twig");
 
         return $this->handleView($view);
     }
@@ -57,55 +61,20 @@ class PeriodRestController extends BaseController implements ClassResourceInterf
      */
     public function cgetAction($idTask)
     {
-        $task = $this->checkGrant($idTask, 'VIEW');
-        $em = $this->getEntityManager();
+        $periods = $this->getPeriodsFromTask($idTask);
 
-        $periods = $em->getRepository('TaskBundle:Period')->findByTask($task);
-        $data = array();
-
-        foreach ($periods as $period) {
-            $data[] = array('id' => $period->getId(), 'begin' => $period->getBegin(), 'end' => $period->getEnd());
-        }
-        $view = $this->view(array(
-            'periods' => $data,
-            'idTask' => $idTask,
-        ), Codes::HTTP_OK)->setTemplate("TaskBundle:Period:api/list.html.twig");
-
-        return $this->handleView($view);
+        return $this->handleView($this->view($periods));
 
 
     } // "get_task_periods"     [GET] /tasks/{idTask}/periods
 
-    /**
-     * Collection post action
-     * @var Request $request
-     * @return View|array
-     */
-    public function newAction($idTask, Request $request)
-    {
-        $period = new Period();
+    public function cpostAction($idTask, Request $request) {
+        $period = $this->getPeriodManager()->create();
+
         $form = $this->createForm(new PeriodType(), $period);
+
         $user = $this->getLoggedUser();
-        $task = $this->checkGrant($idTask, 'VIEW');
-
-        $period->setOwner($user);
-        $period->setTask($task);
-
-        $view = $this->view(array(
-            'form' => $form,
-            'idTask' => $task->getId(),
-            'method' => 'POST',
-        ), Codes::HTTP_OK)->setTemplate("TaskBundle:Period:api/form.html.twig");
-
-        return $this->handleView($view);
-    } // "new_task_period"     [GET] /tasks/{idTask}/periods/new
-
-    public function postAction($idTask, Request $request) {
-        $period = new Period();
-        $form = $this->createForm(new PeriodType(), $period);
-        $user = $this->getLoggedUser();
-        $task = $this->checkGrant($idTask, 'VIEW');
-        $aclManager = $this->getAclManager();
+        $task = $this->getEntity($idTask,'Task');
 
         $period->setOwner($user);
         $period->setTask($task);
@@ -113,109 +82,59 @@ class PeriodRestController extends BaseController implements ClassResourceInterf
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getEntityManager();
-            $em->persist($period);
-            $em->flush();
+            $this->getPeriodManager()->savePeriod($period);
 
-            $aclManager->grant($period);
-
-            return $this->returnResponse(TRUE,'MENSAJE',
-                $this->generateUrl(
-                    'api_get_task_period',
-                    array('idTask' => $task->getId(), 'id' => $period->getId())
-                ),
-                'TITULO'
-            );
+            return $this->handleView($this->view($period, 201));
         }
 
-        $view = $this->view(array(
-            'form' => $form,
-            'idTask' => $task->getId(),
-            'method' => 'POST',
-        ), Codes::HTTP_OK)->setTemplate("TaskBundle:Period:api/form.html.twig");
-
-        return $this->handleView($view);
+        return $this->handleView($this->view($form, 400));
     }// "post_task_period"     [POST] /tasks/{idTask}/periods/new
 
     public function getAction($idTask, $id)
     {
-        $task = $this->checkGrant($idTask, 'VIEW');
-        $em = $this->getEntityManager();
+        $period = $this->getEntity($id,'Period');
 
-        $period = $em->getRepository('TaskBundle:Period')->find($id);
-
-        $view = $this->view(array(
-            'period' => $period,
-            'idTask' => $idTask,
-        ), Codes::HTTP_OK)->setTemplate("TaskBundle:Period:api/view.html.twig");
-
-        return $this->handleView($view);
+        return $this->handleView($this->view($period));
     } // "get_task_period"      [GET] /tasks/{idTask}/periods/{id}
 
-    public function editAction($idTask, $id)
-    {
-        $task = $this->checkGrant($idTask, 'VIEW');
-        $period = $this->checkGrant($id, 'EDIT', 'TaskBundle:Period');
-        $form = $this->createForm(new PeriodType(), $period);
-
-        $view = $this->view(array(
-            'form' => $form,
-            'idTask' => $task->getId(),
-            'method' => 'PUT',
-            'id' => $id
-        ), Codes::HTTP_OK)->setTemplate("TaskBundle:Period:api/form.html.twig");
-
-        return $this->handleView($view);
-
-    } // "edit_task_period"   [GET] /tasks/{idTask}/periods/{id}/edit
-
     public function putAction($idTask, $id, Request $request) {
-        $task = $this->checkGrant($idTask, 'VIEW');
-        $period = $this->checkGrant($id, 'EDIT', 'TaskBundle:Period');
-        $form = $this->createForm(new PeriodType(), $period);
+
+        $period = $this->getEntity($id,'Period');
 
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getEntityManager();
-            $em->persist($period);
-            $em->flush();
+            $this->getPeriodManager()->savePeriod($period);
 
-
-            return $this->returnResponse(TRUE,'MENSAJE OK',
-                $this->generateUrl(
-                    'api_get_task_period',
-                    array('idTask' => $task->getId(), 'id' => $period->getId())
-                ),
-                'TITULO'
-            );
+            return $this->handleView($this->view(null, 204));
         }
 
-        $view = $this->view(array(
-            'form' => $form,
-            'idTask' => $task->getId(),
-            'id' => $id,
-            'method' => 'PUT',
-        ), Codes::HTTP_OK)->setTemplate("TaskBundle:Period:api/form.html.twig");
-
-        return $this->handleView($view);
+        return $this->handleView($this->view($form, 400));
     } // "api_put_task_period" [PUT] tasks/{idTask}/periods/{id}
 
-    public function removeAction($idTask, $id)
+    public function deleteAction($idTask, $id)
     {
         $this->getPeriodManager()->deletePeriod($id);
+        return $this->handleView($this->view(null, 204));
 
-        return $this->returnResponse(TRUE,'MENSAJE OK',
-                $this->generateUrl(
-                    'api_get_task_periods',
-                    array('idTask' => $idTask)
-                ),
-                'TITULO'
-            );
-    } // "remove_task_period" [GET] /tasks/{idTask}/periods/{id}/remove
+    } // "remove_task_period" [DELETE] /tasks/{idTask}/periods/{id}
 
     protected function getPeriodManager()
     {
         return $this->container->get('taskul.period.manager');
     }
+
+    private function getEntity($id,$name)
+    {
+        $this->em = $this->getEntityManager();
+        return $this->em->getRepository('TaskBundle:'.$name)->find($id);
+    }
+
+    private function getPeriodsFromTask($id)
+    {
+        $task = $this->getEntity($id,'Task');
+        $periods = $this->em->getRepository('TaskBundle:Period')->findByTask($task);
+        return $periods;
+    }
+
 }

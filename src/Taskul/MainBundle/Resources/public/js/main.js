@@ -141,3 +141,19 @@ var smartphone    = window.matchMedia( "(min-width: 320px)" ) && window.matchMed
       tab_portrait  = tablet && (window.orientation == 'portrait'),
       desktop       = window.matchMedia( "(min-width: 1224px)" ),
       large         = window.matchMedia( "(min-width: 1824px)" );
+
+Date.prototype.addDays = function(days) {
+    var dat = new Date(this.valueOf());
+    dat.setDate(dat.getDate() + days);
+    return dat;
+};
+
+Date.prototype.getDates = function(stopDate) {
+    var dateArray = [];
+    var currentDate = this;
+    while (currentDate <= stopDate) {
+        dateArray.push( new Date (currentDate) );
+        currentDate = currentDate.addDays(1);
+    }
+    return dateArray;
+};
