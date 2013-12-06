@@ -12,40 +12,37 @@
             </div>
         </div>
         <div class="box-content">
-          <section id="periodsapp">
-              <div class="row">
-                <div class="span5 offset1" id="calendar">
-                </div>
-                <div class="span4">
-                    <form id="addPeriod" action="#">
-                        <div>
-                            <input id="begin" type="hidden" value="{{ "now"|date("c") }}">
-                            <input id="end" type="hidden" value="{{ "now"|date("c") }}" >
-                            <div class="well" style="overflow: auto">
-                                <div id="reportrange" class="pull-left reportrange">
-                                  <i class="glyphicon glyphicon-calendar icon-calendar icon-large"></i>
-                                  <span></span> <b class="caret"></b>
-                                </div>
-                           </div>
-                            <button id="add">Add</button>
-                        </div>
-                        <section id="periods">
-                        </section>
-                    </form>
-                  </div>
-              </div>
-            </section>
+          <div class="wrapper">
+          </section>
          </div>
     </div><!--/box-->
 </div>
 </div>
+<script id="main-period" type="text/template">
+<div class="well">
+  <input type="text" id="filter" placeholder="filter me" />
+  <button id="add-period" class="pull-right">Add</button>
+  <button id="view-calendar" class="pull-right">View Calendar</button>
+  <button id="view-list" class="pull-right">View List</button>
+</div>
+</script>
+<script id="list-periods" type="text/template">
+<section id="periods">
+<div class="row-fluid">
+  <div class="span2 sort" data-column="begin">Comienzo</div>
+  <div class="span1 sort" data-column="end">Fin</div>
+  <div class="span4 sort" data-column="note">Nota</div>
+  <div class="span5"></div>
+</div>
+</section>
+</script>
 <script id="periodTemplate" type="text/template">
-    <ul>
-        <li><% print(moment(begin).format('DD-MM-YYYY')) %></li>
-        <li><% print(moment(end).format('DD-MM-YYYY')) %></li>
-    </ul>
-
-    <button class="delete">Delete</button>
+    <div class="row-fluid">
+        <div class="span2"><% print(moment(begin).format(app.config.dateFormats.moment)) %></div>
+        <div class="span1"><% print(moment(end).format(app.config.dateFormats.moment)) %></div>
+        <div class="span4"><%- note %></div>
+        <div class="span5"><button class="delete pull-right">Delete</button></div>
+    </div>
 </script>
 <script id="calendarTemplate" type="text/template">
 <!-- Responsive calendar - START -->
@@ -70,9 +67,47 @@
 </div>
 <!-- Responsive calendar - END -->
 </script>
+<script type="text/template" id="add-period-dialog">
+<div class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="Create period" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+<h3 id="myModalLabel">Create Period</h3>
+</div>
+<div class="modal-body">
+  <form id="addPeriod" action="#" class="form-inline">
+    <div class="control-group begin">
+      <label class="control-label" for="inputEmail">Comienzo</label>
+      <div class="controls">
+        <input id="begin" type="text" value="{{ "now"|date("d/m/Y") }}" class="datepicker" readonly="readonly">
+        <span class="help-inline"></span>
+      </div>
+    </div>
+    <div class="control-group end">
+      <label class="control-label" for="inputEmail">Fin</label>
+      <div class="controls">
+        <input id="end" type="text" value="{{ "now"|date("d/m/Y") }}"  class="datepicker" readonly="readonly">
+        <span class="help-inline"></span>
+      </div>
+    </div>
+    <div class="control-group note">
+      <label class="control-label" for="inputEmail">Nota</label>
+      <div class="controls">
+        <textarea id="note" name="note"></textarea>
+        <span class="help-inline"></span>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+<button class="btn close-action" data-dismiss="modal" aria-hidden="true">Cancel</button>
+<button class="btn btn-primary save-action">Save</button>
+</div>
+</div>
+<div class="modal-backdrop fade in"></div>
+</script>
 <script>
         window.Api = {
-            get_periods: '{{ path('api_get_task_periods', {'idTask': idTask} )|escape('js') }}'
+            period_url: '{{ path('api_get_task_periods', {'idTask': idTask} )|escape('js') }}'
         }
 
         window.Data = {
@@ -88,6 +123,8 @@
     '@TaskBundle/Resources/public/js/views/calendar.js'
     '@TaskBundle/Resources/public/js/views/period.js'
     '@TaskBundle/Resources/public/js/views/periods.js'
+    '@TaskBundle/Resources/public/js/views/add-period.js'
+    '@TaskBundle/Resources/public/js/views/period-main.js'
     '@TaskBundle/Resources/public/js/app.js'
      output='js/compiled/periods.min.js' %}
   <script src="{{ asset_url }}"></script>

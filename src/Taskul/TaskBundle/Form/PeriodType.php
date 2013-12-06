@@ -17,6 +17,7 @@ class PeriodType extends AbstractType
         $builder
             ->add('begin','date', array('widget'=>'single_text','required'=>TRUE))
             ->add('end','date', array('widget'=>'single_text','required'=>TRUE))
+            ->add('note','purified_textarea',array('required' => TRUE))
         ;
     }
 

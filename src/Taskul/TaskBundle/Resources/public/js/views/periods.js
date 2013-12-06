@@ -1,116 +1,82 @@
 var app = app || {};
 
 app.PeriodsView = Backbone.View.extend({
-    el: '#periodsapp',
-
+    template: _.template( $( '#list-periods' ).html() ),
+    tagName: 'div',
+    className: 'list-periods',
     events:{
-        'click #add':'addPeriod'
+        'click .sort': 'sortClick',
     },
+    // Make it easier to change later
+    sortUpIcon: 'ui-icon-triangle-1-n',
+    sortDnIcon: 'ui-icon-triangle-1-s',
+    _periodRowViews: [],
 
-    addPeriod: function( e ) {
-        e.preventDefault();
-
-        var formData = {};
-
-        $( '#addPeriod div' ).children( 'input' ).each( function( i, el ) {
-            if( $( el ).val() !== '' )
-            {
-                formData[ el.id ] = $( el ).val();
-            }
-        });
-
-        this.collection.create( new app.Period( formData ) );
-    },
-
-    initialize: function( initialPeriods ) {
-        this.$reportrange = this.$('#reportrange');
-        this.$reportrangespan = this.$('#reportrange span');
-        this.$periods = this.$('#periods');
-        this.$begin = this.$('#begin');
-        this.$end = this.$('#end');
-        this.$calendar = this.$('#calendar');
-        this.collection = new app.Periods( initialPeriods );
-
-        this.rangeDatePicker(this);
-        this.render();
-        this.renderCalendar();
-
-        this.listenTo( this.collection, 'add', this.renderPeriod );
-        this.listenTo( this.collection, 'add reset', this.updateCalendar );
+    initialize: function( ) {
         this.listenTo( this.collection, 'reset', this.render );
+        this.listenTo( this.collection, 'sort', this.updateList);
     },
 
     render: function() {
-        this.collection.each(function( item ) {
-            this.renderPeriod( item );
-        }, this );
+        this.$el.html(this.template());
+        this.$('#periods .sort')
+             .append($('<span>'))
+             .closest('.row-fluid')
+             .find('span')
+               .addClass('ui-icon icon-none')
+               .end()
+             .find('[data-column="'+this.collection.sortAttribute+'"] span')
+               .removeClass('icon-none').addClass(this.sortUpIcon);
+
+        this.updateList();
+        return this;
 
     },
 
-    renderPeriod: function( item ) {
-        var periodView = new app.PeriodView({
-            model: item,
-            parent: this
-        });
-        this.$periods.append( periodView.render().el );
+    // Now the part that actually changes the sort order
+    sortClick: function( e ) {
+      var $el = $(e.currentTarget),
+          ns = $el.data('column'),
+          cs = this.collection.sortAttribute;
+
+      // Toggle sort if the current column is sorted
+      if (ns == cs) {
+         this.collection.sortDirection *= -1;
+      } else {
+         this.collection.sortDirection = 1;
+      }
+
+      // Adjust the indicators.  Reset everything to hide the indicator
+      $el.closest('.row-fluid').find('span').attr('class', 'ui-icon icon-none');
+
+      // Now show the correct icon on the correct column
+      if (this.collection.sortDirection == 1) {
+         $el.find('span').removeClass('icon-none').addClass(this.sortUpIcon);
+      } else {
+         $el.find('span').removeClass('icon-none').addClass(this.sortDnIcon);
+      }
+
+      // Now sort the collection
+      this.collection.sortPeriods(ns);
     },
 
-    renderCalendar: function ( ) {
-        this._calendarView = new app.CalendarView(this.collection.models);
-        this.$calendar.append(this._calendarView.render().el );
-        this._calendarView.activate();
-    },
+    // This code has not changed from the example setup in the previous post.
+    updateList: function () {
 
-    updateCalendar: function ( item ) {
-        this._calendarView.update(item);
-    },
+        var ref = this.collection, $periods, me = this;
 
-    calendar: function() { return this._calendarView; },
+        _.invoke(this._periodRowViews, 'remove');
 
-    rangeDatePicker: function (that)
-    {
-        this.$reportrange.daterangepicker(
-        {
-            startDate: moment(),
-            endDate: moment(),
-            showDropdowns: true,
-            showWeekNumbers: true,
-            timePicker: false,
-            timePickerIncrement: 1,
-            timePicker12Hour: true,
-            ranges: {
-               'Today': [moment(), moment()],
-               'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
-               'Last 7 Days': [moment().subtract('days', 6), moment()],
-               'Last 30 Days': [moment().subtract('days', 29), moment()],
-               'This Month': [moment().startOf('month'), moment().endOf('month')],
-               'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
-            },
-            opens: 'left',
-            buttonClasses: ['btn btn-default'],
-            applyClass: 'btn-small btn-primary',
-            cancelClass: 'btn-small',
-            format: 'DD/MM/YYYY',
-            separator: ' to ',
-            locale: {
-                applyLabel: 'Submit',
-                fromLabel: 'From',
-                toLabel: 'To',
-                customRangeLabel: 'Custom Range',
-                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr','Sa'],
-                monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                firstDay: 1
-            }
-        },
-        function(start, end) {
-            that.$reportrangespan.html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-            that.$begin.val(start.format());
-            that.$end.val(end.format());
-        }
-        );
-        //Set the initial state of the picker label
-        that.$reportrangespan.html(moment().format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+        $periods = this.$('#periods');
+
+        this._periodRowViews = this.collection.map(
+            function ( obj ) {
+                  var v = new app.PeriodView({  model: ref.get(obj), collection: this.collection });
+
+                  $periods.append( v.render().el );
+
+                  return v;
+        }, this);
     }
-
 
 });

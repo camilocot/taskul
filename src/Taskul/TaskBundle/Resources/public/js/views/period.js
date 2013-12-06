@@ -5,16 +5,18 @@ app.PeriodView = Backbone.View.extend({
     className: 'periodContainer',
     template: _.template( $( '#periodTemplate' ).html() ),
     events: {
-        'click .delete': 'deletePeriod'
+        'click .delete': 'deletePeriod',
     },
 
     initialize: function(options) {
-      this.parent = options.parent; // Or use this.options.parent everywhere.
+      this.model.on('invalid',function(e){
+        this.model.valid = false;
+      }, this);
     },
 
     deletePeriod: function() {
 
-        this.parent.calendar().remove(this.model);
+        this.collection.remove(this.model);
         //Delete model
         this.model.destroy();
         //Delete view

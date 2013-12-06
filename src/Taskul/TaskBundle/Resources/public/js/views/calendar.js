@@ -7,8 +7,17 @@ app.CalendarView = Backbone.View.extend({
     eventsCalendar: {},
     removeEvents: [],
 
-    initialize: function ( periods ) {
-        this.addPeriods(periods);
+    initialize: function ( ) {
+        this.addPeriods(this.collection.models);
+        this.activate();
+        this.listenTo( this.collection, 'reset', this.renderReset );
+        this.listenTo( this.collection, 'remove', this.renderReset );
+    },
+
+    renderReset: function () {
+        this.$('.responsive-calendar').responsiveCalendar('clearAll');
+        this.eventsCalendar = {};
+        this.addPeriods(this.collection.models);
     },
 
     render: function() {
@@ -17,7 +26,7 @@ app.CalendarView = Backbone.View.extend({
     },
 
     activate: function() {
-        this.$el.parent().responsiveCalendar({
+        this.$('.responsive-calendar').responsiveCalendar({
             time: moment().format('YYYY-MM'),
             events: this.eventsCalendar,
             activateNonCurrentMonths: true
@@ -60,6 +69,7 @@ app.CalendarView = Backbone.View.extend({
     _processPeriod: function ( op, period )
     {
         var d, days, day;
+
         startDate = new Date(period.attributes.begin);
         endDate = new Date(period.attributes.end);
         that = this;

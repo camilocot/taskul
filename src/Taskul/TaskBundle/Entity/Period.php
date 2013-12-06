@@ -4,6 +4,8 @@ namespace Taskul\TaskBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Taskul\MainBundle\Entity\BaseEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Task Period
  *
@@ -27,6 +29,8 @@ class Period extends BaseEntity {
      * @var \DateTime
      *
      * @ORM\Column(name="dateBegin", type="datetime")
+     * @Assert\NotBlank()
+     * @Assert\Date()
      */
     private $begin;
 
@@ -34,6 +38,8 @@ class Period extends BaseEntity {
      * @var \DateTime
      *
      * @ORM\Column(name="dateEnd", type="datetime")
+     * @Assert\NotBlank()
+     * @Assert\Date()
      */
     private $end;
 
@@ -64,6 +70,13 @@ class Period extends BaseEntity {
      */
     private $updated;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="note", type="text")
+     * @Assert\NotBlank()
+     */
+    private $note;
     /**
      * @ORM\PrePersist
      */
@@ -227,5 +240,26 @@ class Period extends BaseEntity {
     public function getTask()
     {
         return $this->task;
+    }
+
+    /**
+     * Set note
+     *
+     * @param string $note
+     * @return Task
+     */
+    public function setNote($note) {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return string
+     */
+    public function getNote() {
+        return $this->note;
     }
 }
