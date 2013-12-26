@@ -1,8 +1,8 @@
 var app = app || {};
 
 app.PeriodView = Backbone.View.extend({
-    tagName: 'div',
-    className: 'periodContainer',
+    tagName: 'li',
+    className: 'period-item',
     template: _.template( $( '#periodTemplate' ).html() ),
     events: {
         'click .delete': 'deletePeriod',

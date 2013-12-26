@@ -17,6 +17,12 @@
   output='css/private2.min.css' filter='?yui_css' %}
   <link rel="stylesheet" href="{{ asset_url }}">
   {% endstylesheets %}
+
+  {% stylesheets
+  '@TaskBundle/Resources/assets/css/periods.scss'
+  filter='compass' %}
+  <link rel="stylesheet" href="{{ asset_url }}">
+  {% endstylesheets %}
   {% endblock %}
   {% block body %}
   <div id="overlay">

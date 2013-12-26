@@ -28,21 +28,17 @@
 </script>
 <script id="list-periods" type="text/template">
 <section id="periods">
-<div class="row-fluid">
-  <div class="span2 sort" data-column="begin">Comienzo</div>
-  <div class="span1 sort" data-column="end">Fin</div>
-  <div class="span4 sort" data-column="note">Nota</div>
-  <div class="span5"></div>
-</div>
+  <ul>
+  </ul>
 </section>
 </script>
 <script id="periodTemplate" type="text/template">
-    <div class="row-fluid">
-        <div class="span2"><% print(moment(begin).format(app.config.dateFormats.moment)) %></div>
-        <div class="span1"><% print(moment(end).format(app.config.dateFormats.moment)) %></div>
-        <div class="span4"><%- note %></div>
-        <div class="span5"><button class="delete pull-right">Delete</button></div>
-    </div>
+        <span class="delete-period">
+        <i class="icon-remove delete"></i>
+        </span>
+        <strong><% print(moment(begin).format(app.config.dateFormats.moment)) %></strong>
+        <strong><% print(moment(end).format(app.config.dateFormats.moment)) %></strong>
+        <div><%- note %></div>
 </script>
 <script id="calendarTemplate" type="text/template">
 <!-- Responsive calendar - START -->

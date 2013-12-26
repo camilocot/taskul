@@ -15,8 +15,8 @@ class PeriodType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('begin','date', array('widget'=>'single_text','required'=>TRUE))
-            ->add('end','date', array('widget'=>'single_text','required'=>TRUE))
+            ->add('begin','datetime', array('widget'=>'single_text','required'=>TRUE))
+            ->add('end','datetime', array('widget'=>'single_text','required'=>TRUE))
             ->add('note','purified_textarea',array('required' => TRUE))
         ;
     }
@@ -40,4 +40,6 @@ class PeriodType extends AbstractType
         // Empty string to map all fields at top level
         return '';
     }
+
+
 }

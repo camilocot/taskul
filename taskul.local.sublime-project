@@ -1,0 +1,16 @@
+{
+	"folders":
+	[
+        {
+            "path": "app",
+            "folder_exclude_patterns": ["cache", "logs"]
+        },
+        {
+            "path": "src"
+        },
+        {
+            "web": "web",
+            "file_exclude_patterns": ["*.css"]
+        }
+	]
+}

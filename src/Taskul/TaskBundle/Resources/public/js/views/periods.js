@@ -67,7 +67,7 @@ app.PeriodsView = Backbone.View.extend({
 
         _.invoke(this._periodRowViews, 'remove');
 
-        $periods = this.$('#periods');
+        $periods = this.$('ul');
 
         this._periodRowViews = this.collection.map(
             function ( obj ) {
