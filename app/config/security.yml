@@ -17,33 +17,6 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        # api:
-        #     pattern: ^/api/v2
-        #     fos_oauth: true
-        #     stateless: true
-        # oauth_authorize:
-        #     pattern: ^/oauth/v2/auth
-        #     form_login:
-        #         provider: fos_userbundle
-        #         check_path: taskul_oauth_server_auth_login_check
-        #         login_path: taskul_oauth_server_auth_login
-        #     anonymous: true
-        # oauth_token:
-        #     pattern: ^/oauth/v2/token
-        #     security: false
-        # -> custom firewall for the admin area of the URL
-        admin:
-            pattern:            /(es|en)/admin(.*)
-            context:            user
-            form_login:
-                provider:       fos_userbundle
-                login_path:     sonata_user_admin_security_login
-                use_forward:    false
-                check_path:     sonata_user_admin_security_check
-                failure_path:   null
-            logout:
-                path:           sonata_user_admin_security_logout
-            anonymous:          true
         public:
             # since anonymous is allowed users will not be forced to login
             pattern: ^/.*
@@ -82,19 +55,12 @@ security:
         - { path: ^/(es|en)/admin/, role: ROLE_ADMIN }
         - { path: ^/(es|en)/frequest/, role: ROLE_USER }
         - { path: ^/(es|en)/task/, role: ROLE_USER }
+        - { path: ^/(es|en)/tasks, role: ROLE_USER }
         - { path: ^/(es|en)/friend/, role: ROLE_USER }
         - { path: ^/(es|en)/api/, role: ROLE_USER }
         - { path: ^/(es|en)/msg/, role: ROLE_USER }
         - { path: ^/(es|en)/dashboard, role: ROLE_USER }
 
     role_hierarchy:
-        ROLE_ADMIN:       [ROLE_USER, ROLE_SONATA_ADMIN]
+        ROLE_ADMIN:       [ROLE_USER]
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
-        SONATA:
-            - ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT # if you are not using acl then this line must be uncommented
-            - ROLE_SONATA_PAGE_ADMIN_BLOCK_EDIT
-parameters:
-    # ... other parameters
-    security.acl.permission.map.class: Sonata\AdminBundle\Security\Acl\Permission\AdminPermissionMap
-    # optionally use a custom MaskBuilder
-    #sonata.admin.security.mask.builder.class: Sonata\AdminBundle\Security\Acl\Permission\MaskBuilder

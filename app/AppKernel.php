@@ -43,15 +43,6 @@ class AppKernel extends Kernel
             new Ornicar\GravatarBundle\OrnicarGravatarBundle(),
             new Ornicar\AkismetBundle\OrnicarAkismetBundle(),
             new Lexik\Bundle\MailerBundle\LexikMailerBundle(),
-            // Sonata
-            // new Sonata\CacheBundle\SonataCacheBundle(),
-            new Sonata\BlockBundle\SonataBlockBundle(),
-            new Sonata\jQueryBundle\SonatajQueryBundle(),
-            new Sonata\AdminBundle\SonataAdminBundle(),
-            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
-            new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
-            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
-            new Sonata\UserBundle\SonataUserBundle('FOSUserBundle'),
             // Locales
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
 
@@ -59,10 +50,7 @@ class AppKernel extends Kernel
             new JMS\TranslationBundle\JMSTranslationBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Ornicar\ApcBundle\OrnicarApcBundle(),
-            //new Taskul\FacebookBundle\TaskulFacebookBundle(),
             new FM\BbcodeBundle\FMBbcodeBundle(),
-            //new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
-            //new Taskul\OAuthServerBundle\TaskulOAuthServerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

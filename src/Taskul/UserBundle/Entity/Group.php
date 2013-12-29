@@ -2,7 +2,7 @@
 
 namespace Taskul\UserBundle\Entity;
 
-use Sonata\UserBundle\Entity\BaseGroup as BaseGroup;
+use FOS\UserBundle\Entity\BaseGroup as BaseGroup;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

@@ -3,7 +3,6 @@
 namespace Taskul\UserBundle\Controller;
 
 
-use Sonata\UserBundle\Controller\ProfileController as BaseController;
 use Taskul\MainBundle\Component\CheckAjaxResponse;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
@@ -13,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class ProfileController extends BaseController
+class ProfileController
 {
 
     public function editProfileAction()

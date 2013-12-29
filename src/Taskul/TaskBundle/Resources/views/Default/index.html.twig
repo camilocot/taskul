@@ -1,0 +1,74 @@
+{% extends app.request.isXmlHttpRequest ? "::base_ajax.html.twig" : "TaskBundle::layout.html.twig" %}
+{% trans_default_domain "TaskBundle" %}
+{% block content %}
+<div class="row-fluid sortable">
+    <div class="box span12">
+        <div class="box-header" data-original-title>
+            <h2><i class="icon-user"></i><span class="break"></span>{{'task.list.title'|trans}}</h2>
+            <div class="box-icon">
+            <a href="#" class="btn-minimize"><i class="icon-chevron-up"></i></a>
+            </div>
+        </div>
+        <div class="box-content">
+            <div class="well hidden-desktop">
+               <a href="{{ path('api_new_task') }}" class="btn btn-primary" title="{{'task.list.buttons.new'|trans({},'TaskBundle')}}">
+                {{'task.list.buttons.new'|trans({},'TaskBundle')}}
+                </a>
+            </div>
+            <div id="main">
+            </div>
+            <div class="well">
+               <a href="{{ path('api_new_task') }}" class="btn btn-primary" title="{{'task.list.buttons.new'|trans({},'TaskBundle')}}">
+                {{'task.list.buttons.new'|trans({},'TaskBundle')}}
+                </a>
+            </div>
+        </div>
+    </div><!--/box-->
+
+</div><!--/row-->
+<script>
+        window.Api = {
+            task_url: '{{ path('api_get_tasks'|escape('js')) }}'
+        }
+
+        window.Data = {
+            tasks: {{ tasks|serialize|raw }}
+        }
+
+</script>
+<!-- Task -->
+<script type="text/template" id="task-preview-template">
+    <td data-id="<%= id %>"><%= id %> - <%= name %></td>
+</script>
+
+<!-- Task List -->
+<script type="text/template" id="tasks-list-template">
+    <table class="table table-striped table-bordered bootstrap-datatable" id="tasks">
+        <thead>
+            <tr>
+                <th data-class="expand" data-sort-initial="true">{{'task.list.name'|trans}}</th>
+            </tr>
+        </thead>
+        <tbody class="wrapper">
+        </tbody>
+    </table>
+</script>
+
+
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+{% javascripts
+    '@TaskBundle/Resources/public/js/app.coffee'
+    '@TaskBundle/Resources/public/js/tasks/tasks.coffee'
+    '@TaskBundle/Resources/public/js/tasks/tasksListView.coffee'
+    '@TaskBundle/Resources/public/js/tasks/tasksapp.coffee'
+%}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+<script>
+$(function() {
+    BBTaskul.start();
+});
+</script>
+{% endblock %}

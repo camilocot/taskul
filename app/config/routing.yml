@@ -20,12 +20,10 @@ tasks:
     resource: "@TaskBundle/Resources/config/tasks_routes.yml"
     prefix: /api
 
-# tasks_api_v2:
-#     type: rest
-#     resource: Taskul\TaskBundle\Controller\TasksRestController
-#     defaults: { _format: html }
-#     prefix: /api/v2
-#     options: { i18n: false }
+default:
+    resource: "@TaskBundle/Controller/DefaultController.php"
+    type:     annotation
+    prefix:   /tasks
 
 files:
     resource: "@FileBundle/Controller/"
@@ -53,26 +51,6 @@ fos_message:
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
-
-# taskul_oauth_server_token:
-#     resource: "@TaskulOAuthServerBundle/Resources/config/routing/token.yml"
-
-# taskul_oauth_server_authorize:
-#     resource: "@TaskulOAuthServerBundle/Resources/config/routing/authorize.yml"
-
-# taskul_oauth_server_auth_login:
-#     pattern:  /oauth/v2/auth_login
-#     defaults: { _controller: TaskulOAuthServerBundle:Security:login }
-#     options: { i18n: false }
-
-# taskul_oauth_server_auth_login_check:
-#     pattern:  /oauth/v2/auth_login_check
-#     defaults: { _controller: TaskulOAuthServerBundle:Security:loginCheck }
-#     options: { i18n: false }
-
-# sonata_page_cache:
-#     resource: '@SonataCacheBundle/Resources/config/routing/cache.xml'
-#     prefix: /
 
 
 

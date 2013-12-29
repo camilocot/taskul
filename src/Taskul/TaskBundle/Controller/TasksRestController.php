@@ -32,24 +32,10 @@ class TasksRestController extends BaseController implements ClassResourceInterfa
       ;
 
     	$user = $this->getLoggedUser();
-    	$format = $this->getRequestFormat();
-    	$em = $this->getEntityManager();
 
-    	$data['entities'] = $em->getRepository('TaskBundle:Task')->findTasks($user);
+    	$data = $this->getEntityManager()->getRepository('TaskBundle:Task')->findTasks($user);
 
-    	if('html' === strtolower($format)){
-    		$data['delete_form'] = $this->createDeleteForm(-1)->createView();
-        $data['delete_id'] = -1;
-        foreach ($data['entities'] as $e){
-          $this->loadTags($e);
-        }
-      }
-
-      $view = $this->view($data, 200)
-      ->setTemplate("TaskBundle:Task:api/index.html.twig")
-      ;
-
-      return $this->handleView($view);
+      return $this->handleView($this->view($data, 200));
     }
 
     /**

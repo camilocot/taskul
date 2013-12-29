@@ -2,7 +2,7 @@
 
 namespace Taskul\UserBundle\Entity;
 
-use Sonata\UserBundle\Entity\BaseUser as BaseUser;
+use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Taskul\TaskBundle\Entity\Task;
 use Doctrine\Common\Collections\ArrayCollection;
