@@ -11,3 +11,6 @@ BBTaskul.module "TasksApp.TasksList" , (TasksList, App, Backbone, Marionette, $,
         initialize: (options) ->
             @collection = new App.TasksApp.Tasks.TaskCollection
             @collection.fetch()
+            @listenTo Backbone, 'task:create', (model) ->
+                @collection.add(model)
+                @collection.trigger 'reset' # To sort

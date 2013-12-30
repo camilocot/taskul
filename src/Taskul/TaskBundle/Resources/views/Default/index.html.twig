@@ -18,7 +18,7 @@
             <div id="main">
             </div>
             <div class="well">
-               <a href="{{ path('api_new_task') }}" class="btn btn-primary" title="{{'task.list.buttons.new'|trans({},'TaskBundle')}}">
+               <a href="{{ path('taskul_task_default_index') }}#new" class="btn btn-primary" title="{{'task.list.buttons.new'|trans({},'TaskBundle')}}">
                 {{'task.list.buttons.new'|trans({},'TaskBundle')}}
                 </a>
             </div>
@@ -54,14 +54,33 @@
     </table>
 </script>
 
+<script type="text/template" id="task-form-template">
+<form id="add-task" action="#" class="form-inline">
+    <div class="control-group">
+      <label class="control-label" for="name">Nombre</label>
+      <div class="controls">
+        <input id="name" type="text" value="" name="name" data-validation="name">
+        <span class="help-inline"></span>
+      </div>
+    </div>
+    <div class="form-actions">
+        <input class="btn btn-primary" type="submit" value="{{ 'task.new.finish'|trans }}">
+        <a class="btn btn-cancel" href="{{ path('taskul_task_default_index') }}#" title={{'menu.title.task.list'|trans({},'MainBundle')}}>
+            <i class="fa-icon-undo"></i>&nbsp;{{ 'task.new.back'|trans }}
+        </a>
+    </div>
+</form>
+</script>
 
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}
 {% javascripts
     '@TaskBundle/Resources/public/js/app.coffee'
+    '@TaskBundle/Resources/public/js/formView.coffee'
     '@TaskBundle/Resources/public/js/tasks/tasks.coffee'
     '@TaskBundle/Resources/public/js/tasks/tasksListView.coffee'
+    '@TaskBundle/Resources/public/js/tasks/taskFormView.coffee'
     '@TaskBundle/Resources/public/js/tasks/tasksapp.coffee'
 %}
     <script src="{{ asset_url }}"></script>
