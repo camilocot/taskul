@@ -17,9 +17,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $user = $this->get('security.context')->getToken()->getUser();
-        $tasks = $this->getDoctrine()->getRepository('TaskBundle:Task')->findTasks($user);
-
-        return array('tasks' => $tasks);
+        return array('tasks' => null);
     }
 }

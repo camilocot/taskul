@@ -124,12 +124,6 @@ class PeriodRestController extends BaseController implements ClassResourceInterf
         return $this->container->get('taskul.period.manager');
     }
 
-    private function getEntity($id,$name)
-    {
-        $this->em = $this->getEntityManager();
-        return $this->em->getRepository('TaskBundle:'.$name)->find($id);
-    }
-
     private function getPeriodsFromTask($id)
     {
         $task = $this->getEntity($id,'Task');

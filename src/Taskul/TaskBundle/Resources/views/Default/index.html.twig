@@ -10,17 +10,7 @@
             </div>
         </div>
         <div class="box-content">
-            <div class="well hidden-desktop">
-               <a href="{{ path('api_new_task') }}" class="btn btn-primary" title="{{'task.list.buttons.new'|trans({},'TaskBundle')}}">
-                {{'task.list.buttons.new'|trans({},'TaskBundle')}}
-                </a>
-            </div>
             <div id="main">
-            </div>
-            <div class="well">
-               <a href="{{ path('taskul_task_default_index') }}#new" class="btn btn-primary" title="{{'task.list.buttons.new'|trans({},'TaskBundle')}}">
-                {{'task.list.buttons.new'|trans({},'TaskBundle')}}
-                </a>
             </div>
         </div>
     </div><!--/box-->
@@ -31,27 +21,43 @@
             task_url: '{{ path('api_get_tasks'|escape('js')) }}'
         }
 
-        window.Data = {
-            tasks: {{ tasks|serialize|raw }}
-        }
-
 </script>
 <!-- Task -->
 <script type="text/template" id="task-preview-template">
-    <td data-id="<%= id %>"><%= id %> - <%= name %></td>
-</script>
+    <td><input type="checkbox" value="<%= id %>" name="selected-tasks[]" class="selected-tasks"></td><td class="<%= status %>"><%= id %> - <%= name %></td>
+    <td>
+    <a href="{{ path('taskul_task_default_index') }}#edit/<%= id %>">Edit</a>
+    <a href="{{ path('taskul_task_default_index') }}#view/<%= id %>">View</a>
+    </td>
 
+</script>
+<script type="text/template" id="task-view-template">
+<%= name %>
+<%= status %>
+<%= description %>
+<%= members %>
+</script>
 <!-- Task List -->
 <script type="text/template" id="tasks-list-template">
     <table class="table table-striped table-bordered bootstrap-datatable" id="tasks">
         <thead>
             <tr>
+                <th></th>
                 <th data-class="expand" data-sort-initial="true">{{'task.list.name'|trans}}</th>
+                <th></th>
             </tr>
         </thead>
-        <tbody class="wrapper">
+        <tbody>
         </tbody>
     </table>
+    <div class="well">
+       <a href="{{ path('taskul_task_default_index') }}#new" class="btn btn-primary" title="{{'task.list.buttons.new'|trans({},'TaskBundle')}}">
+        {{'task.list.buttons.new'|trans({},'TaskBundle')}}
+        </a>
+        <button href="{{ path('taskul_task_default_index') }}" class="btn btn-primary" title="{{'task.list.buttons.delete'|trans({},'TaskBundle')}}" name="delete-tasks">
+        {{'task.list.buttons.delete'|trans({},'TaskBundle')}}
+        </button>
+    </div>
 </script>
 
 <script type="text/template" id="task-form-template">
@@ -59,7 +65,20 @@
     <div class="control-group">
       <label class="control-label" for="name">Nombre</label>
       <div class="controls">
-        <input id="name" type="text" value="" name="name" data-validation="name">
+        <input id="name" type="text" value="<%= name %>" name="name" data-validation="name">
+        <span class="help-inline"></span>
+      </div>
+    </div>
+    <div class="btn-group" data-toggle="buttons-radio" data-toggle-name="status">
+        <button type="button" class="btn btn-done" class-toggle="button" value="done">Done</button>
+        <button type="button" class="btn btn-inprogress" class-toggle="button" value="inprogress">In Progress</button>
+        <button type="button" class="btn btn-todo" class-toggle="button" value="todo">TO DO</button>
+    </div>
+    <input type="hidden" name="status" value="<%= status %>" class="hidden-status" />
+    <div class="control-group">
+      <label class="control-label" for="description">Descripcion</label>
+      <div class="controls">
+        <textarea id="description" name="name" data-validation="description"><%= description %></textarea>
         <span class="help-inline"></span>
       </div>
     </div>
@@ -80,8 +99,9 @@
     '@TaskBundle/Resources/public/js/formView.coffee'
     '@TaskBundle/Resources/public/js/tasks/tasks.coffee'
     '@TaskBundle/Resources/public/js/tasks/tasksListView.coffee'
-    '@TaskBundle/Resources/public/js/tasks/taskFormView.coffee'
+    '@TaskBundle/Resources/public/js/tasks/taskView.coffee'
     '@TaskBundle/Resources/public/js/tasks/tasksapp.coffee'
+    '@TaskBundle/Resources/public/js/tasks/taskFormView.coffee'
 %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}

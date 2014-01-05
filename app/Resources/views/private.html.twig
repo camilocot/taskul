@@ -19,7 +19,7 @@
   {% endstylesheets %}
   {% endblock %}
   {% block body %}
-  <div id="overlay">
+  {# <div id="overlay">
      <ul>
       <li class="li1"></li>
       <li class="li2"></li>
@@ -28,10 +28,10 @@
       <li class="li5"></li>
       <li class="li6"></li>
     </ul>
-  </div>
-  <div class="progress-indicator">
+  </div> #}
+{#   <div class="progress-indicator">
    <img src="/img/icon_loading_75x75.gif" alt="loading" />
-  </div>
+  </div> #}
   <div class="navbar">
     <div class="navbar-inner">
       <div class="container-fluid">
@@ -209,7 +209,7 @@
   {{ parent() }}
   <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
   <script type="text/javascript" src="/js/fos_js_routes.js"></script>
-  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+  <!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script> -->
 <!--  <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script> -->
   {% javascripts
     '@MainBundle/Resources/public/js/vendor/jquery.mustache.js'

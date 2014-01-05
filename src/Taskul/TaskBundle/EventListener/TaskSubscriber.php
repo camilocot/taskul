@@ -3,7 +3,7 @@ namespace Taskul\TaskBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Taskul\TaskBundle\Event\TaskEvent;
-use Taskul\TaskBundle\PeriodEvents;
+use Taskul\TaskBundle\TaskEvents;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Taskul\UserBundle\Security\Manager as AclManager;
@@ -22,9 +22,26 @@ class TaskSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-
+            TaskEvents::BEFORE_DELETE => 'onTaskBeforeDeleted',
+            TaskEvents::AFTER_SAVE => 'onTaskAfterSaved'
         );
     }
 
+    public function onTaskBeforeDeleted(TaskEvent $event)
+    {
+        $task = $event->getModel();
+        if (FALSE === $this->securityContext->isGranted('DELETE', $task))
+        {
+            throw new AccessDeniedException();
+        }
+
+        $this->aclManager->revokeAll($task);
+    }
+
+    public function onTaskAfterSaved(TaskEvent $event)
+    {
+        $task = $event->getModel();
+        $this->aclManager->grant($task);
+    }
 
 }

@@ -8,7 +8,7 @@
         <parameter key="taskul.status.prefered.choice">inprogress</parameter>
         <parameter key="taskul.task.form_handler.class">Taskul\TaskBundle\Form\Handler\ProcessFormHandler</parameter>
         <parameter key="taskul.period.manager.class">Taskul\TaskBundle\Entity\PeriodManager</parameter>
-        <parameter key="taskul.period.controller.class">Taskul\TaskBundle\Controller\PeriodRestController</parameter>
+        <parameter key="taskul.task.manager.class">Taskul\TaskBundle\Entity\TaskManager</parameter>
         <parameter key="taskul.period.listener.class">Taskul\TaskBundle\EventListener\PeriodSubscriber</parameter>
         <parameter key="taskul.task.listener.class">Taskul\TaskBundle\EventListener\TaskSubscriber</parameter>
         <parameter key="taskul.task.check_grant.listener.class">Taskul\TaskBundle\EventListener\TaskCheckGrantListener</parameter>
@@ -29,6 +29,12 @@
             <argument type="service" id="event_dispatcher" />
             <argument>TaskBundle:Period</argument>
             <argument>\Taskul\TaskBundle\Event\PeriodEvent</argument>
+        </service>
+        <service id="taskul.task.manager" class="%taskul.task.manager.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="event_dispatcher" />
+            <argument>TaskBundle:Task</argument>
+            <argument>\Taskul\TaskBundle\Event\TaskEvent</argument>
         </service>
         <service id="taskul.period.listener" class="%taskul.period.listener.class%">
             <argument type="service" id="security.context" />

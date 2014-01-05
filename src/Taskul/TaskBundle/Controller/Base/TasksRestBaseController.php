@@ -184,4 +184,10 @@ class TasksRestBaseController extends FOSRestController {
 		return $this;
 	}
 
+	protected function getEntity($id,$name)
+    {
+        $this->em = $this->getEntityManager();
+        return $this->em->getRepository('TaskBundle:'.$name)->find($id);
+    }
+
 }

@@ -4,11 +4,23 @@ BBTaskul.module "TasksApp.FormView" , (FormView, App, Backbone, Marionette, $, _
         className: 'task-form'
         ui:
             name: '[name="name"]'
+            btnGroupStatus: '.btn-group > button'
+            status: '[name="status"]'
             activityIndicator: '.loading'
-        createModel: -> new App.TasksApp.Tasks.Task
+        events:
+            "click @ui.btnGroupStatus": "changeStatus"
+        createModel: ->
+            @model = new App.TasksApp.Tasks.Task if !@model
+            @model
         updateModel: ->
             @model.set
                 name: @ui.name.val()
-            console.log @model
+                status: @ui.status.val()
         onSuccess: (model) ->
-            Backbone.trigger 'task:create', model
+            App.vent.trigger 'task:create', model
+            App.taskRouter.navigate('', {trigger: true})
+        changeStatus: (ev)->
+            @.ui.status.val $(ev.currentTarget).val()
+        onRender: ->
+            status = @model.get 'status'
+            @ui.btnGroupStatus.filter('.btn-'+status).addClass('active')

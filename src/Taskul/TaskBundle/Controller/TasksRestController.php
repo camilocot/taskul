@@ -6,6 +6,8 @@ use Taskul\TaskBundle\Entity\Task;
 use Taskul\TaskBundle\Form\TaskType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
+use Symfony\Component\HttpFoundation\Request;
+
 
 use Taskul\TaskBundle\Controller\Base\TasksRestBaseController as BaseController;
 
@@ -26,11 +28,6 @@ class TasksRestController extends BaseController implements ClassResourceInterfa
 
     public function cgetAction()
     {
-      // @TODO: esto crea muchos sql implemetarlo con ajax / paginacion cuando el footable lo implemente
-      $this->putDashBoardBreadCrumb()
-      ->putBreadCrumb('task.breadcrumb.list', 'api_get_tasks', 'TaskBundle')
-      ;
-
     	$user = $this->getLoggedUser();
 
     	$data = $this->getEntityManager()->getRepository('TaskBundle:Task')->findTasks($user);
@@ -38,49 +35,51 @@ class TasksRestController extends BaseController implements ClassResourceInterfa
       return $this->handleView($this->view($data, 200));
     }
 
+    public function postAction(Request $request) {
+        $task = $this->getTaskManager()->create();
+
+        $form = $this->createForm(new TaskType(), $task);
+
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $user = $this->getLoggedUser();
+            $task->setOwner($user);
+
+            $this->getTaskManager()->saveTask($task);
+
+            return $this->handleView($this->view($task, 201));
+        }
+
+        return $this->handleView($this->view($form, 400));
+    }
+
     /**
-     * Displays a form to create a new Task entity.
+     * Deletes a Task entity.
      *
      */
-    public function newAction() {
+    public function deleteAction($id)
+    {
+        $this->getTaskManager()->deleteTask($id);
+        return $this->handleView($this->view(null, 204));
 
-      $this->putDashBoardBreadCrumb()
-      ->putBreadCrumb('task.breadcrumb.list', 'api_get_tasks', 'TaskBundle')
-      ->putBreadCrumb('task.breadcrumb.new', 'api_new_task', 'TaskBundle');
-
-    	return $this->processForm(new Task(),'POST');
     }
 
-    /**
-     * Creates a new Task entity.
-     *
-     */
-    public function postAction() {
+    public function putAction($id, Request $request) {
 
-    	return $this->newAction();
+        $task = $this->getEntity($id,'Task');
+        $form = $this->createForm(new TaskType(), $task);
+        $form->bind($request);
+
+        if ($form->isValid() && $id == $task->getId()) {
+            $this->getTaskManager()->saveTask($task);
+
+            return $this->handleView($this->view(null, 204));
+        }
+
+        return $this->handleView($this->view($form, 400));
     }
 
-    /**
-     * Displays a form to edit an existing Task entity.
-     *
-     */
-    public function editAction($id) {
-
-      $this->putDashBoardBreadCrumb()
-      ->putBreadCrumb('task.breadcrumb.list', 'api_get_tasks', 'TaskBundle')
-      ->putBreadCrumb('task.breadcrumb.update', 'api_edit_task', 'TaskBundle',array(),array('id'=>$id));
-
-        $task = $this->checkGrant($id, 'EDIT');
-        return $this->processForm($task,'PUT');
-    }
-
-
-    /**
-     * Edits an existing Task entity.
-     */
-    public function putAction($id) {
-        return $this->editAction($id);
-    }
     /**
      * Finds and displays a Task entity.
      *
@@ -126,41 +125,6 @@ class TasksRestController extends BaseController implements ClassResourceInterfa
         ;
 
         return $this->handleView($view);
-    }
-
-    /**
-     * Deletes a Task entity.
-     *
-     */
-    public function deleteAction($id) {
-
-        $form = $this->createDeleteForm($id);
-        $t = $this->getTranslator();
-        $request = $this->getRequest();
-        $aclManager = $this->get('taskul.acl_manager');
-        $em = $this->getEntityManager();
-        $statusCode = 200;
-
-        $form->bind($request);
-
-        if ($form->isValid()) {
-
-            $task = $this->checkGrant($id,'DELETE');
-            $aclManager->revokeAll($task);
-
-            $em->remove($task);
-            $em->flush();
-
-            $data = array('success'=>TRUE, 'message'=> $t->trans('task.new.delete_success',array(),'TaskBundle'));
-            if($redirect = $request->request->get('redirect'))
-              $data['url'] = $this->get('router')->generate($redirect);
-
-        }else{
-            $statusCode = 400;
-            $data = array('success'=>FALSE,'message'=> $t->trans('task.new.delete_unsuccess',array(), 'TaskBundle'));
-        }
-
-        return $this->processView($data,$statusCode);
     }
 
     /**
@@ -340,6 +304,11 @@ class TasksRestController extends BaseController implements ClassResourceInterfa
 
       return $message;
 
+    }
+
+    private function getTaskManager()
+    {
+      return $this->container->get('taskul.task.manager');
     }
 
 }

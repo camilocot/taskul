@@ -30,12 +30,12 @@ class MenuBuilder
 
         $menu['Task']->setLinkAttribute('class', 'dropmenu no-ajaxy');
         $menu['Task']->setChildrenAttribute('id','task_ops');
-        $menu['Task']->addChild('new_task',array(
-            'route'=>'api_new_task',
-            'label'=>'menu.task.new',
-            'class'=>'submenu',
-            'attributes' => array('id' => 'task_ops_new')
-            ))->setExtra('safe_label', FALSE)->setLinkAttribute('class','ajaxy')->setExtra('icon','<i class="fa-icon-file-alt"></i>')->setLinkAttribute('title', 'menu.title.task.new');
+        // $menu['Task']->addChild('new_task',array(
+        //     'route'=>'api_new_task',
+        //     'label'=>'menu.task.new',
+        //     'class'=>'submenu',
+        //     'attributes' => array('id' => 'task_ops_new')
+        //     ))->setExtra('safe_label', FALSE)->setLinkAttribute('class','ajaxy')->setExtra('icon','<i class="fa-icon-file-alt"></i>')->setLinkAttribute('title', 'menu.title.task.new');
         $menu['Task']->addChild('list_task',array(
             'route'=>'api_get_tasks',
             'label'=>'menu.task.list',

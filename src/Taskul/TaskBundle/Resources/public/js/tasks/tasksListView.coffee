@@ -3,14 +3,34 @@ BBTaskul.module "TasksApp.TasksList" , (TasksList, App, Backbone, Marionette, $,
         template: '#task-preview-template'
         tagName: 'tr'
         className: ''
-    class TasksList.TasksListView extends Marionette.CollectionView
-        tagName: "table",
-        className: "tasks-list",
-        itemViewEventPrefix: "task",
+        ui:
+            checkbox: "input[type=checkbox]"
+        events:
+            "click @ui.checkbox": "checkTask"
+        checkTask: (ev) ->
+            @trigger "task:check", {target: $(ev.currentTarget)}
+    class TasksList.TasksListView extends Marionette.CompositeView
         itemView: TasksList.TaskPreview
+        itemViewContainer: "tbody"
+        template: '#tasks-list-template'
         initialize: (options) ->
-            @collection = new App.TasksApp.Tasks.TaskCollection
-            @collection.fetch()
-            @listenTo Backbone, 'task:create', (model) ->
-                @collection.add(model)
-                @collection.trigger 'reset' # To sort
+            @listenTo @collection, 'add delete reset', @render
+            @listenTo @, 'itemview:task:check', (itemView, data) -> @checkTask itemView, data
+            @selectedTasks = new App.TasksApp.Tasks.TaskCollection
+        ui:
+            delete: "[name='delete-tasks']"
+        events:
+            "click @ui.delete": "deleteTasks"
+        deleteTasks: ->
+            callbacks =
+                success: => @trigger 'delete:model:success'
+                error: => @trigger 'delete:model:failure'
+            while model = @selectedTasks.first()
+                model.destroy callbacks
+                @collection.remove model
+        checkTask: (itemView, data) ->
+            $check = data.target
+            if $check.is(':checked')
+                @selectedTasks.add @collection.get $check.val()
+            else
+                @selectedTasks.remove @collection.get $check.val()
