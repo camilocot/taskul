@@ -9,6 +9,30 @@ BBTaskul.module "TasksApp.TasksList" , (TasksList, App, Backbone, Marionette, $,
             "click @ui.checkbox": "checkTask"
         checkTask: (ev) ->
             @trigger "task:check", {target: $(ev.currentTarget)}
+    class TasksList.TagPreview extends Marionette.ItemView
+        template: '#tag-preview-template'
+        tagName: 'li'
+
+    class TasksList.TaskActions extends Marionette.CompositeView
+        template: '#menu-actions-template'
+        itemViewContainer: "#dropdown-tags"
+        itemView: TasksList.TagPreview
+        ui:
+            newtag: "#newtag-action"
+        events:
+            "click @ui.newtag": "showNewTagDialog"
+        showNewTagDialog: (event) ->
+            event.preventDefault()
+            @modalFormTagView = new App.TasksApp.FormView.Tag
+                collection: @collection
+            @modalRegion = new App.TasksApp.ModalRegion
+                'el': '#modal'
+            @modalRegion.show @modalFormTagView
+        initialize: ->
+            @listenTo @collection, 'add', @addTag;
+        addTag: ->
+            @modalRegion.close()
+
     class TasksList.TasksListView extends Marionette.CompositeView
         itemView: TasksList.TaskPreview
         itemViewContainer: "tbody"

@@ -20,8 +20,8 @@ tasks:
     resource: "@TaskBundle/Resources/config/tasks_routes.yml"
     prefix: /api
 
-default:
-    resource: "@TaskBundle/Controller/DefaultController.php"
+default_tasks:
+    resource: "@TaskBundle/Controller/DefaultTaskController.php"
     type:     annotation
     prefix:   /tasks
 
@@ -29,11 +29,6 @@ files:
     resource: "@FileBundle/Controller/"
     type:     annotation
     prefix:   /api
-
-tags:
-    type: rest
-    prefix: /api
-    resource: "@TagBundle/Resources/config/tags_routes.yml"
 
 UserBundle:
     resource: "@UserBundle/Resources/config/routing.yml"

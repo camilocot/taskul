@@ -7,7 +7,6 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Taskul\TaskBundle\Entity\Task;
 use Taskul\UserBundle\Security\Manager;
-use Taskul\TagBundle\Service\TagsManager;
 /**
  * AddActionFormHandler
  *
@@ -22,11 +21,10 @@ class ProcessFormHandler
     protected $aclManager;
     protected $tagManager;
 
-    public function __construct(ObjectManager $em, Manager $aclManager, TagsManager $tagManager)
+    public function __construct(ObjectManager $em, Manager $aclManager)
     {
         $this->em = $em;
         $this->aclManager = $aclManager;
-        $this->tagManager = $tagManager;
     }
 
     public function handle(Form $form, Request $request, Task $task, $user)
@@ -41,7 +39,6 @@ class ProcessFormHandler
   			$this->em->flush();
 
   			$tags = strtolower($formData['tags']);
-  			$this->tagManager->saveTags($task, $tags);
 
   			// Asignamos los permisos
   			$this->aclManager->revokeAll($task);

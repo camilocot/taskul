@@ -30,8 +30,6 @@ class AppKernel extends Kernel
             new Taskul\MessageBundle\MessageBundle(),
             new Taskul\MainBundle\MainBundle(),
             new Taskul\FriendBundle\FriendBundle(),
-            new FPN\TagBundle\FPNTagBundle(),
-            new Taskul\TagBundle\TagBundle(),
             new Taskul\FileBundle\FileBundle(),
             new Exercise\HTMLPurifierBundle\ExerciseHTMLPurifierBundle(),
             new Fresh\Bundle\DoctrineEnumBundle\FreshDoctrineEnumBundle(),
@@ -42,7 +40,6 @@ class AppKernel extends Kernel
             new Taskul\TimelineBundle\TimelineBundle(),
             new Ornicar\GravatarBundle\OrnicarGravatarBundle(),
             new Ornicar\AkismetBundle\OrnicarAkismetBundle(),
-            new Lexik\Bundle\MailerBundle\LexikMailerBundle(),
             // Locales
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
 

@@ -22,7 +22,6 @@ class SendNotificationCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine');
         $t = $this->getContainer()->get('translator');
         $mailer = $this->getContainer()->get('mailer');
-        $messageFactory = $this->getContainer()->get('lexik_mailer.message_factory');
         $repository = $em->getRepository('TimelineBundle:NotificationMessage');
         $taskRepository = $em->getRepository('TaskBundle:Task');
         $userRepository = $em->getRepository('UserBundle:User');
@@ -152,7 +151,7 @@ class SendNotificationCommand extends ContainerAwareCommand
                     $locale = 'es';                    // the language to use to generate the message.
 
                     // create a swift message from the 'super-template' reference
-                    $message = $messageFactory->get('notification-hash', $to, $params, $locale);
+                    $message = '';
                     // then send the email
                     $mailer->send($message);
                 }

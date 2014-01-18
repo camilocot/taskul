@@ -12,7 +12,6 @@ use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation\Exclude;
 use Symfony\Component\Validator\Constraints as Assert;
-use Lexik\Bundle\MailerBundle\Mapping\Annotation as Mailer;
 use Taskul\TimelineBundle\Entity\NotificationMessage;
 use Taskul\TaskBundle\Entity\Period;
 
@@ -55,6 +54,14 @@ class User extends BaseUser implements ParticipantInterface {
      * @return type
      */
     protected $ownTasks;
+
+    /**
+     * @var TaskBundle:Tag
+     *
+     * @ORM\OneToMany(targetEntity="\Taskul\TaskBundle\Entity\Tag", mappedBy="user")
+     * @return type
+     */
+    protected $tags;
 
     /**
      * @var FileBundle:Document
@@ -181,7 +188,6 @@ class User extends BaseUser implements ParticipantInterface {
     /**
      * Get the full name of the user (first + last name)
      *
-     * @Mailer\Name()
      *
      * @return string
      */
@@ -418,6 +424,40 @@ class User extends BaseUser implements ParticipantInterface {
         return $this->tasksMember;
     }
 
+
+    /**
+     * Add tag
+     *
+     * @param \Taskul\TaskBundle\Entity\Tag $tag
+     * @return User
+     */
+    public function addTag(\Taskul\TaskBundle\Entity\Tag $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \Taskul\TaskBundle\Entity\Tag $tag
+     */
+    public function removeTag(\Taskul\TaskBundle\Entity\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
     public function __toString() {
         $firstName = $this->getFirstname();
         $lastName = $this->getLastname();
@@ -492,7 +532,6 @@ class User extends BaseUser implements ParticipantInterface {
     }
 
     /**
-     * @Mailer\Address()
      *
      * @return string
      */

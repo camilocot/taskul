@@ -23,7 +23,7 @@ class ProfileController
 
         $this->container->get("apy_breadcrumb_trail")
             ->add($t->trans('dashboard.title',array(),'MainBundle'), 'dashboard')
-            ->add($t->trans('profile.edit',array(),'UserBundle'), 'sonata_user_profile_show');
+            ->add($t->trans('profile.edit',array(),'UserBundle'), 'user_profile_show');
 
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
@@ -34,7 +34,7 @@ class ProfileController
 
         $process = $formHandler->process($user);
         if ($process) {
-            $url = $this->container->get('router')->generate('sonata_user_profile_show',array(),true);
+            $url = $this->container->get('router')->generate('user_profile_show',array(),true);
             return new CheckAjaxResponse(
                             $url,
                             array('success'=>TRUE, 'message' => $t->trans('Profile updated successfully'),'url'=>$url, 'title'=>$t->trans('View Profile'))
@@ -59,7 +59,7 @@ class ProfileController
         $t = $this->container->get('translator');
         $this->container->get("apy_breadcrumb_trail")
             ->add($t->trans('dashboard.title',array(),'MainBundle'), 'dashboard')
-            ->add($t->trans('profile.view',array(),'UserBundle'), 'sonata_user_profile_show');
+            ->add($t->trans('profile.view',array(),'UserBundle'), ' user_profile_show');
         return parent::showAction();
     }
 }

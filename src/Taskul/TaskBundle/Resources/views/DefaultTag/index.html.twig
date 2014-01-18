@@ -18,7 +18,8 @@
 </div><!--/row-->
 <script>
         window.Api = {
-            task_url: '{{ path('api_get_tasks'|escape('js')) }}'
+            task_url: '{{ path('api_get_tasks'|escape('js')) }}',
+            tag_url: '{{ path('api_get_tags'|escape('js')) }}'
         }
 
 </script>
@@ -36,6 +37,11 @@
 <%= status %>
 <%= description %>
 <%= members %>
+<div class="form-actions">
+        <a class="btn btn-cancel" href="{{ path('taskul_task_default_index') }}#" title={{'menu.title.task.list'|trans({},'MainBundle')}}>
+            <i class="fa-icon-undo"></i>&nbsp;{{ 'task.new.back'|trans }}
+        </a>
+    </div>
 </script>
 <!-- Task List -->
 <script type="text/template" id="tasks-list-template">
@@ -78,7 +84,7 @@
     <div class="control-group">
       <label class="control-label" for="description">Descripcion</label>
       <div class="controls">
-        <textarea id="description" name="name" data-validation="description"><%= description %></textarea>
+        <textarea id="description" name="description"><%= description %></textarea>
         <span class="help-inline"></span>
       </div>
     </div>
@@ -97,11 +103,11 @@
 {% javascripts
     '@TaskBundle/Resources/public/js/app.coffee'
     '@TaskBundle/Resources/public/js/formView.coffee'
-    '@TaskBundle/Resources/public/js/tasks/tasks.coffee'
-    '@TaskBundle/Resources/public/js/tasks/tasksListView.coffee'
-    '@TaskBundle/Resources/public/js/tasks/taskView.coffee'
-    '@TaskBundle/Resources/public/js/tasks/tasksapp.coffee'
-    '@TaskBundle/Resources/public/js/tasks/taskFormView.coffee'
+    '@TaskBundle/Resources/public/js/tags/tags.coffee'
+    '@TaskBundle/Resources/public/js/tags/tagsListView.coffee'
+    '@TaskBundle/Resources/public/js/tags/tagsView.coffee'
+    '@TaskBundle/Resources/public/js/tags/tagsapp.coffee'
+    '@TaskBundle/Resources/public/js/tags/tagFormView.coffee'
 %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}

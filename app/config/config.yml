@@ -29,7 +29,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ "FOSCommentBundle", "TaskBundle", "FileBundle", "MainBundle", "FriendBundle", "MessageBundle", "UserBundle", "LexikMailerBundle" ]
+    bundles:        [ "FOSCommentBundle", "TaskBundle", "FileBundle", "MainBundle", "FriendBundle", "MessageBundle", "UserBundle" ]
     java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -134,11 +134,6 @@ fos_message:
     new_thread_form:
         type:               taskul_message.new_thread_form.type
 
-fpn_tag:
-    model:
-        tag_class:     Taskul\TagBundle\Entity\Tag
-        tagging_class: Taskul\TagBundle\Entity\Tagging
-
 apy_breadcrumb_trail:
     template: MainBundle::breadcrumbtrail.html.twig
 
@@ -203,11 +198,6 @@ ornicar_gravatar: ~
 ornicar_akismet:
     api_key:        8bc2c0d9bb02
     url:            http://www.taskul.net
-
-lexik_mailer:
-    admin_email: camilocot@gmail.com
-    templating_extensions:
-        - 'twig.extension.trans'
 
 jms_i18n_routing:
     default_locale: %locale%

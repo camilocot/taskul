@@ -477,8 +477,7 @@ class FriendRequestController extends BaseController {
     ); // template's parameters
     $locale = 'es';                    // the language to use to generate the message.
 
-    // create a swift message from the 'super-template' reference
-    $message = $this->get('lexik_mailer.message_factory')->get('contact-hash', $to, $params, $locale);
+    $message = '';
 
     // then send the email
     $this->get('mailer')->send($message);

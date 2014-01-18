@@ -39,7 +39,6 @@
         "friendsofsymfony/rest-bundle": "1.1.*",
 	    "ornicar/gravatar-bundle" : "dev-master",
         "ornicar/akismet-bundle": "dev-master",
-	    "lexik/mailer-bundle": "dev-master",
         "simplethings/entity-audit-bundle": "dev-master",
         "jms/i18n-routing-bundle": "dev-master",
         "doctrine/doctrine-migrations-bundle": "dev-master",

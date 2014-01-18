@@ -10,20 +10,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Task Period
  *
  * @ORM\Table(name="task_period")
- * @ORM\Entity(repositoryClass="Taskul\TaskBundle\Entity\Repository\PeriodRepository")
- * @ORM\HasLifecycleCallbacks()
- *
+ * @ORM\Entity(repositoryClass="Taskul\TaskBundle\Entity\Repository\PeriodRepository") *
  */
 class Period extends BaseEntity {
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
 
     /**
      * @var \DateTime
@@ -50,25 +39,7 @@ class Period extends BaseEntity {
      */
     private $owner;
 
-    /**
-     * @var \Task
-     *
-     * @ORM\ManyToOne(targetEntity="Taskul\TaskBundle\Entity\Task", inversedBy="periods")
-     */
     private $task;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created", type="datetime")
-     */
-    private $created;
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updated", type="datetime")
-     */
-    private $updated;
 
     /**
      * @var string
@@ -77,32 +48,6 @@ class Period extends BaseEntity {
      * @Assert\NotBlank()
      */
     private $note;
-    /**
-     * @ORM\PrePersist
-     */
-    public function setCreatedValue()
-    {
-        $this->created = new \DateTime();
-        $this->updated = new \DateTime();
-    }
-
-    /**
-     * @ORM\PreUpdate
-     */
-    public function setUpdatedValue()
-    {
-        $this->updated = new \DateTime();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set begin
@@ -148,52 +93,6 @@ class Period extends BaseEntity {
     public function getEnd()
     {
         return $this->end;
-    }
-
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     * @return Period
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * Get created
-     *
-     * @return \DateTime
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     * @return Period
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    /**
-     * Get updated
-     *
-     * @return \DateTime
-     */
-    public function getUpdated()
-    {
-        return $this->updated;
     }
 
     /**

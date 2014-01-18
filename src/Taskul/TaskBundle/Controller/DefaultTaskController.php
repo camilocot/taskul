@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-class DefaultController extends Controller
+class DefaultTaskController extends Controller
 {
     /**
      * @Route("/{filter}", defaults={"filter" = 1})
@@ -17,6 +17,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return array('tasks' => null);
+        return array('tags' => null);
     }
 }

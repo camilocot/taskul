@@ -22,6 +22,3 @@ fos_user:
         address: info@taskul.net
         sender_name: Taskul.net
 
-lexik_mailer:
-    admin_email: info@taskul.net
-

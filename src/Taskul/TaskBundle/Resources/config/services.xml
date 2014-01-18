@@ -9,6 +9,7 @@
         <parameter key="taskul.task.form_handler.class">Taskul\TaskBundle\Form\Handler\ProcessFormHandler</parameter>
         <parameter key="taskul.period.manager.class">Taskul\TaskBundle\Entity\PeriodManager</parameter>
         <parameter key="taskul.task.manager.class">Taskul\TaskBundle\Entity\TaskManager</parameter>
+        <parameter key="taskul.tag.manager.class">Taskul\TaskBundle\Entity\TagManager</parameter>
         <parameter key="taskul.period.listener.class">Taskul\TaskBundle\EventListener\PeriodSubscriber</parameter>
         <parameter key="taskul.task.listener.class">Taskul\TaskBundle\EventListener\TaskSubscriber</parameter>
         <parameter key="taskul.task.check_grant.listener.class">Taskul\TaskBundle\EventListener\TaskCheckGrantListener</parameter>
@@ -22,7 +23,6 @@
       <service id="taskul.task.form_handler" class="%taskul.task.form_handler.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="taskul.acl_manager" />
-            <argument type="service" id="taskul.tags.manager" />
         </service>
         <service id="taskul.period.manager" class="%taskul.period.manager.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
@@ -35,6 +35,12 @@
             <argument type="service" id="event_dispatcher" />
             <argument>TaskBundle:Task</argument>
             <argument>\Taskul\TaskBundle\Event\TaskEvent</argument>
+        </service>
+        <service id="taskul.tag.manager" class="%taskul.tag.manager.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="event_dispatcher" />
+            <argument>TaskBundle:Tag</argument>
+            <argument>\Taskul\TaskBundle\Event\TagEvent</argument>
         </service>
         <service id="taskul.period.listener" class="%taskul.period.listener.class%">
             <argument type="service" id="security.context" />

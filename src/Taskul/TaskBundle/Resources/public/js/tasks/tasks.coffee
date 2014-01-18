@@ -5,18 +5,20 @@ BBTaskul.module "TasksApp.Tasks", (Tasks, App, Backbone, Marionette, $, _) ->
             name:
                 required: true
                 msg: 'Please enter a valid name'
+            description:
+                required: false
         defaults:
-            name: ''
+            name: 'cxzcxzczx'
             status: 'inprogress'
             members: []
-            description: ''
+            description: 'cxzcxcxz'
+            tags: []
         toJSON: ->
             json = Backbone.Model.prototype.toJSON.apply @, arguments
             delete json.owner
             delete json.periods
             delete json.created
             delete json.updated
-            delete json.percent
             json
     class Tasks.TaskCollection extends Backbone.Collection
         model: Tasks.Task

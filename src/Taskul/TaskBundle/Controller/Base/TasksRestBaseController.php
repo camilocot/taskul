@@ -39,11 +39,6 @@ class TasksRestBaseController extends FOSRestController {
 		return $this->getDoctrine()->getManager();
 	}
 
-	protected function getTagsManager()
-	{
-		return $this->get('fpn_tag.tag_manager');
-	}
-
 	protected function getAclManager()
 	{
 		return $this->get('taskul.acl_manager');
@@ -89,46 +84,6 @@ class TasksRestBaseController extends FOSRestController {
 		->add('id', 'hidden')
 		->getForm()
 		;
-	}
-
-	protected function loadTags($entity){
-		$tagManager = $this->get('fpn_tag.tag_manager');
-		$tagManager->loadTagging($entity);
-		$tags = $entity->getTags();
-
-		$tagsNames = array();
-		foreach($tags as $t){
-			$tagsNames[] = $t->getName();
-		}
-		$tagsString = implode(', ',$tagsNames);
-		return $tagsString;
-	}
-
-	protected function loadAllTags($user){
-		$em = $this->getEntityManager();
-		$tagManager = $this->getTagsManager();
-
-		$tasks = $em->getRepository('TaskBundle:Task')->findTasks($user);
-		$tagsArray = array();
-		foreach ($tasks as $task) {
-			$tagManager->loadTagging($task);
-			$tags = $task->getTags();
-			foreach ($tags as $tag) {
-				$name = $tag->getName();
-				$tagsArray[] = $name;
-			}
-
-		}
-		return $tagsArray;
-	}
-
-	protected function saveTags($entity, $tags){
-		$tagManager = $this->getTagsManager();
-		$tagsNames = $tagManager->splitTagNames($tags);
-		$tags = $tagManager->loadOrCreateTags($tagsNames);
-		$tagManager->replaceTags($tags, $entity);
-		$tagManager->saveTagging($entity);
-		return true;
 	}
 
 	protected function checkAjax()

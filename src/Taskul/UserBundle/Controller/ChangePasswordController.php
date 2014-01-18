@@ -48,7 +48,7 @@ class ChangePasswordController extends BaseController
 
                 $userManager->updateUser($user);
 
-                $url = $this->container->get('router')->generate('sonata_user_profile_show');
+                $url = $this->container->get('router')->generate('user_profile_show');
 
 
                 return new CheckAjaxResponse(
@@ -89,7 +89,7 @@ class ChangePasswordController extends BaseController
 
         $process = $formHandler->process($user);
         if ($process) {
-            $url = $this->container->get('router')->generate('sonata_user_profile_show');
+            $url = $this->container->get('router')->generate('user_profile_show');
 
                     return new CheckAjaxResponse(
                         $url,

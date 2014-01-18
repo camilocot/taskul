@@ -112,14 +112,6 @@ class TasksRestController extends BaseController implements ClassResourceInterfa
 
     	$data = array('entity' => $task);
 
-    	if( 'html' === strtolower($format)){
-    		$data['documents'] = $em->getRepository('TaskBundle:Task')->getDocuments($task);
-    		$data['delete_form'] = $this->createDeleteForm($id)->createView();
-        $data['delete_id'] = $id;
-        $tags = $this->loadTags($task);
-        $data['current_quota'] = $fileManager->getPercentQuota($user);
-      }
-
         $view = $this->view($data, 200)
         ->setTemplate("TaskBundle:Task:api/show.html.twig")
         ;
@@ -167,7 +159,6 @@ class TasksRestController extends BaseController implements ClassResourceInterfa
             $result[] = array(
                 'summary' => $e->getName(),
                 'url' => $router->generate('api_get_task',array('id'=>$e->getId())),
-                'percent' => $e->getPercent(),
                 'title' => $t->trans('notification.view.task',array(),'TimelineBundle'),
             );
             $i++;
@@ -235,14 +226,10 @@ class TasksRestController extends BaseController implements ClassResourceInterfa
     	$user = $this->getLoggedUser();
       $formHandler = $this->get('taskul.task.form_handler');
 
-    	$tagManager = $this->getTagsManager();
     	$request = $this->getRequest();
     	$method = $request->getMethod();
 
-
-      $tags = $task->getId() ? $this->loadTags($task) : '';
-
-    	$form = $formFactory->create(new TaskType($securityContext),$task,array('tags'=>$tags));
+    	$form = $formFactory->create(new TaskType($securityContext),$task,array('tags'=>''));
 
     	if ('POST' === $method || 'PUT' === $method){
 

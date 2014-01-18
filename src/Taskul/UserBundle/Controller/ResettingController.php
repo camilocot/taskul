@@ -114,7 +114,7 @@ class ResettingController extends BaseController
 
         if ($process) {
             $this->setFlash('fos_user_success', 'resetting.flash.success');
-            $url = $this->container->get('router')->generate('sonata_user_profile_show');
+            $url = $this->container->get('router')->generate('user_profile_show');
 
             $this->container->get('fos_user.security.login_manager')->loginUser(
                 $this->container->getParameter('fos_user.firewall_name'),

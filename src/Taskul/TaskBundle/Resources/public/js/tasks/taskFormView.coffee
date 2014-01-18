@@ -4,6 +4,7 @@ BBTaskul.module "TasksApp.FormView" , (FormView, App, Backbone, Marionette, $, _
         className: 'task-form'
         ui:
             name: '[name="name"]'
+            description: '[name="description"]'
             btnGroupStatus: '.btn-group > button'
             status: '[name="status"]'
             activityIndicator: '.loading'
@@ -15,6 +16,7 @@ BBTaskul.module "TasksApp.FormView" , (FormView, App, Backbone, Marionette, $, _
         updateModel: ->
             @model.set
                 name: @ui.name.val()
+                description: @ui.description.val()
                 status: @ui.status.val()
         onSuccess: (model) ->
             App.vent.trigger 'task:create', model

@@ -5,10 +5,10 @@ BBTaskul.module "Libs", (Libs, App, Backbone, Marionette, $, _) ->
     constructor: ->
       super
 
-      @listenTo this, 'render', @hideActivityIndicator
-      @listenTo this, 'render', @prepareModel
-      @listenTo this, 'save:form:success', @success
-      @listenTo this, 'save:form:failure', @failure
+      #@listenTo this, 'render', @hideActivityIndicator()
+      @listenTo @, 'before:render', @prepareModel
+      @listenTo @, 'save:form:success', @success
+      @listenTo @, 'save:form:failure', @failure
 
     delegateEvents: (events)->
       @ui = _.extend @_baseUI(), _.result(this, 'ui')

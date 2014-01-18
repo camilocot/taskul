@@ -5,7 +5,6 @@ namespace Taskul\TaskBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Taskul\UserBundle\Entity\User;
 use Doctrine\Common\Collections\ArrayCollection;
-use DoctrineExtensions\Taggable\Taggable;
 use Taskul\TaskBundle\DBAL\Types\TaskStatusType;
 use Fresh\Bundle\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -17,19 +16,9 @@ use Taskul\MainBundle\Entity\BaseEntity;
  *
  * @ORM\Table(name="task")
  * @ORM\Entity(repositoryClass="Taskul\TaskBundle\Entity\Repository\TaskRepository")
- * @ORM\HasLifecycleCallbacks()
  *
  */
-class Task extends BaseEntity implements Documentable, Taggable {
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+class Task extends BaseEntity implements Documentable {
 
     /**
      * @var string
@@ -69,7 +58,13 @@ class Task extends BaseEntity implements Documentable, Taggable {
      */
     private $owner;
 
+    /**
+     *
+     * @ORM\ManyToMany(targetEntity="Taskul\TaskBundle\Entity\Tag", inversedBy="tasks")
+     * @ORM\JoinColumn(name="tag_id", referencedColumnName="id", nullable=true)
+     */
     private $tags;
+
     /**
      * [$status description]
      * @var [type]
@@ -86,61 +81,69 @@ class Task extends BaseEntity implements Documentable, Taggable {
     private $className;
 
     /**
-     * @var \DateTime
+     * Add tag
      *
-     * @ORM\Column(name="created", type="datetime")
+     * @param \Taskul\TaskBundle\Entity\Tag $tag
+     * @return Task
      */
-    private $created;
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updated", type="datetime")
-     */
-    private $updated;
-
-    /**
-     * @ORM\Column(name="percent", type="smallint")
-     * @Assert\Range(
-     *      min = 0,
-     *      max = 100
-     *      )
-     * @Assert\NotBlank()
-    */
-    protected $percent;
-
+    public function addTag(Tag $tag)
+    {
+        $this->tags[] = $tag;
+        return $this;
+    }
 
     /**
-     * @var TaskBundle:Period
+     * Remove tag
      *
-     * @ORM\OneToMany(targetEntity="\Taskul\TaskBundle\Entity\Period", mappedBy="task")
-     * @return type
+     * @param \Taskul\TaskBundle\Entity\Tag $tag
      */
-    private $periods;
+    public function removeTag(Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
 
-
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
     public function getTags()
     {
-        $this->tags = $this->tags ?: new ArrayCollection();
 
         return $this->tags;
     }
 
-    public function getTaggableType()
+    /**
+     * Add member
+     *
+     * @param \Taskul\UserBundle\Entity\User $member
+     * @return Task
+     */
+    public function addMember(\Taskul\UserBundle\Entity\User $member)
     {
-        return 'task_tag';
+        $this->members[] = $member;
+        return $this;
     }
 
-    public function getTaggableId()
-    {
-        return $this->getId();
-    }
     /**
-     * Get id
+     * Remove member
      *
-     * @return integer
+     * @param \Taskul\UserBundle\Entity\User $member
      */
-    public function getId() {
-        return $this->id;
+    public function removeMember(\Taskul\UserBundle\Entity\User $member)
+    {
+        $this->members->removeElement($members);
+    }
+
+    /**
+     * Get members
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMembers()
+    {
+
+        return $this->members;
     }
 
     /**
@@ -227,39 +230,6 @@ class Task extends BaseEntity implements Documentable, Taggable {
         return $this->owner;
     }
 
-
-    /**
-     * Add members
-     *
-     * @param \Taskul\USerBundle\Entity\User $members
-     * @return Task
-     */
-    public function addMember(\Taskul\UserBundle\Entity\User $members)
-    {
-        return $this;
-    }
-
-    /**
-     * Remove members
-     *
-     * @param \Taskul\UserBundle\Entity\User $members
-     */
-    public function removeMember(\Taskul\UserBundle\Entity\User $members)
-    {
-        $this->members->removeElement($members);
-    }
-
-    /**
-     * Get members
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getMembers()
-    {
-
-        return $this->members;
-    }
-
     public function __toString()
     {
         return $this->getName();
@@ -283,9 +253,11 @@ class Task extends BaseEntity implements Documentable, Taggable {
      */
     public function __construct()
     {
+        parent::__construct();
         $this->members = new ArrayCollection();
+        $this->tags = new ArrayCollection();
+
         $this->setStatus('inprogress'); // Se le pone un estado por defecto
-        $this->setPercent(50); // Porcentaje por defecto
     }
 
     /**
@@ -317,92 +289,6 @@ class Task extends BaseEntity implements Documentable, Taggable {
         return 'TaskBundle:Task';
     }
 
-    /**
-     * @ORM\PrePersist
-     */
-    public function setCreatedValue()
-    {
-        $this->created = new \DateTime();
-        $this->updated = new \DateTime();
-    }
-
-    /**
-     * @ORM\PreUpdate
-     */
-    public function setUpdatedValue()
-    {
-        $this->updated = new \DateTime();
-    }
-
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     * @return Task
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * Get created
-     *
-     * @return \DateTime
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     * @return Task
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    /**
-     * Get updated
-     *
-     * @return \DateTime
-     */
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
-
-    /**
-     * Set percent
-     *
-     * @param integer $percent
-     * @return Task
-     */
-    public function setPercent($percent)
-    {
-        $this->percent = $percent;
-
-        return $this;
-    }
-
-    /**
-     * Get percent
-     *
-     * @return integer
-     */
-    public function getPercent()
-    {
-        return $this->percent;
-    }
-
     public function getMembersWithoutOwner()
     {
         $members = new ArrayCollection();
@@ -412,33 +298,5 @@ class Task extends BaseEntity implements Documentable, Taggable {
             }
         }
         return $members;
-    }
-
-    /**
-     *
-     * @param \Taskul\TaskBundle\Entity\Period $period
-     * @return Task
-     */
-    public function addPeriod(Period $period) {
-        $this->periods[] = $period;
-
-        return $this;
-    }
-
-    /**
-     * Remove period
-     *
-     * @param \Taskul\TaskBundle\Entity\Period $period
-     */
-    public function removePeriod(Period $period) {
-        $this->periods->removeElement($period);
-    }
-
-    /**
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPeriods() {
-        return $this->periods;
     }
 }
