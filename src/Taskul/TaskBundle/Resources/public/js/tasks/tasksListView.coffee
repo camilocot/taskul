@@ -9,14 +9,9 @@ BBTaskul.module "TasksApp.TasksList" , (TasksList, App, Backbone, Marionette, $,
             "click @ui.checkbox": "checkTask"
         checkTask: (ev) ->
             @trigger "task:check", {target: $(ev.currentTarget)}
-    class TasksList.TagPreview extends Marionette.ItemView
-        template: '#tag-preview-template'
-        tagName: 'li'
 
-    class TasksList.TaskActions extends Marionette.CompositeView
+    class TasksList.TaskActions extends Marionette.ItemView
         template: '#menu-actions-template'
-        itemViewContainer: "#dropdown-tags"
-        itemView: TasksList.TagPreview
         ui:
             newtag: "#newtag-action"
         events:

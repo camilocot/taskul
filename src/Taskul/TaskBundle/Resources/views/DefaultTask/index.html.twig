@@ -31,36 +31,42 @@
         }
 
 </script>
+<!-- Layout -->
 <script id="tasks-layout-template" type="text/template">
   <section>
     <navigation id="labels"></navigation>
     <article id="main-content"></article>
   </section>
 </script>
+
+<!-- Menu Action -->
 <script id="menu-actions-template" type="text/template">
 <div class="menu">
             <ul>
-                <li><a class="left dropdown" href="#">Labels<span class="arrow"></span></a>
-                <ul class="width-2" id="dropdown-tags">
-                </ul>
-                </li>
                 <li><a class="right" href="#" id="newtag-action">Nueva etiqueta</a>
             </ul>
         </div>
 </script>
+
+<!-- Tags List Item -->
 <script type="text/template" id="tag-preview-template">
-<a href="{{ path('taskul_task_defaulttask_index') }}#tag/assign"><%= name %></a>
+<td><input type="checkbox" value="<%= id %>" name="selected-tags[]" class="selected-tags"></td>
+<td><%= id %> - <%= name %></td>
+<td></td>
 </script>
 
-<!-- Task -->
+<!-- Task List Item -->
 <script type="text/template" id="task-preview-template">
-    <td><input type="checkbox" value="<%= id %>" name="selected-tasks[]" class="selected-tasks"></td><td class="<%= status %>"><%= id %> - <%= name %></td>
+    <td><input type="checkbox" value="<%= id %>" name="selected-tasks[]" class="selected-tasks"></td>
+    <td class="<%= status %>"><%= id %> - <%= name %></td>
     <td>
     <a href="{{ path('taskul_task_defaulttask_index') }}#edit/<%= id %>">Edit</a>
     <a href="{{ path('taskul_task_defaulttask_index') }}#view/<%= id %>">View</a>
+    <a href="{{ path('taskul_task_defaulttask_index') }}#tags/<%= id %>">Tags</a>
     </td>
-
 </script>
+
+<!-- Task Item -->
 <script type="text/template" id="task-view-template">
 <%= name %>
 <%= status %>
@@ -72,6 +78,22 @@
         </a>
     </div>
 </script>
+
+<!-- Tags List -->
+<script type="text/template" id="tags-list-template">
+    <table class="table table-striped table-bordered bootstrap-datatable" id="tags">
+        <thead>
+            <tr>
+                <th></th>
+                <th data-class="expand" data-sort-initial="true">{{'tags.list.name'|trans}}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</script>
+
 <!-- Task List -->
 <script type="text/template" id="tasks-list-template">
     <table class="table table-striped table-bordered bootstrap-datatable" id="tasks">
@@ -95,6 +117,7 @@
     </div>
 </script>
 
+<!-- Task form -->
 <script type="text/template" id="task-form-template">
 <form id="add-task" action="#" class="form-inline">
     <div class="control-group">
@@ -125,6 +148,8 @@
     </div>
 </form>
 </script>
+
+<!-- Modal Tag Form -->
 <script id="modal-view-form-tag" type="text/html">
 <div class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="Create period" aria-hidden="true">
 <div class="modal-header">
@@ -149,6 +174,7 @@
 </div>
 <div class="modal-backdrop fade in"></div>
 </script>
+
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}
@@ -158,6 +184,7 @@
     '@TaskBundle/Resources/public/js/tasks/tasks.coffee'
     '@TaskBundle/Resources/public/js/tags/tags.coffee'
     '@TaskBundle/Resources/public/js/tasks/tasksListView.coffee'
+    '@TaskBundle/Resources/public/js/tags/tagsListView.coffee'
     '@TaskBundle/Resources/public/js/tasks/taskView.coffee'
     '@TaskBundle/Resources/public/js/tasks/tasksapp.coffee'
     '@TaskBundle/Resources/public/js/tasks/taskFormView.coffee'

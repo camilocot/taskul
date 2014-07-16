@@ -5,6 +5,7 @@ BBTaskul.module "TasksApp", (TasksApp, App, Backbone, Marionette, $, _) ->
             "new": "showTaskForm"
             "edit/:id": "showEditTaskForm"
             "view/:id": "showViewForm"
+            "tags/:id": "editTags"
 
     class TasksApp.Layout extends Marionette.Layout
         template: '#tasks-layout-template'
@@ -41,6 +42,12 @@ BBTaskul.module "TasksApp", (TasksApp, App, Backbone, Marionette, $, _) ->
             taskView = new App.TasksApp.TaskView
                 model: task
             @taskLayout.content.show taskView
+        editTags: (id) ->
+            task = @collection.get id
+            tagsList = new App.TasksApp.TagsList.TagsListView
+                model: task
+                collection: @tags
+            @taskLayout.content.show tagsList
         initialize: ->
             @collection = new App.TasksApp.Tasks.TaskCollection
             @tags = new App.TasksApp.Tags.TagCollection

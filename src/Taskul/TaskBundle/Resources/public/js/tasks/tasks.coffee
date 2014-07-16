@@ -1,5 +1,8 @@
 BBTaskul.module "TasksApp.Tasks", (Tasks, App, Backbone, Marionette, $, _) ->
-    class Tasks.Task extends Backbone.Model
+    #Join table
+    class Tasks.TaskTagJoin extends Backbone.RelationalModel
+
+    class Tasks.Task extends Backbone.RelationalModel
         urlRoot: window.Api.task_url
         validation:
             name:
@@ -8,10 +11,10 @@ BBTaskul.module "TasksApp.Tasks", (Tasks, App, Backbone, Marionette, $, _) ->
             description:
                 required: false
         defaults:
-            name: 'cxzcxzczx'
+            name: ''
             status: 'inprogress'
             members: []
-            description: 'cxzcxcxz'
+            description: ''
             tags: []
         toJSON: ->
             json = Backbone.Model.prototype.toJSON.apply @, arguments
@@ -20,7 +23,16 @@ BBTaskul.module "TasksApp.Tasks", (Tasks, App, Backbone, Marionette, $, _) ->
             delete json.created
             delete json.updated
             json
+        relations: [
+            type: 'HasMany',
+            key: 'tags'
+            relatedModel: Tasks.TaskTagJoin
+            reverseRelation:
+                key: 'task'
+        ]
+
     class Tasks.TaskCollection extends Backbone.Collection
         model: Tasks.Task
         url: window.Api.task_url
         comparator: 'id'
+

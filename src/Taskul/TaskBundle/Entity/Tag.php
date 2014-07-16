@@ -26,6 +26,7 @@ class Tag extends BaseEntity
      *
      * @ORM\ManyToMany(targetEntity="\Taskul\TaskBundle\Entity\Task", mappedBy="tags")
      * @ORM\JoinTable(name="tasks_tags")
+     * @Expose
      *
      */
     private $tasks;
